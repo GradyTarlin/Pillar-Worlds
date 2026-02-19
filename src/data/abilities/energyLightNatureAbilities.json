@@ -1,0 +1,508 @@
+{
+  "abilities": [
+    {
+      "id": "energy.flamecasting.fireball",
+      "name": "Fireball",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.flamecasting",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When you make a magic attack, you can spend extra MP to target additional enemies (spend 1 MP per extra target). For each enemy you miss with the attack, you take magic damage equal to the amount of extra MP you spent."
+    },
+    {
+      "id": "energy.flamecasting.flame_channeling",
+      "name": "Flame Channeling",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.flamecasting",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "energy.flamecasting.fireball" }
+      ],
+      "mpCost": 1,
+      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see" },
+      "rulesText": "Deal 1 magic damage. Repeat the attack, doubling the MP cost and damage each time."
+    },
+    {
+      "id": "energy.flamecasting.inferno",
+      "name": "Inferno",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.flamecasting",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "energy.flamecasting.flame_channeling" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "Every point of MP you would gain while at full MP is instead dealt as magic damage to every enemy within your reach."
+    },
+    {
+      "id": "energy.flowing_current.energy_stream",
+      "name": "Energy Stream",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.flowing_current",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "Once per turn, you can spend 2 MP to immediately move. Whenever you move, the next physical attack on your turn has a +1 bonus to its attack roll and deals +1 magic damage on a hit. This effect can stack."
+    },
+    {
+      "id": "energy.flowing_current.overcharge",
+      "name": "Overcharge",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.flowing_current",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "energy.flowing_current.energy_stream" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "If you move more than once before performing a physical attack, you can spend 1 MP to gain advantage on the attack roll."
+    },
+    {
+      "id": "energy.flowing_current.flight",
+      "name": "Flight",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.flowing_current",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "energy.flowing_current.overcharge" }
+      ],
+      "mpCost": 3,
+      "check": null,
+      "rulesText": "You take flight until the end of your turn. While you are flying, you gain an extra movement and you can move freely between any elevation. While you are flying, you have high ground advantage on weapon attacks against enemies below you."
+    },
+    {
+      "id": "energy.crucible_core.forge_fire",
+      "name": "Forge Fire",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.crucible_core",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": 2,
+      "check": null,
+      "rulesText": "Your physical attacks deal +2 magic damage for the rest of your turn. You can sculpt metal as if it were clay."
+    },
+    {
+      "id": "energy.crucible_core.eruption",
+      "name": "Eruption",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.crucible_core",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "energy.crucible_core.forge_fire" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When you deal magic damage with a physical attack, spend 2 MP to deal 1 magic damage to every creature in the same zone as your target."
+    },
+    {
+      "id": "energy.crucible_core.maelstrom_core",
+      "name": "Maelstrom Core",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.crucible_core",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "energy.crucible_core.eruption" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When you miss a physical attack, deal 1 magic damage anyway. Whenever you take damage, deal 1 magic damage to every enemy within your reach."
+    },
+    {
+      "id": "energy.stormcasting.chain_lightning",
+      "name": "Chain Lightning",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.stormcasting",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": 3,
+      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see" },
+      "rulesText": "You can pay the MP cost again and repeat the attack against an enemy that the target can see. Continue repeating the attack until you miss. After you miss an attack, each enemy in the chain takes damage equal to the number of targets you struck."
+    },
+    {
+      "id": "energy.stormcasting.aftershock",
+      "name": "Aftershock",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.stormcasting",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "energy.stormcasting.chain_lightning" }
+      ],
+      "mpCost": "X",
+      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see" },
+      "rulesText": "Deal X magic damage twice. If you miss, you take X magic damage."
+    },
+    {
+      "id": "energy.stormcasting.tempest",
+      "name": "Tempest",
+      "tag": "energy",
+      "tree": "power",
+      "subtree": "energy.stormcasting",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "energy.stormcasting.aftershock" }
+      ],
+      "mpCost": "X",
+      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "reach", "area": "reach" },
+      "rulesText": "INS vs. STL (every creature within your reach): X magic damage."
+    },
+    {
+      "id": "light.healing.healing_touch",
+      "name": "Healing Touch",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.healing",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": 1,
+      "check": null,
+      "rulesText": "Once per turn, restore 2 HP to a creature within your reach."
+    },
+    {
+      "id": "light.healing.healing_beam",
+      "name": "Healing Beam",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.healing",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "light.healing.healing_touch" }
+      ],
+      "mpCost": "X",
+      "check": null,
+      "rulesText": "Once per turn, restore X HP to yourself or a creature you can see."
+    },
+    {
+      "id": "light.healing.regeneration",
+      "name": "Regeneration",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.healing",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "light.healing.healing_beam" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "Whenever you succeed on a skill check, regain 1 HP. Any HP you would regain while at full HP is instead restored to every ally you can see."
+    },
+    {
+      "id": "light.illusions.mirage",
+      "name": "Mirage",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.illusions",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": 2,
+      "check": null,
+      "rulesText": "Once per turn, create an illusory image of your size or smaller. While within reach of your mirage, enemies have disadvantage on defensive skill checks. The mirage lasts until the end of your next turn. You can create multiple mirages, but you cannot move them."
+    },
+    {
+      "id": "light.illusions.duplicate",
+      "name": "Duplicate",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.illusions",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "light.illusions.mirage" }
+      ],
+      "mpCost": 2,
+      "check": null,
+      "rulesText": "Once per turn, create an illusory copy of yourself which follows you and confuses your enemies. The first time you are hit by an attack, it hits your duplicate instead, dispelling it. You can have a number of duplicates equal to your level."
+    },
+    {
+      "id": "light.illusions.dream_world",
+      "name": "Dream World",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.illusions",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "light.illusions.duplicate" }
+      ],
+      "mpCost": 3,
+      "check": { "attackerSkill": "CHA", "defenderSkill": "WIS", "range": "see", "area": "see" },
+      "rulesText": "CHA vs. WIS (all enemies you can see). The target is enveloped in an illusory reality. Skill checks against them gain advantage until they break free of your illusion. They can repeat the skill check to break free every time they take damage. If you take damage, the illusion dissipates."
+    },
+    {
+      "id": "light.smiting.blinding_smite",
+      "name": "Blinding Smite",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.smiting",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When you make a physical attack, you can spend 2 MP to charge it with radiance. If you hit, your target is blinded until the end of their next turn. Blinded enemies have disadvantage on all skill checks and cannot see."
+    },
+    {
+      "id": "light.smiting.righteous_punishment",
+      "name": "Righteous Punishment",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.smiting",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "light.smiting.blinding_smite" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When you hit a blinded enemy with an attack, you can spend 1 MP to deal +2 magic damage."
+    },
+    {
+      "id": "light.smiting.rapture",
+      "name": "Rapture",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.smiting",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "light.smiting.righteous_punishment" }
+      ],
+      "mpCost": 3,
+      "check": { "attackerSkill": "INS", "defenderSkill": "INS", "range": "see", "area": "see", "notes": "Targets: every enemy that can see you." },
+      "rulesText": "The target is blinded until the end of your next turn. Blinded enemies have disadvantage on all skill checks and cannot see."
+    },
+    {
+      "id": "light.beams.radiant_glare",
+      "name": "Radiant Glare",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.beams",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": "X",
+      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see", "notes": "Add +X to the INS roll from MP spent." },
+      "rulesText": "Deal 1 magic damage + 1 magic damage per point of focus you have on the target."
+    },
+    {
+      "id": "light.beams.explosive_light",
+      "name": "Explosive Light",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.beams",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "light.beams.radiant_glare" }
+      ],
+      "mpCost": 3,
+      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see", "area": "twoAdjacentZones" },
+      "rulesText": "INS vs. STL (every creature within two adjacent zones you can see): deal 2 magic damage."
+    },
+    {
+      "id": "light.beams.blinding_brilliance",
+      "name": "Blinding Brilliance",
+      "tag": "light",
+      "tree": "power",
+      "subtree": "light.beams",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "light.beams.explosive_light" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "Whenever you deal magic damage, the target is blinded until the end of your next turn."
+    },
+    {
+      "id": "nature.beast_form.shapeshifting",
+      "name": "Shapeshifting",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.beast_form",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "You transform into a wild animal until the start of your next turn. You cannot speak, use equipment, or make magic attacks while in beast form. When you enter beast form, you can spend MP to enhance your skill bonuses: for each MP you spend, you gain one additional skill point while in beast form (bonuses cannot surpass your skill cap even in beast form)."
+    },
+    {
+      "id": "nature.beast_form.bestial_senses",
+      "name": "Bestial Senses",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.beast_form",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "nature.beast_form.shapeshifting" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "In beast form, you no longer lose focus against enemies when you lose sight of them. You can immediately move whenever you focus on an enemy while in beast form. While in beast form, you deal +1 physical damage on attacks against targets that you're focusing on."
+    },
+    {
+      "id": "nature.beast_form.mythical_form",
+      "name": "Mythical Form",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.beast_form",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "nature.beast_form.bestial_senses" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "You can speak and make magical attacks while in beast form. You also gain an additional movement while in beast form."
+    },
+    {
+      "id": "nature.wildspeak.beast_companion",
+      "name": "Beast Companion",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.wildspeak",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": 2,
+      "check": null,
+      "rulesText": "You can converse with beasts and plants of all kinds (not necessarily friendly). You are accompanied by a loyal beast (mouse to horse size). Your companion has +1 INS, PRW, STL, and STR and gains bonus skill points equal to your level. You and your beast companion share the same HP (if it dies, you die and vice versa). Choose one trait: camouflage (advantage on STL checks to hide), fast (can move again after making the skill check), flying (can move two zones with each movement, including upwards), or observant (advantage on all INS checks). Once per turn, spend 2 MP: your beast companion moves and makes a skill check; if your beast succeeds, it counts as you succeeding."
+    },
+    {
+      "id": "nature.wildspeak.song_of_the_wild",
+      "name": "Song of the Wild",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.wildspeak",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "nature.wildspeak.beast_companion" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "Whenever you succeed on a CHA check, you can spend 2 MP to have your beast companion make a skill check against the target."
+    },
+    {
+      "id": "nature.wildspeak.voice_of_eden",
+      "name": "Voice of Eden",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.wildspeak",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "nature.wildspeak.song_of_the_wild" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "Whenever your beast companion hits an attack against a target that has disadvantage on their defensive check, the attack deals +3 physical damage and you gain a point of focus on the target."
+    },
+    {
+      "id": "nature.wild_fury.primal_fury",
+      "name": "Primal Fury",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.wild_fury",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When you hit a melee attack, recover MP and then spend MP up to the amount of HP you are missing. Deal extra physical damage equal to MP spent."
+    },
+    {
+      "id": "nature.wild_fury.brutal_rage",
+      "name": "Brutal Rage",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.wild_fury",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "nature.wild_fury.primal_fury" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When an enemy within your reach deals damage to you, spend 2 MP to immediately make a melee attack against them. You can add your STR bonus to the PRW check for this attack."
+    },
+    {
+      "id": "nature.wild_fury.rampage",
+      "name": "Rampage",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.wild_fury",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "nature.wild_fury.brutal_rage" }
+      ],
+      "mpCost": null,
+      "check": null,
+      "rulesText": "When you hit a melee attack, all subsequent melee attacks on your turn deal +2 physical damage. When you are reduced to 0 HP, regain 1 HP (you must return to full HP before you can do this again)."
+    },
+    {
+      "id": "nature.plant_calling.briars",
+      "name": "Briars",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.plant_calling",
+      "tier": 1,
+      "prerequisites": [],
+      "mpCost": 2,
+      "check": null,
+      "rulesText": "Grow thorns in a zone you can see. Anyone who moves in or out of that zone takes 1 physical damage. The thorns can be destroyed if they take 3 damage."
+    },
+    {
+      "id": "nature.plant_calling.barkscale",
+      "name": "Barkscale",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.plant_calling",
+      "tier": 2,
+      "prerequisites": [
+        { "kind": "level", "min": 5 },
+        { "kind": "ability", "id": "nature.plant_calling.briars" }
+      ],
+      "mpCost": 2,
+      "check": null,
+      "rulesText": "Until the end of your next turn, whenever you take damage, reduce it by 2."
+    },
+    {
+      "id": "nature.plant_calling.blooming_bounty",
+      "name": "Blooming Bounty",
+      "tag": "nature",
+      "tree": "power",
+      "subtree": "nature.plant_calling",
+      "tier": 3,
+      "prerequisites": [
+        { "kind": "level", "min": 9 },
+        { "kind": "ability", "id": "nature.plant_calling.barkscale" }
+      ],
+      "mpCost": 3,
+      "check": null,
+      "rulesText": "Once per turn, grow three fruit in a zone you can see. When consumed, the fruit restore 2 HP and 1 MP. Creatures in reach of the fruit can eat one per turn."
+    }
+  ]
+}

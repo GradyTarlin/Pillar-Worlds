@@ -1,0 +1,315 @@
+{
+  "equipment": {
+    "baseItems": [
+      {
+        "id": "equip.weapon",
+        "name": "Weapon",
+        "type": "weapon",
+        "rulesText": [
+          "Weapon attacks deal 1 + STR physical damage.",
+          "Ranged weapons can attack anyone you can see, but have disadvantage on attack rolls against enemies in the same zone as you.",
+          "Critical hit: if you roll a 12 on a weapon attack (before bonuses), deal double damage. You can also land a critical hit if your target rolls a 2 to avoid your attack."
+        ]
+      },
+      {
+        "id": "equip.relic",
+        "name": "Relic",
+        "type": "relic",
+        "rulesText": [
+          "When you make a magic attack with a relic, you may spend any amount of MP. If you hit, the attack deals magic damage equal to the MP you spend."
+        ]
+      },
+      {
+        "id": "equip.trick",
+        "name": "Trick",
+        "type": "trick",
+        "rulesText": [
+          "Gain advantage on your next skill check against any enemy that fails a skill check against you on their turn."
+        ]
+      },
+      {
+        "id": "equip.armour",
+        "name": "Armour",
+        "type": "armour",
+        "grants": { "armourMax": 2 },
+        "rulesText": [
+          "Armour is a pool of Armour points. Physical damage reduces Armour first, then HP.",
+          "Repair: restore 1 Armour by scoring 7+ on a STR check (up to max)."
+        ]
+      },
+      {
+        "id": "equip.shield",
+        "name": "Shield",
+        "type": "shield",
+        "rulesText": [
+          "Instead of dodging attacks with STL, you may try to block with a shield.",
+          "Add a +2 shield bonus to block rolls instead of your STL bonus."
+        ]
+      },
+      {
+        "id": "equip.ward",
+        "name": "Ward",
+        "type": "ward",
+        "grants": { "wardMax": 2 },
+        "rulesText": [
+          "Ward is a pool of Ward points. Magic damage reduces Ward first, then HP.",
+          "Restore: spend 3 MP to restore 1 Ward (up to max)."
+        ]
+      }
+    ],
+    "artifacts": [
+      {
+        "id": "artifact.blade.crown_cleaver",
+        "name": "Crown Cleaver",
+        "type": "weapon",
+        "subtype": "blade",
+        "rulesText": "Whenever you kill an enemy with the Crown Cleaver, you can immediately make another attack with it."
+      },
+      {
+        "id": "artifact.blade.serpents_fang",
+        "name": "Serpent's Fang",
+        "type": "weapon",
+        "subtype": "blade",
+        "rulesText": "When you hit an enemy with the Serpent's Fang, it applies venom. If the target fails the next skill check on their turn, they take 2 magic damage."
+      },
+      {
+        "id": "artifact.blade.blade_of_light",
+        "name": "Blade of Light",
+        "type": "weapon",
+        "subtype": "blade",
+        "rulesText": "When you hit an enemy with the Blade of Light, they are blinded until they make any skill check. While blinded, enemies have disadvantage on all skill checks and cannot see."
+      },
+      {
+        "id": "artifact.bludgeon.hammer_of_creation",
+        "name": "Hammer of Creation",
+        "type": "weapon",
+        "subtype": "bludgeon",
+        "rulesText": "When you hit an enemy with the Hammer of Creation, you gain a point of focus on them."
+      },
+      {
+        "id": "artifact.bludgeon.bears_maul",
+        "name": "Bear's Maul",
+        "type": "weapon",
+        "subtype": "bludgeon",
+        "rulesText": "When an enemy reduces your HP to 0, you can immediately make an attack with the Bear's Maul. If you hit, you survive with 1 HP."
+      },
+      {
+        "id": "artifact.bludgeon.earthbreaker",
+        "name": "Earthbreaker",
+        "type": "weapon",
+        "subtype": "bludgeon",
+        "rulesText": "When you hit an enemy with the Earthbreaker, they fall to the ground. While on the ground, they have disadvantage on offensive skill checks. They must use a movement to stand back up."
+      },
+      {
+        "id": "artifact.bow.blood_seeker",
+        "name": "Blood Seeker",
+        "type": "weapon",
+        "subtype": "bow",
+        "rulesText": "Blood Seeker attacks ignore armour. You do not need to be able to see your target to attack them with the Blood Seeker as long as they are within one zone of you."
+      },
+      {
+        "id": "artifact.bow.tigers_claw_bow",
+        "name": "Tiger's Claw Bow",
+        "type": "weapon",
+        "subtype": "bow",
+        "rulesText": "Every successive hit with the Tiger's Claw Bow on your turn deals +1 physical damage."
+      },
+      {
+        "id": "artifact.bow.crescent_moon",
+        "name": "Crescent Moon",
+        "type": "weapon",
+        "subtype": "bow",
+        "rulesText": "Each time you move grants a +1 bonus to the damage of your next attack with the Crescent Moon on your turn."
+      },
+      {
+        "id": "artifact.orb.soulkeeper",
+        "name": "Soulkeeper",
+        "type": "relic",
+        "subtype": "orb",
+        "rulesText": "Whenever you hit an enemy with a magic attack, you bind their spirit. If they die before the end of your turn, they are raised as your undead servant with 1 HP. They retain their STR bonus but lose all other skill bonuses, and they cannot regain HP. You can make one skill check for them on each of your turns."
+      },
+      {
+        "id": "artifact.orb.owls_eye",
+        "name": "Owl's Eye",
+        "type": "relic",
+        "subtype": "orb",
+        "rulesText": "When you succeed on a skill check against an enemy you're focusing on, you regain 3 additional MP."
+      },
+      {
+        "id": "artifact.orb.orb_of_the_stars",
+        "name": "Orb of the Stars",
+        "type": "relic",
+        "subtype": "orb",
+        "rulesText": "Regain 1 MP at the start of each turn."
+      },
+      {
+        "id": "artifact.staff.branching_fate",
+        "name": "Branching Fate",
+        "type": "relic",
+        "subtype": "staff",
+        "rulesText": "Your magic attacks can target two enemies."
+      },
+      {
+        "id": "artifact.staff.sceptre_of_the_stag",
+        "name": "Sceptre of the Stag",
+        "type": "relic",
+        "subtype": "staff",
+        "rulesText": "Whenever you move, your next magic attack deals +1 damage."
+      },
+      {
+        "id": "artifact.staff.staff_of_storms",
+        "name": "Staff of Storms",
+        "type": "relic",
+        "subtype": "staff",
+        "rulesText": "When you hit an enemy with a magic attack, they lose one movement on their next turn."
+      },
+      {
+        "id": "artifact.tome.tome_of_truth",
+        "name": "Tome of Truth",
+        "type": "relic",
+        "subtype": "tome",
+        "rulesText": "When you focus on an enemy, you gain advantage on your next skill check against them."
+      },
+      {
+        "id": "artifact.tome.foxs_book_of_fables",
+        "name": "The Fox's Book of Fables",
+        "type": "relic",
+        "subtype": "tome",
+        "rulesText": "When an enemy that you're focusing on fails a skill check, you can immediately move."
+      },
+      {
+        "id": "artifact.tome.cosmic_scroll",
+        "name": "Cosmic Scroll",
+        "type": "relic",
+        "subtype": "tome",
+        "rulesText": "Once per turn, you can teleport to a zone you can see."
+      },
+      {
+        "id": "artifact.cloak.cloak_of_lies",
+        "name": "Cloak of Lies",
+        "type": "trick",
+        "subtype": "cloak",
+        "rulesText": "Whenever you move, you leave an illusory duplicate of yourself behind. The illusion lasts until the start of your next turn. While within reach of your duplicate, enemies have disadvantage on all defensive skill checks."
+      },
+      {
+        "id": "artifact.cloak.tigers_hide",
+        "name": "Tiger's Hide",
+        "type": "trick",
+        "subtype": "cloak",
+        "rulesText": "You deal +1 damage on attacks made with advantage."
+      },
+      {
+        "id": "artifact.cloak.veil_of_winds",
+        "name": "Veil of Winds",
+        "type": "trick",
+        "subtype": "cloak",
+        "rulesText": "You gain an extra movement on each turn."
+      },
+      {
+        "id": "artifact.instrument.harp_of_harmony",
+        "name": "Harp of Harmony",
+        "type": "trick",
+        "subtype": "instrument",
+        "rulesText": "For each target you influence, you can restore 1 HP to yourself or an ally you can see."
+      },
+      {
+        "id": "artifact.instrument.foxs_fiddle",
+        "name": "Fox's Fiddle",
+        "type": "trick",
+        "subtype": "instrument",
+        "rulesText": "Whenever you influence an enemy, you can force them to move."
+      },
+      {
+        "id": "artifact.instrument.moonsong_flute",
+        "name": "Moonsong Flute",
+        "type": "trick",
+        "subtype": "instrument",
+        "rulesText": "Whenever you influence an enemy, they lose one movement on their next turn."
+      },
+      {
+        "id": "artifact.mask.mask_of_mirrors",
+        "name": "Mask of Mirrors",
+        "type": "trick",
+        "subtype": "mask",
+        "rulesText": "Whenever you see an enemy fail a skill check on their turn, they take 1 magic damage."
+      },
+      {
+        "id": "artifact.mask.mask_of_the_serpent",
+        "name": "Mask of the Serpent",
+        "type": "trick",
+        "subtype": "mask",
+        "rulesText": "Your attacks deal +1 magic damage if your target has disadvantage on the defensive check."
+      },
+      {
+        "id": "artifact.mask.mask_of_starlight",
+        "name": "Mask of Starlight",
+        "type": "trick",
+        "subtype": "mask",
+        "rulesText": "Whenever you succeed on a CHA check with advantage, your target loses a skill check on their next turn."
+      },
+      {
+        "id": "artifact.armour.runic_armour",
+        "name": "Runic Armour",
+        "type": "armour",
+        "subtype": "armour",
+        "rulesText": "Once per turn, you can spend 2 MP to repair one point of broken armour."
+      },
+      {
+        "id": "artifact.armour.pelt_of_the_bear",
+        "name": "Pelt of the Bear",
+        "type": "armour",
+        "subtype": "armour",
+        "rulesText": "Your armour counts as HP for abilities, but cannot be restored by healing abilities."
+      },
+      {
+        "id": "artifact.armour.radiant_plate",
+        "name": "Radiant Plate",
+        "type": "armour",
+        "subtype": "armour",
+        "rulesText": "When an enemy hits your armour with a melee attack, they are blinded until they make a skill check. While blinded, enemies have disadvantage on all skill checks and cannot see."
+      },
+      {
+        "id": "artifact.shield.shield_of_courage",
+        "name": "Shield of Courage",
+        "type": "shield",
+        "subtype": "shield",
+        "rulesText": "Whenever you block an attack, you regain 1 HP."
+      },
+      {
+        "id": "artifact.shield.shield_of_thorns",
+        "name": "Shield of Thorns",
+        "type": "shield",
+        "subtype": "shield",
+        "rulesText": "Whenever you block a melee attack, the attacker takes 1 physical damage."
+      },
+      {
+        "id": "artifact.shield.tower_of_earth",
+        "name": "Tower of Earth",
+        "type": "shield",
+        "subtype": "shield",
+        "rulesText": "Whenever you push an enemy, they take 1 physical damage."
+      },
+      {
+        "id": "artifact.ward.heart_stone",
+        "name": "Heart Stone",
+        "type": "ward",
+        "subtype": "ward",
+        "rulesText": "When you regain points of ward, you also regain 1 HP."
+      },
+      {
+        "id": "artifact.ward.silent_totem",
+        "name": "Silent Totem",
+        "type": "ward",
+        "subtype": "ward",
+        "rulesText": "Whenever your ward absorbs magic damage, you regain an equal amount of MP."
+      },
+      {
+        "id": "artifact.ward.ring_of_chaos",
+        "name": "Ring of Chaos",
+        "type": "ward",
+        "subtype": "ward",
+        "rulesText": "Whenever your ward absorbs magic damage, you add an equal amount of magic damage to your next magic attack."
+      }
+    ]
+  }
+}
