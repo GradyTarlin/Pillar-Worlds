@@ -8,9 +8,10 @@ interface GrantPickerProps {
   grantKey: string;
   value: string;
   onChange: (grantKey: string, itemId: string) => void;
+  allPicks?: Record<string, string>;
 }
 
-export function GrantPicker({ grant, grantKey, value, onChange }: GrantPickerProps) {
+export function GrantPicker({ grant, grantKey, value, onChange, allPicks = {} }: GrantPickerProps) {
   let options: { id: string; name: string; tag?: string }[] = [];
 
   switch (grant.kind) {
@@ -77,19 +78,25 @@ export function GrantPicker({ grant, grantKey, value, onChange }: GrantPickerPro
         {isGrouped ? (
           Object.entries(groupedOptions).map(([tag, opts]) => (
             <optgroup key={tag} label={tag.charAt(0).toUpperCase() + tag.slice(1)}>
-              {opts.map((opt) => (
-                <option key={opt.id} value={opt.id}>
-                  {opt.name}
-                </option>
-              ))}
+              {opts.map((opt) => {
+                const isSelectedElsewhere = Object.entries(allPicks).some(([k, v]) => k !== grantKey && v === opt.id);
+                return (
+                  <option key={opt.id} value={opt.id} disabled={isSelectedElsewhere}>
+                    {opt.name} {isSelectedElsewhere ? '(Already Chosen)' : ''}
+                  </option>
+                );
+              })}
             </optgroup>
           ))
         ) : (
-          options.map((opt) => (
-            <option key={opt.id} value={opt.id}>
-              {opt.name}
-            </option>
-          ))
+          options.map((opt) => {
+            const isSelectedElsewhere = Object.entries(allPicks).some(([k, v]) => k !== grantKey && v === opt.id);
+            return (
+              <option key={opt.id} value={opt.id} disabled={isSelectedElsewhere}>
+                {opt.name} {isSelectedElsewhere ? '(Already Chosen)' : ''}
+              </option>
+            );
+          })
         )}
       </select>
 

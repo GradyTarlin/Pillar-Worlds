@@ -20,6 +20,9 @@ export function HomePage() {
           <Link to="/monsters" className="home-page__nav-button">
             Monster List
           </Link>
+          <Link to="/campaign-builder" className="home-page__nav-button" style={{ marginTop: '1rem', background: 'var(--burgundy)', color: 'white' }}>
+            Campaign Builder
+          </Link>
         </nav>
       </main>
     </div>

@@ -37,6 +37,10 @@ export function deriveSkills(selections: CharacterSelections): Skills {
   addBonuses(selections.spirit?.bonuses);
   addBonuses(selections.zodiac?.bonuses);
 
+  if (selections.bloodline?.id === 'bloodline.human' && selections.humanExtraSkill) {
+    skills[selections.humanExtraSkill] += 1;
+  }
+
   return skills;
 }
 

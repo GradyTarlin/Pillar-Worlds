@@ -109,6 +109,11 @@ function MonsterDetailPanel({ monster, onClose }: { monster: Monster, onClose: (
                         {monster.armourMax > 0 && <li><strong>Armour:</strong> {monster.armourMax}</li>}
                         {monster.wardMax > 0 && <li><strong>Ward:</strong> {monster.wardMax}</li>}
                     </ul>
+                    {['Golem', 'Automaton', 'Titan', 'Land Spirit'].includes(monster.name) && (
+                        <div className="monster-detail__note" style={{ marginTop: '0.5rem', fontStyle: 'italic', fontSize: '0.9rem' }}>
+                            The {monster.name.toLowerCase()} has extra HP equal to its STR bonus.
+                        </div>
+                    )}
                 </section>
 
                 {monster.skills && Object.keys(monster.skills).length > 0 && (
@@ -122,71 +127,80 @@ function MonsterDetailPanel({ monster, onClose }: { monster: Monster, onClose: (
                                 </div>
                             ))}
                         </div>
+                        {['Cyclops', 'Ogre'].includes(monster.name) && (
+                            <div className="monster-detail__note" style={{ marginTop: '0.5rem', fontStyle: 'italic', fontSize: '0.9rem' }}>
+                                The {monster.name.toLowerCase()} has disadvantage on all {monster.name === 'Cyclops' ? 'INS' : 'WIS'} checks.
+                            </div>
+                        )}
                     </section>
-                )}
-
-                {monster.traits && monster.traits.length > 0 && (
-                    <section className="monster-detail__section">
-                        <h3>Traits</h3>
-                        <ul className="traits-list">
-                            {monster.traits.map((traitId, i) => {
-                                const traitDef = getTraitById(traitId);
-                                const formattedName = traitId.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-                                return (
-                                    <li key={i}>
-                                        <strong>{formattedName}</strong>
-                                        {traitDef ? `: ${traitDef.rulesText}` : ''}
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </section>
-                )}
-
-                {monster.abilities && monster.abilities.length > 0 && (
-                    <section className="monster-detail__section">
-                        <h3>Abilities</h3>
-                        <ul className="abilities-list">
-                            {monster.abilities.map((abilityRef, i) => {
-                                const ability = getMonsterAbilityById(abilityRef);
-                                if (ability) {
+                )}            {
+                    monster.traits && monster.traits.length > 0 && (
+                        <section className="monster-detail__section">
+                            <h3>Traits</h3>
+                            <ul className="traits-list">
+                                {monster.traits.map((traitId, i) => {
+                                    const traitDef = getTraitById(traitId);
+                                    const formattedName = traitId.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
                                     return (
-                                        <li key={i} className="ability-item">
-                                            <strong>{ability.name}</strong>
-                                            {ability.check && (
-                                                <div className="ability-check">
-                                                    {ability.check.attackerSkill}
-                                                    {ability.check.defenderSkill ? ` vs. ${ability.check.defenderSkill}` : ''}
-                                                    {ability.check.range || ability.check.area ? ` (` : ''}
-                                                    {ability.check.range && `range: ${ability.check.range}`}
-                                                    {ability.check.range && ability.check.area ? `, ` : ''}
-                                                    {ability.check.area && `area: ${ability.check.area}`}
-                                                    {ability.check.range || ability.check.area ? `)` : ''}
-                                                </div>
-                                            )}
-                                            <div className="ability-text">{ability.rulesText}</div>
+                                        <li key={i}>
+                                            <strong>{formattedName}</strong>
+                                            {traitDef ? `: ${traitDef.rulesText}` : ''}
                                         </li>
                                     );
-                                }
-                                return <li key={i} className="ability-item"><strong>{abilityRef}</strong></li>;
-                            })}
-                        </ul>
-                    </section>
-                )}
+                                })}
+                            </ul>
+                        </section>
+                    )
+                }
 
-                {monster.equipment && monster.equipment.length > 0 && (
-                    <section className="monster-detail__section">
-                        <h3>Equipment</h3>
-                        <ul className="equipment-list">
-                            {monster.equipment.map((eq, i) => (
-                                <li key={i} className="equipment-item">
-                                    <strong>{eq.name}:</strong> {eq.rulesText}
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-                )}
-            </div>
-        </div>
+                {
+                    monster.abilities && monster.abilities.length > 0 && (
+                        <section className="monster-detail__section">
+                            <h3>Abilities</h3>
+                            <ul className="abilities-list">
+                                {monster.abilities.map((abilityRef, i) => {
+                                    const ability = getMonsterAbilityById(abilityRef);
+                                    if (ability) {
+                                        return (
+                                            <li key={i} className="ability-item">
+                                                <strong>{ability.name}</strong>
+                                                {ability.check && (
+                                                    <div className="ability-check">
+                                                        {ability.check.attackerSkill}
+                                                        {ability.check.defenderSkill ? ` vs. ${ability.check.defenderSkill}` : ''}
+                                                        {ability.check.range || ability.check.area ? ` (` : ''}
+                                                        {ability.check.range && `range: ${ability.check.range}`}
+                                                        {ability.check.range && ability.check.area ? `, ` : ''}
+                                                        {ability.check.area && `area: ${ability.check.area}`}
+                                                        {ability.check.range || ability.check.area ? `)` : ''}
+                                                    </div>
+                                                )}
+                                                <div className="ability-text">{ability.rulesText}</div>
+                                            </li>
+                                        );
+                                    }
+                                    return <li key={i} className="ability-item"><strong>{abilityRef}</strong></li>;
+                                })}
+                            </ul>
+                        </section>
+                    )
+                }
+
+                {
+                    monster.equipment && monster.equipment.length > 0 && (
+                        <section className="monster-detail__section">
+                            <h3>Equipment</h3>
+                            <ul className="equipment-list">
+                                {monster.equipment.map((eq, i) => (
+                                    <li key={i} className="equipment-item">
+                                        <strong>{eq.name}:</strong> {eq.rulesText}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    )
+                }
+            </div >
+        </div >
     );
 }

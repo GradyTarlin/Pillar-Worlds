@@ -77,6 +77,7 @@ export interface CharacterSelections {
   spirit: SpiritOption | null;
   zodiac: ZodiacOption | null;
   bloodline: Bloodline | null;
+  humanExtraSkill: SkillKey | null;
   birth: BackstoryFragment | null;
   youth: BackstoryFragment | null;
   comingOfAge: BackstoryFragment | null;

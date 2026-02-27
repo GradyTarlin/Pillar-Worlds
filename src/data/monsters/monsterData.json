@@ -1,0 +1,4682 @@
+{
+  "sourceSection": "Monsters: rules + Arcane monsters",
+  "monsterTypes": [
+    "Arcane",
+    "Beasts",
+    "Celestials",
+    "Dragons",
+    "Elementals",
+    "Fae",
+    "Humanoids",
+    "Infernals",
+    "Undead"
+  ],
+  "monsterTraitDefinitions": [
+    {
+      "id": "brutal",
+      "category": "offensive",
+      "rulesText": "When the monster deals physical damage, its target cannot add their skill bonus to their next skill check."
+    },
+    {
+      "id": "cruel",
+      "category": "offensive",
+      "rulesText": "When the monster deals physical damage, its target gains disadvantage on their next skill check."
+    },
+    {
+      "id": "fury",
+      "category": "offensive",
+      "rulesText": "The monster deals +1 physical damage for each HP that it is missing."
+    },
+    {
+      "id": "gigantic",
+      "category": "offensive",
+      "rulesText": "The monster targets every enemy within its reach when it makes a physical attack."
+    },
+    {
+      "id": "mighty",
+      "category": "offensive",
+      "rulesText": "When the monster hits a physical attack, it can push the target as well."
+    },
+    {
+      "id": "staggering",
+      "category": "offensive",
+      "rulesText": "When the monster deals physical damage, its target loses one movement on its next turn."
+    },
+    {
+      "id": "strategic",
+      "category": "offensive",
+      "rulesText": "The monster gains a +1 bonus to PRW for each ally within its reach."
+    },
+    {
+      "id": "vengeful",
+      "category": "offensive",
+      "rulesText": "Whenever the monster is hit by an attack, it can immediately make a melee attack."
+    },
+    {
+      "id": "venomous",
+      "category": "offensive",
+      "rulesText": "Whenever the monster hits a physical attack, it inflicts venom on the target. Whenever the afflicted enemy fails a skill check on its next turn, it takes 2 magic damage."
+    },
+    {
+      "id": "bloodthirsty",
+      "category": "survivability",
+      "rulesText": "Whenever the monster kills an enemy, it regains 3 HP."
+    },
+    {
+      "id": "ethereal",
+      "category": "survivability",
+      "rulesText": "The monster is immune to physical damage."
+    },
+    {
+      "id": "grounded",
+      "category": "survivability",
+      "rulesText": "The monster resists 1 magic damage."
+    },
+    {
+      "id": "hazardous",
+      "category": "survivability",
+      "rulesText": "Any creature that hits the monster with a melee attack takes 1 magic damage."
+    },
+    {
+      "id": "lifesteal",
+      "category": "survivability",
+      "rulesText": "The monster regains 1 HP whenever it deals physical damage."
+    },
+    {
+      "id": "mana_hunger",
+      "category": "survivability",
+      "rulesText": "The monster regains 2 HP whenever it takes magic damage."
+    },
+    {
+      "id": "observant",
+      "category": "survivability",
+      "rulesText": "The creature has advantage on all defensive INS checks."
+    },
+    {
+      "id": "regeneration",
+      "category": "survivability",
+      "rulesText": "The creature regains 1 HP whenever it succeeds on a skill check."
+    },
+    {
+      "id": "tough",
+      "category": "survivability",
+      "rulesText": "The monster resists 1 physical damage."
+    },
+    {
+      "id": "catalyst",
+      "category": "magic",
+      "rulesText": "When the monster takes magic damage, it adds an equal amount of magic damage to its next attack."
+    },
+    {
+      "id": "curse",
+      "category": "magic",
+      "rulesText": "When the monster deals magic damage, its target is cursed until the end of their next turn. While cursed, they take +1 magic damage whenever they take damage."
+    },
+    {
+      "id": "enchanted",
+      "category": "magic",
+      "rulesText": "When an enemy focuses on the monster, they lose 1 MP."
+    },
+    {
+      "id": "magical",
+      "category": "magic",
+      "rulesText": "The monster can make INS vs. STL magic attacks against enemies that it can see. The monster's magic attacks deal magic damage equal to its WIS bonus."
+    },
+    {
+      "id": "overcharged",
+      "category": "magic",
+      "rulesText": "The monster can sacrifice 1 HP to deal +1 magic damage before it makes an attack."
+    },
+    {
+      "id": "potent",
+      "category": "magic",
+      "rulesText": "The monster's magic attacks target every enemy within a zone it can see. The monster rolls one attack roll, and each target within the zone rolls a separate defensive check."
+    },
+    {
+      "id": "shapeshifting",
+      "category": "magic",
+      "rulesText": "The monster can transform once per turn, gaining a +2 bonus to one skill."
+    },
+    {
+      "id": "siphon",
+      "category": "magic",
+      "rulesText": "Whenever the monster deals physical damage, the target loses an equal amount of MP."
+    },
+    {
+      "id": "unstable",
+      "category": "magic",
+      "rulesText": "The monster explodes when it dies, dealing 1 magic damage to every creature within its reach."
+    },
+    {
+      "id": "agile",
+      "category": "trickery",
+      "rulesText": "The monster can immediately move after dodging an attack."
+    },
+    {
+      "id": "bold",
+      "category": "trickery",
+      "rulesText": "The monster's CHA checks target every enemy that can hear it."
+    },
+    {
+      "id": "camouflage",
+      "category": "trickery",
+      "rulesText": "The monster has advantage on STL checks made to hide in its preferred environment."
+    },
+    {
+      "id": "corrupt",
+      "category": "trickery",
+      "rulesText": "When the monster succeeds on a CHA check, it gains a +1 bonus to the damage of its next attack against the target."
+    },
+    {
+      "id": "deafening",
+      "category": "trickery",
+      "rulesText": "When the monster succeeds on a CHA check, the target takes 1 magic damage."
+    },
+    {
+      "id": "fast",
+      "category": "trickery",
+      "rulesText": "The monster has an extra movement on each turn."
+    },
+    {
+      "id": "flying",
+      "category": "trickery",
+      "rulesText": "The monster can move two zones with each movement."
+    },
+    {
+      "id": "phasewalking",
+      "category": "trickery",
+      "rulesText": "The monster can use its movement to teleport to any zone that it can see."
+    },
+    {
+      "id": "sneaky",
+      "category": "trickery",
+      "rulesText": "The monster can immediately move after succeeding on a STL check on its turn."
+    }
+  ],
+  "monsterAbilities": [
+    {
+      "id": "monAbility.arcane.gorgon.petrifying_gaze",
+      "name": "Petrifying Gaze",
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "see"
+      },
+      "rulesText": "The target can immediately make one skill check with disadvantage, and is then petrified. While petrified, the target is immune to all damage and cannot act or move. The petrification ends when the gorgon takes damage, and can be interrupted if the target damages the gorgon with its immediate skill check. The gorgon can end the petrification on its turn."
+    },
+    {
+      "id": "monAbility.arcane.minotaur.charge",
+      "name": "Charge",
+      "check": null,
+      "rulesText": "After it moves, the minotaur deals +1 physical damage on its next attack this turn."
+    },
+    {
+      "id": "monAbility.arcane.siren.luring_song",
+      "name": "Luring Song",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see",
+        "area": "audible"
+      },
+      "rulesText": "The target immediately moves one zone towards the siren."
+    },
+    {
+      "id": "monAbility.arcane.siren.drown",
+      "name": "Drown",
+      "check": {
+        "attackerSkill": "STR",
+        "defenderSkill": "STR",
+        "range": "reach",
+        "notes": "Target must be in a body of water within the siren's reach."
+      },
+      "rulesText": "The siren drags the target underwater. They take 3 physical damage at the start of each turn until they beat the siren in a STR vs. STR check to escape."
+    },
+    {
+      "id": "monAbility.arcane.slime.merge",
+      "name": "Merge",
+      "check": null,
+      "rulesText": "Once per turn, the slimes can combine with another slime within its reach, adding their HP and skill bonuses together.\nWhen the slime takes physical damage, it splits in half. Each half retains half of the original slime's remaining HP and STR bonus."
+    },
+    {
+      "id": "monAbility.beasts.giant_spider.enweb",
+      "name": "Enweb",
+      "check": {
+        "attackerSkill": "STL",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
+      "rulesText": "The target cannot move and has disadvantage on all skill checks until it scores 10 on a STR check."
+    },
+    {
+      "id": "monAbility.beasts.serpent.constrict",
+      "name": "Constrict",
+      "check": {
+        "attackerSkill": "PRW",
+        "defenderSkill": "STL",
+        "range": "reach",
+        "notes": "Only usable against an enemy within reach that the serpent has advantage against."
+      },
+      "rulesText": "The target takes 3 physical damage and cannot move on its next turn."
+    },
+    {
+      "id": "monAbility.beasts.boar.charge",
+      "name": "Charge",
+      "check": null,
+      "rulesText": "After it moves, the boar deals +1 physical damage on its next attack this turn."
+    },
+    {
+      "id": "monAbility.celestials.divine_avatar.rapture",
+      "name": "Rapture",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see",
+        "area": "see"
+      },
+      "rulesText": "10 magic damage."
+    },
+    {
+      "id": "monAbility.celestials.nocturi.shadow_theft",
+      "name": "Shadow Theft",
+      "check": {
+        "attackerSkill": "STL",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
+      "rulesText": "The nocturi steals the target's shadow. The target takes +2 magic damage whenever it takes damage. The target can reclaim its shadow by damaging the nocturi."
+    },
+    {
+      "id": "monAbility.celestials.angel.celestial_song",
+      "name": "Celestial Song",
+      "check": null,
+      "rulesText": "Once per turn, the angel can restore 3 HP to a creature it can see."
+    },
+    {
+      "id": "monAbility.celestials.deva.kinetic_barrage",
+      "name": "Kinetic Barrage",
+      "check": {
+        "attackerSkill": "WIS",
+        "defenderSkill": "STL",
+        "range": "see"
+      },
+      "rulesText": "The target takes 1 physical damage and the deva can repeat this attack."
+    },
+    {
+      "id": "monAbility.celestials.voidleech.mana_sap",
+      "name": "Mana Sap",
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
+      "rulesText": "The target loses 3 MP. If the target has no more MP, it loses HP instead. If the voidleech kills a humanoid with mana sap, it can transform into a voidwalker after an hour-long metamorphosis (the voidleech is defenseless during this transformation)."
+    },
+    {
+      "id": "monAbility.dragons.dragonfire",
+      "name": "Dragonfire",
+      "check": null,
+      "rulesText": "When the dragon deals magic damage, the target regains an equal amount of MP. The target takes half of the damage again at the end of their next turn."
+    },
+    {
+      "id": "monAbility.dragons.hydra.regrowth",
+      "name": "Regrowth",
+      "check": null,
+      "rulesText": "When the hydra takes 3 or more physical damage at once, its head splits into two new heads (maximum eight heads). The hydra gains a +1 bonus to CHA, INS, and PRW for each new head that it grows. The CHA bonus increases the hydra's maximum HP."
+    },
+    {
+      "id": "monAbility.dragons.basilisk.petrifying_gaze",
+      "name": "Petrifying Gaze",
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "see",
+        "notes": "Target must be able to see the basilisk."
+      },
+      "rulesText": "The target begins turning to stone, and loses one movement. If they fail a skill check on their next turn, they lose a skill check on every subsequent turn. If they fail another skill check after that, they are fully petrified, and cannot act."
+    },
+    {
+      "id": "monAbility.dragons.basilisk.devour",
+      "name": "Devour",
+      "check": {
+        "attackerSkill": "STR",
+        "defenderSkill": "STR",
+        "range": "reach",
+        "notes": "The basilisk picks up a petrified enemy within its reach (its saliva reverses the petrification)."
+      },
+      "rulesText": "The basilisk swallows the target. The target takes 5 magic damage at the start of each of its subsequent turns, but can ignore the basilisk's tough trait."
+    },
+    {
+      "id": "monAbility.elementals.titan.colossal",
+      "name": "Colossal",
+      "check": null,
+      "rulesText": "The titan doubles its STR bonus for the damage of melee attacks."
+    },
+    {
+      "id": "monAbility.elementals.titan.earthquake",
+      "name": "Earthquake",
+      "check": {
+        "attackerSkill": "STR",
+        "defenderSkill": "STR",
+        "range": "special",
+        "area": "oneKilometer"
+      },
+      "rulesText": "6 physical damage."
+    },
+    {
+      "id": "monAbility.elementals.great_worm.tunnel",
+      "name": "Tunnel",
+      "check": null,
+      "rulesText": "The great worm can move to any zone on its current elevation level."
+    },
+    {
+      "id": "monAbility.elementals.embrean.smoldering_strike",
+      "name": "Smoldering Strike",
+      "check": {
+        "attackerSkill": "PRW",
+        "defenderSkill": "STL",
+        "range": "reach"
+      },
+      "rulesText": "2 magic damage."
+    },
+    {
+      "id": "monAbility.fae.guardian_beast.spirit_strike",
+      "name": "Spirit Strike",
+      "check": null,
+      "rulesText": "The guardian beast deals bonus magic damage equal to its target's current MP."
+    },
+    {
+      "id": "monAbility.fae.unicorn.healing_touch",
+      "name": "Healing Touch",
+      "check": null,
+      "rulesText": "Once per turn, the unicorn can restore a creature within its reach to full HP."
+    },
+    {
+      "id": "monAbility.fae.moon_witch.bewitch",
+      "name": "Bewitch",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see"
+      },
+      "rulesText": "The moon witch forces the target to immediately move, and controls one skill check on the target's next turn."
+    },
+    {
+      "id": "monAbility.fae.green_witch.polymorph",
+      "name": "Polymorph",
+      "check": {
+        "attackerSkill": "WIS",
+        "defenderSkill": "CHA",
+        "range": "see"
+      },
+      "rulesText": "The target is transformed into a frog until the end of its next turn. They can move, but cannot make skill checks or use magic. Their equipment is transformed with them."
+    },
+    {
+      "id": "monAbility.fae.dryad.binding_brambles",
+      "name": "Binding Brambles",
+      "check": null,
+      "rulesText": "Whenever the dryad deals damage, the target is bound by thorny vines. They cannot move until they break free by scoring 8 on a STR check. While bound, the target takes 1 physical damage every time they make a skill check."
+    },
+    {
+      "id": "monAbility.humanoids.primordial_wizard.aetherial_gateway",
+      "name": "Aetherial Gateway",
+      "check": null,
+      "rulesText": "Once per turn, the primordial wizard can open a portal between two zones it can see. All portals close if the primordial wizard takes damage."
+    },
+    {
+      "id": "monAbility.infernals.phobiarus.nightmare",
+      "name": "Nightmare",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see"
+      },
+      "rulesText": "The target immediately makes a skill check controlled by the phobiarus. If it fails, the target takes 6 magic damage."
+    },
+    {
+      "id": "monAbility.infernals.hellhound.burning_fangs",
+      "name": "Burning Fangs",
+      "check": {
+        "attackerSkill": "PRW",
+        "defenderSkill": "STL",
+        "range": "reach"
+      },
+      "rulesText": "2 physical damage + 1 magic damage."
+    },
+    {
+      "id": "monAbility.infernals.blood_eel.blood_burrow",
+      "name": "Blood Burrow",
+      "check": {
+        "attackerSkill": "STR",
+        "defenderSkill": "STR",
+        "range": "special"
+      },
+      "rulesText": "3 physical damage, and the blood eel gains advantage on all attacks against the target until the target scores 7 PRW to remove the eel."
+    },
+    {
+      "id": "monAbility.undead.vampire.blood_drain",
+      "name": "Blood Drain",
+      "check": {
+        "attackerSkill": "STL",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
+      "rulesText": "See monster notes/rules text for damage and any additional requirements/effects."
+    },
+    {
+      "id": "monAbility.undead.elder_vampire.hypnosis",
+      "name": "Hypnosis",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see"
+      },
+      "rulesText": "The elder vampire controls one skill check on the target's next turn."
+    },
+    {
+      "id": "monAbility.undead.reaper.dark_harvest",
+      "name": "Dark Harvest",
+      "check": null,
+      "rulesText": "Whenever the reaper deals damage, the target's spirit is bound. If they die before the end of the reaper's next turn, they are raised as an undead servant. Targets raised by the reaper have 8 HP and retain their STR bonus but lose all other skill bonuses. Each of the reaper's undead servants can make one skill check on the reaper's turn."
+    },
+    {
+      "id": "monAbility.undead.hollow.soul_snatcher",
+      "name": "Soul Snatcher",
+      "check": null,
+      "rulesText": "Whenever the hollow kills a mortal enemy, the enemy becomes a wraith."
+    },
+    {
+      "id": "monAbility.undead.knight_shade.dead_legion",
+      "name": "Dead Legion",
+      "check": null,
+      "rulesText": "Whenever the knight shade deals damage, the target's spirit is bound. If they die before the end of the knight shade's next turn, they are raised as an undead servant. Targets raised by the knight shade have 3 HP and retain their STR bonus but lose all other skill bonuses. Each of the knight shade's undead servants can make one skill check on the knight shade's turn."
+    },
+    {
+      "id": "monAbility.undead.fleshweaver.create_wight",
+      "name": "Create Wight",
+      "check": null,
+      "rulesText": "Once per turn, the fleshweaver can turn a corpse within its reach into a wight."
+    },
+    {
+      "id": "monAbility.undead.ghost.draining_cold",
+      "name": "Draining Cold",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "STR",
+        "range": "reach"
+      },
+      "rulesText": "2 magic damage and the target has disadvantage on their next skill check."
+    }
+  ],
+  "monsters": [
+    {
+      "id": "monster.arcane.yaggaloth",
+      "name": "Yaggaloth",
+      "monsterType": "Arcane",
+      "level": 41,
+      "hpMax": 52,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "catalyst",
+        "deafening",
+        "enchanted",
+        "fast",
+        "fury",
+        "gigantic",
+        "grounded",
+        "mana_hunger",
+        "magical",
+        "mighty",
+        "potent",
+        "observant",
+        "siphon",
+        "tough",
+        "vengeful",
+        "venomous"
+      ],
+      "skills": {
+        "STR": 10,
+        "PRW": 8,
+        "INS": 8,
+        "WIS": 7,
+        "STL": 7,
+        "CHA": 7
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Gargantuan magical monstrosities, yaggaloths are the ultimate force of destruction. Where a chimera is a hybrid of several animals, a yaggaloth is a hybrid of several monsters. They have the hooves and horns of a minotaur, the mana-devouring crystal of a quogg, the strength and hunger of a troll, the tough hide and sharp fangs of a werewolf, and the scales and searing venom of a gorgon. Yaggaloths are enormous, tireless, and utterly destructive, rampaging through the world from the moment they are created until the moment they are slain. Only the most deranged magi create yaggaloths, for they are impossible to control and exist only to wreak havoc. On top of their immense physical strength and speed, yaggaloths have a host of magical abilities that amplify their threat level.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.automaton",
+      "name": "Automaton",
+      "monsterType": "Arcane",
+      "level": 20,
+      "hpMax": 39,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "enchanted",
+        "gigantic",
+        "magical",
+        "mighty",
+        "potent",
+        "tough",
+        "unstable"
+      ],
+      "skills": {
+        "STR": 10,
+        "WIS": 5,
+        "CHA": 5,
+        "INS": 3,
+        "PRW": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Enormous walking machines, automatons come in a variety of shapes but are often humanoid. They have limited initiative, and typically only follow simple commands. Nevertheless, a single automaton can destroy an entire city on its own if provided with the proper instructions. Many automatons are fitted with magical weaponry, allowing them to bombard their targets from long range.",
+      "notes": [
+        "The automaton has extra HP equal to its STR bonus."
+      ]
+    },
+    {
+      "id": "monster.arcane.gorgon",
+      "name": "Gorgon",
+      "monsterType": "Arcane",
+      "level": 19,
+      "hpMax": 28,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "magical",
+        "observant",
+        "venomous"
+      ],
+      "skills": {
+        "INS": 6,
+        "CHA": 5,
+        "STL": 4,
+        "PRW": 4,
+        "WIS": 3,
+        "STR": 3
+      },
+      "abilities": [
+        "monAbility.arcane.gorgon.petrifying_gaze"
+      ],
+      "equipment": [],
+      "loreText": "Snake-haired monsters, gorgons petrify mortals with their horrific gaze. The first gorgons were created in profane rituals similar to those that create the semi-draconic Scalari. A mortal is submerged in the blood of a basilisk, and emerges as a hideous gorgon.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.verdane",
+      "name": "Verdane",
+      "monsterType": "Arcane",
+      "level": 18,
+      "hpMax": 25,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "fast",
+        "magical",
+        "mighty",
+        "observant"
+      ],
+      "skills": {
+        "INS": 6,
+        "WIS": 4,
+        "STR": 4,
+        "PRW": 4,
+        "CHA": 3,
+        "STL": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Noble monsters that roam the wilds, verdanes are descended from elk that were exposed to arcane magic. They have the mane of a lion, a long tail, and the strong, dexterous arms of an ape. Strange arcane plants sprout all around verdanes, overwhelming and mutating the surrounding land. Verdanes typically stand upright, but drop to all fours when avoiding notice. Their fur is a deep green, home to moss and plants that allow them to blend in with their natural surroundings. Verdane are regal creatures with a commanding presence, blasting enemies with waves of psychic force. They have an otherworldly awareness, seeming to notice things much too far away to see or hear.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.manticore",
+      "name": "Manticore",
+      "monsterType": "Arcane",
+      "level": 17,
+      "hpMax": 24,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "fury",
+        "venomous"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STR": 5,
+        "INS": 5,
+        "STL": 4,
+        "CHA": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Monsters with the body of a lion, the tail of a scorpion, and a distorted human face, manticores love to devour mortals whole.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.vionare",
+      "name": "Vionare",
+      "monsterType": "Arcane",
+      "level": 15,
+      "hpMax": 21,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "cruel",
+        "fast",
+        "sneaky",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STL": 5,
+        "STR": 4,
+        "INS": 3,
+        "CHA": 2,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Ferocious monsters with an insatiable lust for blood, vionares are descended from tigers that were exposed to arcane magic. They have long scaly tails, curved fangs, and swept-back horns. Vionares enjoy inflicting pain, and have been known to torment their prey for hours before consuming them.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.cockatrice",
+      "name": "Cockatrice",
+      "monsterType": "Arcane",
+      "level": 14,
+      "hpMax": 20,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "observant",
+        "venomous"
+      ],
+      "skills": {
+        "PRW": 5,
+        "INS": 5,
+        "STR": 4,
+        "STL": 4,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "A monstrous fusion of bird and reptile, cockatrices are vicious predators. They look like enormous roosters, but they have scales under their feathers and venomous fangs in their beaks. As large and fast as horses, they run down their prey and tear into their flesh with razor sharp talons.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.caverus",
+      "name": "Caverus",
+      "monsterType": "Arcane",
+      "level": 12,
+      "hpMax": 20,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fury",
+        "mighty"
+      ],
+      "skills": {
+        "STR": 5,
+        "CHA": 4,
+        "PRW": 3,
+        "INS": 3,
+        "STL": 2,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Caveri are descended from bears exposed to arcane magic. Their arms are as strong as those of a bear, but have the scaly skin and large talons of an eagle. They have the curled horns and cloven-hoofed hind legs of a ram, which they use to charge headlong into their enemies.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.minotaur",
+      "name": "Minotaur",
+      "monsterType": "Arcane",
+      "level": 11,
+      "hpMax": 17,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "brutal"
+      ],
+      "skills": {
+        "STR": 5,
+        "PRW": 4,
+        "INS": 3,
+        "WIS": 2,
+        "CHA": 2,
+        "STL": 1
+      },
+      "abilities": [
+        "monAbility.arcane.minotaur.charge"
+      ],
+      "equipment": [],
+      "loreText": "Humanoid beasts with bull heads, minotaurs are created by arcane curses. They often serve magi as tireless guardians, wandering their masters' domains in search of interlopers. Despite their bovine appearance, minotaurs are carnivorous.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.gryphon",
+      "name": "Gryphon",
+      "monsterType": "Arcane",
+      "level": 8,
+      "hpMax": 13,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "flying",
+        "observant"
+      ],
+      "skills": {
+        "PRW": 4,
+        "INS": 4,
+        "STR": 3,
+        "STL": 2,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Gryphons have the head and wings of a falcon and the body of a lion. They represent nobility in many cultures, and can be trained as mounts if raised from birth. Gryphons have keen senses and sharp talons, dive bombing large prey from high in the skies.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.siren",
+      "name": "Siren",
+      "monsterType": "Arcane",
+      "level": 6,
+      "hpMax": 14,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bold",
+        "corrupt"
+      ],
+      "skills": {
+        "CHA": 4,
+        "STL": 3,
+        "PRW": 3,
+        "STR": 2,
+        "INS": 2
+      },
+      "abilities": [
+        "monAbility.arcane.siren.luring_song",
+        "monAbility.arcane.siren.drown"
+      ],
+      "equipment": [],
+      "loreText": "Sirens are aquatic monsters that lure seafarers to their death with their enchanting song. They have human upper bodies and fishlike lower bodies, lounging on coastal rocks. Once a siren gets a mortal within their reach, they drag them into the murky depths.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.golem",
+      "name": "Golem",
+      "monsterType": "Arcane",
+      "level": 5,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "enchanted",
+        "tough",
+        "unstable"
+      ],
+      "skills": {
+        "STR": 6,
+        "WIS": 3,
+        "PRW": 1,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Carefully crafted by master enchanters, golems are living statues who serve as impassable guardians.",
+      "notes": [
+        "The golem has extra HP equal to its STR bonus."
+      ]
+    },
+    {
+      "id": "monster.arcane.chimera",
+      "name": "Chimera",
+      "monsterType": "Arcane",
+      "level": 5,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "observant",
+        "vengeful",
+        "venomous"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STR": 2,
+        "INS": 2,
+        "STL": 2,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Hybrid monstrosities created by chaotic magic, chimeras display body parts from numerous creatures. They have the body of a lion, the wings of a bat, the horns of a goat, and a venomous serpent for a tail. Some mad magi create chimeras to serve them, whereas other chimeras are born spontaneously from land infected with arcane magic.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.cyclops",
+      "name": "Cyclops",
+      "monsterType": "Arcane",
+      "level": 4,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "brutal",
+        "gigantic"
+      ],
+      "skills": {
+        "STR": 6,
+        "CHA": 4
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Crude Club",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "One-eyed brutes, cyclopses are dim-witted but immensely strong.",
+      "notes": [
+        "The cyclops has disadvantage on all INS checks."
+      ]
+    },
+    {
+      "id": "monster.arcane.harpy",
+      "name": "Harpy",
+      "monsterType": "Arcane",
+      "level": 3,
+      "hpMax": 10,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "deafening",
+        "flying"
+      ],
+      "skills": {
+        "CHA": 3,
+        "PRW": 2,
+        "INS": 2,
+        "STL": 1,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Winged monsters with humanoid upper bodies, harpies are descended from those cursed by witches. Their shrill shriek can drive their victims to madness, and their sharp talons can finish the job.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.quogg",
+      "name": "Quogg",
+      "monsterType": "Arcane",
+      "level": 3,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "mana_hunger",
+        "siphon"
+      ],
+      "skills": {
+        "STR": 3,
+        "INS": 3,
+        "PRW": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Quoggs are ape-like creatures with large smooth crystals protruding from their faces. They feed on magic, and can sense surges of magical power from far and wide.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.sicari",
+      "name": "Sicari",
+      "monsterType": "Arcane",
+      "level": 2,
+      "hpMax": 6,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "flying",
+        "sneaky",
+        "venomous"
+      ],
+      "skills": {
+        "STL": 3,
+        "PRW": 2,
+        "INS": 2,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Stealthy and malevolent monsters, sicari are descended from serpents exposed to arcane magic. They have six eyes, the wings of a dragonfly, and the stinger of a scorpion. Instead of a forked tongue, Sicari have a reaching pincer that extends from their mouth to latch onto their prey. Sicari are sometimes sent by dark magi to assassinate their enemies.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.mimic",
+      "name": "Mimic",
+      "monsterType": "Arcane",
+      "level": 2,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage"
+      ],
+      "skills": {
+        "STL": 2,
+        "PRW": 2,
+        "STR": 2,
+        "INS": 1,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Bane of many adventurers, mimics are devious monsters that disguise themselves as valuable objects to lure in their prey. Mimics often take on the appearance of treasure chests, only revealing their true monstrous form once their oblivious prey is within striking distance.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.ludori",
+      "name": "Ludori",
+      "monsterType": "Arcane",
+      "level": 1,
+      "hpMax": 8,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bold",
+        "flying",
+        "tough"
+      ],
+      "skills": {
+        "CHA": 3,
+        "STL": 2,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Graceful and mischievous, ludori are descended from foxes exposed to arcane magic. They have feathered wings and the shell of a tortoise, as well as an enchanting singing voice. Ludori like to confuse and play tricks on mortals, but are ultimately good-spirited. Those who play along with the ludori's games are often rewarded with helpful guidance and beautiful songs.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.curiole",
+      "name": "Curiole",
+      "monsterType": "Arcane",
+      "level": 1,
+      "hpMax": 5,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "magical",
+        "observant"
+      ],
+      "skills": {
+        "WIS": 3,
+        "INS": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Enigmatic little monsters, curioles are descended from owls that were exposed to arcane magic. They have a third eye, an extra set of wings, small hands, and a large bushy tail. Curioles are inquisitive and observant, studying magical phenomena and collecting enchanted items.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.mutant",
+      "name": "Mutant",
+      "monsterType": "Arcane",
+      "level": 1,
+      "hpMax": 5,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "magical",
+        "overcharged",
+        "unstable"
+      ],
+      "skills": {
+        "INS": 2,
+        "WIS": 1,
+        "STR": 2,
+        "PRW": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Magi who amass more mana than they can control are irreversibly transformed into mutant monstrosities. Depending on the type of magic that a mage is consumed by, they may display a wide range of mutations, such as an ephemeral form, permanently burning scars, or grasping shadow appendages. Mutants rarely retain their ability to think, and typically go on arcane rampages before they eventually succumb to the ravages of their overcharged mana.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.slime",
+      "name": "Slime",
+      "monsterType": "Arcane",
+      "level": 0,
+      "hpMax": 1,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [],
+      "skills": {
+        "STR": 1
+      },
+      "abilities": [
+        "monAbility.arcane.slime.merge"
+      ],
+      "equipment": [],
+      "loreText": "Slimes are the product of careless alchemy, spawning from the magical residues of potion ingredients.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.roc",
+      "name": "Roc",
+      "monsterType": "Beasts",
+      "level": 18,
+      "hpMax": 25,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "deafening",
+        "flying",
+        "gigantic",
+        "mighty",
+        "observant"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STR": 6,
+        "INS": 6,
+        "CHA": 3,
+        "STL": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Colossal birds of prey, rocs can shroud an entire village in shadow with their outstretched wings. They normally hunt large herbivores, and will gladly eat any mortal that approaches its nest.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.giant_spider",
+      "name": "Giant Spider",
+      "monsterType": "Beasts",
+      "level": 11,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "sneaky",
+        "venomous"
+      ],
+      "skills": {
+        "STL": 5,
+        "INS": 4,
+        "PRW": 4,
+        "STR": 4
+      },
+      "abilities": [
+        "monAbility.beasts.giant_spider.enweb"
+      ],
+      "equipment": [],
+      "loreText": "Giant spiders evolved to hunt greater prey than their smaller cousins. Their webs are like steel and their venom turns the blood ice cold.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.bear",
+      "name": "Bear",
+      "monsterType": "Beasts",
+      "level": 8,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fury"
+      ],
+      "skills": {
+        "STR": 5,
+        "INS": 3,
+        "PRW": 3,
+        "CHA": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Fearsome woodland beasts, bears represent strength in many cultures.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.tiger",
+      "name": "Tiger",
+      "monsterType": "Beasts",
+      "level": 6,
+      "hpMax": 10,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "fast",
+        "sneaky"
+      ],
+      "skills": {
+        "PRW": 4,
+        "STR": 3,
+        "STL": 3,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Graceful jungle cats, tigers represent ferocity in many cultures.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.shark",
+      "name": "Shark",
+      "monsterType": "Beasts",
+      "level": 5,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bloodthirsty",
+        "observant"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STR": 3,
+        "INS": 3,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Apex predators of the oceans, sharks have a keen sense for blood.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.serpent",
+      "name": "Serpent",
+      "monsterType": "Beasts",
+      "level": 1,
+      "hpMax": 5,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "sneaky",
+        "venomous"
+      ],
+      "skills": {
+        "STL": 3,
+        "PRW": 2,
+        "STR": 1,
+        "INS": 1
+      },
+      "abilities": [
+        "monAbility.beasts.serpent.constrict"
+      ],
+      "equipment": [],
+      "loreText": "Cold-blooded ambush predators, serpents represent cunning in many cultures.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.boar",
+      "name": "Boar",
+      "monsterType": "Beasts",
+      "level": 1,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fury"
+      ],
+      "skills": {
+        "STR": 3,
+        "CHA": 2,
+        "PRW": 1,
+        "INS": 1
+      },
+      "abilities": [
+        "monAbility.beasts.boar.charge"
+      ],
+      "equipment": [],
+      "loreText": "Temperamental hogs of the woodlands, wild boar defend themselves with bristled hides and curved tusks. Many carnivores hunt wild boar, but they do not go down without a fight.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.horse",
+      "name": "Horse",
+      "monsterType": "Beasts",
+      "level": 1,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast"
+      ],
+      "skills": {
+        "STR": 3,
+        "INS": 2,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Valiant steeds to people across the pillar worlds, horses represent freedom in many cultures.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.wolf",
+      "name": "Wolf",
+      "monsterType": "Beasts",
+      "level": 0,
+      "hpMax": 3,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "fast",
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 2,
+        "INS": 2,
+        "STR": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Woodland hunters, wolves symbolize fear in many cultures. Their haunting howl sends shivers down the spines of vulnerable travelers, and their pack tactics allow them to take down prey many times their size.",
+      "notes": []
+    },
+    {
+      "id": "monster.beasts.elk",
+      "name": "Elk",
+      "monsterType": "Beasts",
+      "level": 0,
+      "hpMax": 3,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "observant"
+      ],
+      "skills": {
+        "PRW": 1,
+        "STR": 1,
+        "STL": 1,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Regal beasts of the woodlands and prairies, elk represent nobility in many cultures. Elk are preyed on by many of the carnivorous creatures of the pillar worlds, relying on their speed and keen hearing to survive.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.divine_avatar",
+      "name": "Divine Avatar",
+      "monsterType": "Celestials",
+      "level": 46,
+      "hpMax": 56,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "phasewalking",
+        "potent",
+        "regeneration",
+        "tough"
+      ],
+      "skills": {
+        "CHA": 10,
+        "WIS": 10,
+        "STR": 10,
+        "INS": 8,
+        "PRW": 8,
+        "STL": 6
+      },
+      "abilities": [
+        "monAbility.celestials.divine_avatar.rapture"
+      ],
+      "equipment": [],
+      "loreText": "The gods project their power into the material world through divine avatars. Though gods are immortal, their divine power can be claimed if their avatar is slain.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.nocturi",
+      "name": "Nocturi",
+      "monsterType": "Celestials",
+      "level": 28,
+      "hpMax": 30,
+      "armourMax": 0,
+      "wardMax": 3,
+      "traits": [
+        "agile",
+        "magical",
+        "phasewalking",
+        "siphon",
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 9,
+        "INS": 9,
+        "WIS": 6,
+        "PRW": 5,
+        "STR": 3,
+        "CHA": 2
+      },
+      "abilities": [
+        "monAbility.celestials.nocturi.shadow_theft"
+      ],
+      "equipment": [],
+      "loreText": "Immortal embodiments of the night sky, nocturi wield incredible powers of darkness. Shadowy figures dappled with cold starlight, the nocturi float silently through the aether. They collect the shadows of mortals, draining their spirits.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.seraph",
+      "name": "Seraph",
+      "monsterType": "Celestials",
+      "level": 22,
+      "hpMax": 30,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "flying",
+        "magical",
+        "regeneration"
+      ],
+      "skills": {
+        "CHA": 8,
+        "STR": 5,
+        "WIS": 5,
+        "PRW": 4,
+        "INS": 4,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Golden Blade",
+          "rulesText": "+1 physical damage; +1 magic damage"
+        }
+      ],
+      "loreText": "Crusaders of justice created by the gods of honour, seraphs hunt down and purge sources of corruption.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.angel",
+      "name": "Angel",
+      "monsterType": "Celestials",
+      "level": 14,
+      "hpMax": 24,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "flying",
+        "magical",
+        "regeneration"
+      ],
+      "skills": {
+        "CHA": 6,
+        "WIS": 5,
+        "INS": 4,
+        "STR": 3,
+        "PRW": 1,
+        "STL": 1
+      },
+      "abilities": [
+        "monAbility.celestials.angel.celestial_song"
+      ],
+      "equipment": [
+        {
+          "name": "Diamond Harp",
+          "rulesText": "The angel gains advantage on its next skill check upon successful defense."
+        }
+      ],
+      "loreText": "Servants of the gods of love, angels lend their divine protection to mortals in their hour of greatest need.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.wingbreaker",
+      "name": "Wingbreaker",
+      "monsterType": "Celestials",
+      "level": 14,
+      "hpMax": 22,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "brutal",
+        "corrupt",
+        "deafening",
+        "magical"
+      ],
+      "skills": {
+        "CHA": 4,
+        "PRW": 4,
+        "STR": 3,
+        "WIS": 3,
+        "STL": 3,
+        "INS": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Angels who have fallen from grace, wingbreakers are dangerous monsters. Their celestial powers bring a dissonant cacophony, disrupting the balance of everything they touch. Wingbreakers earned their name by hunting down and killing angels to absorb their divine essence.",
+      "notes": [
+        "Trait line in source ends with a trailing comma; interpreted as the 5 traits listed."
+      ]
+    },
+    {
+      "id": "monster.celestials.pegasus",
+      "name": "Pegasus",
+      "monsterType": "Celestials",
+      "level": 6,
+      "hpMax": 13,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "flying"
+      ],
+      "skills": {
+        "CHA": 3,
+        "WIS": 3,
+        "INS": 2,
+        "STR": 2,
+        "PRW": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Winged horses, pegasi serve as steeds to the divines.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.deva",
+      "name": "Deva",
+      "monsterType": "Celestials",
+      "level": 4,
+      "hpMax": 10,
+      "armourMax": 3,
+      "wardMax": 0,
+      "traits": [
+        "enchanted"
+      ],
+      "skills": {
+        "WIS": 3,
+        "STR": 2,
+        "CHA": 2,
+        "INS": 2,
+        "PRW": 1
+      },
+      "abilities": [
+        "monAbility.celestials.deva.kinetic_barrage"
+      ],
+      "equipment": [
+        {
+          "name": "Silver Hammer",
+          "rulesText": "+1 physical damage"
+        },
+        {
+          "name": "Silver Armour",
+          "rulesText": "3 armour"
+        }
+      ],
+      "loreText": "Divine artisans created by the gods of craft, deva are six-armed immortals who forge the kingdoms of the heavens.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.voidwalker",
+      "name": "Voidwalker",
+      "monsterType": "Celestials",
+      "level": 4,
+      "hpMax": 8,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "magical",
+        "siphon"
+      ],
+      "skills": {
+        "STL": 3,
+        "INS": 2,
+        "PRW": 2,
+        "WIS": 2,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Dreadful beings of crackling shadow, voidwalkers feed on spirits and corrupt their energy. Voidwalkers are conduits for the black magic of the void, which they lend to vile monsters and wicked mortals. Voidwalkers spread ruin and despair throughout the pillar worlds, darkening the dreams of their inhabitants so that more of their kind may crawl out from the abyss. Voidwalkers are extremely sensitive to light, and usually create hives in dark places like caves and dungeons.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.voidleech",
+      "name": "Voidleech",
+      "monsterType": "Celestials",
+      "level": 0,
+      "hpMax": 1,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 3,
+        "INS": 1
+      },
+      "abilities": [
+        "monAbility.celestials.voidleech.mana_sap"
+      ],
+      "equipment": [],
+      "loreText": "Slithering little monsters that enter reality through the nightmares of mortals, voidleeches lurk in the dark. Voidleeches latch onto mortals and drain their spirit until nothing but a hollow husk remains. Once a voidleech has absorbed a mortal spirit, it metamorphosizes into a voidwalker.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.ancient_dragon",
+      "name": "Ancient Dragon",
+      "monsterType": "Dragons",
+      "level": 54,
+      "hpMax": 68,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "deafening",
+        "flying",
+        "gigantic",
+        "grounded",
+        "hazardous",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "tough"
+      ],
+      "skills": {
+        "INS": 10,
+        "PRW": 10,
+        "STR": 10,
+        "CHA": 10,
+        "WIS": 10,
+        "STL": 10
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "After slumbering for a thousand years, dragons amass enough raw mana to frighten the gods. Their rumbling call is the thunder that shakes the mountains and their fiery maw burns with the setting sun. Ancient dragons are few and far between, but reverberations of their immense power can be felt throughout the land. Their blood soaked legacy built the pillar worlds, and now they reign as undisputed sovereigns.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.young_dragon",
+      "name": "Young Dragon",
+      "monsterType": "Dragons",
+      "level": 34,
+      "hpMax": 44,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "fast",
+        "flying",
+        "grounded",
+        "hazardous",
+        "magical",
+        "observant",
+        "potent",
+        "tough",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 8,
+        "STR": 8,
+        "INS": 8,
+        "STL": 6,
+        "CHA": 6,
+        "WIS": 4
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Dragons do not fully mature until they are a hundred years old, but even a young dragon can destroy entire cities. During this formative age, dragons choose a den, mate with other young dragons, and develop opinions of mortals that often last thousands of years. Dragons are much more active during their youth, and often settle into an indefinite slumber once they fully mature.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.hydra",
+      "name": "Hydra",
+      "monsterType": "Dragons",
+      "level": 17,
+      "hpMax": 25,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "deafening",
+        "observant",
+        "regeneration"
+      ],
+      "skills": {
+        "STR": 5,
+        "STL": 5,
+        "INS": 4,
+        "PRW": 4,
+        "CHA": 4,
+        "WIS": 1
+      },
+      "abilities": [
+        "monAbility.dragons.hydra.regrowth"
+      ],
+      "equipment": [],
+      "loreText": "Aquatic dragonoids with long snaking necks, hydra are famous for their regenerative abilities. The collective cry of a hydra's many heads can be heard far and wide, freezing their prey in fear.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.basilisk",
+      "name": "Basilisk",
+      "monsterType": "Dragons",
+      "level": 14,
+      "hpMax": 20,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "tough",
+        "vengeful"
+      ],
+      "skills": {
+        "STL": 6,
+        "PRW": 5,
+        "INS": 4,
+        "STR": 3,
+        "CHA": 2
+      },
+      "abilities": [
+        "monAbility.dragons.basilisk.petrifying_gaze",
+        "monAbility.dragons.basilisk.devour"
+      ],
+      "equipment": [],
+      "loreText": "Magical serpents that turn their prey to stone with their petrifying gaze, basilisks are descended from a bloodline of dragons that was imprisoned underground for millennia. Though basilisks don't have wings or breathe fire, they share their nearly indestructible scales and vengeful wrath with true dragons. The only way to cure a basilisk's petrification is by exposing the victim to the basilisk's saliva.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.dragon_hatchling",
+      "name": "Dragon Hatchling",
+      "monsterType": "Dragons",
+      "level": 8,
+      "hpMax": 14,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "grounded",
+        "hazardous",
+        "magical",
+        "observant",
+        "tough"
+      ],
+      "skills": {
+        "PRW": 3,
+        "INS": 3,
+        "CHA": 2,
+        "STR": 2,
+        "STL": 2,
+        "WIS": 2
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Though each dragon bloodline varies, some of them are as small as cats when they first emerge from their eggs. Their veins still flow with raw mana, but it takes years for their bodies to fully develop and for them to refine their hunting skills. If socialized during their infancy, some bloodlines can grow up to live in harmony with mortals.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.drakken",
+      "name": "Drakken",
+      "monsterType": "Dragons",
+      "level": 6,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "tough",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 4,
+        "STR": 3,
+        "INS": 2,
+        "STL": 2,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Large reptilian monsters, drakkens have similar bodies to dragons but do not have wings or magical abilities. Nevertheless, they are vicious predators built for speed and survival. They have tough scales and sharp claws, running down large prey and eviscerating them.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.wyvern",
+      "name": "Wyvern",
+      "monsterType": "Dragons",
+      "level": 4,
+      "hpMax": 8,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "flying",
+        "observant"
+      ],
+      "skills": {
+        "PRW": 3,
+        "INS": 3,
+        "STR": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Often confused for true dragons, wyverns can be identified by their lack of front legs. Wyverns are also significantly smaller and less intelligent than dragons when fully grown. Some mortals raise wyverns from birth, training them as flying mounts.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.drakeling",
+      "name": "Drakeling",
+      "monsterType": "Dragons",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 2,
+        "STL": 2,
+        "STR": 1,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Tiny cousins of true dragons, drakelings gather in swarms to take down larger prey. Only growing to the size of a hawk, drakelings are sometimes kept as pets or trained to hunt vermin. Though they lack the magical properties of true dragons, drakelings have sharp teeth and can be dangerous to travellers.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.titan",
+      "name": "Titan",
+      "monsterType": "Elementals",
+      "level": 44,
+      "hpMax": 68,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "catalyst",
+        "bold",
+        "deafening",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "potent",
+        "regeneration",
+        "staggering",
+        "tough"
+      ],
+      "skills": {
+        "STR": 10,
+        "WIS": 10,
+        "CHA": 10,
+        "INS": 10,
+        "PRW": 10
+      },
+      "abilities": [
+        "monAbility.elementals.titan.colossal",
+        "monAbility.elementals.titan.earthquake"
+      ],
+      "equipment": [],
+      "loreText": "Guardians of the pillar worlds, the titans maintain cosmic order and the cycle of mortality.",
+      "notes": [
+        "The titan has extra HP equal to its STR bonus."
+      ]
+    },
+    {
+      "id": "monster.elementals.kraken",
+      "name": "Kraken",
+      "monsterType": "Elementals",
+      "level": 34,
+      "hpMax": 43,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "gigantic",
+        "mighty",
+        "staggering"
+      ],
+      "skills": {
+        "STR": 10,
+        "STL": 9,
+        "INS": 7,
+        "CHA": 5,
+        "PRW": 5,
+        "WIS": 4
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Horrors from the darkest depths, krakens strike fear into the hearts of seafarers everywhere. Their many tentacled arms slither silently through dark waters, dragging anything that moves into the abyss.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.maelstrom_giant",
+      "name": "Maelstrom Giant",
+      "monsterType": "Elementals",
+      "level": 14,
+      "hpMax": 22,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "catalyst",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "phasewalking",
+        "potent"
+      ],
+      "skills": {
+        "WIS": 6,
+        "STR": 5,
+        "CHA": 4,
+        "INS": 3,
+        "PRW": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Maelstrom giants are the custodians of the aether, watching over the formless realm for all eternity. They are descended from Arxis, the primordial titan of light and darkness.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.vulcan_giant",
+      "name": "Vulcan Giant",
+      "monsterType": "Elementals",
+      "level": 14,
+      "hpMax": 22,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "brutal",
+        "fury",
+        "gigantic",
+        "mighty",
+        "tough"
+      ],
+      "skills": {
+        "STR": 8,
+        "WIS": 5,
+        "CHA": 4,
+        "PRW": 2,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Vulcan giants slumber among the mountains until their fiery rage is awoken, echoing across the land. They are descended from Proak, the primordial titan of earth and fire.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.tempest_giant",
+      "name": "Tempest Giant",
+      "monsterType": "Elementals",
+      "level": 14,
+      "hpMax": 23,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "deafening",
+        "flying",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty"
+      ],
+      "skills": {
+        "CHA": 5,
+        "STR": 5,
+        "WIS": 4,
+        "INS": 2,
+        "PRW": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Tempest giants sail through the skies, bringing storms in their wake. They are descended from Vugol, the primordial titan of air and water.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.phoenix",
+      "name": "Phoenix",
+      "monsterType": "Elementals",
+      "level": 13,
+      "hpMax": 23,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "flying",
+        "hazardous",
+        "magical",
+        "regeneration",
+        "unstable"
+      ],
+      "skills": {
+        "CHA": 6,
+        "PRW": 4,
+        "INS": 3,
+        "STR": 3,
+        "WIS": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Magical birds that soar on wings of flame, phoenixes represent rebirth.",
+      "notes": [
+        "When the phoenix dies, it is reborn from its ashes after 24 hours."
+      ]
+    },
+    {
+      "id": "monster.elementals.sea_serpent",
+      "name": "Sea Serpent",
+      "monsterType": "Elementals",
+      "level": 12,
+      "hpMax": 16,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "mighty",
+        "tough"
+      ],
+      "skills": {
+        "STR": 5,
+        "STL": 5,
+        "PRW": 4,
+        "INS": 3,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Within the oceans of the Pillar Worlds lurk gargantuan creatures with voracious appetites. Sea serpents pose an enormous risk to any seafaring vessels that pass through the wrong waters.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.great_worm",
+      "name": "Great Worm",
+      "monsterType": "Elementals",
+      "level": 7,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "gigantic",
+        "staggering",
+        "tough"
+      ],
+      "skills": {
+        "STR": 7,
+        "WIS": 3,
+        "PRW": 2,
+        "CHA": 1
+      },
+      "abilities": [
+        "monAbility.elementals.great_worm.tunnel"
+      ],
+      "equipment": [],
+      "loreText": "Immense burrowing beasts, great worms consume the remains of magical beings and digest them into fertile earth.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.air_spirit",
+      "name": "Air Spirit",
+      "monsterType": "Elementals",
+      "level": 6,
+      "hpMax": 14,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bold",
+        "deafening",
+        "ethereal",
+        "fast",
+        "flying",
+        "magical",
+        "mighty"
+      ],
+      "skills": {
+        "CHA": 4,
+        "STL": 3,
+        "PRW": 2,
+        "STR": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Air spirits carry the winds on their backs, heralding coming storms and the change of seasons.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.fire_spirit",
+      "name": "Fire Spirit",
+      "monsterType": "Elementals",
+      "level": 6,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "catalyst",
+        "hazardous",
+        "magical",
+        "overcharged",
+        "unstable",
+        "tough"
+      ],
+      "skills": {
+        "INS": 3,
+        "PRW": 3,
+        "WIS": 2,
+        "STR": 2,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Embodiments of pure flame, fire spirits may take many forms but are always dangerous.",
+      "notes": [
+        "Many magi seek to tame fire spirits, harnessing their destructive energy in battle.",
+        "Fire spirits can be useful in domestic life if properly cared for.",
+        "Water is effective against them; starving them of fuel/oxygen is a good way to defeat them."
+      ]
+    },
+    {
+      "id": "monster.elementals.water_spirit",
+      "name": "Water Spirit",
+      "monsterType": "Elementals",
+      "level": 6,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "magical",
+        "mighty",
+        "tough"
+      ],
+      "skills": {
+        "INS": 2,
+        "STL": 2,
+        "PRW": 2,
+        "STR": 2,
+        "WIS": 2,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Water spirits circulate life-giving energy throughout the pillar worlds. Their health is the health of the surrounding land, and a community that angers a water spirit risks drought or floods.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.earth_spirit",
+      "name": "Earth Spirit",
+      "monsterType": "Elementals",
+      "level": 6,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "gigantic",
+        "grounded",
+        "mighty",
+        "staggering",
+        "tough"
+      ],
+      "skills": {
+        "STR": 6,
+        "WIS": 4,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Earth spirits spend almost all of their time sleeping, and typically become a part of the surrounding environment.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.aurean",
+      "name": "Aurean",
+      "monsterType": "Elementals",
+      "level": 1,
+      "hpMax": 8,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "deafening",
+        "ethereal",
+        "fast",
+        "flying",
+        "magical"
+      ],
+      "skills": {
+        "CHA": 3,
+        "STL": 2,
+        "STR": 1,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Aureans are minor air elementals that live amongst the clouds.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.aquean",
+      "name": "Aquean",
+      "monsterType": "Elementals",
+      "level": 1,
+      "hpMax": 6,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "magical",
+        "mighty"
+      ],
+      "skills": {
+        "STR": 2,
+        "STL": 2,
+        "PRW": 1,
+        "INS": 1,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Aqueans are minor water spirits that live in ponds and streams.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.embrean",
+      "name": "Embrean",
+      "monsterType": "Elementals",
+      "level": 1,
+      "hpMax": 6,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "grounded",
+        "hazardous",
+        "magical",
+        "unstable"
+      ],
+      "skills": {
+        "INS": 2,
+        "WIS": 2,
+        "PRW": 2,
+        "CHA": 1
+      },
+      "abilities": [
+        "monAbility.elementals.embrean.smoldering_strike"
+      ],
+      "equipment": [],
+      "loreText": "Embreans are minor fire spirits that make their homes in lanterns, torches, and braziers.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.terrean",
+      "name": "Terrean",
+      "monsterType": "Elementals",
+      "level": 1,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "staggering",
+        "tough"
+      ],
+      "skills": {
+        "STR": 3,
+        "WIS": 2,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Terreans are minor earth elementals that live in caves, tunnels, and other subterranean places.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.grundling",
+      "name": "Grundling",
+      "monsterType": "Elementals",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "staggering"
+      ],
+      "skills": {
+        "STR": 1,
+        "WIS": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Grundlings are ravenous little beasts that devour crops, ruin roads, and weaken the foundations of buildings.",
+      "notes": [
+        "They can be dispelled by placing a salt circle around the affected region."
+      ]
+    },
+    {
+      "id": "monster.elementals.wilp",
+      "name": "Wilp",
+      "monsterType": "Elementals",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying"
+      ],
+      "skills": {
+        "STR": 1,
+        "WIS": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Wilps are flying pests who swoop and claw at unprotected mortals, stealing any shiny items they see.",
+      "notes": [
+        "They can be dispelled by sacrificing poultry."
+      ]
+    },
+    {
+      "id": "monster.elementals.znipe",
+      "name": "Znipe",
+      "monsterType": "Elementals",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "curse",
+        "magical"
+      ],
+      "skills": {
+        "STR": 1,
+        "WIS": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Znipes are little peeking shadows that curse mortals who meet their gaze.",
+      "notes": [
+        "They can be dispelled by burning ceremonial herbs."
+      ]
+    },
+    {
+      "id": "monster.fae.guardian_beast",
+      "name": "Guardian Beast",
+      "monsterType": "Fae",
+      "level": 44,
+      "hpMax": 54,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bold",
+        "fast",
+        "mana_hunger",
+        "observant",
+        "regeneration"
+      ],
+      "skills": {
+        "INS": 10,
+        "PRW": 10,
+        "STR": 8,
+        "WIS": 8,
+        "STL": 8,
+        "CHA": 6
+      },
+      "abilities": [
+        "monAbility.fae.guardian_beast.spirit_strike"
+      ],
+      "equipment": [],
+      "loreText": "Fae creatures of immense spiritual power, guardian beasts defend sacred wilderness. Guardian beasts take many forms, some of which are descended from the zodiac beasts who guide the flow of mortal spirits.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.unicorn",
+      "name": "Unicorn",
+      "monsterType": "Fae",
+      "level": 30,
+      "hpMax": 44,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "fast",
+        "magical",
+        "regeneration"
+      ],
+      "skills": {
+        "CHA": 10,
+        "INS": 8,
+        "WIS": 8,
+        "PRW": 4,
+        "STR": 4,
+        "STL": 2
+      },
+      "abilities": [
+        "monAbility.fae.unicorn.healing_touch"
+      ],
+      "equipment": [],
+      "loreText": "Among the first fae creatures to wander Eden's mystical wilds, unicorns represent purity. They have unparalleled healing abilities, and are coveted for their magical horns.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.moon_witch",
+      "name": "Moon Witch",
+      "monsterType": "Fae",
+      "level": 27,
+      "hpMax": 36,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "flying",
+        "grounded",
+        "magical",
+        "lifesteal",
+        "observant",
+        "phasewalking",
+        "potent",
+        "regeneration",
+        "shapeshifting",
+        "siphon",
+        "tough"
+      ],
+      "skills": {
+        "INS": 8,
+        "WIS": 7,
+        "STL": 6,
+        "CHA": 5,
+        "PRW": 4,
+        "STR": 3
+      },
+      "abilities": [
+        "monAbility.fae.moon_witch.bewitch"
+      ],
+      "equipment": [],
+      "loreText": "Fae magi of otherworldly beauty and grace, moon witches glow with the silver light of the night. They can enthrall mortals with a single glance, and are known to lure people into Eden.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.cave_troll",
+      "name": "Cave Troll",
+      "monsterType": "Fae",
+      "level": 22,
+      "hpMax": 29,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "brutal",
+        "fury",
+        "gigantic",
+        "mighty",
+        "observant",
+        "regeneration",
+        "tough"
+      ],
+      "skills": {
+        "STR": 10,
+        "INS": 7,
+        "PRW": 6,
+        "CHA": 3,
+        "STL": 1,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Cave trolls are the largest and toughest of their kind, thundering through deep caverns in search of fresh meat. They have keen noses that can pick up the scent of live prey from anywhere in their cave network.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.savari",
+      "name": "Savari",
+      "monsterType": "Fae",
+      "level": 19,
+      "hpMax": 27,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "corrupt",
+        "cruel",
+        "fast",
+        "magical",
+        "observant",
+        "shapeshifting",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STL": 5,
+        "INS": 5,
+        "CHA": 4,
+        "STR": 3,
+        "WIS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Savari are vicious fae monsters who trick mortals into entering Eden to devour them. Savari were once Sylvani who betrayed their oaths to the noble zodiac beasts in favour of the dark fae.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.woodland_troll",
+      "name": "Woodland Troll",
+      "monsterType": "Fae",
+      "level": 13,
+      "hpMax": 19,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "brutal",
+        "camouflage",
+        "fury",
+        "gigantic",
+        "regeneration",
+        "sneaky"
+      ],
+      "skills": {
+        "STR": 8,
+        "PRW": 4,
+        "INS": 2,
+        "CHA": 2,
+        "STL": 2,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Great lumbering brutes, woodland trolls love toying with mortals before gobbling them up. Moss and fungi grow from their back, allowing them to easily blend in with their surroundings.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.green_witch",
+      "name": "Green Witch",
+      "monsterType": "Fae",
+      "level": 12,
+      "hpMax": 19,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "corrupt",
+        "curse",
+        "flying",
+        "grounded",
+        "magical",
+        "shapeshifting"
+      ],
+      "skills": {
+        "WIS": 5,
+        "INS": 4,
+        "CHA": 3,
+        "STL": 3,
+        "PRW": 2,
+        "STR": 1
+      },
+      "abilities": [
+        "monAbility.fae.green_witch.polymorph"
+      ],
+      "equipment": [
+        {
+          "name": "Grimoire (Tome)",
+          "rulesText": ""
+        },
+        {
+          "name": "Gnarled Staff",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Green witches reside in bogs, woodlands, and other places of dark wilderness. They are known for placing curses on mortals and spawning new monsters.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.krikalith",
+      "name": "Krikalith",
+      "monsterType": "Fae",
+      "level": 11,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "cruel",
+        "sneaky",
+        "venomous"
+      ],
+      "skills": {
+        "STL": 5,
+        "PRW": 5,
+        "INS": 4,
+        "STR": 2,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Born in the darkest recesses of Eden, krikaliths sneak into the material world during the new moon. They are tall, brittle creatures who disguise themselves as dead trees.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.bridge_troll",
+      "name": "Bridge Troll",
+      "monsterType": "Fae",
+      "level": 9,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "brutal",
+        "fury",
+        "regeneration"
+      ],
+      "skills": {
+        "STR": 4,
+        "INS": 3,
+        "PRW": 3,
+        "STL": 2,
+        "CHA": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "A troll is born when a goblin devours a fairy, absorbing its concentrated fae magic. Bridge trolls are the smallest of trolls, but can still easily gobble up most travelers.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.werewolf",
+      "name": "Werewolf",
+      "monsterType": "Fae",
+      "level": 6,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "observant",
+        "shapeshifting",
+        "strategic",
+        "tough"
+      ],
+      "skills": {
+        "PRW": 4,
+        "STR": 3,
+        "INS": 2,
+        "STL": 2,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Werewolves are shapeshifting monsters who adopt a humanoid form to lure vulnerable mortals away from safety.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.satyr",
+      "name": "Satyr",
+      "monsterType": "Fae",
+      "level": 5,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold"
+      ],
+      "skills": {
+        "CHA": 3,
+        "INS": 3,
+        "PRW": 2,
+        "STL": 1,
+        "WIS": 1,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Panflute",
+          "rulesText": "The satyr gains advantage on its next skill check upon successful defense."
+        }
+      ],
+      "loreText": "Fae tricksters with horns and cloven hooves, satyrs spread revelry and mischief.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.centaur",
+      "name": "Centaur",
+      "monsterType": "Fae",
+      "level": 4,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast"
+      ],
+      "skills": {
+        "PRW": 3,
+        "INS": 2,
+        "STR": 2,
+        "WIS": 2,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Longbow",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Proud nomads who roam the fae realm of Eden, centaurs have the upper body of a human and the lower body of a horse.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.boruk",
+      "name": "Boruk",
+      "monsterType": "Fae",
+      "level": 3,
+      "hpMax": 8,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "mighty"
+      ],
+      "skills": {
+        "STR": 3,
+        "STL": 2,
+        "INS": 2,
+        "PRW": 1,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Furtive mountain monsters with curled horns, boruks have thick protective wool to survive in frigid conditions and strong arms for climbing steep crags.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.krebble",
+      "name": "Krebble",
+      "monsterType": "Fae",
+      "level": 2,
+      "hpMax": 6,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "tough"
+      ],
+      "skills": {
+        "STL": 2,
+        "PRW": 2,
+        "STR": 2,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Small shelled monsters, krebbles hide among rock formations to ambush passing prey.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.dryad",
+      "name": "Dryad",
+      "monsterType": "Fae",
+      "level": 1,
+      "hpMax": 6,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "magical",
+        "regeneration"
+      ],
+      "skills": {
+        "WIS": 2,
+        "INS": 2,
+        "CHA": 1,
+        "STR": 1,
+        "STL": 1
+      },
+      "abilities": [
+        "monAbility.fae.dryad.binding_brambles"
+      ],
+      "equipment": [],
+      "loreText": "Dryads are sentient plants that fortify and expand the wilderness.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.fairy",
+      "name": "Fairy",
+      "monsterType": "Fae",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "flying",
+        "phasewalking"
+      ],
+      "skills": {
+        "CHA": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Fairies are unborn spirits that visit the material world to be incarnated as a new mortal life. They serve the wise zodiac beasts in the fae realm of Eden.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.goblin",
+      "name": "Goblin",
+      "monsterType": "Fae",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 2,
+        "PRW": 1,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Fang knife",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Goblins are devious little tricksters who live to cheat, rob, and kill mortals. Goblins are corrupted fairies.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.primordial_wizard",
+      "name": "Primordial Wizard",
+      "monsterType": "Humanoids",
+      "level": 34,
+      "hpMax": 46,
+      "armourMax": 3,
+      "wardMax": 5,
+      "traits": [
+        "catalyst",
+        "enchanted",
+        "grounded",
+        "magical",
+        "mana_hunger",
+        "phasewalking",
+        "potent"
+      ],
+      "skills": {
+        "WIS": 10,
+        "INS": 10,
+        "CHA": 8,
+        "STL": 8,
+        "PRW": 4
+      },
+      "abilities": [
+        "monAbility.humanoids.primordial_wizard.aetherial_gateway"
+      ],
+      "equipment": [
+        {
+          "name": "Cosmic Robe",
+          "rulesText": "3 armour"
+        },
+        {
+          "name": "All-Seeing Amulet",
+          "rulesText": "5 ward"
+        },
+        {
+          "name": "Ancient Staff",
+          "rulesText": "+1 physical damage\n+1 magic damage"
+        },
+        {
+          "name": "Infinite Orb",
+          "rulesText": ""
+        },
+        {
+          "name": "Timeless Tome",
+          "rulesText": ""
+        }
+      ],
+      "loreText": "Humans were the first mortal beings to harness the arcane power of dragonblood, forever changing the cosmic balance. They began experimenting with magic before the gods ruled the heavens above, and unraveled the mysteries of the aether before death could ever claim them.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.scalari_tyrant",
+      "name": "Scalari Tyrant",
+      "monsterType": "Humanoids",
+      "level": 20,
+      "hpMax": 29,
+      "armourMax": 4,
+      "wardMax": 0,
+      "traits": [
+        "fury",
+        "grounded",
+        "hazardous",
+        "magical",
+        "overcharged",
+        "potent",
+        "tough",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 7,
+        "STR": 6,
+        "INS": 5,
+        "CHA": 5,
+        "WIS": 3
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Dragonblade",
+          "rulesText": "+2 physical damage\n+1 magic damage"
+        },
+        {
+          "name": "Dragonscale Shield",
+          "rulesText": "+4 to block"
+        },
+        {
+          "name": "Jagged Armour",
+          "rulesText": "4 armour"
+        }
+      ],
+      "loreText": "Scalari are bipedal dragons, born from human flesh and dragonblood. Though they lack wings, they take on many aspects of dragons, including their iron scales, ravenous fire, and terrifying wrath. Scalari make for powerful, domineering rulers, who command absolute devotion from every subject.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.kaoxi_dreamwalker",
+      "name": "Kaöxi Dreamwalker",
+      "monsterType": "Humanoids",
+      "level": 19,
+      "hpMax": 26,
+      "armourMax": 0,
+      "wardMax": 3,
+      "traits": [
+        "grounded",
+        "magical",
+        "phasewalking",
+        "potent"
+      ],
+      "skills": {
+        "INS": 6,
+        "WIS": 6,
+        "STL": 4,
+        "PRW": 4,
+        "CHA": 3,
+        "STR": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Aetherial Ward",
+          "rulesText": "3 ward"
+        },
+        {
+          "name": "Cosmic Orb",
+          "rulesText": ""
+        }
+      ],
+      "loreText": "Moulded from chaos and quenched in the void, the Kaoxi toy with fate in the formless aether. Their mystical third eye peers deep into the realm of dreams, and their innate mastery of magic is legendary.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.sylvani_sovereign",
+      "name": "Sylvani Sovereign",
+      "monsterType": "Humanoids",
+      "level": 18,
+      "hpMax": 26,
+      "armourMax": 0,
+      "wardMax": 2,
+      "traits": [
+        "agile",
+        "fast",
+        "magical",
+        "observant",
+        "shapeshifting"
+      ],
+      "skills": {
+        "PRW": 6,
+        "INS": 5,
+        "STL": 4,
+        "CHA": 4,
+        "WIS": 3,
+        "STR": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Lunar Ward",
+          "rulesText": "2 ward"
+        },
+        {
+          "name": "Verdant Cloak",
+          "rulesText": "The Sylvani sovereign gains advantage on its next skill check upon successful defense."
+        },
+        {
+          "name": "Lunar Longbow",
+          "rulesText": "+2 physical damage"
+        }
+      ],
+      "loreText": "Children of Eden, the Sylvani are blessed by the moon's silver embrace. Slender and graceful, they step in stride with primordial beasts. Ancient Sylvani rule over fae courts in Eden, representing each of the zodiac beasts that shape the future.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.ragori_bloodfiend",
+      "name": "Ragori Bloodfiend",
+      "monsterType": "Humanoids",
+      "level": 16,
+      "hpMax": 24,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "cruel",
+        "strategic",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STR": 5,
+        "STL": 4,
+        "CHA": 4,
+        "INS": 3
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Ruby Blade",
+          "rulesText": "+2 physical damage\n+2 magic damage"
+        }
+      ],
+      "loreText": "Demigods of war, the Ragori live and die by the drumbeat of conquest. They feast upon the blood of their enemies, taking on the strengths of their favoured prey. Ragori who feed exclusively on one type of blood may transform into different creatures entirely, such as orcs, ogres, or vampires. Bloodfiends are those who hunt down the mightiest creatures in the land to drink their blood and absorb their power.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.vanori_shadebringer",
+      "name": "Vanori Shadebringer",
+      "monsterType": "Humanoids",
+      "level": 14,
+      "hpMax": 19,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "curse",
+        "lifesteal",
+        "magical",
+        "siphon",
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 5,
+        "INS": 4,
+        "WIS": 4,
+        "PRW": 4,
+        "STR": 2,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Shade Cloak",
+          "rulesText": "The Vanori shadebringer gains advantage on its next skill check upon successful defense."
+        },
+        {
+          "name": "Pale Staff",
+          "rulesText": ""
+        }
+      ],
+      "loreText": "Demigods of time, the Vanori feed on death and desolation. While some Vanori isolate themselves from society, others actively bring about catastrophes to harvest dark power. So-called shadebringers call upon the forces of pestilence and plague, spreading mass death among mortal populations.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.homunculus_headhunter",
+      "name": "Homunculus Headhunter",
+      "monsterType": "Humanoids",
+      "level": 13,
+      "hpMax": 17,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "enchanted",
+        "tough",
+        "unstable"
+      ],
+      "skills": {
+        "STR": 5,
+        "WIS": 4,
+        "PRW": 4,
+        "INS": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Artificial life created by mortal magi, homunculi are an affront to the gods. Their arcane minds can process information at unparalleled speeds, but their behaviour is limited by the imagination of their creators. Those that are designed to hunt down and retrieve people are known as headhunters, and are widely feared for their single-minded efficiency.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.astari_seer",
+      "name": "Astari Seer",
+      "monsterType": "Humanoids",
+      "level": 11,
+      "hpMax": 16,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "magical",
+        "sneaky"
+      ],
+      "skills": {
+        "WIS": 4,
+        "STL": 4,
+        "INS": 4,
+        "PRW": 3,
+        "STR": 1,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Crystal Orb",
+          "rulesText": ""
+        }
+      ],
+      "loreText": "Children of the stars, the Astari see far beyond the borders of reality.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.legnai_crusader",
+      "name": "Legnai Crusader",
+      "monsterType": "Humanoids",
+      "level": 10,
+      "hpMax": 18,
+      "armourMax": 3,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "magical"
+      ],
+      "skills": {
+        "STR": 4,
+        "CHA": 4,
+        "PRW": 3,
+        "WIS": 3,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Golden Mace",
+          "rulesText": "+1 physical damage\n+1 magic damage"
+        },
+        {
+          "name": "Golden Armour",
+          "rulesText": "3 armour"
+        },
+        {
+          "name": "Golden Shield",
+          "rulesText": "+2 to block"
+        }
+      ],
+      "loreText": "Demigods of honour, the Legnai seek out and destroy injustice. They fly into battle on gilded wings, smiting their foes with righteous fury.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.orc_chieftain",
+      "name": "Orc Chieftain",
+      "monsterType": "Humanoids",
+      "level": 9,
+      "hpMax": 16,
+      "armourMax": 1,
+      "wardMax": 0,
+      "traits": [
+        "brutal",
+        "fury",
+        "vengeful"
+      ],
+      "skills": {
+        "STR": 4,
+        "PRW": 4,
+        "INS": 3,
+        "CHA": 3,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Morningstar",
+          "rulesText": "+1 physical damage"
+        },
+        {
+          "name": "Crude Plate Armour",
+          "rulesText": "1 armour"
+        }
+      ],
+      "loreText": "Orcs are commanded by the strongest and meanest among them. Though they are not the most cunning leaders, orc chieftains are often able to coerce beasts and lesser monsters into their service with brute force.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.ogre",
+      "name": "Ogre",
+      "monsterType": "Humanoids",
+      "level": 8,
+      "hpMax": 17,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "gigantic",
+        "mighty"
+      ],
+      "skills": {
+        "STR": 7,
+        "CHA": 5,
+        "PRW": 1,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Club",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Ogres are massive brutes with enormous strength and an appetite to match. They are descended from a Ragori clan that fed exclusively on trolls, who lost in intelligence what they gained in strength. Ogres are incredibly dangerous, but are very easy to confuse and deceive.",
+      "notes": [
+        "The ogre has disadvantage on all WIS checks."
+      ]
+    },
+    {
+      "id": "monster.humanoids.gobanni_runesmith",
+      "name": "Gobanni Runesmith",
+      "monsterType": "Humanoids",
+      "level": 7,
+      "hpMax": 13,
+      "armourMax": 3,
+      "wardMax": 0,
+      "traits": [
+        "enchanted",
+        "mighty",
+        "magical"
+      ],
+      "skills": {
+        "WIS": 4,
+        "STR": 3,
+        "CHA": 2,
+        "INS": 2,
+        "PRW": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Runeforged Armour",
+          "rulesText": "3 armour"
+        },
+        {
+          "name": "Runeforged Hammer",
+          "rulesText": "+1 physical damage\n+1 magical damage"
+        }
+      ],
+      "loreText": "Demigods of craft, the Gobanni instill their works with eternal beauty. They are masters of enchantment, inscribing runes of power into their every creation.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.boreani_windspeaker",
+      "name": "Boreani Windspeaker",
+      "monsterType": "Humanoids",
+      "level": 6,
+      "hpMax": 14,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "deafening",
+        "fast",
+        "flying"
+      ],
+      "skills": {
+        "CHA": 4,
+        "PRW": 3,
+        "INS": 2,
+        "STL": 2,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Spear",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Sculpted from clouds and bestowed with a voice of rushing wind, the Boreani dance across the seas and skies. Those who guide the coming storm are known as windspeakers, singing the song of the tempest.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.luminari_monk",
+      "name": "Luminari Monk",
+      "monsterType": "Humanoids",
+      "level": 5,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 2,
+      "traits": [
+        "magical",
+        "observant"
+      ],
+      "skills": {
+        "INS": 3,
+        "CHA": 3,
+        "WIS": 2,
+        "STR": 2,
+        "PRW": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Gilded Tome",
+          "rulesText": ""
+        },
+        {
+          "name": "Solar Amulet",
+          "rulesText": "2 ward"
+        }
+      ],
+      "loreText": "Radiant souls reincarnated by the sun's mercy, the Luminari bring light to dark places. Their golden gaze illuminates their surroundings, casting away corruption wherever they look. Many Luminari become wandering monks, who travel the pillar worlds in search of greater enlightenment.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.undori_ironheart",
+      "name": "Undori Ironheart",
+      "monsterType": "Humanoids",
+      "level": 4,
+      "hpMax": 14,
+      "armourMax": 2,
+      "wardMax": 0,
+      "traits": [
+        "fury",
+        "overcharged"
+      ],
+      "skills": {
+        "STR": 3,
+        "CHA": 3,
+        "WIS": 3,
+        "PRW": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Iron Platemail",
+          "rulesText": "2 armour"
+        },
+        {
+          "name": "Iron Shield",
+          "rulesText": "+2 to block"
+        },
+        {
+          "name": "Iron Warhammer",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Forged from stone and fire, the Undori are guardians of the earth. Though their disposition is normally jovial, those who threaten the subterranean homes of the Undori may witness the rumbling inferno within. Those who are sworn to defend their underground domain are known as Ironhearts, and are staunch protectors.",
+      "notes": [
+        "The Undori ironheart has extra HP equal to its STR bonus."
+      ]
+    },
+    {
+      "id": "monster.humanoids.aiagi_shepherd",
+      "name": "Aiagi Shepherd",
+      "monsterType": "Humanoids",
+      "level": 3,
+      "hpMax": 10,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "regeneration"
+      ],
+      "skills": {
+        "CHA": 3,
+        "INS": 2,
+        "WIS": 2,
+        "STL": 1,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Harp",
+          "rulesText": "The Aiagi shepherd gains advantage on its next skill check upon successful defense."
+        }
+      ],
+      "loreText": "Demigods of love, the Aiagi care for peaceful places. Their enchanting song soothes the spirit, and their hearts overflow with life.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.livedi_troubadour",
+      "name": "Livedi Troubadour",
+      "monsterType": "Humanoids",
+      "level": 2,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "corrupt",
+        "sneaky"
+      ],
+      "skills": {
+        "CHA": 3,
+        "STL": 2,
+        "PRW": 2,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Jeering Mask",
+          "rulesText": "The Livedi troubadour gains advantage on its next skill check upon successful defense."
+        },
+        {
+          "name": "Emerald Dagger",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Demigods of trickery, the Livedi delight in causing drama. Many of them travel in nomadic bands, stirring up trouble wherever they go. They lure naive villagers in with music and performances, then loosen them up with drink. Once their guests are pliable, the Livedi coax out each visitor's secrets and then spread them throughout the village. By the time the community collapses, the troupe of Livedi is already on the road to the next town.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.orc",
+      "name": "Orc",
+      "monsterType": "Humanoids",
+      "level": 1,
+      "hpMax": 6,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "brutal"
+      ],
+      "skills": {
+        "STR": 2,
+        "PRW": 2,
+        "INS": 1,
+        "STL": 1,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Crude Cudgel",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Orcs are brutish raiders who live for conquest and bloodshed. Orcs are descended from Ragori who fed exclusively on goblins, and often work closely with their fae cousins. Most orcs are dim-witted, but make up for their stupidity with strength and ferocity. Orcs multiply quickly when feasting on mortals, and are often used as infantry by evil leaders.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.human_bandit",
+      "name": "Human Bandit",
+      "monsterType": "Humanoids",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [],
+      "skills": {
+        "PRW": 1,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Iron Dagger",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Bandits are the lowest form of humanity, living only by the primal laws of might and fear. They rob, swindle, and kill any unarmed traveler unfortunate enough to cross their path, but often flee the moment a capable opponent arrives.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.demon",
+      "name": "Demon",
+      "monsterType": "Infernals",
+      "level": 30,
+      "hpMax": 37,
+      "armourMax": 2,
+      "wardMax": 2,
+      "traits": [
+        "cruel",
+        "curse",
+        "flying",
+        "gigantic",
+        "hazardous",
+        "magical",
+        "potent",
+        "vengeful"
+      ],
+      "skills": {
+        "STR": 10,
+        "PRW": 8,
+        "INS": 6,
+        "STL": 5,
+        "WIS": 4,
+        "CHA": 3
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Ruby Blade",
+          "rulesText": "+2 physical damage\n+2 magic damage"
+        },
+        {
+          "name": "Black Iron Armour",
+          "rulesText": "2 armour"
+        },
+        {
+          "name": "Black Iron Pentagram",
+          "rulesText": "2 ward"
+        }
+      ],
+      "loreText": "Beings of pure cruelty, demons feed on mortal suffering.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.phobiarus",
+      "name": "Phobiarus",
+      "monsterType": "Infernals",
+      "level": 26,
+      "hpMax": 38,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "corrupt",
+        "cruel",
+        "curse",
+        "enchanted",
+        "ethereal",
+        "phasewalking",
+        "siphon"
+      ],
+      "skills": {
+        "CHA": 8,
+        "WIS": 6,
+        "INS": 5,
+        "STL": 5,
+        "PRW": 4,
+        "STR": 4
+      },
+      "abilities": [
+        "monAbility.infernals.phobiarus.nightmare"
+      ],
+      "equipment": [],
+      "loreText": "Phobiari are embodiments of fear, terrorizing mortals with visions of agony and loss.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.behemoth",
+      "name": "Behemoth",
+      "monsterType": "Infernals",
+      "level": 23,
+      "hpMax": 33,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "gigantic",
+        "mighty",
+        "observant",
+        "staggering",
+        "vengeful"
+      ],
+      "skills": {
+        "STR": 9,
+        "CHA": 6,
+        "INS": 6,
+        "PRW": 5,
+        "WIS": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Enormous terrestrial monstrosities, behemoths charge through the hells leaving destruction in their wake. They have many eyes, many mouths, many horns, and many legs, striking wildly in every direction.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.megurus",
+      "name": "Megurus",
+      "monsterType": "Infernals",
+      "level": 20,
+      "hpMax": 28,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "cruel",
+        "gigantic",
+        "overcharged"
+      ],
+      "skills": {
+        "PRW": 7,
+        "STR": 6,
+        "INS": 5,
+        "CHA": 4,
+        "STL": 4
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Bladed Chain",
+          "rulesText": "+2 physical damage"
+        }
+      ],
+      "loreText": "Murderous spawn of the gods of war, meguri know nothing but bloodshed. Their jagged teeth run all the way down their torso, their mouths unfurling to devour their enemies whole. Grasping hands reach from their gaping maws, dragging nearby mortals in.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.vizirus",
+      "name": "Vizirus",
+      "monsterType": "Infernals",
+      "level": 18,
+      "hpMax": 28,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "corrupt",
+        "curse",
+        "enchanted",
+        "magical",
+        "phasewalking",
+        "sneaky",
+        "vengeful"
+      ],
+      "skills": {
+        "CHA": 6,
+        "STL": 5,
+        "PRW": 4,
+        "STR": 3,
+        "WIS": 3,
+        "INS": 3
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Tattered Cloak",
+          "rulesText": "The viziri gains advantage on its next skill check upon successful defense."
+        }
+      ],
+      "loreText": "Masked monsters who appear in mirrors, the viziri latch on to those whose secrecy harms others. They wear cloaks of tattered parchment, which conceal their countless crooked arms.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.devil",
+      "name": "Devil",
+      "monsterType": "Infernals",
+      "level": 14,
+      "hpMax": 23,
+      "armourMax": 0,
+      "wardMax": 1,
+      "traits": [
+        "bold",
+        "corrupt",
+        "curse",
+        "flying",
+        "magical",
+        "shapeshifting"
+      ],
+      "skills": {
+        "CHA": 5,
+        "STL": 5,
+        "PRW": 3,
+        "INS": 3,
+        "STR": 2,
+        "WIS": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Cursed Fiddle",
+          "rulesText": "The devil gains advantage on its next skill check upon successful defense."
+        },
+        {
+          "name": "Black Iron Amulet",
+          "rulesText": "1 ward"
+        }
+      ],
+      "loreText": "Devils are malevolent tricksters who tempt mortals with crooked deals and costly pleasures. Created by the gods of trickery, devils covet mortal souls above all else.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.gularus",
+      "name": "Gularus",
+      "monsterType": "Infernals",
+      "level": 11,
+      "hpMax": 19,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "brutal",
+        "mana_hunger"
+      ],
+      "skills": {
+        "STR": 4,
+        "CHA": 4,
+        "WIS": 3,
+        "INS": 3,
+        "PRW": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Bloated masses of pockmarked flesh, gulari are embodiments of gluttony. They consume any living thing they can get their grubby hands on, as well as magical energy.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.balphora",
+      "name": "Balphora",
+      "monsterType": "Infernals",
+      "level": 7,
+      "hpMax": 13,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "cruel",
+        "venomous"
+      ],
+      "skills": {
+        "PRW": 3,
+        "INS": 3,
+        "STR": 2,
+        "CHA": 2,
+        "WIS": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Black Iron Lash",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Goat-headed demons, balphora are the footsoldiers of the infernal legions. They are reincarnations of wicked mortals, and love to cause pain. They wield lashes dripping in agonizing venom, torturing those they strike from the inside out.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.furus",
+      "name": "Furus",
+      "monsterType": "Infernals",
+      "level": 6,
+      "hpMax": 13,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fury",
+        "overcharged",
+        "vengeful"
+      ],
+      "skills": {
+        "STR": 3,
+        "CHA": 3,
+        "PRW": 2,
+        "INS": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Black Iron Battleaxe",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Embodiments of wrath, furi are savage warriors whose veins run with burning magma. They lash out at everything around them, driven to madness by their eternal rage.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.invirus",
+      "name": "Invirus",
+      "monsterType": "Infernals",
+      "level": 5,
+      "hpMax": 10,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "lifesteal",
+        "siphon"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STL": 3,
+        "INS": 2,
+        "STR": 1,
+        "WIS": 1,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Vindictive monsters with long, reaching arms, inviri are embodiments of envy. They feed on emotional attachment, and steal items of sentimental value. Their grasping claws drain the life and spiritual fortitude from their victims, transferring it to the Invirus.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.superus",
+      "name": "Superus",
+      "monsterType": "Infernals",
+      "level": 4,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "enchanted",
+        "magical",
+        "shapeshifting"
+      ],
+      "skills": {
+        "CHA": 3,
+        "STL": 2,
+        "INS": 2,
+        "PRW": 2,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Arrogant and disdainful monsters, superi are embodiments of pride. While their true form is small and weak, they adopt a resplendent disguise to intimidate their victims. Superi feed on feelings of inferiority, and demand submission from mortals. Though they appear to be extremely dangerous, mortals who stand up to superi may find them to be less of a threat than they initially seem.",
+      "notes": [
+        "The superus can only use its shapeshifting trait while at full HP."
+      ]
+    },
+    {
+      "id": "monster.infernals.hellhound",
+      "name": "Hellhound",
+      "monsterType": "Infernals",
+      "level": 3,
+      "hpMax": 8,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "cruel",
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STR": 2,
+        "INS": 2,
+        "STL": 1,
+        "CHA": 1
+      },
+      "abilities": [
+        "monAbility.infernals.hellhound.burning_fangs"
+      ],
+      "equipment": [],
+      "loreText": "Monstrous beasts whose snapping maws burn with hellfire, hellhounds serve as guardians and trackers for more powerful infernals.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.blood_eel",
+      "name": "Blood Eel",
+      "monsterType": "Infernals",
+      "level": 2,
+      "hpMax": 6,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "cruel",
+        "lifesteal"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STL": 3,
+        "STR": 1,
+        "INS": 1
+      },
+      "abilities": [
+        "monAbility.infernals.blood_eel.blood_burrow"
+      ],
+      "equipment": [],
+      "loreText": "Horrific slithering monstrosities, blood eels are many people's worst nightmare. Like enormous leeches, they have concentric rings of jagged teeth and an instinctual thirst for blood. They latch onto their prey, burrowing into their flesh to lay eggs.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.avarus",
+      "name": "Avarus",
+      "monsterType": "Infernals",
+      "level": 1,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "corrupt"
+      ],
+      "skills": {
+        "PRW": 2,
+        "CHA": 2,
+        "STL": 2,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Embodiments of greed, avari are jeering monsters that plague those who withhold their wealth from the needy. Their whispered mockery is known to drive their victims to madness.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.imp",
+      "name": "Imp",
+      "monsterType": "Infernals",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "deafening",
+        "flying"
+      ],
+      "skills": {
+        "CHA": 1,
+        "STL": 1,
+        "PRW": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Barbed Needle",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Imps are damned souls reincarnated as devious winged monsters. Though they are a nuisance on their own, Imps often gather in large swarms that can strip all the flesh from a person's bones in a matter of minutes. Imps emit an ear-splitting sonic screech to attract more of their kind and disorient their prey. The screech of a single imp is painful, but the collective screeching of an entire swarm can kill.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.elder_vampire",
+      "name": "Elder Vampire",
+      "monsterType": "Undead",
+      "level": 34,
+      "hpMax": 46,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "corrupt",
+        "flying",
+        "lifesteal",
+        "magical",
+        "observant",
+        "phasewalking",
+        "shapeshifting",
+        "siphon",
+        "sneaky",
+        "tough"
+      ],
+      "skills": {
+        "STL": 10,
+        "CHA": 8,
+        "INS": 8,
+        "PRW": 5,
+        "WIS": 5,
+        "STR": 4
+      },
+      "abilities": [
+        "monAbility.undead.vampire.blood_drain",
+        "monAbility.undead.elder_vampire.hypnosis"
+      ],
+      "equipment": [
+        {
+          "name": "Shadow Cloak",
+          "rulesText": "The elder vampire gains advantage on its next skill check upon successful defense."
+        }
+      ],
+      "loreText": "Over the course of centuries spent feeding upon mortals, vampires grow and master their dark powers. Elder vampires reign over empires of shadow, commanding the very night itself.",
+      "notes": [
+        "The elder vampire takes 6 magic damage if it ends its turn in direct sunlight.",
+        "Instead of restoring HP, healing effects deal magic damage to the elder vampire equal to the amount of HP that would have been restored.",
+        "Blood Drain (STL vs. INS; range reach): 4 physical damage and the target loses a skill check on its next turn."
+      ]
+    },
+    {
+      "id": "monster.undead.reaper",
+      "name": "Reaper",
+      "monsterType": "Undead",
+      "level": 29,
+      "hpMax": 38,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bloodthirsty",
+        "curse",
+        "magical",
+        "potent",
+        "vengeful"
+      ],
+      "skills": {
+        "WIS": 8,
+        "STL": 6,
+        "PRW": 6,
+        "INS": 5,
+        "STR": 5,
+        "CHA": 5
+      },
+      "abilities": [
+        "monAbility.undead.reaper.dark_harvest"
+      ],
+      "equipment": [
+        {
+          "name": "Obsidian Scythe",
+          "rulesText": "+2 physical damage\n+2 magic damage"
+        }
+      ],
+      "loreText": "Skeletal masters of necromancy, reapers feast on the souls of the living and raise armies of the dead.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.vampire_lord",
+      "name": "Vampire Lord",
+      "monsterType": "Undead",
+      "level": 20,
+      "hpMax": 29,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "corrupt",
+        "flying",
+        "lifesteal",
+        "magical",
+        "observant",
+        "sneaky",
+        "tough"
+      ],
+      "skills": {
+        "STL": 6,
+        "CHA": 5,
+        "PRW": 5,
+        "STR": 4,
+        "INS": 3,
+        "WIS": 3
+      },
+      "abilities": [
+        "monAbility.undead.vampire.blood_drain"
+      ],
+      "equipment": [],
+      "loreText": "Vampires follow a hierarchy based on age and dark power. Vampire lords are those who have infected numerous others with their dark curse, and spent decades developing their bond with darkness.",
+      "notes": [
+        "The vampire lord takes 6 magic damage if it ends its turn in direct sunlight.",
+        "Instead of restoring HP, healing effects deal magic damage to the vampire lord equal to the amount of HP that would have been restored.",
+        "Blood Drain (STL vs. INS; range reach; only against an enemy within reach that it has advantage against): 4 physical damage and the target loses a skill check on its next turn."
+      ]
+    },
+    {
+      "id": "monster.undead.mummy",
+      "name": "Mummy",
+      "monsterType": "Undead",
+      "level": 18,
+      "hpMax": 27,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "curse",
+        "deafening",
+        "magical"
+      ],
+      "skills": {
+        "WIS": 5,
+        "CHA": 5,
+        "INS": 4,
+        "STL": 4,
+        "PRW": 3,
+        "STR": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Preserved remains of ancient rulers, mummies awaken to curse those who would desecrate their tombs. Their raspy incantation is the last thing many grave robbers hear.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.hollow",
+      "name": "Hollow",
+      "monsterType": "Undead",
+      "level": 12,
+      "hpMax": 16,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "siphon",
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 6,
+        "PRW": 4,
+        "INS": 4,
+        "WIS": 2,
+        "STR": 2
+      },
+      "abilities": [
+        "monAbility.undead.hollow.soul_snatcher"
+      ],
+      "equipment": [],
+      "loreText": "Those who have their souls stolen by dark magic may become hollows. Their bodies become twisted and their faces are stretched into horrific masks. Hollows have an eternal hunger for mortal life, but they can never fill the void within.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.knight_shade",
+      "name": "Knight Shade",
+      "monsterType": "Undead",
+      "level": 10,
+      "hpMax": 19,
+      "armourMax": 3,
+      "wardMax": 0,
+      "traits": [
+        "lifesteal"
+      ],
+      "skills": {
+        "PRW": 5,
+        "STR": 4,
+        "CHA": 3,
+        "STL": 3,
+        "INS": 2
+      },
+      "abilities": [
+        "monAbility.undead.knight_shade.dead_legion"
+      ],
+      "equipment": [
+        {
+          "name": "Obsidian Armour",
+          "rulesText": "3 armour"
+        },
+        {
+          "name": "Obsidian Shield",
+          "rulesText": "+3 to block"
+        },
+        {
+          "name": "Obsidian Blade",
+          "rulesText": "+2 physical damage\n+1 magic damage"
+        }
+      ],
+      "loreText": "Noble warriors brought back to fight once more, knight shades lead legions of undead monsters.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.fleshweaver",
+      "name": "Fleshweaver",
+      "monsterType": "Undead",
+      "level": 8,
+      "hpMax": 14,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "enchanted",
+        "magical"
+      ],
+      "skills": {
+        "WIS": 3,
+        "STR": 3,
+        "INS": 2,
+        "PRW": 2,
+        "STL": 2,
+        "CHA": 2
+      },
+      "abilities": [
+        "monAbility.undead.fleshweaver.create_wight"
+      ],
+      "equipment": [],
+      "loreText": "Four-armed Gobanni resurrected by dark magic, fleshweavers excel at creating new undead.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.vampire",
+      "name": "Vampire",
+      "monsterType": "Undead",
+      "level": 6,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty",
+        "corrupt",
+        "lifesteal",
+        "sneaky",
+        "tough"
+      ],
+      "skills": {
+        "STL": 3,
+        "PRW": 3,
+        "STR": 2,
+        "CHA": 2,
+        "INS": 2
+      },
+      "abilities": [
+        "monAbility.undead.vampire.blood_drain"
+      ],
+      "equipment": [],
+      "loreText": "Bloodthirsty shadows, vampires cheat death by draining mortals of their vitality. It is said that the first vampires were born when the bloodthirsty Ragori, demi-gods of war, fed on the ill-omened Vanori, demi-gods of time. The combined powers of these two accursed bloodlines fused to create one of the most dreaded monsters to ever stalk the night. Vampirism is contagious, and those who survive a vampire bite inherit the curse. Not every mortal bloodline is equally susceptible to vampirism, and some can stave off its effects after a bout of illness. Luminari are particularly resistant to vampirism due to their close connection to the sun. On the opposite end of the spectrum, Ragori and Vanori are both especially vulnerable to vampirism, and can become especially powerful if they embrace their dark gifts.",
+      "notes": [
+        "The vampire takes 6 magic damage if it ends its turn in direct sunlight.",
+        "Instead of restoring HP, healing effects deal magic damage to the vampire equal to the amount of HP that would have been restored.",
+        "Blood Drain (STL vs. INS; range reach; only against an enemy within reach that it has advantage against): 2 physical damage and the target loses a skill check on its next turn."
+      ]
+    },
+    {
+      "id": "monster.undead.wraith",
+      "name": "Wraith",
+      "monsterType": "Undead",
+      "level": 5,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "curse",
+        "ethereal",
+        "lifesteal",
+        "magical",
+        "siphon"
+      ],
+      "skills": {
+        "INS": 3,
+        "STL": 3,
+        "CHA": 3,
+        "WIS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Tormented souls stolen from the afterlife, wraiths radiate shadowy malice.",
+      "notes": [
+        "Instead of restoring HP, healing effects deal magic damage to the wraith equal to the amount of HP that would have been restored."
+      ]
+    },
+    {
+      "id": "monster.undead.wight",
+      "name": "Wight",
+      "monsterType": "Undead",
+      "level": 4,
+      "hpMax": 9,
+      "armourMax": 2,
+      "wardMax": 0,
+      "traits": [
+        "siphon"
+      ],
+      "skills": {
+        "PRW": 2,
+        "STR": 2,
+        "STL": 2,
+        "INS": 2,
+        "CHA": 1,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Chainmail Armour",
+          "rulesText": "2 armour"
+        },
+        {
+          "name": "Longsword",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Born of dark bloodletting rituals, wights are created by necromancers to serve as tireless warriors. They are not driven by the same mindless hunger as ghouls, and are easier for their dark masters to control. Their unholy strikes tear at their enemies' spirits, sapping their mana.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.banshee",
+      "name": "Banshee",
+      "monsterType": "Undead",
+      "level": 3,
+      "hpMax": 10,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "corrupt",
+        "deafening",
+        "ethereal"
+      ],
+      "skills": {
+        "CHA": 3,
+        "STL": 2,
+        "WIS": 2,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Vengeful spirits, banshees emit a piercing wail that drains the body and weakens the soul.",
+      "notes": [
+        "Instead of restoring HP, healing effects deal magic damage to the banshee equal to the amount of HP that would have been restored."
+      ]
+    },
+    {
+      "id": "monster.undead.skeleton",
+      "name": "Skeleton",
+      "monsterType": "Undead",
+      "level": 2,
+      "hpMax": 5,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STL": 2,
+        "INS": 2,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Rusted blade",
+          "rulesText": "+1 physical damage"
+        },
+        {
+          "name": "Rotted bow",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Unburdened bone imbued with bound souls, undead skeletons are quick and agile warriors.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.ghost",
+      "name": "Ghost",
+      "monsterType": "Undead",
+      "level": 1,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "ethereal",
+        "phasewalking"
+      ],
+      "skills": {
+        "INS": 2,
+        "CHA": 2,
+        "STL": 2,
+        "PRW": 1
+      },
+      "abilities": [
+        "monAbility.undead.ghost.draining_cold"
+      ],
+      "equipment": [],
+      "loreText": "Lost souls with unfinished business, ghosts haunt the sites of their greatest suffering.",
+      "notes": [
+        "Instead of restoring HP, healing effects deal magic damage to the ghost equal to the amount of HP that would have been restored."
+      ]
+    },
+    {
+      "id": "monster.undead.scuttler",
+      "name": "Scuttler",
+      "monsterType": "Undead",
+      "level": 0,
+      "hpMax": 2,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "fast"
+      ],
+      "skills": {
+        "PRW": 2,
+        "STL": 2,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Sinewy corpses that crawl with unnerving speed, scuttlers attack mortals in swarms.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.ghoul",
+      "name": "Ghoul",
+      "monsterType": "Undead",
+      "level": 0,
+      "hpMax": 3,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bloodthirsty"
+      ],
+      "skills": {
+        "STR": 2,
+        "PRW": 1,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Ghouls are twisted corpses given false life by corrupt magic. They have an insatiable hunger for mortal flesh, and mindlessly pursue the living.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.land_spirit",
+      "name": "Land Spirit",
+      "monsterType": "Elementals",
+      "level": 22,
+      "hpMax": 38,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "potent",
+        "regeneration",
+        "staggering",
+        "tough"
+      ],
+      "skills": {
+        "STR": 10,
+        "WIS": 8,
+        "CHA": 6,
+        "PRW": 2,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Land spirits hold the very earth aloft, shaping the ground from which all life grows. They produce earth spirits and terreans to nourish and protect natural lands, fostering the conditions for life. Land spirits take on many forms, such as enormous turtles, elephants, or totems.",
+      "notes": [
+        "The land spirit has extra HP equal to its STR bonus."
+      ]
+    },
+    {
+      "id": "monster.elementals.sea_spirit",
+      "name": "Sea Spirit",
+      "monsterType": "Elementals",
+      "level": 21,
+      "hpMax": 28,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "ethereal",
+        "fast",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "potent",
+        "regeneration",
+        "staggering"
+      ],
+      "skills": {
+        "STR": 8,
+        "WIS": 6,
+        "PRW": 4,
+        "STL": 3,
+        "INS": 3,
+        "CHA": 3
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Sea spirits shape entire oceans, steering the course of the currents and driving the heartbeat of the tides. They create water spirits and aqueans to animate the waters of the pillar worlds, upholding the natural cycle of rain, rivers, and seas. Sea spirits often resemble the marine animals that they share their waters with, but they are colossal and glow with elemental magic.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.sky_spirit",
+      "name": "Sky Spirit",
+      "monsterType": "Elementals",
+      "level": 20,
+      "hpMax": 30,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "camouflage",
+        "deafening",
+        "ethereal",
+        "fast",
+        "flying",
+        "gigantic",
+        "grounded",
+        "mighty",
+        "regeneration"
+      ],
+      "skills": {
+        "CHA": 6,
+        "STR": 6,
+        "WIS": 5,
+        "INS": 4,
+        "PRW": 3,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Sky spirits guide the winds, shape the clouds, and display the shifting cosmos to the land below. Sky spirits give rise to air spirits and aureans, leading the elemental forces of wind and air in their primordial dance across the sky. Normally invisible to mortals, sky spirits only take on a physical form to confront existential threats to the skies.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.winter_spirit",
+      "name": "Winter Spirit",
+      "monsterType": "Elementals",
+      "level": 5,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "deafening",
+        "magical",
+        "potent",
+        "siphon",
+        "staggering"
+      ],
+      "skills": {
+        "STR": 2,
+        "CHA": 2,
+        "WIS": 2,
+        "INS": 2,
+        "STL": 2,
+        "PRW": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Winter spirits bring about the season of cold darkness, when the natural world withers and freezes over. Their voice is like the howl of the northern wind, sending shivers down the spine of any mortal close enough to hear it. Winter spirits often take on the form of arctic predators like wolves and bears, crowned by lifeless branches and icicles.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.autumn_spirit",
+      "name": "Autumn Spirit",
+      "monsterType": "Elementals",
+      "level": 4,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "lifesteal",
+        "magical",
+        "potent"
+      ],
+      "skills": {
+        "STR": 3,
+        "WIS": 2,
+        "INS": 2,
+        "PRW": 1,
+        "STL": 1,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Autumn spirits herald the end of the summer, bringing about the harvest season. Leaves change colour in their wake and summer crops ripen. Autumn spirits often take on the form of large herbivores like deer and moose, and are wreathed in orange leaves.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.summer_spirit",
+      "name": "Summer Spirit",
+      "monsterType": "Elementals",
+      "level": 3,
+      "hpMax": 7,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "fast",
+        "magical",
+        "potent"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STR": 2,
+        "INS": 2,
+        "STL": 1,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Summer spirits bathe the land in warm energy, channeling the light of the sun into the earth. Though their warmth is initially beneficial to the land, it can cause droughts and wildfires as the season progresses. Summer spirits typically take on the form of large predators like leopards and jaguars, with manes of golden grain flowing out from their fur.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.spring_spirit",
+      "name": "Spring Spirit",
+      "monsterType": "Elementals",
+      "level": 2,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "magical",
+        "regeneration"
+      ],
+      "skills": {
+        "CHA": 3,
+        "WIS": 2,
+        "INS": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Spring spirits thaw the winter frost and usher new life unto the land. They are friends to the fairies of Eden, working in tandem to repopulate the Pillar Worlds after periods of dormancy. Spring spirits often take on the form of gentle animals like rabbits and robins, with flowerbuds and sprouts lining their green fur or feathers.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.quoggaloth",
+      "name": "Quoggaloth",
+      "monsterType": "Arcane",
+      "level": 16,
+      "hpMax": 21,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "gigantic",
+        "grounded",
+        "magical",
+        "mana_hunger",
+        "mighty",
+        "potent",
+        "siphon"
+      ],
+      "skills": {
+        "WIS": 6,
+        "STR": 5,
+        "PRW": 4,
+        "INS": 3,
+        "CHA": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "When enough quoggs consume enough mana, they merge together into a fearsome quoggaloth. A massive four-armed beast, the quoggaloth’s purpose is to lay a new clutch of quogg eggs. They seek out places suffused with latent mana to make their intricate nests, destroying anything that stands in their way. This often results in magical institutions falling under attack by roaming quoggaloths who are attracted by the concentrated mana. Quoggaloths can fire a devastating beam of raw mana from their cranial crystal, or crush their foes with their immense strength.",
+      "notes": []
+    }
+  ],
+  "dragonBloodlines": [
+    {
+      "bloodline": "silver",
+      "traits": [
+        "enchanted"
+      ]
+    },
+    {
+      "bloodline": "iron",
+      "traits": [
+        "enchanted"
+      ]
+    },
+    {
+      "bloodline": "gold",
+      "traits": [
+        "catalyst"
+      ]
+    },
+    {
+      "bloodline": "bronze",
+      "traits": [
+        "catalyst"
+      ]
+    },
+    {
+      "bloodline": "diamond",
+      "traits": [
+        "phasewalking"
+      ]
+    },
+    {
+      "bloodline": "crystal",
+      "traits": [
+        "phasewalking"
+      ]
+    },
+    {
+      "bloodline": "ruby",
+      "traits": [
+        "cruel"
+      ]
+    },
+    {
+      "bloodline": "red",
+      "traits": [
+        "cruel"
+      ]
+    },
+    {
+      "bloodline": "emerald",
+      "traits": [
+        "venomous"
+      ]
+    },
+    {
+      "bloodline": "green",
+      "traits": [
+        "venomous"
+      ]
+    },
+    {
+      "bloodline": "obsidian",
+      "traits": [
+        "curse"
+      ]
+    },
+    {
+      "bloodline": "black",
+      "traits": [
+        "curse"
+      ]
+    }
+  ]
+}

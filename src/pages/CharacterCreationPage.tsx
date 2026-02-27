@@ -30,6 +30,7 @@ const INITIAL_SELECTIONS: CharacterSelections = {
   spirit: null,
   zodiac: null,
   bloodline: null,
+  humanExtraSkill: null,
   birth: null,
   youth: null,
   comingOfAge: null,
@@ -56,6 +57,7 @@ export function CharacterCreationPage() {
     selections.spirit &&
     selections.zodiac &&
     selections.bloodline &&
+    (selections.bloodline.id === 'bloodline.human' ? !!selections.humanExtraSkill : true) &&
     selections.birth &&
     selections.youth &&
     selections.comingOfAge &&
@@ -83,7 +85,7 @@ export function CharacterCreationPage() {
 
   if (showSheet) {
     return (
-      <div className="app">
+      <div className="app-sheet-view">
         <CharacterSheet selections={selections} skills={skills} />
         <div className="app__back-actions">
           <button type="button" className="app__back-button" onClick={handleBack}>
@@ -195,16 +197,11 @@ export function CharacterCreationPage() {
           selected={selections.zodiac}
           onSelect={(opt) => updateSelection('zodiac', opt)}
           getOptionId={(o) => o.id}
-          getOptionName={(o) => o.name}
-          renderOptionContent={(o) => {
+          getOptionName={(o) => {
             const skillKey = Object.keys(o.bonuses)[0] as keyof typeof SKILL_NAMES;
-            return (
-              <>
-                <span className="selection-section__option-primary">{o.name}</span>
-                <span className="selection-section__option-secondary">+1 {SKILL_NAMES[skillKey]}</span>
-              </>
-            );
+            return `${o.name} (+1 ${SKILL_NAMES[skillKey]})`;
           }}
+          variant="dropdown"
           ghostUnselectedWhenSelected
           isComplete={!!selections.zodiac}
         />
@@ -216,13 +213,34 @@ export function CharacterCreationPage() {
           onSelect={(opt) => updateSelection('bloodline', opt)}
           getOptionId={(o) => o.id}
           getOptionName={(o) => o.name}
+          variant="dropdown"
+          getOptionGroup={(o) => o.type}
           renderSelectedDetail={(bloodline) => (
             <div className="bloodline-detail">
               <strong>{bloodline.featureName}:</strong> {bloodline.featureText}
+              {bloodline.id === 'bloodline.human' && (
+                <div style={{ marginTop: '0.75rem' }}>
+                  <label htmlFor="human-extra-skill" style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 600 }}>
+                    Select Extra Skill:
+                  </label>
+                  <select
+                    id="human-extra-skill"
+                    className="grant-picker__select"
+                    style={{ width: '100%', maxWidth: '200px' }}
+                    value={selections.humanExtraSkill ?? ''}
+                    onChange={(e) => updateSelection('humanExtraSkill', e.target.value as any)}
+                  >
+                    <option value="" disabled>Select skill...</option>
+                    {SKILL_KEYS.map((sk) => (
+                      <option key={sk} value={sk}>{sk} — {SKILL_NAMES[sk]}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
           )}
           ghostUnselectedWhenSelected
-          isComplete={!!selections.bloodline}
+          isComplete={!!selections.bloodline && (selections.bloodline.id === 'bloodline.human' ? !!selections.humanExtraSkill : true)}
         />
         <div className="backstory-group">
           <h3 className="backstory-group__title">Backstory</h3>
@@ -240,6 +258,7 @@ export function CharacterCreationPage() {
             onSelect={(opt) => updateSelection('birth', opt)}
             getOptionId={(o) => o.id}
             getOptionName={(o) => o.name}
+            variant="dropdown"
             renderSelectedDetail={(fragment) => (
               <div className="backstory-detail">
                 {fragment.flavourText && (
@@ -255,6 +274,7 @@ export function CharacterCreationPage() {
                         grantKey={grantKey}
                         value={selections.grantPicks[grantKey] ?? ''}
                         onChange={handleGrantPick}
+                        allPicks={selections.grantPicks}
                       />
                     );
                   })}
@@ -272,6 +292,7 @@ export function CharacterCreationPage() {
             onSelect={(opt) => updateSelection('youth', opt)}
             getOptionId={(o) => o.id}
             getOptionName={(o) => o.name}
+            variant="dropdown"
             renderSelectedDetail={(fragment) => (
               <div className="backstory-detail">
                 {fragment.flavourText && (
@@ -287,6 +308,7 @@ export function CharacterCreationPage() {
                         grantKey={grantKey}
                         value={selections.grantPicks[grantKey] ?? ''}
                         onChange={handleGrantPick}
+                        allPicks={selections.grantPicks}
                       />
                     );
                   })}
@@ -304,6 +326,7 @@ export function CharacterCreationPage() {
             onSelect={(opt) => updateSelection('comingOfAge', opt)}
             getOptionId={(o) => o.id}
             getOptionName={(o) => o.name}
+            variant="dropdown"
             renderSelectedDetail={(fragment) => (
               <div className="backstory-detail">
                 {fragment.flavourText && (
@@ -319,6 +342,7 @@ export function CharacterCreationPage() {
                         grantKey={grantKey}
                         value={selections.grantPicks[grantKey] ?? ''}
                         onChange={handleGrantPick}
+                        allPicks={selections.grantPicks}
                       />
                     );
                   })}
