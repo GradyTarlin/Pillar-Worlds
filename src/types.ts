@@ -71,6 +71,7 @@ export interface BackstoryFragment {
 export type GrantPicks = Record<string, string>;
 
 export interface CharacterSelections {
+  name: string;
   body: BodyOption | null;
   mind: MindOption | null;
   spirit: SpiritOption | null;

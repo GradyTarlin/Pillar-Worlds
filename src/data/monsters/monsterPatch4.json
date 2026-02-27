@@ -1,0 +1,208 @@
+{
+    "appendMonsters": [
+        {
+            "id": "monster.elementals.land_spirit",
+            "name": "Land Spirit",
+            "monsterType": "Elementals",
+            "level": 22,
+            "hpMax": 38,
+            "armourMax": 0,
+            "wardMax": 0,
+            "traits": [
+                "camouflage",
+                "gigantic",
+                "grounded",
+                "magical",
+                "mighty",
+                "potent",
+                "regeneration",
+                "staggering",
+                "tough"
+            ],
+            "skills": {
+                "STR": 10,
+                "WIS": 8,
+                "CHA": 6,
+                "PRW": 2,
+                "INS": 2
+            },
+            "abilities": [],
+            "equipment": [],
+            "loreText": "Land spirits hold the very earth aloft, shaping the ground from which all life grows. They produce earth spirits and terreans to nourish and protect natural lands, fostering the conditions for life. Land spirits take on many forms, such as enormous turtles, elephants, or totems.",
+            "notes": [
+                "The land spirit has extra HP equal to its STR bonus."
+            ]
+        },
+        {
+            "id": "monster.elementals.sea_spirit",
+            "name": "Sea Spirit",
+            "monsterType": "Elementals",
+            "level": 21,
+            "hpMax": 28,
+            "armourMax": 0,
+            "wardMax": 0,
+            "traits": [
+                "camouflage",
+                "ethereal",
+                "fast",
+                "gigantic",
+                "grounded",
+                "magical",
+                "mighty",
+                "potent",
+                "regeneration",
+                "staggering"
+            ],
+            "skills": {
+                "STR": 8,
+                "WIS": 6,
+                "PRW": 4,
+                "STL": 3,
+                "INS": 3,
+                "CHA": 3
+            },
+            "abilities": [],
+            "equipment": [],
+            "loreText": "Sea spirits shape entire oceans, steering the course of the currents and driving the heartbeat of the tides. They create water spirits and aqueans to animate the waters of the pillar worlds, upholding the natural cycle of rain, rivers, and seas. Sea spirits often resemble the marine animals that they share their waters with, but they are colossal and glow with elemental magic.",
+            "notes": []
+        },
+        {
+            "id": "monster.elementals.sky_spirit",
+            "name": "Sky Spirit",
+            "monsterType": "Elementals",
+            "level": 20,
+            "hpMax": 30,
+            "armourMax": 0,
+            "wardMax": 0,
+            "traits": [
+                "bold",
+                "camouflage",
+                "deafening",
+                "ethereal",
+                "fast",
+                "flying",
+                "gigantic",
+                "grounded",
+                "mighty",
+                "regeneration"
+            ],
+            "skills": {
+                "CHA": 6,
+                "STR": 6,
+                "WIS": 5,
+                "INS": 4,
+                "PRW": 3,
+                "STL": 2
+            },
+            "abilities": [],
+            "equipment": [],
+            "loreText": "Sky spirits guide the winds, shape the clouds, and display the shifting cosmos to the land below. Sky spirits give rise to air spirits and aureans, leading the elemental forces of wind and air in their primordial dance across the sky. Normally invisible to mortals, sky spirits only take on a physical form to confront existential threats to the skies.",
+            "notes": []
+        },
+        {
+            "id": "monster.elementals.winter_spirit",
+            "name": "Winter Spirit",
+            "monsterType": "Elementals",
+            "level": 5,
+            "hpMax": 11,
+            "armourMax": 0,
+            "wardMax": 0,
+            "traits": [
+                "bold",
+                "deafening",
+                "magical",
+                "potent",
+                "siphon",
+                "staggering"
+            ],
+            "skills": {
+                "STR": 2,
+                "CHA": 2,
+                "WIS": 2,
+                "INS": 2,
+                "STL": 2,
+                "PRW": 1
+            },
+            "abilities": [],
+            "equipment": [],
+            "loreText": "Winter spirits bring about the season of cold darkness, when the natural world withers and freezes over. Their voice is like the howl of the northern wind, sending shivers down the spine of any mortal close enough to hear it. Winter spirits often take on the form of arctic predators like wolves and bears, crowned by lifeless branches and icicles.",
+            "notes": []
+        },
+        {
+            "id": "monster.elementals.autumn_spirit",
+            "name": "Autumn Spirit",
+            "monsterType": "Elementals",
+            "level": 4,
+            "hpMax": 9,
+            "armourMax": 0,
+            "wardMax": 0,
+            "traits": [
+                "lifesteal",
+                "magical",
+                "potent"
+            ],
+            "skills": {
+                "STR": 3,
+                "WIS": 2,
+                "INS": 2,
+                "PRW": 1,
+                "STL": 1,
+                "CHA": 1
+            },
+            "abilities": [],
+            "equipment": [],
+            "loreText": "Autumn spirits herald the end of the summer, bringing about the harvest season. Leaves change colour in their wake and summer crops ripen. Autumn spirits often take on the form of large herbivores like deer and moose, and are wreathed in orange leaves.",
+            "notes": []
+        },
+        {
+            "id": "monster.elementals.summer_spirit",
+            "name": "Summer Spirit",
+            "monsterType": "Elementals",
+            "level": 3,
+            "hpMax": 7,
+            "armourMax": 0,
+            "wardMax": 0,
+            "traits": [
+                "camouflage",
+                "fast",
+                "magical",
+                "potent"
+            ],
+            "skills": {
+                "PRW": 3,
+                "STR": 2,
+                "INS": 2,
+                "STL": 1,
+                "WIS": 1
+            },
+            "abilities": [],
+            "equipment": [],
+            "loreText": "Summer spirits bathe the land in warm energy, channeling the light of the sun into the earth. Though their warmth is initially beneficial to the land, it can cause droughts and wildfires as the season progresses. Summer spirits typically take on the form of large predators like leopards and jaguars, with manes of golden grain flowing out from their fur.",
+            "notes": []
+        },
+        {
+            "id": "monster.elementals.spring_spirit",
+            "name": "Spring Spirit",
+            "monsterType": "Elementals",
+            "level": 2,
+            "hpMax": 9,
+            "armourMax": 0,
+            "wardMax": 0,
+            "traits": [
+                "fast",
+                "magical",
+                "regeneration"
+            ],
+            "skills": {
+                "CHA": 3,
+                "WIS": 2,
+                "INS": 2,
+                "STL": 1
+            },
+            "abilities": [],
+            "equipment": [],
+            "loreText": "Spring spirits thaw the winter frost and usher new life unto the land. They are friends to the fairies of Eden, working in tandem to repopulate the Pillar Worlds after periods of dormancy. Spring spirits often take on the form of gentle animals like rabbits and robins, with flowerbuds and sprouts lining their green fur or feathers.",
+            "notes": []
+        }
+    ]
+}

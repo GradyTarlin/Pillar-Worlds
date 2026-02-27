@@ -15,14 +15,16 @@ import {
   SKILL_NAMES,
   HP_LABEL,
   MP_LABEL,
+  MP_RECOVERY_LABEL,
 } from '../ruleData';
-import { deriveSkills, deriveHP, deriveMP } from '../derivation';
+import { deriveSkills, deriveHP, deriveMP, deriveMPRecovery } from '../derivation';
 import { SelectionSection } from '../components/SelectionSection';
 import { CharacterSheet } from '../components/CharacterSheet';
 import { GrantPicker } from '../components/GrantPicker';
 import '../App.css';
 
 const INITIAL_SELECTIONS: CharacterSelections = {
+  name: '',
   body: null,
   mind: null,
   spirit: null,
@@ -48,6 +50,7 @@ export function CharacterCreationPage() {
   );
 
   const isComplete =
+    selections.name.trim() !== '' &&
     selections.body &&
     selections.mind &&
     selections.spirit &&
@@ -103,72 +106,88 @@ export function CharacterCreationPage() {
         </div>
         <p className="app__subtitle">Level 1 Character Creation</p>
         <p className="app__instruction">Select one choice from each category. When you choose a backstory option, pick from the dropdown for each grant.</p>
+        <div className="app__name-input-group">
+          <label htmlFor="character-name" className="app__name-label">Character Name:</label>
+          <input
+            type="text"
+            id="character-name"
+            className="app__name-input"
+            value={selections.name}
+            onChange={(e) => updateSelection('name', e.target.value)}
+            placeholder="Enter character name..."
+          />
+        </div>
       </header>
 
       <main className="app__main">
-        <SelectionSection
-          title="Body"
-          subheading="Your physical build — affects Strength and Prowess."
-          options={BODY_OPTIONS}
-          selected={selections.body}
-          onSelect={(opt) => updateSelection('body', opt)}
-          getOptionId={(o) => o.id}
-          getOptionName={(o) => o.name}
-          renderSelectedDetail={(body) => {
-            const parts = Object.entries(body.bonuses).map(
-              ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
-            );
-            return (
-              <div className="body-detail">
-                <strong>Skill bonuses:</strong> {parts.join(', ')}
-              </div>
-            );
-          }}
-          ghostUnselectedWhenSelected
-          isComplete={!!selections.body}
-        />
-        <SelectionSection
-          title="Mind"
-          subheading="Your mental approach — affects Wisdom and Instinct."
-          options={MIND_OPTIONS}
-          selected={selections.mind}
-          onSelect={(opt) => updateSelection('mind', opt)}
-          getOptionId={(o) => o.id}
-          getOptionName={(o) => o.name}
-          renderSelectedDetail={(mind) => {
-            const parts = Object.entries(mind.bonuses).map(
-              ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
-            );
-            return (
-              <div className="body-detail">
-                <strong>Skill bonuses:</strong> {parts.join(', ')}
-              </div>
-            );
-          }}
-          ghostUnselectedWhenSelected
-          isComplete={!!selections.mind}
-        />
-        <SelectionSection
-          title="Spirit"
-          subheading="Your social disposition — affects Stealth and Charisma."
-          options={SPIRIT_OPTIONS}
-          selected={selections.spirit}
-          onSelect={(opt) => updateSelection('spirit', opt)}
-          getOptionId={(o) => o.id}
-          getOptionName={(o) => o.name}
-          renderSelectedDetail={(spirit) => {
-            const parts = Object.entries(spirit.bonuses).map(
-              ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
-            );
-            return (
-              <div className="body-detail">
-                <strong>Skill bonuses:</strong> {parts.join(', ')}
-              </div>
-            );
-          }}
-          ghostUnselectedWhenSelected
-          isComplete={!!selections.spirit}
-        />
+        <div className="attributes-group">
+          <h3 className="attributes-group__title">Attributes</h3>
+          <div className="attributes-group__content">
+            <SelectionSection
+              title="Body"
+              subheading="Your physical build — affects Strength and Prowess."
+              options={BODY_OPTIONS}
+              selected={selections.body}
+              onSelect={(opt) => updateSelection('body', opt)}
+              getOptionId={(o) => o.id}
+              getOptionName={(o) => o.name}
+              renderSelectedDetail={(body) => {
+                const parts = Object.entries(body.bonuses).map(
+                  ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
+                );
+                return (
+                  <div className="body-detail">
+                    <strong>Skill bonuses:</strong> {parts.join(', ')}
+                  </div>
+                );
+              }}
+              ghostUnselectedWhenSelected
+              isComplete={!!selections.body}
+            />
+            <SelectionSection
+              title="Mind"
+              subheading="Your mental approach — affects Wisdom and Instinct."
+              options={MIND_OPTIONS}
+              selected={selections.mind}
+              onSelect={(opt) => updateSelection('mind', opt)}
+              getOptionId={(o) => o.id}
+              getOptionName={(o) => o.name}
+              renderSelectedDetail={(mind) => {
+                const parts = Object.entries(mind.bonuses).map(
+                  ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
+                );
+                return (
+                  <div className="body-detail">
+                    <strong>Skill bonuses:</strong> {parts.join(', ')}
+                  </div>
+                );
+              }}
+              ghostUnselectedWhenSelected
+              isComplete={!!selections.mind}
+            />
+            <SelectionSection
+              title="Spirit"
+              subheading="Your social disposition — affects Stealth and Charisma."
+              options={SPIRIT_OPTIONS}
+              selected={selections.spirit}
+              onSelect={(opt) => updateSelection('spirit', opt)}
+              getOptionId={(o) => o.id}
+              getOptionName={(o) => o.name}
+              renderSelectedDetail={(spirit) => {
+                const parts = Object.entries(spirit.bonuses).map(
+                  ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
+                );
+                return (
+                  <div className="body-detail">
+                    <strong>Skill bonuses:</strong> {parts.join(', ')}
+                  </div>
+                );
+              }}
+              ghostUnselectedWhenSelected
+              isComplete={!!selections.spirit}
+            />
+          </div>
+        </div>
         <SelectionSection
           title="Zodiac"
           subheading="Your astrological sign — grants a bonus to one skill."
@@ -186,14 +205,6 @@ export function CharacterCreationPage() {
               </>
             );
           }}
-          renderSelectedDetail={(zodiac) => {
-            const skillKey = Object.keys(zodiac.bonuses)[0] as keyof typeof SKILL_NAMES;
-            return (
-              <div className="body-detail">
-                <strong>Skill bonus:</strong> +1 {SKILL_NAMES[skillKey]}
-              </div>
-            );
-          }}
           ghostUnselectedWhenSelected
           isComplete={!!selections.zodiac}
         />
@@ -205,12 +216,6 @@ export function CharacterCreationPage() {
           onSelect={(opt) => updateSelection('bloodline', opt)}
           getOptionId={(o) => o.id}
           getOptionName={(o) => o.name}
-          renderOptionContent={(o) => (
-            <>
-              <span className="selection-section__option-primary">{o.name}</span>
-              <span className="selection-section__option-secondary">{o.featureName}</span>
-            </>
-          )}
           renderSelectedDetail={(bloodline) => (
             <div className="bloodline-detail">
               <strong>{bloodline.featureName}:</strong> {bloodline.featureText}
@@ -328,20 +333,25 @@ export function CharacterCreationPage() {
 
       <aside className="app__sidebar">
         <section className="derived-stats">
-          <h3>Derived Stats</h3>
+          <h3>Skills</h3>
           <dl>
             {SKILL_KEYS.map((key) => (
               <Fragment key={key}>
-                <dt>{key} — {SKILL_NAMES[key]}</dt>
+                <dt>{key}</dt>
                 <dd>{skills[key]}</dd>
               </Fragment>
             ))}
           </dl>
+        </section>
+        <section className="derived-stats">
+          <h3>Health and Mana</h3>
           <dl>
             <dt>{HP_LABEL}</dt>
             <dd>{deriveHP(skills, selections.bloodline?.id ?? null)}</dd>
             <dt>{MP_LABEL}</dt>
             <dd>{deriveMP(skills)}</dd>
+            <dt>{MP_RECOVERY_LABEL}</dt>
+            <dd>{deriveMPRecovery(skills)}</dd>
           </dl>
         </section>
       </aside>

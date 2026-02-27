@@ -17,7 +17,16 @@
       "tree": "weaponMastery",
       "subtree": "blade",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "blade.backslash" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "blade.backslash"
+        }
+      ],
       "rulesText": "If you hit one enemy with two blade attacks on your turn, you can make one more free blade attack against them."
     },
     {
@@ -27,7 +36,16 @@
       "tree": "weaponMastery",
       "subtree": "blade",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "blade.chain_attack" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "blade.chain_attack"
+        }
+      ],
       "rulesText": "When you hit a critical strike with a blade attack, you sever a limb. Your target gains a permanent -2 penalty to STR and PRW. If your target has less than half of their HP remaining, you may sever their head. This instantly kills mortal enemies that only have one head."
     },
     {
@@ -47,7 +65,16 @@
       "tree": "weaponMastery",
       "subtree": "bludgeon",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "bludgeon.stun" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "bludgeon.stun"
+        }
+      ],
       "rulesText": "Whenever you hit an enemy with a bludgeon attack, you may also push them."
     },
     {
@@ -57,7 +84,16 @@
       "tree": "weaponMastery",
       "subtree": "bludgeon",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "bludgeon.knockback" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "bludgeon.knockback"
+        }
+      ],
       "rulesText": "Whenever you hit an enemy with a bludgeon attack, they cannot move on their next turn."
     },
     {
@@ -77,7 +113,16 @@
       "tree": "weaponMastery",
       "subtree": "bow",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "bow.pierce" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "bow.pierce"
+        }
+      ],
       "rulesText": "Once per turn when you hit a bow attack with advantage, you deal +3 physical damage."
     },
     {
@@ -87,7 +132,16 @@
       "tree": "weaponMastery",
       "subtree": "bow",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "bow.snipe" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "bow.snipe"
+        }
+      ],
       "rulesText": "You can use up one skill check on your turn to make a number of bow attacks equal to your PRW bonus. Do not add your STR bonus to the damage of these attacks."
     },
     {
@@ -107,7 +161,16 @@
       "tree": "weaponMastery",
       "subtree": "martialArts",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "martial.power_attack" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "martial.power_attack"
+        }
+      ],
       "rulesText": "When you hit an enemy that you're focusing on, you can expend points of focus to deal extra damage. Your attack deals +2 physical damage per point of focus spent."
     },
     {
@@ -117,7 +180,16 @@
       "tree": "weaponMastery",
       "subtree": "martialArts",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "martial.focused_strike" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "martial.focused_strike"
+        }
+      ],
       "rulesText": "Once per turn, you may target two enemies in the same zone with a single weapon attack."
     },
     {
@@ -137,7 +209,16 @@
       "tree": "relicMastery",
       "subtree": "orb",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "orb.mana_charge" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "orb.mana_charge"
+        }
+      ],
       "rulesText": "When you take magic damage, you may spend MP to reduce it. Reduce the damage taken by the amount of MP spent. Your next magic attack deals bonus magic damage equal to the damage negated if it hits."
     },
     {
@@ -147,7 +228,16 @@
       "tree": "relicMastery",
       "subtree": "orb",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "orb.mana_field" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "orb.mana_field"
+        }
+      ],
       "rulesText": "When you gain three or more points of focus on an enemy, you can immediately make a free INS check against them."
     },
     {
@@ -167,9 +257,19 @@
       "tree": "relicMastery",
       "subtree": "staff",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "orb.mana_charge" }],
-      "requiresAttention": true,
-      "notes": ["This is a cross-subtree prerequisite (Orb ability required for a Staff ability), per the text."],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "orb.mana_charge"
+        }
+      ],
+      "notes": [
+        "This is a cross-subtree prerequisite (Orb ability required for a Staff ability), per the text."
+      ],
       "rulesText": "Whenever you succeed on a defensive roll to avoid magic damage, you recover MP."
     },
     {
@@ -179,7 +279,16 @@
       "tree": "relicMastery",
       "subtree": "staff",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "staff.mana_absorption" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "staff.mana_absorption"
+        }
+      ],
       "rulesText": "If you succeed on two magic attacks on your turn, you can make a free INS check."
     },
     {
@@ -199,7 +308,16 @@
       "tree": "relicMastery",
       "subtree": "tome",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "tome.archive" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "tome.archive"
+        }
+      ],
       "rulesText": "Reduce the MP cost of all abilities by 1. For abilities that let you choose how much MP to expend, add 1 free MP."
     },
     {
@@ -209,7 +327,16 @@
       "tree": "relicMastery",
       "subtree": "tome",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "tome.mana_reservoir" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "tome.mana_reservoir"
+        }
+      ],
       "rulesText": "You recover MP twice when you succeed on a focus check."
     },
     {
@@ -229,7 +356,16 @@
       "tree": "relicMastery",
       "subtree": "arcana",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "arcana.arcane_sight" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "arcana.arcane_sight"
+        }
+      ],
       "rulesText": "You regain MP equal to magic damage you take. After taking magic damage, your next magic attack deals an equal amount as bonus damage if it hits."
     },
     {
@@ -240,7 +376,16 @@
       "subtree": "arcana",
       "tier": 3,
       "mpCost": 2,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "arcana.arcane_conduit" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "arcana.arcane_conduit"
+        }
+      ],
       "rulesText": "Whenever you receive physical damage, you can spend 2 MP to reduce it by 3."
     },
     {
@@ -260,7 +405,16 @@
       "tree": "trickMastery",
       "subtree": "cloak",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "cloak.fleeting_figure" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "cloak.fleeting_figure"
+        }
+      ],
       "rulesText": "You can reroll a failed STL check. You must wait until the start of your next turn to do so again."
     },
     {
@@ -270,7 +424,16 @@
       "tree": "trickMastery",
       "subtree": "cloak",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "cloak.shrouded" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "cloak.shrouded"
+        }
+      ],
       "rulesText": "When you successfully hide from an enemy, you gain advantage on your next two skill checks against them."
     },
     {
@@ -290,7 +453,16 @@
       "tree": "trickMastery",
       "subtree": "instrument",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "instrument.charm" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "instrument.charm"
+        }
+      ],
       "rulesText": "For every enemy that you successfully influence, you can allow one ally to immediately move for free."
     },
     {
@@ -300,7 +472,16 @@
       "tree": "trickMastery",
       "subtree": "instrument",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "instrument.festivity" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "instrument.festivity"
+        }
+      ],
       "rulesText": "Whenever you influence an enemy, they can only make one skill check on their next turn."
     },
     {
@@ -320,7 +501,16 @@
       "tree": "trickMastery",
       "subtree": "mask",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "mask.deception" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "mask.deception"
+        }
+      ],
       "rulesText": "When you move into the same zone as an enemy, you gain advantage on your next CHA or STL check against them on your turn."
     },
     {
@@ -330,7 +520,16 @@
       "tree": "trickMastery",
       "subtree": "mask",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "mask.lurk" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "mask.lurk"
+        }
+      ],
       "rulesText": "After you influence an enemy, you gain advantage on your next skill check against them. After you hide from an enemy, they gain disadvantage on their next skill check against you."
     },
     {
@@ -350,7 +549,16 @@
       "tree": "trickMastery",
       "subtree": "footwork",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "footwork.acrobatics" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "footwork.acrobatics"
+        }
+      ],
       "rulesText": "Once per turn when you succeed on a skill check, you can immediately move."
     },
     {
@@ -360,7 +568,16 @@
       "tree": "trickMastery",
       "subtree": "footwork",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "footwork.dash" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "footwork.dash"
+        }
+      ],
       "rulesText": "When an enemy fails an offensive skill check against you, you gain one point of focus on them."
     },
     {
@@ -371,8 +588,9 @@
       "subtree": "armour",
       "tier": 1,
       "prerequisites": [],
-      "requiresAttention": true,
-      "notes": ["Interpretation note: treat 'your armour takes one less damage' as reducing incoming physical damage by 1 before applying it to Armour/HP."],
+      "notes": [
+        "Interpretation note: treat 'your armour takes one less damage' as reducing incoming physical damage by 1 before applying it to Armour/HP."
+      ],
       "rulesText": "+1 maximum armour. Whenever your armour takes physical damage, it takes one less damage."
     },
     {
@@ -382,7 +600,16 @@
       "tree": "defenseMastery",
       "subtree": "armour",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "armour.bulwark" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "armour.bulwark"
+        }
+      ],
       "rulesText": "+1 maximum armour. You can fully repair your armour by scoring 12 or higher on a STR check."
     },
     {
@@ -392,7 +619,16 @@
       "tree": "defenseMastery",
       "subtree": "armour",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "armour.impenetrable" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "armour.impenetrable"
+        }
+      ],
       "rulesText": "+1 maximum armour. You can add your current points of armour to your STR bonus."
     },
     {
@@ -412,7 +648,16 @@
       "tree": "defenseMastery",
       "subtree": "shield",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "shield.bash" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "shield.bash"
+        }
+      ],
       "rulesText": "+1 block bonus from shields. When an enemy attacks an ally in the same zone as you, you may add your block bonus to your ally's defensive check. After using this ability, you cannot use it again until your next turn."
     },
     {
@@ -422,7 +667,16 @@
       "tree": "defenseMastery",
       "subtree": "shield",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "shield.guardian" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "shield.guardian"
+        }
+      ],
       "rulesText": "+1 block bonus from shields. You can sacrifice your movement to double your block bonus until the start of your next turn."
     },
     {
@@ -442,7 +696,16 @@
       "tree": "defenseMastery",
       "subtree": "ward",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "ward.phase_shift" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "ward.phase_shift"
+        }
+      ],
       "rulesText": "+1 maximum ward. Whenever your ward absorbs magic damage, the attacker takes an equal amount of magic damage."
     },
     {
@@ -453,7 +716,16 @@
       "subtree": "ward",
       "tier": 3,
       "mpCost": "X",
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "ward.mana_reflection" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "ward.mana_reflection"
+        }
+      ],
       "rulesText": "+1 maximum ward. Once per turn, you can spend X MP to restore X points of ward. You can expend points of ward in the place of MP."
     },
     {
@@ -473,7 +745,16 @@
       "tree": "defenseMastery",
       "subtree": "toughness",
       "tier": 2,
-      "prerequisites": [{ "kind": "level", "min": 5 }, { "kind": "ability", "id": "toughness.willpower" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "toughness.willpower"
+        }
+      ],
       "rulesText": "Whenever an attack hits you but you do not lose HP, you gain one point of focus on the attacker."
     },
     {
@@ -483,7 +764,16 @@
       "tree": "defenseMastery",
       "subtree": "toughness",
       "tier": 3,
-      "prerequisites": [{ "kind": "level", "min": 9 }, { "kind": "ability", "id": "toughness.tenacity" }],
+      "prerequisites": [
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "toughness.tenacity"
+        }
+      ],
       "rulesText": "Whenever you take damage, regain 1 HP (unless the damage reduces you to 0 HP)."
     }
   ]

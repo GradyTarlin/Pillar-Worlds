@@ -14,8 +14,9 @@ import type {
 
 export const SKILL_KEYS = ['CHA', 'INS', 'PRW', 'STL', 'STR', 'WIS'] as const;
 
-export const HP_LABEL = 'HP — Health Points';
-export const MP_LABEL = 'MP — Mana Points';
+export const HP_LABEL = 'HP Maximum';
+export const MP_LABEL = 'MP Maximum';
+export const MP_RECOVERY_LABEL = 'MP Recovery';
 
 export const SKILL_NAMES: Record<(typeof SKILL_KEYS)[number], string> = {
   CHA: 'Charisma',
@@ -73,7 +74,7 @@ export const BLOODLINES: Bloodline[] = [
 
 export const BACKSTORY_FRAGMENTS: BackstoryFragment[] = [
   { id: 'birth.birthright', stage: 'birth', name: 'Birthright', flavourText: 'Your people have honoured your coming with a special gift.', grants: [{ kind: 'equipmentPick', count: 1 }] },
-  { id: 'birth.prophecy', stage: 'birth', name: 'Prophecy', flavourText: 'You are destined to become a legend.', grants: [{ kind: 'masteryPick', tags: ['weapon', 'relic', 'trick'], count: 1 }] },
+  { id: 'birth.prophecy', stage: 'birth', name: 'Prophecy', flavourText: 'You are destined to become a legend.', grants: [{ kind: 'masteryPick', tags: ['weapon', 'relic', 'trick', 'defense'], count: 1 }] },
   { id: 'birth.astral_alignment', stage: 'birth', name: 'Astral Alignment', flavourText: 'The cosmos align to herald your birth.', grants: [{ kind: 'abilityPick', tags: ['aether'], count: 1 }] },
   { id: 'birth.full_moon', stage: 'birth', name: 'Full Moon', flavourText: 'Your birth is illuminated by the cool light of the moon.', grants: [{ kind: 'abilityPick', tags: ['nature'], count: 1 }] },
   { id: 'birth.aurora', stage: 'birth', name: 'Aurora', flavourText: 'The heavens take on a colourful glow to welcome you to the mortal world.', grants: [{ kind: 'abilityPick', tags: ['light'], count: 1 }] },
@@ -81,7 +82,7 @@ export const BACKSTORY_FRAGMENTS: BackstoryFragment[] = [
   { id: 'birth.ritual', stage: 'birth', name: 'Ritual', flavourText: 'You are brought to life by an arcane ritual.', grants: [{ kind: 'abilityPick', tags: ['alchemy'], count: 1 }] },
   { id: 'birth.tempest', stage: 'birth', name: 'Tempest', flavourText: 'You are born in the midst of a howling torrent.', grants: [{ kind: 'abilityPick', tags: ['energy'], count: 1 }] },
   { id: 'youth.artifact_discovery', stage: 'youth', name: 'Artifact Discovery', flavourText: 'You stumble across a forgotten artifact.', grants: [{ kind: 'equipmentPick', count: 1 }] },
-  { id: 'youth.prodigy', stage: 'youth', name: 'Prodigy', flavourText: 'You demonstrate exceptional skill from a young age.', grants: [{ kind: 'masteryPick', tags: ['weapon', 'relic', 'trick'], count: 1 }] },
+  { id: 'youth.prodigy', stage: 'youth', name: 'Prodigy', flavourText: 'You demonstrate exceptional skill from a young age.', grants: [{ kind: 'masteryPick', tags: ['weapon', 'relic', 'trick', 'defense'], count: 1 }] },
   { id: 'youth.raised_in_the_wild', stage: 'youth', name: 'Raised in the Wild', flavourText: 'You spend your youth in the deep wilderness.', grants: [{ kind: 'abilityPick', tags: ['nature'], count: 1 }] },
   { id: 'youth.visionary_dream', stage: 'youth', name: 'Visionary Dream', flavourText: 'Your dreams reveal a cosmic secret to you.', grants: [{ kind: 'abilityPick', tags: ['aether'], count: 1 }] },
   { id: 'youth.chaotic_experiment', stage: 'youth', name: 'Chaotic Experiment', flavourText: 'Your curiosity ignites an uncontrollable reaction.', grants: [{ kind: 'abilityPick', tags: ['alchemy'], count: 1 }] },
@@ -89,7 +90,7 @@ export const BACKSTORY_FRAGMENTS: BackstoryFragment[] = [
   { id: 'youth.ill_omen', stage: 'youth', name: 'Ill Omen', flavourText: 'A twisted event in your early life casts a dark shadow over your future.', grants: [{ kind: 'abilityPick', tags: ['darkness'], count: 1 }] },
   { id: 'youth.miracle', stage: 'youth', name: 'Miracle', flavourText: 'A moment of unbelievable good fortune marks the emergence of your radiant power.', grants: [{ kind: 'abilityPick', tags: ['light'], count: 1 }] },
   { id: 'coming.inheritance', stage: 'comingOfAge', name: 'Inheritance', flavourText: 'A valuable heirloom is passed on to you.', grants: [{ kind: 'equipmentPick', count: 1 }] },
-  { id: 'coming.training', stage: 'comingOfAge', name: 'Training', flavourText: 'You learn discipline from dedicated practice.', grants: [{ kind: 'masteryPick', tags: ['weapon', 'relic', 'trick'], count: 1 }] },
+  { id: 'coming.training', stage: 'comingOfAge', name: 'Training', flavourText: 'You learn discipline from dedicated practice.', grants: [{ kind: 'masteryPick', tags: ['weapon', 'relic', 'trick', 'defense'], count: 1 }] },
   { id: 'coming.apprenticeship', stage: 'comingOfAge', name: 'Apprenticeship', flavourText: 'You study under a seasoned alchemist.', grants: [{ kind: 'abilityPick', tags: ['alchemy'], count: 1 }] },
   { id: 'coming.elemental_balance', stage: 'comingOfAge', name: 'Elemental Balance', flavourText: 'With a steady mind and careful concentration, you learn to channel the spark of your spirit into a roaring flame.', grants: [{ kind: 'abilityPick', tags: ['energy'], count: 1 }] },
   { id: 'coming.devotion', stage: 'comingOfAge', name: 'Devotion', flavourText: 'You pledge your life to the immortal heavens, and they shine their grace down upon you.', grants: [{ kind: 'abilityPick', tags: ['light'], count: 1 }] },

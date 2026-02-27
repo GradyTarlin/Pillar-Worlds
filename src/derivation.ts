@@ -59,4 +59,11 @@ export function deriveMP(skills: Skills): number {
   return 3 + skills.WIS;
 }
 
+/**
+ * MP Recovery formula: 1 + INS
+ */
+export function deriveMPRecovery(skills: Skills): number {
+  return 1 + skills.INS;
+}
+
 export const LEVEL = 1;

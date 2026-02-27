@@ -1,0 +1,350 @@
+.monster-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Instead of an opaque background, we let the index.css body background show through, 
+     but we ensure the content has proper padding similar to .app */
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 1.5rem;
+}
+
+.monster-page__header {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--parchment-dark) 0%, var(--parchment) 100%);
+  border: 2px solid var(--forest);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.monster-page__header-top {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.monster-page__header-top h1 {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.monster-page__home-link {
+  color: var(--forest);
+  text-decoration: none;
+  font-weight: bold;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.monster-page__home-link:hover {
+  color: var(--forest-light);
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.monster-page__filters label {
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.monster-page__filters select {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: 'Lora', serif;
+  background: var(--parchment);
+  color: var(--ink);
+  border: 2px solid var(--forest);
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.monster-page__main {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+  /* prevents document scroll */
+}
+
+/* Master List */
+.monster-list-container {
+  overflow-y: auto;
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+  border: 3px double var(--burgundy);
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  color: var(--ink);
+}
+
+.monster-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.monster-list-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 1rem;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--burgundy);
+  color: var(--burgundy);
+  text-transform: uppercase;
+}
+
+.monster-list-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(26, 20, 16, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: var(--ink);
+}
+
+.monster-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.monster-list-item.selected {
+  background-color: rgba(154, 123, 10, 0.15);
+  /* light gold */
+  border-left: 4px solid var(--gold);
+}
+
+.monster-list-item__name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.monster-list-item__level {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+.monster-list-item__type {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.monster-list-empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+/* Detail Panel Modal */
+.monster-detail-container {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.monster-detail-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.monster-detail-empty {
+  display: none;
+}
+
+.monster-detail {
+  position: relative;
+  z-index: 101;
+  background: linear-gradient(135deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+  color: var(--ink);
+  border: 3px double var(--burgundy);
+  border-radius: 4px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  margin: 0;
+  overflow-y: auto;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.monster-detail__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--burgundy);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: bold;
+}
+
+.monster-detail__close:hover {
+  color: var(--burgundy-light);
+}
+
+.monster-detail__header {
+  border-bottom: 2px solid var(--burgundy);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.monster-detail__header h2 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--ink);
+  letter-spacing: 0.1em;
+}
+
+.monster-detail__tags {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.monster-detail__tag {
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--ink);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.monster-detail__lore {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--burgundy);
+}
+
+.monster-detail__section {
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 1.5rem;
+  border-radius: 4px;
+  border: 2px solid #8b6b6b;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.monster-detail__section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--ink);
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border-bottom: 2px solid var(--burgundy);
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.stats-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+  font-size: 1.2rem;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.skill-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.skill-val {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+
+.traits-list,
+.equipment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.traits-list li,
+.equipment-item {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.abilities-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ability-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(26, 20, 16, 0.15);
+}
+
+.ability-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ability-item strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--ink);
+}
+
+.ability-check {
+  font-weight: bold;
+  color: var(--burgundy);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.ability-text {
+  line-height: 1.5;
+  color: var(--ink);
+}

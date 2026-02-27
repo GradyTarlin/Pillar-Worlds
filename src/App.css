@@ -69,6 +69,39 @@
   font-style: italic;
 }
 
+.app__name-input-group {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.app__name-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+  color: var(--ink);
+}
+
+.app__name-input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-family: 'Lora', serif;
+  border: 2px solid var(--forest);
+  border-radius: 4px;
+  background: var(--parchment);
+  color: var(--ink);
+  width: 100%;
+  max-width: 300px;
+}
+
+.app__name-input:focus {
+  outline: none;
+  border-color: var(--forest-dark);
+  box-shadow: 0 0 0 2px rgba(45, 80, 22, 0.3);
+}
+
 .app__main {
   grid-area: main;
   display: flex;
@@ -118,14 +151,14 @@
 }
 
 .app__back-button {
-  margin-top: 1.5rem;
-  padding: 0.5rem 1.25rem;
+  margin-top: 1rem;
+  padding: 0.35rem 0.85rem;
   background: var(--parchment);
   border: 2px solid var(--burgundy);
   color: var(--ink);
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   font-family: 'Cinzel', serif;
 }
@@ -136,16 +169,57 @@
 
 .app__back-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.75rem;
+  margin-top: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .app__back-button--link {
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  line-height: 1.5;
+  line-height: normal;
+}
+
+/* Attributes Group */
+.attributes-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(45, 80, 22, 0.12) 0%, rgba(45, 80, 22, 0.06) 100%);
+  border: 2px solid var(--forest);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.attributes-group__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+
+.attributes-group__content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .attributes-group__content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .attributes-group__content {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Backstory Group */

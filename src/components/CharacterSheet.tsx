@@ -1,7 +1,7 @@
 import type { CharacterSelections, Skills } from '../types';
-import { deriveHP, deriveMP, LEVEL } from '../derivation';
-import { SKILL_KEYS, SKILL_NAMES, HP_LABEL, MP_LABEL } from '../ruleData';
-import { getAbilityById } from '../data/abilities';
+import { deriveHP, deriveMP, deriveMPRecovery, LEVEL } from '../derivation';
+import { SKILL_KEYS, HP_LABEL, MP_LABEL, MP_RECOVERY_LABEL } from '../ruleData';
+import { getAbilityById, type Ability } from '../data/abilities';
 import { getEquipmentNameById } from '../data/equipment';
 
 interface CharacterSheetProps {
@@ -9,16 +9,28 @@ interface CharacterSheetProps {
   skills: Skills;
 }
 
-function getPickedItemName(id: string): string {
+interface PickedItemDetail {
+  source: string;
+  name: string;
+  ability?: Ability;
+}
+
+function getPickedItemDetail(id: string, source: string): PickedItemDetail {
   const equipName = getEquipmentNameById(id);
-  if (equipName) return equipName;
+  if (equipName) return { source, name: equipName };
+
   const ability = getAbilityById(id);
-  return ability?.name ?? id;
+  if (ability) {
+    return { source, name: ability.name, ability: ability };
+  }
+
+  return { source, name: id };
 }
 
 export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
   const hp = deriveHP(skills, selections.bloodline?.id ?? null);
   const mp = deriveMP(skills);
+  const mpRecovery = deriveMPRecovery(skills);
 
   const fragments = [
     selections.birth,
@@ -30,20 +42,20 @@ export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
     f.grants.map((_, i) => {
       const grantKey = `${f.id}-${i}`;
       const pickedId = selections.grantPicks[grantKey];
-      return pickedId ? { grant: f.grants[i], source: f.name, name: getPickedItemName(pickedId) } : null;
+      return pickedId ? getPickedItemDetail(pickedId, f.name) : null;
     }).filter(Boolean)
-  ) as { grant: (typeof fragments)[0]['grants'][0]; source: string; name: string }[];
+  ) as PickedItemDetail[];
 
   return (
     <div className="character-sheet">
       <header className="character-sheet__header">
-        <h1>Character Sheet</h1>
+        <h1>{selections.name}</h1>
         <p className="character-sheet__level">Level {LEVEL} Character</p>
       </header>
 
       <div className="character-sheet__grid">
         <section className="character-sheet__section">
-          <h2>Core Traits</h2>
+          <h2>Attributes</h2>
           <dl className="character-sheet__traits">
             <dt>Body</dt>
             <dd>{selections.body?.name ?? '—'}</dd>
@@ -79,12 +91,14 @@ export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
         </section>
 
         <section className="character-sheet__section">
-          <h2>Derived Stats</h2>
+          <h2>Health and Mana</h2>
           <dl className="character-sheet__stats">
             <dt>{HP_LABEL}</dt>
             <dd>{hp}</dd>
             <dt>{MP_LABEL}</dt>
             <dd>{mp}</dd>
+            <dt>{MP_RECOVERY_LABEL}</dt>
+            <dd>{mpRecovery}</dd>
           </dl>
         </section>
 
@@ -93,7 +107,7 @@ export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
           <div className="character-sheet__skills">
             {SKILL_KEYS.map((key) => (
               <div key={key} className="character-sheet__skill">
-                <span className="character-sheet__skill-name">{key} — {SKILL_NAMES[key]}</span>
+                <span className="character-sheet__skill-name">{key}</span>
                 <span className="character-sheet__skill-value">{skills[key]}</span>
               </div>
             ))}
@@ -101,12 +115,43 @@ export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
         </section>
 
         <section className="character-sheet__section character-sheet__section--full">
-          <h2>Backstory Grants</h2>
-          <ul className="character-sheet__grants">
+          <h2>Abilities</h2>
+          <ul className="character-sheet__grants" style={{ listStyleType: 'none', paddingLeft: 0 }}>
             {pickedItems.map((item, i) => (
-              <li key={i}>
-                <span className="character-sheet__grant-source">{item.source}:</span>{' '}
-                {item.name}
+              <li key={i} style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <div style={{ marginBottom: '0.25rem' }}>
+                  <span className="character-sheet__grant-source" style={{ fontWeight: 'bold' }}>{item.source}:</span>{' '}
+                  <strong style={{ fontSize: '1.1rem', color: 'var(--burgundy)' }}>{item.name}</strong>
+                  {item.ability?.mpCost && <span style={{ marginLeft: '0.5rem', color: 'var(--forest)' }}>({item.ability.mpCost} MP)</span>}
+                </div>
+                {item.ability && (
+                  <div style={{ paddingLeft: '1rem', borderLeft: '2px solid rgba(255,255,255,0.2)' }}>
+                    {item.ability.trigger && (
+                      <div style={{ fontStyle: 'italic', marginBottom: '0.25rem' }}>Trigger: {item.ability.trigger}</div>
+                    )}
+                    {item.ability.requiresAttention && (
+                      <div style={{ color: 'var(--attention-color, #ffb703)', marginBottom: '0.25rem' }}>Requires Attention</div>
+                    )}
+
+                    {/* Render the skill check details if they exist */}
+                    {item.ability.check && (
+                      <div style={{ marginBottom: '0.25rem', fontWeight: 'bold' }}>
+                        {item.ability.check.attackerSkill}
+                        {item.ability.check.defenderSkill ? ` vs. ${item.ability.check.defenderSkill}` : ''}
+                        {item.ability.check.range || item.ability.check.area ? ` (` : ''}
+                        {item.ability.check.range && `range: ${item.ability.check.range}`}
+                        {item.ability.check.range && item.ability.check.area ? `, ` : ''}
+                        {item.ability.check.area && `area: ${item.ability.check.area}`}
+                        {item.ability.check.range || item.ability.check.area ? `)` : ''}
+                      </div>
+                    )}
+                    {item.ability.check?.notes && (
+                      <div style={{ fontStyle: 'italic', marginBottom: '0.25rem', fontSize: '0.85rem' }}>Note: {item.ability.check.notes}</div>
+                    )}
+
+                    <div style={{ lineHeight: 1.5 }}>{item.ability.rulesText}</div>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

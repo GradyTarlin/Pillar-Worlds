@@ -14,6 +14,7 @@ import MonsterReferenceData from './monsterReference.json';
 import MonsterPatch1 from './monsterPatch1.json';
 import MonsterPatch2 from './monsterPatch2.json';
 import MonsterPatch3 from './monsterPatch3.json';
+import MonsterPatch4 from './monsterPatch4.json';
 
 type MonsterPatch = {
   appendMonsterAbilities?: MonsterAbility[];
@@ -26,6 +27,7 @@ const patches: MonsterPatch[] = [
   MonsterPatch1 as MonsterPatch,
   MonsterPatch2 as MonsterPatch,
   MonsterPatch3 as MonsterPatch,
+  MonsterPatch4 as MonsterPatch,
 ];
 
 for (const patch of patches) {

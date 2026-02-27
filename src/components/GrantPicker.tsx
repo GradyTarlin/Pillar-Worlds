@@ -1,5 +1,5 @@
 import type { Grant } from '../types';
-import { getAbilitiesByTagForLevel, getAbilitiesByTagsForLevel } from '../data/abilities';
+import { getAbilitiesByTagForLevel, getAbilitiesByTagsForLevel, getAbilityById } from '../data/abilities';
 import { getBaseItemsForEquipmentPick } from '../data/equipment';
 import { LEVEL } from '../derivation';
 
@@ -11,7 +11,7 @@ interface GrantPickerProps {
 }
 
 export function GrantPicker({ grant, grantKey, value, onChange }: GrantPickerProps) {
-  let options: { id: string; name: string }[] = [];
+  let options: { id: string; name: string; tag?: string }[] = [];
 
   switch (grant.kind) {
     case 'equipmentPick':
@@ -21,12 +21,14 @@ export function GrantPicker({ grant, grantKey, value, onChange }: GrantPickerPro
       options = (grant.tags ? getAbilitiesByTagsForLevel(grant.tags, LEVEL) : []).map((a) => ({
         id: a.id,
         name: a.name,
+        tag: a.tag,
       }));
       break;
     case 'abilityPick':
       options = (grant.tags?.[0] ? getAbilitiesByTagForLevel(grant.tags[0], LEVEL) : []).map((a) => ({
         id: a.id,
         name: a.name,
+        tag: a.tag,
       }));
       break;
     default:
@@ -44,6 +46,22 @@ export function GrantPicker({ grant, grantKey, value, onChange }: GrantPickerPro
           ? `Choose ${grant.tags?.[0]} ability`
           : 'Choose';
 
+  // For mastery picks, group by tag (weapon, relic, trick, defense)
+  const isGrouped = grant.kind === 'masteryPick';
+  const groupedOptions = isGrouped
+    ? options.reduce((acc, opt) => {
+      const tag = opt.tag || 'other';
+      if (!acc[tag]) acc[tag] = [];
+      acc[tag].push(opt);
+      return acc;
+    }, {} as Record<string, typeof options>)
+    : { all: options };
+
+  // Fetch full details of the chosen ability
+  const selectedAbility = value && (grant.kind === 'abilityPick' || grant.kind === 'masteryPick')
+    ? getAbilityById(value)
+    : null;
+
   return (
     <div className="grant-picker">
       <label htmlFor={grantKey} className="grant-picker__label">
@@ -56,12 +74,51 @@ export function GrantPicker({ grant, grantKey, value, onChange }: GrantPickerPro
         onChange={(e) => onChange(grantKey, e.target.value)}
       >
         <option value="">— Select —</option>
-        {options.map((opt) => (
-          <option key={opt.id} value={opt.id}>
-            {opt.name}
-          </option>
-        ))}
+        {isGrouped ? (
+          Object.entries(groupedOptions).map(([tag, opts]) => (
+            <optgroup key={tag} label={tag.charAt(0).toUpperCase() + tag.slice(1)}>
+              {opts.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.name}
+                </option>
+              ))}
+            </optgroup>
+          ))
+        ) : (
+          options.map((opt) => (
+            <option key={opt.id} value={opt.id}>
+              {opt.name}
+            </option>
+          ))
+        )}
       </select>
+
+      {selectedAbility && (
+        <div className="grant-picker__preview" style={{ marginTop: '0.5rem', padding: '0.5rem', backgroundColor: 'rgba(0,0,0,0.2)', borderRadius: '4px', fontSize: '0.9rem' }}>
+          <strong>{selectedAbility.name}</strong>
+          {selectedAbility.mpCost && <span style={{ marginLeft: '0.5rem', color: 'var(--mp-color, #48cae4)' }}>({selectedAbility.mpCost} MP)</span>}
+          {selectedAbility.trigger && <div style={{ fontStyle: 'italic', marginTop: '0.25rem' }}>Trigger: {selectedAbility.trigger}</div>}
+          {selectedAbility.requiresAttention && <div style={{ color: 'var(--attention-color, #ffb703)', marginTop: '0.25rem' }}>Requires Attention</div>}
+
+          {/* Render the skill check details if they exist */}
+          {selectedAbility.check && (
+            <div style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>
+              {selectedAbility.check.attackerSkill}
+              {selectedAbility.check.defenderSkill ? ` vs. ${selectedAbility.check.defenderSkill}` : ''}
+              {selectedAbility.check.range || selectedAbility.check.area ? ` (` : ''}
+              {selectedAbility.check.range && `range: ${selectedAbility.check.range}`}
+              {selectedAbility.check.range && selectedAbility.check.area ? `, ` : ''}
+              {selectedAbility.check.area && `area: ${selectedAbility.check.area}`}
+              {selectedAbility.check.range || selectedAbility.check.area ? `)` : ''}
+            </div>
+          )}
+          {selectedAbility.check?.notes && (
+            <div style={{ fontStyle: 'italic', marginTop: '0.25rem', fontSize: '0.85rem' }}>Note: {selectedAbility.check.notes}</div>
+          )}
+
+          <div style={{ marginTop: '0.5rem' }}>{selectedAbility.rulesText}</div>
+        </div>
+      )}
     </div>
   );
 }
