@@ -295,3 +295,101 @@
     padding-left: 1.5rem;
     line-height: 1.6;
 }
+
+/* Monster Specific Styling */
+.monster-stats-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+}
+
+.monster-skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.monster-skill-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.monster-skill-name {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.monster-skill-val {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1.1rem;
+}
+
+.monster-traits-list,
+.monster-equipment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.monster-traits-list li,
+.monster-equipment-item {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.monster-abilities-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.monster-ability-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(26, 20, 16, 0.15);
+}
+
+.monster-ability-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.monster-ability-item strong {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--ink);
+}
+
+.monster-ability-check {
+    font-weight: bold;
+    color: var(--burgundy);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.monster-ability-text {
+    line-height: 1.5;
+    color: var(--ink);
+}
+
+.compendium-detail__lore {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(26, 20, 16, 0.7);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--burgundy);
+}
+
+.compendium-detail__note {
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-size: 0.9rem;
+}
