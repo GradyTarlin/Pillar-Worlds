@@ -20,11 +20,21 @@
       "subtree": "energy.flamecasting",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "energy.flamecasting.fireball" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "energy.flamecasting.fireball"
+        }
       ],
       "mpCost": 1,
-      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see" },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "see"
+      },
       "rulesText": "Deal 1 magic damage. Repeat the attack, doubling the MP cost and damage each time."
     },
     {
@@ -35,8 +45,14 @@
       "subtree": "energy.flamecasting",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "energy.flamecasting.flame_channeling" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "energy.flamecasting.flame_channeling"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -62,8 +78,14 @@
       "subtree": "energy.flowing_current",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "energy.flowing_current.energy_stream" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "energy.flowing_current.energy_stream"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -77,8 +99,14 @@
       "subtree": "energy.flowing_current",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "energy.flowing_current.overcharge" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "energy.flowing_current.overcharge"
+        }
       ],
       "mpCost": 3,
       "check": null,
@@ -104,8 +132,14 @@
       "subtree": "energy.crucible_core",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "energy.crucible_core.forge_fire" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "energy.crucible_core.forge_fire"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -119,8 +153,14 @@
       "subtree": "energy.crucible_core",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "energy.crucible_core.eruption" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "energy.crucible_core.eruption"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -135,7 +175,11 @@
       "tier": 1,
       "prerequisites": [],
       "mpCost": 3,
-      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see" },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "see"
+      },
       "rulesText": "You can pay the MP cost again and repeat the attack against an enemy that the target can see. Continue repeating the attack until you miss. After you miss an attack, each enemy in the chain takes damage equal to the number of targets you struck."
     },
     {
@@ -146,11 +190,21 @@
       "subtree": "energy.stormcasting",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "energy.stormcasting.chain_lightning" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "energy.stormcasting.chain_lightning"
+        }
       ],
       "mpCost": "X",
-      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see" },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "see"
+      },
       "rulesText": "Deal X magic damage twice. If you miss, you take X magic damage."
     },
     {
@@ -161,12 +215,23 @@
       "subtree": "energy.stormcasting",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "energy.stormcasting.aftershock" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "energy.stormcasting.aftershock"
+        }
       ],
       "mpCost": "X",
-      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "reach", "area": "reach" },
-      "rulesText": "INS vs. STL (every creature within your reach): X magic damage."
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "reach",
+        "area": "reach"
+      },
+      "rulesText": "Deal X magic damage."
     },
     {
       "id": "light.healing.healing_touch",
@@ -188,8 +253,14 @@
       "subtree": "light.healing",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "light.healing.healing_touch" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "light.healing.healing_touch"
+        }
       ],
       "mpCost": "X",
       "check": null,
@@ -203,8 +274,14 @@
       "subtree": "light.healing",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "light.healing.healing_beam" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "light.healing.healing_beam"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -230,8 +307,14 @@
       "subtree": "light.illusions",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "light.illusions.mirage" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "light.illusions.mirage"
+        }
       ],
       "mpCost": 2,
       "check": null,
@@ -245,12 +328,23 @@
       "subtree": "light.illusions",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "light.illusions.duplicate" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "light.illusions.duplicate"
+        }
       ],
       "mpCost": 3,
-      "check": { "attackerSkill": "CHA", "defenderSkill": "WIS", "range": "see", "area": "see" },
-      "rulesText": "CHA vs. WIS (all enemies you can see). The target is enveloped in an illusory reality. Skill checks against them gain advantage until they break free of your illusion. They can repeat the skill check to break free every time they take damage. If you take damage, the illusion dissipates."
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see",
+        "area": "see"
+      },
+      "rulesText": "The target is enveloped in an illusory reality. Skill checks against them gain advantage until they break free of your illusion. They can repeat the skill check to break free every time they take damage. If you take damage, the illusion dissipates."
     },
     {
       "id": "light.smiting.blinding_smite",
@@ -272,8 +366,14 @@
       "subtree": "light.smiting",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "light.smiting.blinding_smite" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "light.smiting.blinding_smite"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -287,11 +387,23 @@
       "subtree": "light.smiting",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "light.smiting.righteous_punishment" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "light.smiting.righteous_punishment"
+        }
       ],
       "mpCost": 3,
-      "check": { "attackerSkill": "INS", "defenderSkill": "INS", "range": "see", "area": "see", "notes": "Targets: every enemy that can see you." },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "INS",
+        "range": "see",
+        "area": "see",
+        "notes": "Targets: every enemy that can see you."
+      },
       "rulesText": "The target is blinded until the end of your next turn. Blinded enemies have disadvantage on all skill checks and cannot see."
     },
     {
@@ -303,7 +415,12 @@
       "tier": 1,
       "prerequisites": [],
       "mpCost": "X",
-      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see", "notes": "Add +X to the INS roll from MP spent." },
+      "check": {
+        "attackerSkill": "INS + X",
+        "defenderSkill": "STL",
+        "range": "see",
+        "notes": "Add +X to the INS roll from MP spent."
+      },
       "rulesText": "Deal 1 magic damage + 1 magic damage per point of focus you have on the target."
     },
     {
@@ -314,12 +431,23 @@
       "subtree": "light.beams",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "light.beams.radiant_glare" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "light.beams.radiant_glare"
+        }
       ],
       "mpCost": 3,
-      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see", "area": "twoAdjacentZones" },
-      "rulesText": "INS vs. STL (every creature within two adjacent zones you can see): deal 2 magic damage."
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "see",
+        "area": "twoAdjacentZones"
+      },
+      "rulesText": "Deal 2 magic damage."
     },
     {
       "id": "light.beams.blinding_brilliance",
@@ -329,8 +457,14 @@
       "subtree": "light.beams",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "light.beams.explosive_light" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "light.beams.explosive_light"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -356,8 +490,14 @@
       "subtree": "nature.beast_form",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "nature.beast_form.shapeshifting" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "nature.beast_form.shapeshifting"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -371,8 +511,14 @@
       "subtree": "nature.beast_form",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "nature.beast_form.bestial_senses" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "nature.beast_form.bestial_senses"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -388,7 +534,8 @@
       "prerequisites": [],
       "mpCost": 2,
       "check": null,
-      "rulesText": "You can converse with beasts and plants of all kinds (not necessarily friendly). You are accompanied by a loyal beast (mouse to horse size). Your companion has +1 INS, PRW, STL, and STR and gains bonus skill points equal to your level. You and your beast companion share the same HP (if it dies, you die and vice versa). Choose one trait: camouflage (advantage on STL checks to hide), fast (can move again after making the skill check), flying (can move two zones with each movement, including upwards), or observant (advantage on all INS checks). Once per turn, spend 2 MP: your beast companion moves and makes a skill check; if your beast succeeds, it counts as you succeeding."
+      "passive": "You can converse with beasts and plants of all kinds (not necessarily friendly). You are accompanied by a loyal beast (mouse to horse size). Your companion has +1 INS, PRW, STL, and STR and gains bonus skill points equal to your level. You and your beast companion share the same HP (if it dies, you die and vice versa). Choose one trait: camouflage (advantage on STL checks to hide), fast (can move again after making the skill check), flying (can move two zones with each movement, including upwards), or observant (advantage on all INS checks).",
+      "rulesText": "Once per turn, spend 2 MP: your beast companion moves and makes a skill check; if your beast succeeds, it counts as you succeeding."
     },
     {
       "id": "nature.wildspeak.song_of_the_wild",
@@ -398,8 +545,14 @@
       "subtree": "nature.wildspeak",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "nature.wildspeak.beast_companion" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "nature.wildspeak.beast_companion"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -413,8 +566,14 @@
       "subtree": "nature.wildspeak",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "nature.wildspeak.song_of_the_wild" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "nature.wildspeak.song_of_the_wild"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -440,12 +599,19 @@
       "subtree": "nature.wild_fury",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "nature.wild_fury.primal_fury" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "nature.wild_fury.primal_fury"
+        }
       ],
       "mpCost": null,
       "check": null,
-      "rulesText": "When an enemy within your reach deals damage to you, spend 2 MP to immediately make a melee attack against them. You can add your STR bonus to the PRW check for this attack."
+      "trigger": "When an enemy within your reach deals damage to you",
+      "rulesText": "Spend 2 MP to immediately make a melee attack against them. You can add your STR bonus to the PRW check for this attack."
     },
     {
       "id": "nature.wild_fury.rampage",
@@ -455,8 +621,14 @@
       "subtree": "nature.wild_fury",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "nature.wild_fury.brutal_rage" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "nature.wild_fury.brutal_rage"
+        }
       ],
       "mpCost": null,
       "check": null,
@@ -482,8 +654,14 @@
       "subtree": "nature.plant_calling",
       "tier": 2,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "nature.plant_calling.briars" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "nature.plant_calling.briars"
+        }
       ],
       "mpCost": 2,
       "check": null,
@@ -497,8 +675,14 @@
       "subtree": "nature.plant_calling",
       "tier": 3,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "nature.plant_calling.barkscale" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "nature.plant_calling.barkscale"
+        }
       ],
       "mpCost": 3,
       "check": null,

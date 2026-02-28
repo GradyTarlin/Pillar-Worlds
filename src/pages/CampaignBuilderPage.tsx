@@ -7,7 +7,9 @@ import { QuestsView } from './campaign/QuestsView';
 import { RegionsView } from './campaign/RegionsView';
 import { SettlementsView } from './campaign/SettlementsView';
 import { DungeonsView } from './campaign/DungeonsView';
-import { MonstersView } from './campaign/MonstersView';
+import { SessionLogsView } from './campaign/SessionLogsView';
+import { EncountersView } from './campaign/EncountersView';
+import { InteractiveMap } from './campaign/InteractiveMap';
 import { useCampaignData } from '../hooks/useCampaignData';
 import './CampaignBuilderPage.css';
 
@@ -53,26 +55,36 @@ export function CampaignBuilderPage() {
 
                     {activeCampaignId && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
-                        <>
-                            <div className="campaign-column">
-                                <PlotLinesView />
+                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
+                            <div className="campaign-row">
+                                <InteractiveMap onSelectLocation={handleSelectLocation} />
                             </div>
-                            <div className="campaign-column">
-                                <RegionsView onSelectRegion={handleSelectRegion} />
+                            <div className="campaign-level-1-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
+                                <div className="campaign-column">
+                                    <SessionLogsView />
+                                </div>
+                                <div className="campaign-column">
+                                    <PlotLinesView />
+                                </div>
+                                <div className="campaign-column">
+                                    <RegionsView onSelectRegion={handleSelectRegion} />
+                                </div>
                             </div>
-                        </>
+                        </div>
                     )}
 
                     {activeCampaignId && selectedRegionId && !selectedLocationId && (
                         /* LEVEL 2: Region View */
-                        <>
-                            <div className="campaign-column">
-                                <SettlementsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
+                        <div className="campaign-level-2-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
+                            <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
+                                <div className="campaign-column">
+                                    <SettlementsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
+                                </div>
+                                <div className="campaign-column">
+                                    <DungeonsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
+                                </div>
                             </div>
-                            <div className="campaign-column">
-                                <DungeonsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
-                            </div>
-                        </>
+                        </div>
                     )}
 
                     {activeCampaignId && selectedLocationId && (() => {
@@ -94,7 +106,7 @@ export function CampaignBuilderPage() {
                                 )}
                                 {loc.type === 'dungeon' && (
                                     <div className="campaign-column">
-                                        <MonstersView locationId={selectedLocationId} />
+                                        <EncountersView />
                                     </div>
                                 )}
                             </>

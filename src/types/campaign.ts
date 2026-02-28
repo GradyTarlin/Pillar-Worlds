@@ -23,6 +23,13 @@ export interface Quest extends BaseEntity {
     locationId?: string; // Links quest to a settlement
 }
 
+export interface MapPin {
+    id: string;
+    x: number;
+    y: number;
+    locationId: string; // Links to 'settlement' or 'dungeon' location
+}
+
 export interface Region extends BaseEntity {
     climate: string;
 }
@@ -45,6 +52,30 @@ export interface CampaignMonster {
     notes?: string;
 }
 
+export interface SessionLog extends BaseEntity {
+    date: string;
+    content: string;
+}
+
+export interface EncounterCombatant {
+    id: string;
+    name: string;
+    isCharacter: boolean;
+    entityId: string; // ID of CampaignCharacter or CampaignMonster
+    initiative: number;
+    hp: number;
+    maxHp: number;
+    statusEffects: string[];
+}
+
+export interface Encounter extends BaseEntity {
+    locationId?: string;
+    combatants: EncounterCombatant[];
+    round: number;
+    activeTurnIndex: number;
+    isFinished: boolean;
+}
+
 export interface CampaignData {
     characters: CampaignCharacter[];
     plotLines: PlotLine[];
@@ -52,6 +83,10 @@ export interface CampaignData {
     regions: Region[];
     locations: Location[];
     monsters: CampaignMonster[];
+    sessionLogs: SessionLog[];
+    encounters: Encounter[];
+    mapImageId?: string;
+    mapPins?: MapPin[];
 }
 
 export const INITIAL_CAMPAIGN_DATA: CampaignData = {
@@ -61,6 +96,8 @@ export const INITIAL_CAMPAIGN_DATA: CampaignData = {
     regions: [],
     locations: [],
     monsters: [],
+    sessionLogs: [],
+    encounters: [],
 };
 
 export interface Campaign extends BaseEntity {

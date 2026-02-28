@@ -1,0 +1,175 @@
+.encounters-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.encounter-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.encounter-name {
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.encounter-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.encounter-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Tracker Styles */
+.encounter-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card-hover);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+}
+
+.encounter-round {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.form-group-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.tracker-add-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--bg-card);
+    padding: 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+}
+
+.tracker-add-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.tracker-add-row select,
+.tracker-add-row input {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    background: var(--bg-main);
+    color: var(--text-primary);
+}
+
+.tracker-add-row select {
+    max-width: 150px;
+}
+
+.short-input {
+    width: 60px;
+    text-align: center;
+}
+
+.tracker-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tracker-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.tracker-item--active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+    background: var(--bg-card-hover);
+}
+
+.tracker-item-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tracker-init {
+    font-weight: bold;
+    background: var(--bg-main);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    min-width: 2.5rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.tracker-item--active .tracker-init {
+    color: var(--primary-color);
+}
+
+.tracker-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.tracker-item-stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tracker-hp-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-main);
+    padding: 0.25rem;
+    border-radius: var(--radius-md);
+}
+
+.hp-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-weight: bold;
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease;
+}
+
+.hp-btn:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+.tracker-hp {
+    font-family: monospace;
+    font-size: 1.1rem;
+    min-width: 4rem;
+    text-align: center;
+}

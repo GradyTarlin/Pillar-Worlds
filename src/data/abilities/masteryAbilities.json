@@ -8,7 +8,8 @@
       "subtree": "blade",
       "tier": 1,
       "prerequisites": [],
-      "rulesText": "When an enemy moves out of your zone, you can immediately make a blade attack against them as they leave. You can backslash a target even if they are moved involuntarily."
+      "trigger": "When an enemy moves out of your zone",
+      "rulesText": "Immediately make a blade attack against them as they leave. You can backslash a target even if they are moved involuntarily."
     },
     {
       "id": "blade.chain_attack",
@@ -299,7 +300,8 @@
       "subtree": "tome",
       "tier": 1,
       "prerequisites": [],
-      "rulesText": "Once per turn when you run out of MP, you can immediately make a free focus check against an enemy you can see. You can read many languages."
+      "passive": "You can read many languages.",
+      "rulesText": "Once per turn when you run out of MP, you can immediately make a free focus check against an enemy you can see."
     },
     {
       "id": "tome.mana_reservoir",
@@ -396,7 +398,8 @@
       "subtree": "cloak",
       "tier": 1,
       "prerequisites": [],
-      "rulesText": "Whenever you dodge an attack, you may immediately make a STL check against the attacker."
+      "trigger": "Whenever you dodge an attack",
+      "rulesText": "You may immediately make a STL check against the attacker."
     },
     {
       "id": "cloak.shrouded",
@@ -540,7 +543,8 @@
       "subtree": "footwork",
       "tier": 1,
       "prerequisites": [],
-      "rulesText": "When an enemy fails an offensive skill check against you, you can immediately move."
+      "trigger": "When an enemy fails an offensive skill check against you",
+      "rulesText": "You can immediately move."
     },
     {
       "id": "footwork.dash",
@@ -578,7 +582,8 @@
           "id": "footwork.dash"
         }
       ],
-      "rulesText": "When an enemy fails an offensive skill check against you, you gain one point of focus on them."
+      "trigger": "When an enemy fails an offensive skill check against you",
+      "rulesText": "You gain one point of focus on them."
     },
     {
       "id": "armour.bulwark",
@@ -591,7 +596,8 @@
       "notes": [
         "Interpretation note: treat 'your armour takes one less damage' as reducing incoming physical damage by 1 before applying it to Armour/HP."
       ],
-      "rulesText": "+1 maximum armour. Whenever your armour takes physical damage, it takes one less damage."
+      "passive": "+1 maximum armour.",
+      "rulesText": "Whenever your armour takes physical damage, it takes one less damage."
     },
     {
       "id": "armour.impenetrable",
@@ -610,7 +616,8 @@
           "id": "armour.bulwark"
         }
       ],
-      "rulesText": "+1 maximum armour. You can fully repair your armour by scoring 12 or higher on a STR check."
+      "passive": "+1 maximum armour.",
+      "rulesText": "You can fully repair your armour by scoring 12 or higher on a STR check."
     },
     {
       "id": "armour.juggernaut",
@@ -629,7 +636,8 @@
           "id": "armour.impenetrable"
         }
       ],
-      "rulesText": "+1 maximum armour. You can add your current points of armour to your STR bonus."
+      "passive": "+1 maximum armour.",
+      "rulesText": "You can add your current points of armour to your STR bonus."
     },
     {
       "id": "shield.bash",
@@ -639,7 +647,9 @@
       "subtree": "shield",
       "tier": 1,
       "prerequisites": [],
-      "rulesText": "+1 block bonus from shields. Whenever you block a melee attack, you can immediately make a STR check to push the attacker."
+      "passive": "+1 block bonus from shields.",
+      "trigger": "Whenever you block a melee attack",
+      "rulesText": "You can immediately make a STR check to push the attacker."
     },
     {
       "id": "shield.guardian",
@@ -658,7 +668,9 @@
           "id": "shield.bash"
         }
       ],
-      "rulesText": "+1 block bonus from shields. When an enemy attacks an ally in the same zone as you, you may add your block bonus to your ally's defensive check. After using this ability, you cannot use it again until your next turn."
+      "passive": "+1 block bonus from shields.",
+      "trigger": "When an enemy attacks an ally in the same zone as you",
+      "rulesText": "You may add your block bonus to your ally's defensive check. After using this ability, you cannot use it again until your next turn."
     },
     {
       "id": "shield.fortify",
@@ -677,7 +689,8 @@
           "id": "shield.guardian"
         }
       ],
-      "rulesText": "+1 block bonus from shields. You can sacrifice your movement to double your block bonus until the start of your next turn."
+      "passive": "+1 block bonus from shields.",
+      "rulesText": "You can sacrifice your movement to double your block bonus until the start of your next turn."
     },
     {
       "id": "ward.phase_shift",
@@ -687,7 +700,9 @@
       "subtree": "ward",
       "tier": 1,
       "prerequisites": [],
-      "rulesText": "+1 maximum ward. When your ward absorbs magic damage, you can immediately teleport to an adjacent zone."
+      "passive": "+1 maximum ward.",
+      "trigger": "When your ward absorbs magic damage",
+      "rulesText": "You can immediately teleport to an adjacent zone."
     },
     {
       "id": "ward.mana_reflection",
@@ -706,7 +721,9 @@
           "id": "ward.phase_shift"
         }
       ],
-      "rulesText": "+1 maximum ward. Whenever your ward absorbs magic damage, the attacker takes an equal amount of magic damage."
+      "passive": "+1 maximum ward.",
+      "trigger": "Whenever your ward absorbs magic damage",
+      "rulesText": "The attacker takes an equal amount of magic damage."
     },
     {
       "id": "ward.arcane_battery",
@@ -726,7 +743,8 @@
           "id": "ward.mana_reflection"
         }
       ],
-      "rulesText": "+1 maximum ward. Once per turn, you can spend X MP to restore X points of ward. You can expend points of ward in the place of MP."
+      "passive": "+1 maximum ward.",
+      "rulesText": "Once per turn, you can spend X MP to restore X points of ward. You can expend points of ward in the place of MP."
     },
     {
       "id": "toughness.willpower",
@@ -736,7 +754,8 @@
       "subtree": "toughness",
       "tier": 1,
       "prerequisites": [],
-      "rulesText": "Whenever an attack hits you, reduce its damage by the amount of focus you have on the attacker. Lose one point of focus on the attacker when you negate damage this way."
+      "trigger": "Whenever an attack hits you",
+      "rulesText": "Reduce its damage by the amount of focus you have on the attacker. Lose one point of focus on the attacker when you negate damage this way."
     },
     {
       "id": "toughness.tenacity",
@@ -755,7 +774,8 @@
           "id": "toughness.willpower"
         }
       ],
-      "rulesText": "Whenever an attack hits you but you do not lose HP, you gain one point of focus on the attacker."
+      "trigger": "Whenever an attack hits you but you do not lose HP",
+      "rulesText": "You gain one point of focus on the attacker."
     },
     {
       "id": "toughness.grit",

@@ -28,6 +28,7 @@ export interface Ability {
   mpCost?: number | string | null;
   check?: AbilityCheck | null;
   trigger?: string;
+  passive?: string;
   requiresAttention?: boolean;
   notes?: string[];
 }

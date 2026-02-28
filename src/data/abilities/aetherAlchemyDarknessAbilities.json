@@ -22,8 +22,14 @@
       "mpCost": 2,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "aether.teleportation.aether_step" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "aether.teleportation.aether_step"
+        }
       ],
       "rulesText": "Once per turn, open a portal between two points in space that you can see. Anything that passes through one portal comes out of the other. The portal can be up to twice your size or as small as your hand. You can have multiple portals open, but all of your portals close if you take physical damage."
     },
@@ -35,10 +41,20 @@
       "subtree": "aether.teleportation",
       "tier": 3,
       "mpCost": 3,
-      "check": { "attackerSkill": "INS", "defenderSkill": "INS", "range": "reach" },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "aether.teleportation.portal" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "aether.teleportation.portal"
+        }
       ],
       "rulesText": "You are the master of a fragment of the aether, where you can store matter and imprison enemies. Banish the target into the aether. They can only escape by beating you in an INS vs. INS check."
     },
@@ -50,7 +66,12 @@
       "subtree": "aether.telepathy",
       "tier": 1,
       "mpCost": 1,
-      "check": { "attackerSkill": "CHA", "defenderSkill": null, "range": "see", "notes": "Make this CHA check with advantage." },
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see",
+        "notes": "Make this CHA check with advantage."
+      },
       "prerequisites": [],
       "rulesText": "Send your thoughts into the mind of a creature that you can see. Make a CHA check against them with advantage."
     },
@@ -63,10 +84,20 @@
       "tier": 2,
       "mpCost": 2,
       "trigger": "When you see an enemy fail an offensive skill check",
-      "check": { "attackerSkill": "CHA", "defenderSkill": "WIS", "range": "see" },
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see"
+      },
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "aether.telepathy.psychic_whisper" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "aether.telepathy.psychic_whisper"
+        }
       ],
       "rulesText": "Deal 2 magic damage and the target gains disadvantage on their next skill check."
     },
@@ -78,10 +109,20 @@
       "subtree": "aether.telepathy",
       "tier": 3,
       "mpCost": 3,
-      "check": { "attackerSkill": "CHA", "defenderSkill": "WIS", "range": "see" },
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see"
+      },
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "aether.telepathy.psychic_echo" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "aether.telepathy.psychic_echo"
+        }
       ],
       "rulesText": "Control one skill check on the target's next turn."
     },
@@ -93,7 +134,11 @@
       "subtree": "aether.rift",
       "tier": 1,
       "mpCost": "X",
-      "check": { "attackerSkill": "PRW", "defenderSkill": "STL", "range": "see" },
+      "check": {
+        "attackerSkill": "PRW",
+        "defenderSkill": "STL",
+        "range": "see"
+      },
       "prerequisites": [],
       "rulesText": "Deal X + STR magic damage."
     },
@@ -107,8 +152,14 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "aether.rift.aether_strike" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "aether.rift.aether_strike"
+        }
       ],
       "rulesText": "When you hit an aether strike, your target must roll a STR check. If they score lower than your PRW bonus + your level, they take additional magic damage equal to your STR bonus."
     },
@@ -122,8 +173,14 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "aether.rift.ravenous_rift" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "aether.rift.ravenous_rift"
+        }
       ],
       "rulesText": "Rather than unleashing a single aether strike, you may choose to make a number of separate attacks equal to the amount of MP you spend. Each attack deals 1 + STR magic damage."
     },
@@ -137,7 +194,8 @@
       "mpCost": 3,
       "check": null,
       "prerequisites": [],
-      "rulesText": "You are accompanied by a small magical creature from an immortal realm. Your familiar is incorporeal, can speak and spy on your behalf, but can only affect the physical world when you feed it mana. You summon your familiar until the end of your next turn. Whenever you focus on an enemy, your familiar strikes them, dealing 2 physical damage."
+      "passive": "You are accompanied by a small magical creature from an immortal realm. Your familiar is incorporeal, can speak and spy on your behalf, but can only affect the physical world when you feed it mana.",
+      "rulesText": "You summon your familiar until the end of your next turn. Whenever you focus on an enemy, your familiar strikes them, dealing 2 physical damage."
     },
     {
       "id": "aether.conjuration.aetherial_arms",
@@ -149,8 +207,14 @@
       "mpCost": 3,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "aether.conjuration.familiar" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "aether.conjuration.familiar"
+        }
       ],
       "rulesText": "You summon a magical blade, bow, or bludgeon into your hand. It deals 2 physical damage and 1 magic damage on a hit, and lasts until the end of your next turn."
     },
@@ -164,8 +228,14 @@
       "mpCost": 3,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "aether.conjuration.aetherial_arms" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "aether.conjuration.aetherial_arms"
+        }
       ],
       "rulesText": "You summon an elemental, infernal, celestial, or fae guardian to defend you until the end of your next turn. Whenever an enemy moves into your zone or makes an attack against you, your guardian deals 2 physical damage and 1 magic damage to it."
     },
@@ -177,9 +247,13 @@
       "subtree": "alchemy.transmutation",
       "tier": 1,
       "mpCost": 2,
-      "check": { "attackerSkill": "INS", "defenderSkill": "STR", "range": "see" },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STR",
+        "range": "see"
+      },
       "prerequisites": [],
-      "rulesText": "Change any handheld item into a different item of the same mass and material composition. Or, INS vs. STR (one enemy you can see): liquefy the ground beneath the target's feet; the target gains disadvantage on STL checks and cannot move until they score at least 10 on a STR check to escape."
+      "rulesText": "Change any handheld item into a different item of the same mass and material composition. Or, liquefy the ground beneath the target's feet; the target gains disadvantage on STL checks and cannot move until they score at least 10 on a STR check to escape."
     },
     {
       "id": "alchemy.transmutation.morphic_lance",
@@ -189,12 +263,23 @@
       "subtree": "alchemy.transmutation",
       "tier": 2,
       "mpCost": "X",
-      "check": { "attackerSkill": "INS", "defenderSkill": "STL", "range": "see", "notes": "Spend X MP to create X lances; make an attack for each lance." },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "see",
+        "notes": "Spend X MP to create X lances; make an attack for each lance."
+      },
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "alchemy.transmutation.fluid_matter" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.transmutation.fluid_matter"
+        }
       ],
-      "rulesText": "Spend X MP to create X morphic lances, then launch each one at an enemy you can see (INS vs. STL). Each hit deals 2 physical damage."
+      "rulesText": "Spend X MP to create X morphic lances, then launch each one at an enemy you can see. Each hit deals 2 physical damage."
     },
     {
       "id": "alchemy.transmutation.world_shaping",
@@ -204,12 +289,23 @@
       "subtree": "alchemy.transmutation",
       "tier": 3,
       "mpCost": 3,
-      "check": { "attackerSkill": "INS", "defenderSkill": "STR", "range": "see", "area": "see" },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STR",
+        "range": "see",
+        "area": "see"
+      },
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "alchemy.transmutation.morphic_lance" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.transmutation.morphic_lance"
+        }
       ],
-      "rulesText": "INS vs. STR of every enemy you can see: push the target; they cannot move until the end of their next turn. You and every ally you can see may move immediately."
+      "rulesText": "Push the target; they cannot move until the end of their next turn. You and every ally you can see may move immediately."
     },
     {
       "id": "alchemy.potions.stinging_venom",
@@ -219,7 +315,11 @@
       "subtree": "alchemy.potions",
       "tier": 1,
       "mpCost": 1,
-      "check": { "attackerSkill": "STL", "defenderSkill": "INS", "range": "reach" },
+      "check": {
+        "attackerSkill": "STL",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
       "prerequisites": [],
       "rulesText": "Apply your venom to the target. Whenever they fail a skill check on their next turn, they take 2 magic damage."
     },
@@ -233,8 +333,14 @@
       "mpCost": 1,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "alchemy.potions.stinging_venom" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.potions.stinging_venom"
+        }
       ],
       "rulesText": "Whenever a mortal creature dies within your reach, you can spend 1 MP to refine its lifeblood into a healing elixir. You can also spend 1 MP to create a lifeblood elixir from your own blood whenever you take 3 or more physical damage at once. You can consume one lifeblood elixir per turn, which restores 5 HP. Lifeblood elixirs expire after 24 hours."
     },
@@ -248,8 +354,14 @@
       "mpCost": 3,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "alchemy.potions.lifeblood_elixir" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.potions.lifeblood_elixir"
+        }
       ],
       "rulesText": "Once per turn, you may spend 3 MP to brew a potion of dreams. You can make a free skill check when you consume a potion of dreams, but you take 5 magic damage if it fails. Potions of dreams expire after 24 hours."
     },
@@ -275,8 +387,14 @@
       "mpCost": 2,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "alchemy.enchanting.runes_of_power" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.enchanting.runes_of_power"
+        }
       ],
       "rulesText": "Once per turn, while focusing on an enemy, spend 2 MP to imbue a weapon with arcane script. The weapon hovers alongside you (moving with you when you move). On each of your turns, it can make one free attack against an enemy you are focusing on. These attacks use your PRW bonus but do not add your STR bonus to the damage. If you lose focus, the weapon loses its enchantment."
     },
@@ -290,8 +408,14 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "alchemy.enchanting.arcane_script" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.enchanting.arcane_script"
+        }
       ],
       "rulesText": "Bind your spirit to a weapon. You can summon your bound weapon to your hand at any time (it flies to you from any distance, but cannot break through barriers). You do not lose all of your focus when you take damage; instead, you lose an amount of focus equal to the HP you lose. You can use your bound weapon to make melee attacks against targets in adjacent zones as if they were within your reach. You can only have one bound weapon at a time."
     },
@@ -303,9 +427,14 @@
       "subtree": "alchemy.flasks",
       "tier": 1,
       "mpCost": "X",
-      "check": { "attackerSkill": "PRW", "defenderSkill": "STL", "range": "see", "area": "zone" },
+      "check": {
+        "attackerSkill": "PRW",
+        "defenderSkill": "STL",
+        "range": "see",
+        "area": "zone"
+      },
       "prerequisites": [],
-      "rulesText": "Spend X MP to create a mana bomb. PRW vs. STL (every creature within a zone you can see). The bomb deals 1 magic damage per 2 MP spent."
+      "rulesText": "Spend X MP to create a mana bomb. The bomb deals 1 magic damage per 2 MP spent."
     },
     {
       "id": "alchemy.flasks.acid_flask",
@@ -315,10 +444,21 @@
       "subtree": "alchemy.flasks",
       "tier": 2,
       "mpCost": 2,
-      "check": { "attackerSkill": "PRW", "defenderSkill": "STL", "range": "see", "notes": "Target: an enemy within three zones." },
+      "check": {
+        "attackerSkill": "PRW",
+        "defenderSkill": "STL",
+        "range": "see",
+        "notes": "Target: an enemy within three zones."
+      },
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "alchemy.flasks.alchemical_bomb" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.flasks.alchemical_bomb"
+        }
       ],
       "rulesText": "Deal 2 physical damage. Attacks against the target have advantage until the end of your next turn."
     },
@@ -332,8 +472,14 @@
       "mpCost": 3,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "alchemy.flasks.acid_flask" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "alchemy.flasks.acid_flask"
+        }
       ],
       "rulesText": "Flood a zone that you can see with burning oil. Any creature that starts its turn within the zone takes 3 magic damage. The oil burns until the start of your next turn."
     },
@@ -345,7 +491,11 @@
       "subtree": "darkness.necromancy",
       "tier": 1,
       "mpCost": "X",
-      "check": { "attackerSkill": "INS", "defenderSkill": "CHA", "range": "see" },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "CHA",
+        "range": "see"
+      },
       "prerequisites": [],
       "rulesText": "If your target dies before the end of your next turn, they are raised as your undead servant with X HP. They retain their STR bonus but lose all other skill bonuses, and they cannot regain HP. You can make one skill check for them on each of your turns."
     },
@@ -357,12 +507,25 @@
       "subtree": "darkness.necromancy",
       "tier": 2,
       "mpCost": 2,
-      "check": { "attackerSkill": "INS", "defenderSkill": "CHA", "range": "see", "area": "boundSpirits", "notes": "Targets: every enemy whose spirit you have bound." },
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "CHA",
+        "range": "see",
+        "area": "boundSpirits",
+        "notes": "Targets: every enemy whose spirit you have bound."
+      },
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "darkness.necromancy.spirit_binding" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.necromancy.spirit_binding"
+        }
       ],
-      "rulesText": "You can consume the soul of an undead servant, regaining HP or MP equal to their remaining HP; they crumble to ash. Also: INS vs. CHA of every enemy whose spirit you have bound; the target takes 4 magic damage."
+      "passive": "You can consume the soul of an undead servant, regaining HP or MP equal to their remaining HP; they crumble to ash.",
+      "rulesText": "The target takes 4 magic damage."
     },
     {
       "id": "darkness.necromancy.undead_plague",
@@ -374,8 +537,14 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "darkness.necromancy.reapers_harvest" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.necromancy.reapers_harvest"
+        }
       ],
       "rulesText": "Whenever your undead servants deal damage to an enemy, they also bind the target's spirit until the end of your next turn. If that enemy dies while their soul is bound, they are raised as another undead servant with 3 HP."
     },
@@ -388,7 +557,12 @@
       "tier": 1,
       "mpCost": 2,
       "trigger": "When you have advantage",
-      "check": { "attackerSkill": "PRW", "defenderSkill": "STL", "range": "reach", "notes": "Requires a weapon attack; triggered when you have advantage." },
+      "check": {
+        "attackerSkill": "PRW",
+        "defenderSkill": "STL",
+        "range": "reach",
+        "notes": "Requires a weapon attack; triggered when you have advantage."
+      },
       "prerequisites": [],
       "rulesText": "Deal Weapon + STR + STL physical damage."
     },
@@ -402,10 +576,17 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "darkness.shadowcraft.shadow_strike" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.shadowcraft.shadow_strike"
+        }
       ],
-      "rulesText": "When you dodge an attack, spend 2 MP to immediately make a free skill check."
+      "trigger": "When you dodge an attack",
+      "rulesText": "Spend 2 MP to immediately make a free skill check."
     },
     {
       "id": "darkness.shadowcraft.shadow_theft",
@@ -415,10 +596,20 @@
       "subtree": "darkness.shadowcraft",
       "tier": 3,
       "mpCost": 3,
-      "check": { "attackerSkill": "STL", "defenderSkill": "INS", "range": "reach" },
+      "check": {
+        "attackerSkill": "STL",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "darkness.shadowcraft.shadow_dancing" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.shadowcraft.shadow_dancing"
+        }
       ],
       "rulesText": "Steal the target's shadow. Creatures without shadows take +1 magic damage whenever they take damage. Your target can reclaim their shadow from you by dealing damage to you."
     },
@@ -444,8 +635,14 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "darkness.bloodlust.bloodthirst" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.bloodlust.bloodthirst"
+        }
       ],
       "rulesText": "Once per turn, you may expend up to 3 HP to restore an equal amount of MP."
     },
@@ -459,8 +656,14 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "darkness.bloodlust.bloodletting" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.bloodlust.bloodletting"
+        }
       ],
       "rulesText": "Once per turn when you deal damage, regain 3 HP."
     },
@@ -472,7 +675,12 @@
       "subtree": "darkness.curses",
       "tier": 1,
       "mpCost": 2,
-      "check": { "attackerSkill": "CHA", "defenderSkill": "WIS", "range": "see", "notes": "Target must be able to hear you." },
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see",
+        "notes": "Target must be able to hear you."
+      },
       "prerequisites": [],
       "rulesText": "The target is marked for death. The next time they take physical damage, they take an equal amount of magic damage as well."
     },
@@ -486,8 +694,14 @@
       "mpCost": 1,
       "check": null,
       "prerequisites": [
-        { "kind": "level", "min": 5 },
-        { "kind": "ability", "id": "darkness.curses.curse_of_dread" }
+        {
+          "kind": "level",
+          "min": 5
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.curses.curse_of_dread"
+        }
       ],
       "rulesText": "Once per turn, curse a weapon. Its wielder can spend 2 HP to deal +3 physical damage when they hit an attack with it."
     },
@@ -499,10 +713,21 @@
       "subtree": "darkness.curses",
       "tier": 3,
       "mpCost": 2,
-      "check": { "attackerSkill": "CHA", "defenderSkill": "WIS", "range": "see", "notes": "Target must be able to hear you." },
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see",
+        "notes": "Target must be able to hear you."
+      },
       "prerequisites": [
-        { "kind": "level", "min": 9 },
-        { "kind": "ability", "id": "darkness.curses.curse_of_bloodshed" }
+        {
+          "kind": "level",
+          "min": 9
+        },
+        {
+          "kind": "ability",
+          "id": "darkness.curses.curse_of_bloodshed"
+        }
       ],
       "rulesText": "Until the end of your next turn, the target takes magic damage equal to the damage it deals."
     }

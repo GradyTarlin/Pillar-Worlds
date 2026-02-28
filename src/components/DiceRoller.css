@@ -1,0 +1,149 @@
+.dice-roller-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.dice-roller-toggle {
+    background: var(--burgundy);
+    color: var(--parchment);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.dice-roller-toggle:hover {
+    background: var(--burgundy-light);
+    transform: translateY(-2px);
+}
+
+.dice-roller-panel {
+    background: var(--parchment);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-md);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.dice-roller-history {
+    height: 250px;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--parchment-dark);
+}
+
+.dice-empty {
+    text-align: center;
+    color: var(--ink-muted);
+    font-style: italic;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.dice-roll-item {
+    background: var(--parchment);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--burgundy);
+}
+
+.dice-roll-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+}
+
+.dice-roll-expr {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+}
+
+.dice-roll-total {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--ink);
+}
+
+.dice-roll-details {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    font-family: monospace;
+}
+
+.dice-roller-controls {
+    padding: 1rem;
+    background: var(--parchment);
+    border-top: 1px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.dice-quick-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.dice-btn {
+    background: var(--parchment-dark);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dice-btn:hover {
+    background: var(--burgundy);
+    color: var(--parchment);
+    border-color: var(--burgundy);
+}
+
+.dice-custom-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dice-custom-form input {
+    flex: 1;
+    background: var(--parchment-dark);
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.dice-custom-form button {
+    background: var(--burgundy);
+    color: var(--parchment);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dice-custom-form button:hover {
+    background: var(--burgundy-light);
+}
