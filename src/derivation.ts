@@ -71,3 +71,31 @@ export function deriveMPRecovery(skills: Skills): number {
 }
 
 export const LEVEL = 1;
+
+import { equipment } from './data/equipment';
+import type { BaseItem } from './data/equipment/types';
+
+/**
+ * Derives a list of equipment based on starting selection and backstory grants.
+ */
+export function deriveEquipment(selections: CharacterSelections): BaseItem[] {
+  const items: BaseItem[] = [];
+
+  // Add explicitly chosen starting equipment
+  if (selections.startingEquipment) {
+    const startItem = equipment.equipment.baseItems.find(i => i.id === selections.startingEquipment);
+    if (startItem) items.push(startItem);
+  }
+
+  // Scan all grant picks for equipment choices
+  for (const choiceId of Object.values(selections.grantPicks)) {
+    if (choiceId && choiceId.startsWith('equip.')) {
+      const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId);
+      if (grantedItem) {
+        items.push(grantedItem);
+      }
+    }
+  }
+
+  return items;
+}

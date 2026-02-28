@@ -11,6 +11,7 @@ export interface BaseItem {
   id: string;
   name: string;
   type: 'weapon' | 'relic' | 'trick' | 'armour' | 'shield' | 'ward';
+  subtype?: string;
   rulesText: string[];
   grants?: BaseItemGrants;
 }

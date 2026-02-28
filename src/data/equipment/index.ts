@@ -24,8 +24,14 @@ export function getArtifactsBySubtype(subtype: string): EquipmentData['equipment
 }
 
 /** Base items only — for backstory equipment picks (no artifacts) */
-export function getBaseItemsForEquipmentPick(): { id: string; name: string }[] {
-  return baseItems.map((b) => ({ id: b.id, name: b.name }));
+export function getBaseItemsForEquipmentPick(): { id: string; name: string; tag: string }[] {
+  return baseItems.map((b) => {
+    let tag: string = b.type;
+    if (tag === 'armour' || tag === 'shield' || tag === 'ward') {
+      tag = 'defense';
+    }
+    return { id: b.id, name: b.name, tag };
+  });
 }
 
 /** Get equipment name by id (base item or artifact) */

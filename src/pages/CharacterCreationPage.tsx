@@ -21,6 +21,8 @@ import { deriveSkills, deriveHP, deriveMP, deriveMPRecovery } from '../derivatio
 import { SelectionSection } from '../components/SelectionSection';
 import { CharacterSheet } from '../components/CharacterSheet';
 import { GrantPicker } from '../components/GrantPicker';
+import { AttributeSlider } from '../components/AttributeSlider';
+import { baseItems } from '../data/equipment';
 import '../App.css';
 
 const INITIAL_SELECTIONS: CharacterSelections = {
@@ -35,6 +37,7 @@ const INITIAL_SELECTIONS: CharacterSelections = {
   youth: null,
   comingOfAge: null,
   grantPicks: {},
+  startingEquipment: null,
 };
 
 export function CharacterCreationPage() {
@@ -61,7 +64,8 @@ export function CharacterCreationPage() {
     selections.birth &&
     selections.youth &&
     selections.comingOfAge &&
-    allGrantPicksComplete;
+    allGrantPicksComplete &&
+    selections.startingEquipment !== null;
 
   const updateSelection = <K extends keyof CharacterSelections>(
     key: K,
@@ -125,13 +129,12 @@ export function CharacterCreationPage() {
         <div className="attributes-group">
           <h3 className="attributes-group__title">Attributes</h3>
           <div className="attributes-group__content">
-            <SelectionSection
+            <AttributeSlider
               title="Body"
               subheading="Your physical build — affects Strength and Prowess."
               options={BODY_OPTIONS}
               selected={selections.body}
               onSelect={(opt) => updateSelection('body', opt)}
-              getOptionId={(o) => o.id}
               getOptionName={(o) => o.name}
               renderSelectedDetail={(body) => {
                 const parts = Object.entries(body.bonuses).map(
@@ -143,16 +146,13 @@ export function CharacterCreationPage() {
                   </div>
                 );
               }}
-              ghostUnselectedWhenSelected
-              isComplete={!!selections.body}
             />
-            <SelectionSection
+            <AttributeSlider
               title="Mind"
               subheading="Your mental approach — affects Wisdom and Instinct."
               options={MIND_OPTIONS}
               selected={selections.mind}
               onSelect={(opt) => updateSelection('mind', opt)}
-              getOptionId={(o) => o.id}
               getOptionName={(o) => o.name}
               renderSelectedDetail={(mind) => {
                 const parts = Object.entries(mind.bonuses).map(
@@ -164,16 +164,13 @@ export function CharacterCreationPage() {
                   </div>
                 );
               }}
-              ghostUnselectedWhenSelected
-              isComplete={!!selections.mind}
             />
-            <SelectionSection
+            <AttributeSlider
               title="Spirit"
               subheading="Your social disposition — affects Stealth and Charisma."
               options={SPIRIT_OPTIONS}
               selected={selections.spirit}
               onSelect={(opt) => updateSelection('spirit', opt)}
-              getOptionId={(o) => o.id}
               getOptionName={(o) => o.name}
               renderSelectedDetail={(spirit) => {
                 const parts = Object.entries(spirit.bonuses).map(
@@ -185,8 +182,6 @@ export function CharacterCreationPage() {
                   </div>
                 );
               }}
-              ghostUnselectedWhenSelected
-              isComplete={!!selections.spirit}
             />
           </div>
         </div>
@@ -353,6 +348,24 @@ export function CharacterCreationPage() {
             isComplete={!!selections.comingOfAge && (selections.comingOfAge ? selections.comingOfAge.grants.every((_, i) => selections.grantPicks[`${selections.comingOfAge!.id}-${i}`]) : false)}
           />
         </div>
+        <SelectionSection
+          title="Starting Equipment"
+          subheading="Choose one piece of standard equipment to begin your journey with."
+          options={baseItems}
+          selected={baseItems.find(i => i.id === selections.startingEquipment) ?? null}
+          onSelect={(opt) => updateSelection('startingEquipment', opt.id)}
+          getOptionId={(o) => o.id}
+          getOptionName={(o) => o.name}
+          variant="dropdown"
+          getOptionGroup={(o) => {
+            if (o.type === 'weapon') return 'Weapon';
+            if (o.type === 'relic') return 'Relic';
+            if (o.type === 'trick') return 'Trick';
+            return 'Defense';
+          }}
+          ghostUnselectedWhenSelected
+          isComplete={!!selections.startingEquipment}
+        />
       </main>
 
       <aside className="app__sidebar">

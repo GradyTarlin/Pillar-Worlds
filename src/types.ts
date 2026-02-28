@@ -83,4 +83,5 @@ export interface CharacterSelections {
   comingOfAge: BackstoryFragment | null;
   /** Picks made for backstory grants (ability/equipment/mastery) */
   grantPicks: GrantPicks;
+  startingEquipment: string | null;
 }

@@ -2,27 +2,86 @@
   "equipment": {
     "baseItems": [
       {
-        "id": "equip.weapon",
-        "name": "Weapon",
+        "id": "equip.weapon.blade",
+        "name": "Blade",
         "type": "weapon",
+        "subtype": "blade",
         "rulesText": [
-          "Weapon attacks deal 1 + STR physical damage.",
-          "Ranged weapons can attack anyone you can see, but have disadvantage on attack rolls against enemies in the same zone as you.",
-          "Critical hit: if you roll a 12 on a weapon attack (before bonuses), deal double damage. You can also land a critical hit if your target rolls a 2 to avoid your attack."
+          "Weapon attacks deal 1 +STR physical damage.",
+          "If you roll a 12 on a weapon attack (before bonuses), the attack is a critical hit and deals double damage.\nYou can also land a critical hit if your target rolls a 2 to avoid your attack."
         ]
       },
       {
-        "id": "equip.relic",
-        "name": "Relic",
+        "id": "equip.weapon.bludgeon",
+        "name": "Bludgeon",
+        "type": "weapon",
+        "subtype": "bludgeon",
+        "rulesText": [
+          "Weapon attacks deal 1 +STR physical damage.",
+          "If you roll a 12 on a weapon attack (before bonuses), the attack is a critical hit and deals double damage.\nYou can also land a critical hit if your target rolls a 2 to avoid your attack."
+        ]
+      },
+      {
+        "id": "equip.weapon.bow",
+        "name": "Bow",
+        "type": "weapon",
+        "subtype": "bow",
+        "rulesText": [
+          "Weapon attacks deal 1 +STR physical damage.",
+          "Ranged weapons can attack anyone that you can see, but have disadvantage on attack rolls against enemies that are in the same zone as you.",
+          "If you roll a 12 on a weapon attack (before bonuses), the attack is a critical hit and deals double damage.\nYou can also land a critical hit if your target rolls a 2 to avoid your attack."
+        ]
+      },
+      {
+        "id": "equip.relic.tome",
+        "name": "Tome",
         "type": "relic",
+        "subtype": "tome",
         "rulesText": [
           "When you make a magic attack with a relic, you may spend any amount of MP. If you hit, the attack deals magic damage equal to the MP you spend."
         ]
       },
       {
-        "id": "equip.trick",
-        "name": "Trick",
+        "id": "equip.relic.orb",
+        "name": "Orb",
+        "type": "relic",
+        "subtype": "orb",
+        "rulesText": [
+          "When you make a magic attack with a relic, you may spend any amount of MP. If you hit, the attack deals magic damage equal to the MP you spend."
+        ]
+      },
+      {
+        "id": "equip.relic.staff",
+        "name": "Staff",
+        "type": "relic",
+        "subtype": "staff",
+        "rulesText": [
+          "When you make a magic attack with a relic, you may spend any amount of MP. If you hit, the attack deals magic damage equal to the MP you spend."
+        ]
+      },
+      {
+        "id": "equip.trick.mask",
+        "name": "Mask",
         "type": "trick",
+        "subtype": "mask",
+        "rulesText": [
+          "Gain advantage on your next skill check against any enemy that fails a skill check against you on their turn."
+        ]
+      },
+      {
+        "id": "equip.trick.cloak",
+        "name": "Cloak",
+        "type": "trick",
+        "subtype": "cloak",
+        "rulesText": [
+          "Gain advantage on your next skill check against any enemy that fails a skill check against you on their turn."
+        ]
+      },
+      {
+        "id": "equip.trick.instrument",
+        "name": "Instrument",
+        "type": "trick",
+        "subtype": "instrument",
         "rulesText": [
           "Gain advantage on your next skill check against any enemy that fails a skill check against you on their turn."
         ]
@@ -31,10 +90,13 @@
         "id": "equip.armour",
         "name": "Armour",
         "type": "armour",
-        "grants": { "armourMax": 2 },
+        "grants": {
+          "armourMax": 2
+        },
         "rulesText": [
-          "Armour is a pool of Armour points. Physical damage reduces Armour first, then HP.",
-          "Repair: restore 1 Armour by scoring 7+ on a STR check (up to max)."
+          "Grants 2 points of armour.",
+          "When you take physical damage, lose points of armour before losing HP.",
+          "A point of armour can be repaired by scoring 7 on a STR check."
         ]
       },
       {
@@ -50,10 +112,13 @@
         "id": "equip.ward",
         "name": "Ward",
         "type": "ward",
-        "grants": { "wardMax": 2 },
+        "grants": {
+          "wardMax": 2
+        },
         "rulesText": [
-          "Ward is a pool of Ward points. Magic damage reduces Ward first, then HP.",
-          "Restore: spend 3 MP to restore 1 Ward (up to max)."
+          "Grants 2 points of ward.",
+          "When you take magical damage, lose points of ward before losing HP.",
+          "A point of ward can be restored by spending 3MP."
         ]
       }
     ],

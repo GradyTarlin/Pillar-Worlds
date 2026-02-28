@@ -47,8 +47,8 @@ export function GrantPicker({ grant, grantKey, value, onChange, allPicks = {} }:
           ? `Choose ${grant.tags?.[0]} ability`
           : 'Choose';
 
-  // For mastery picks, group by tag (weapon, relic, trick, defense)
-  const isGrouped = grant.kind === 'masteryPick';
+  // For mastery and equipment picks, group by tag
+  const isGrouped = grant.kind === 'masteryPick' || grant.kind === 'equipmentPick';
   const groupedOptions = isGrouped
     ? options.reduce((acc, opt) => {
       const tag = opt.tag || 'other';
@@ -79,7 +79,7 @@ export function GrantPicker({ grant, grantKey, value, onChange, allPicks = {} }:
           Object.entries(groupedOptions).map(([tag, opts]) => (
             <optgroup key={tag} label={tag.charAt(0).toUpperCase() + tag.slice(1)}>
               {opts.map((opt) => {
-                const isSelectedElsewhere = Object.entries(allPicks).some(([k, v]) => k !== grantKey && v === opt.id);
+                const isSelectedElsewhere = grant.kind !== 'equipmentPick' && Object.entries(allPicks).some(([k, v]) => k !== grantKey && v === opt.id);
                 return (
                   <option key={opt.id} value={opt.id} disabled={isSelectedElsewhere}>
                     {opt.name} {isSelectedElsewhere ? '(Already Chosen)' : ''}
@@ -90,7 +90,7 @@ export function GrantPicker({ grant, grantKey, value, onChange, allPicks = {} }:
           ))
         ) : (
           options.map((opt) => {
-            const isSelectedElsewhere = Object.entries(allPicks).some(([k, v]) => k !== grantKey && v === opt.id);
+            const isSelectedElsewhere = grant.kind !== 'equipmentPick' && Object.entries(allPicks).some(([k, v]) => k !== grantKey && v === opt.id);
             return (
               <option key={opt.id} value={opt.id} disabled={isSelectedElsewhere}>
                 {opt.name} {isSelectedElsewhere ? '(Already Chosen)' : ''}
