@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
+import type { ReactNode } from 'react';
 import type { Campaign, CampaignData } from '../types/campaign';
 import { INITIAL_CAMPAIGN_DATA } from '../types/campaign';
 

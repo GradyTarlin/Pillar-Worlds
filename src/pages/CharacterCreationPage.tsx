@@ -1,6 +1,6 @@
 import { Fragment, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import type { CharacterSelections, Bloodline, SkillKey } from '../types';
+import type { CharacterSelections, Bloodline, SkillKey, Grant } from '../types';
 import {
   BODY_OPTIONS,
   SPIRIT_OPTIONS,
@@ -89,6 +89,40 @@ export function CharacterCreationPage() {
     }
   };
 
+  const renderAttributeDetail = (attribute: { bonuses: Record<string, number> }) => {
+    const parts = Object.entries(attribute.bonuses).map(
+      ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
+    );
+    return (
+      <div className="body-detail">
+        <strong>Skill bonuses:</strong> {parts.join(', ')}
+      </div>
+    );
+  };
+
+  const renderBackstoryDetail = (fragment: { id: string, flavourText?: string, grants: Grant[] }) => (
+    <div className="backstory-detail">
+      {fragment.flavourText && (
+        <p className="backstory-detail__flavour">{fragment.flavourText}</p>
+      )}
+      <div className="backstory-detail__grants">
+        {fragment.grants.map((grant, i) => {
+          const grantKey = `${fragment.id}-${i}`;
+          return (
+            <GrantPicker
+              key={grantKey}
+              grant={grant}
+              grantKey={grantKey}
+              value={selections.grantPicks[grantKey] ?? ''}
+              onChange={handleGrantPick}
+              allPicks={selections.grantPicks}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+
   return (
     <div className="app">
       <header className="app__header">
@@ -122,16 +156,7 @@ export function CharacterCreationPage() {
               selected={selections.body}
               onSelect={(opt) => updateSelection('body', opt)}
               getOptionName={(o) => o.name}
-              renderSelectedDetail={(body) => {
-                const parts = Object.entries(body.bonuses).map(
-                  ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
-                );
-                return (
-                  <div className="body-detail">
-                    <strong>Skill bonuses:</strong> {parts.join(', ')}
-                  </div>
-                );
-              }}
+              renderSelectedDetail={renderAttributeDetail}
             />
             <AttributeSlider
               title="Mind"
@@ -140,16 +165,7 @@ export function CharacterCreationPage() {
               selected={selections.mind}
               onSelect={(opt) => updateSelection('mind', opt)}
               getOptionName={(o) => o.name}
-              renderSelectedDetail={(mind) => {
-                const parts = Object.entries(mind.bonuses).map(
-                  ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
-                );
-                return (
-                  <div className="body-detail">
-                    <strong>Skill bonuses:</strong> {parts.join(', ')}
-                  </div>
-                );
-              }}
+              renderSelectedDetail={renderAttributeDetail}
             />
             <AttributeSlider
               title="Spirit"
@@ -158,16 +174,7 @@ export function CharacterCreationPage() {
               selected={selections.spirit}
               onSelect={(opt) => updateSelection('spirit', opt)}
               getOptionName={(o) => o.name}
-              renderSelectedDetail={(spirit) => {
-                const parts = Object.entries(spirit.bonuses).map(
-                  ([key, val]) => `${SKILL_NAMES[key as keyof typeof SKILL_NAMES]} +${val}`
-                );
-                return (
-                  <div className="body-detail">
-                    <strong>Skill bonuses:</strong> {parts.join(', ')}
-                  </div>
-                );
-              }}
+              renderSelectedDetail={renderAttributeDetail}
             />
           </div>
         </div>
@@ -258,28 +265,7 @@ export function CharacterCreationPage() {
             getOptionId={(o) => o.id}
             getOptionName={(o) => o.name}
             variant="dropdown"
-            renderSelectedDetail={(fragment) => (
-              <div className="backstory-detail">
-                {fragment.flavourText && (
-                  <p className="backstory-detail__flavour">{fragment.flavourText}</p>
-                )}
-                <div className="backstory-detail__grants">
-                  {fragment.grants.map((grant, i) => {
-                    const grantKey = `${fragment.id}-${i}`;
-                    return (
-                      <GrantPicker
-                        key={grantKey}
-                        grant={grant}
-                        grantKey={grantKey}
-                        value={selections.grantPicks[grantKey] ?? ''}
-                        onChange={handleGrantPick}
-                        allPicks={selections.grantPicks}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+            renderSelectedDetail={renderBackstoryDetail}
             ghostUnselectedWhenSelected
             isComplete={!!selections.birth && (selections.birth ? selections.birth.grants.every((_, i) => selections.grantPicks[`${selections.birth!.id}-${i}`]) : false)}
           />
@@ -292,28 +278,7 @@ export function CharacterCreationPage() {
             getOptionId={(o) => o.id}
             getOptionName={(o) => o.name}
             variant="dropdown"
-            renderSelectedDetail={(fragment) => (
-              <div className="backstory-detail">
-                {fragment.flavourText && (
-                  <p className="backstory-detail__flavour">{fragment.flavourText}</p>
-                )}
-                <div className="backstory-detail__grants">
-                  {fragment.grants.map((grant, i) => {
-                    const grantKey = `${fragment.id}-${i}`;
-                    return (
-                      <GrantPicker
-                        key={grantKey}
-                        grant={grant}
-                        grantKey={grantKey}
-                        value={selections.grantPicks[grantKey] ?? ''}
-                        onChange={handleGrantPick}
-                        allPicks={selections.grantPicks}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+            renderSelectedDetail={renderBackstoryDetail}
             ghostUnselectedWhenSelected
             isComplete={!!selections.youth && (selections.youth ? selections.youth.grants.every((_, i) => selections.grantPicks[`${selections.youth!.id}-${i}`]) : false)}
           />
@@ -326,28 +291,7 @@ export function CharacterCreationPage() {
             getOptionId={(o) => o.id}
             getOptionName={(o) => o.name}
             variant="dropdown"
-            renderSelectedDetail={(fragment) => (
-              <div className="backstory-detail">
-                {fragment.flavourText && (
-                  <p className="backstory-detail__flavour">{fragment.flavourText}</p>
-                )}
-                <div className="backstory-detail__grants">
-                  {fragment.grants.map((grant, i) => {
-                    const grantKey = `${fragment.id}-${i}`;
-                    return (
-                      <GrantPicker
-                        key={grantKey}
-                        grant={grant}
-                        grantKey={grantKey}
-                        value={selections.grantPicks[grantKey] ?? ''}
-                        onChange={handleGrantPick}
-                        allPicks={selections.grantPicks}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+            renderSelectedDetail={renderBackstoryDetail}
             ghostUnselectedWhenSelected
             isComplete={!!selections.comingOfAge && (selections.comingOfAge ? selections.comingOfAge.grants.every((_, i) => selections.grantPicks[`${selections.comingOfAge!.id}-${i}`]) : false)}
           />
