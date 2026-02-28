@@ -1,11 +1,12 @@
-import type { CharacterSelections, Skills } from '../types';
-import { deriveHP, deriveMP, deriveMPRecovery, deriveEquipment, LEVEL } from '../derivation';
+import type { CharacterSelections, Skills, SavedCharacter } from '../types';
+import { deriveHP, deriveMP, deriveMPRecovery, deriveEquipment } from '../derivation';
 import { SKILL_KEYS, HP_LABEL, MP_LABEL, MP_RECOVERY_LABEL } from '../ruleData';
 import { getAbilityById, type Ability } from '../data/abilities';
 
 interface CharacterSheetProps {
   selections: CharacterSelections;
   skills: Skills;
+  savedCharacter?: SavedCharacter;
 }
 
 interface PickedAbilityDetail {
@@ -23,11 +24,12 @@ function getPickedItemDetail(id: string, source: string): PickedAbilityDetail | 
   return null;
 }
 
-export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
-  const hp = deriveHP(skills, selections.bloodline?.id ?? null);
+export function CharacterSheet({ selections, skills, savedCharacter }: CharacterSheetProps) {
+  const level = savedCharacter?.level ?? 1;
+  const hp = deriveHP(skills, selections.bloodline?.id ?? null, savedCharacter?.extraHp ?? 0);
   const mp = deriveMP(skills);
   const mpRecovery = deriveMPRecovery(skills);
-  const equipment = deriveEquipment(selections);
+  const equipment = deriveEquipment(selections, savedCharacter?.leveledGrants ?? []);
   const armour = equipment.reduce((sum, item) => sum + (item.grants?.armourMax ?? 0), 0);
   const ward = equipment.reduce((sum, item) => sum + (item.grants?.wardMax ?? 0), 0);
 
@@ -45,11 +47,17 @@ export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
     }).filter(Boolean)
   ) as PickedAbilityDetail[];
 
+  const leveledAbilities = (savedCharacter?.leveledGrants ?? [])
+    .map(id => getPickedItemDetail(id, 'Level Up'))
+    .filter(Boolean) as PickedAbilityDetail[];
+
+  const allAbilities = [...pickedAbilities, ...leveledAbilities];
+
   return (
     <div className="character-sheet">
       <header className="character-sheet__header">
         <h1>{selections.name}</h1>
-        <p className="character-sheet__level">Level {LEVEL} Character</p>
+        <p className="character-sheet__level">Level {level} Character</p>
       </header>
 
       <div className="character-sheet__grid">
@@ -128,7 +136,7 @@ export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
         <section className="character-sheet__section character-sheet__section--full">
           <h2>Abilities</h2>
           <ul className="character-sheet__grants" style={{ listStyleType: 'none', paddingLeft: 0 }}>
-            {pickedAbilities.map((item, i) => (
+            {allAbilities.map((item, i) => (
               <li key={i} style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
                 <div style={{ marginBottom: '0.25rem' }}>
                   <span className="character-sheet__grant-source" style={{ fontWeight: 'bold' }}>{item.source}:</span>{' '}
@@ -176,7 +184,7 @@ export function CharacterSheet({ selections, skills }: CharacterSheetProps) {
                     <strong style={{ fontSize: '1.1rem', color: 'var(--burgundy)' }}>{item.name}</strong>
                   </div>
                   {item.rulesText && item.rulesText.length > 0 && (
-                    <ul style={{ paddingLeft: '1.25rem', marginTop: '0.25rem', marginBottom: 0, lineHeight: 1.5, color: '#e0e0e0' }}>
+                    <ul style={{ paddingLeft: '1.25rem', marginTop: '0.25rem', marginBottom: 0, lineHeight: 1.5 }}>
                       {item.rulesText.map((rule, imgIdx) => (
                         <li key={imgIdx} style={{ marginBottom: '0.5rem', whiteSpace: 'pre-wrap' }}>
                           {rule}

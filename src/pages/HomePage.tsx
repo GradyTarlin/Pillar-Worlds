@@ -14,6 +14,9 @@ export function HomePage() {
           <Link to="/how-to-play" className="home-page__nav-button">
             How to Play
           </Link>
+          <Link to="/characters" className="home-page__nav-button">
+            My Characters
+          </Link>
           <Link to="/character-creation" className="home-page__nav-button">
             Character Creation
           </Link>

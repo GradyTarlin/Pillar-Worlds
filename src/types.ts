@@ -85,3 +85,12 @@ export interface CharacterSelections {
   grantPicks: GrantPicks;
   startingEquipment: string | null;
 }
+
+export interface SavedCharacter extends CharacterSelections {
+  id: string;
+  createdAt: number;
+  level: number;
+  extraHp: number;
+  skillIncreases: Partial<Skills>;
+  leveledGrants: string[];
+}

@@ -16,10 +16,11 @@ const INITIAL_SKILLS: Skills = {
 };
 
 /**
- * Derives skill values from Body, Mind, Spirit, and Zodiac selections.
- * Skills are never manually editable.
+ * Derives skill values from Body, Mind, Spirit, and Zodiac selections,
+ * plus any manual skill increases gained during level up.
+ * Skills are never manually editable during creation.
  */
-export function deriveSkills(selections: CharacterSelections): Skills {
+export function deriveSkills(selections: Pick<CharacterSelections, 'body' | 'mind' | 'spirit' | 'zodiac' | 'bloodline' | 'humanExtraSkill'>, skillIncreases?: Partial<Skills>): Skills {
   const skills = { ...INITIAL_SKILLS };
 
   const addBonuses = (bonuses: Partial<Skills> | undefined) => {
@@ -41,19 +42,22 @@ export function deriveSkills(selections: CharacterSelections): Skills {
     skills[selections.humanExtraSkill] += 1;
   }
 
+  addBonuses(skillIncreases);
+
   return skills;
 }
 
 /**
  * HP formula: 4 + 1 + CHA
  * If Undori: HP += STR bonus
+ * Add extra HP gained per level.
  */
-export function deriveHP(skills: Skills, bloodlineId: string | null): number {
+export function deriveHP(skills: Skills, bloodlineId: string | null, extraHp: number = 0): number {
   let hp = 4 + 1 + skills.CHA;
   if (bloodlineId === 'bloodline.undori') {
     hp += skills.STR;
   }
-  return hp;
+  return hp + extraHp;
 }
 
 /**
@@ -76,9 +80,10 @@ import { equipment } from './data/equipment';
 import type { BaseItem } from './data/equipment/types';
 
 /**
- * Derives a list of equipment based on starting selection and backstory grants.
+ * Derives a list of equipment based on starting selection, backstory grants,
+ * and any equipment selections made during level up.
  */
-export function deriveEquipment(selections: CharacterSelections): BaseItem[] {
+export function deriveEquipment(selections: Pick<CharacterSelections, 'startingEquipment' | 'grantPicks'>, leveledGrants: string[] = []): BaseItem[] {
   const items: BaseItem[] = [];
 
   // Add explicitly chosen starting equipment
@@ -90,6 +95,16 @@ export function deriveEquipment(selections: CharacterSelections): BaseItem[] {
   // Scan all grant picks for equipment choices
   for (const choiceId of Object.values(selections.grantPicks)) {
     if (choiceId && choiceId.startsWith('equip.')) {
+      const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId);
+      if (grantedItem) {
+        items.push(grantedItem);
+      }
+    }
+  }
+
+  // Add equipment gained from leveling up constraints (starts with equip.)
+  for (const choiceId of leveledGrants) {
+    if (choiceId.startsWith('equip.')) {
       const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId);
       if (grantedItem) {
         items.push(grantedItem);

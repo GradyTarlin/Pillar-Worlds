@@ -18,11 +18,12 @@ import {
   MP_RECOVERY_LABEL,
 } from '../ruleData';
 import { deriveSkills, deriveHP, deriveMP, deriveMPRecovery } from '../derivation';
-import { SelectionSection } from '../components/SelectionSection';
-import { CharacterSheet } from '../components/CharacterSheet';
-import { GrantPicker } from '../components/GrantPicker';
-import { AttributeSlider } from '../components/AttributeSlider';
+import { useCharacters } from '../hooks/useCharacters';
 import { baseItems } from '../data/equipment';
+import { useNavigate } from 'react-router-dom';
+import { AttributeSlider } from '../components/AttributeSlider';
+import { SelectionSection } from '../components/SelectionSection';
+import { GrantPicker } from '../components/GrantPicker';
 import '../App.css';
 
 const INITIAL_SELECTIONS: CharacterSelections = {
@@ -42,7 +43,8 @@ const INITIAL_SELECTIONS: CharacterSelections = {
 
 export function CharacterCreationPage() {
   const [selections, setSelections] = useState<CharacterSelections>(INITIAL_SELECTIONS);
-  const [showSheet, setShowSheet] = useState(false);
+  const { createCharacter } = useCharacters();
+  const navigate = useNavigate();
 
   const skills = useMemo(() => deriveSkills(selections), [selections]);
 
@@ -82,26 +84,11 @@ export function CharacterCreationPage() {
   };
 
   const handleFinish = () => {
-    if (isComplete) setShowSheet(true);
+    if (isComplete) {
+      const newId = createCharacter(selections);
+      navigate(`/character/${newId}`);
+    }
   };
-
-  const handleBack = () => setShowSheet(false);
-
-  if (showSheet) {
-    return (
-      <div className="app-sheet-view">
-        <CharacterSheet selections={selections} skills={skills} />
-        <div className="app__back-actions">
-          <button type="button" className="app__back-button" onClick={handleBack}>
-            Back to Creation
-          </button>
-          <Link to="/" className="app__back-button app__back-button--link">
-            Back to Home
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="app">
@@ -237,6 +224,24 @@ export function CharacterCreationPage() {
           ghostUnselectedWhenSelected
           isComplete={!!selections.bloodline && (selections.bloodline.id === 'bloodline.human' ? !!selections.humanExtraSkill : true)}
         />
+        <SelectionSection
+          title="Starting Equipment"
+          subheading="Choose one piece of standard equipment to begin your journey with."
+          options={baseItems}
+          selected={baseItems.find(i => i.id === selections.startingEquipment) ?? null}
+          onSelect={(opt) => updateSelection('startingEquipment', opt.id)}
+          getOptionId={(o) => o.id}
+          getOptionName={(o) => o.name}
+          variant="dropdown"
+          getOptionGroup={(o) => {
+            if (o.type === 'weapon') return 'Weapon';
+            if (o.type === 'relic') return 'Relic';
+            if (o.type === 'trick') return 'Trick';
+            return 'Defense';
+          }}
+          ghostUnselectedWhenSelected
+          isComplete={!!selections.startingEquipment}
+        />
         <div className="backstory-group">
           <h3 className="backstory-group__title">Backstory</h3>
           <p className="backstory-group__intro">
@@ -348,24 +353,6 @@ export function CharacterCreationPage() {
             isComplete={!!selections.comingOfAge && (selections.comingOfAge ? selections.comingOfAge.grants.every((_, i) => selections.grantPicks[`${selections.comingOfAge!.id}-${i}`]) : false)}
           />
         </div>
-        <SelectionSection
-          title="Starting Equipment"
-          subheading="Choose one piece of standard equipment to begin your journey with."
-          options={baseItems}
-          selected={baseItems.find(i => i.id === selections.startingEquipment) ?? null}
-          onSelect={(opt) => updateSelection('startingEquipment', opt.id)}
-          getOptionId={(o) => o.id}
-          getOptionName={(o) => o.name}
-          variant="dropdown"
-          getOptionGroup={(o) => {
-            if (o.type === 'weapon') return 'Weapon';
-            if (o.type === 'relic') return 'Relic';
-            if (o.type === 'trick') return 'Trick';
-            return 'Defense';
-          }}
-          ghostUnselectedWhenSelected
-          isComplete={!!selections.startingEquipment}
-        />
       </main>
 
       <aside className="app__sidebar">
