@@ -25,6 +25,7 @@ interface EntityCardProps {
     tags?: string[];
     onEdit: () => void;
     onDelete: () => void;
+    editIcon?: string;
     children?: ReactNode;
     isCompleted?: boolean;
 }
@@ -36,6 +37,7 @@ export function EntityCard({
     tags = [],
     onEdit,
     onDelete,
+    editIcon,
     children,
     isCompleted = false
 }: EntityCardProps) {
@@ -47,7 +49,7 @@ export function EntityCard({
                     {subtitle && <span className="campaign-entity-card__subtitle">{subtitle}</span>}
                 </div>
                 <div className="campaign-entity-card__actions">
-                    <button className="campaign-btn-icon" onClick={onEdit} aria-label="Edit">✎</button>
+                    <button className="campaign-btn-icon" onClick={onEdit} aria-label="Edit">{editIcon || '✎'}</button>
                     <button className="campaign-btn-icon danger" onClick={onDelete} aria-label="Delete">✕</button>
                 </div>
             </div>

@@ -5,35 +5,44 @@ export interface BaseEntity {
 }
 
 export interface CampaignCharacter extends BaseEntity {
-    type: 'pc' | 'npc';
-    level: number;
-    classOrRole?: string;
+    role?: string;
+    bloodlineId?: string;
     notes: string;
+    locationId?: string; // Links character to a settlement
 }
 
 export interface PlotLine extends BaseEntity {
-    status: 'active' | 'resolved' | 'abandoned';
     relatedEntities: string[]; // references by ID
 }
 
 export interface Quest extends BaseEntity {
-    status: 'available' | 'in_progress' | 'completed' | 'failed';
     giverId?: string;
     reward: string;
+    objective: string;
+    clientId?: string;
+    locationId?: string; // Links quest to a settlement
 }
 
 export interface Region extends BaseEntity {
     climate: string;
-    dangerLevel: number;
 }
 
-export type LocationType = 'village' | 'town' | 'city' | 'dungeon' | 'landmark';
+export type LocationType = 'settlement' | 'dungeon'; // Level 2 distinctions
 
 export interface Location extends BaseEntity {
     type: LocationType;
-    regionId?: string;
-    population?: number;
-    keyNPCs?: string[]; // character IDs
+    regionId?: string; // Links up to Level 1
+
+    // Settlement specific fields
+    settlementType?: 'camp' | 'village' | 'town' | 'city';
+}
+
+export interface CampaignMonster {
+    id: string; // Unique instance ID for the campaign
+    dungeonId: string; // Links to the Level 2 Dungeon
+    monsterId: string; // Links to the base monster catalog ID
+    name: string; // Either the base name or a custom named variant (e.g. "Goblin King")
+    notes?: string;
 }
 
 export interface CampaignData {
@@ -42,6 +51,7 @@ export interface CampaignData {
     quests: Quest[];
     regions: Region[];
     locations: Location[];
+    monsters: CampaignMonster[];
 }
 
 export const INITIAL_CAMPAIGN_DATA: CampaignData = {
@@ -50,4 +60,9 @@ export const INITIAL_CAMPAIGN_DATA: CampaignData = {
     quests: [],
     regions: [],
     locations: [],
+    monsters: [],
 };
+
+export interface Campaign extends BaseEntity {
+    data: CampaignData;
+}

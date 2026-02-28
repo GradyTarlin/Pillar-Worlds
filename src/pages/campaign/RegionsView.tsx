@@ -3,7 +3,11 @@ import { useCampaignData } from '../../hooks/useCampaignData';
 import { ListHeader, EntityCard } from './CampaignShared';
 import type { Region } from '../../types/campaign';
 
-export function RegionsView() {
+interface RegionsViewProps {
+    onSelectRegion: (id: string) => void;
+}
+
+export function RegionsView({ onSelectRegion }: RegionsViewProps) {
     const { data, updateEntities } = useCampaignData();
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -13,7 +17,6 @@ export function RegionsView() {
             name: 'New Region',
             description: '',
             climate: 'Temperate',
-            dangerLevel: 1
         };
         updateEntities('regions', [...data.regions, newRegion]);
         setEditingId(newRegion.id);
@@ -26,8 +29,9 @@ export function RegionsView() {
             // Cleanup location references
             const updatedLocations = data.locations.map(loc => {
                 if (loc.regionId === id) {
-                    const { regionId, ...rest } = loc; // Remove reference
-                    return rest;
+                    const newLoc = { ...loc };
+                    delete newLoc.regionId;
+                    return newLoc;
                 }
                 return loc;
             });
@@ -42,7 +46,7 @@ export function RegionsView() {
 
     return (
         <div className="campaign-view-section">
-            <ListHeader title="Regions & Provinces" onAdd={handleAdd} addLabel="Region" />
+            <ListHeader title="Regions" onAdd={handleAdd} addLabel="Region" />
 
             <div className="campaign-cards-grid">
                 {data.regions.map(region => (
@@ -59,10 +63,15 @@ export function RegionsView() {
                             title={region.name}
                             subtitle={`${region.climate} Climate`}
                             description={region.description}
-                            tags={[`Danger Level: ${region.dangerLevel}`]}
                             onEdit={() => setEditingId(region.id)}
                             onDelete={() => handleDelete(region.id)}
-                        />
+                        >
+                            <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px dashed var(--ink)' }}>
+                                <button className="campaign-btn-primary" style={{ width: '100%' }} onClick={() => onSelectRegion(region.id)}>
+                                    View Region
+                                </button>
+                            </div>
+                        </EntityCard>
                     )
                 ))}
                 {data.regions.length === 0 && (
@@ -86,7 +95,7 @@ function RegionEditForm({
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setForm(prev => ({ ...prev, [name]: name === 'dangerLevel' ? parseInt(value) || 1 : value }));
+        setForm(prev => ({ ...prev, [name]: value }));
     };
 
     return (
@@ -96,15 +105,9 @@ function RegionEditForm({
                 <label>Name</label>
                 <input name="name" value={form.name} onChange={handleChange} autoFocus />
             </div>
-            <div className="campaign-form-row">
-                <div className="campaign-form-group">
-                    <label>Climate / Biome</label>
-                    <input name="climate" value={form.climate} onChange={handleChange} placeholder="e.g. Temperate Forest, Arid Desert" />
-                </div>
-                <div className="campaign-form-group">
-                    <label>Danger Level (1-10)</label>
-                    <input type="number" name="dangerLevel" value={form.dangerLevel} onChange={handleChange} min="1" max="10" />
-                </div>
+            <div className="campaign-form-group">
+                <label>Climate / Biome</label>
+                <input name="climate" value={form.climate} onChange={handleChange} placeholder="e.g. Temperate Forest, Arid Desert" />
             </div>
             <div className="campaign-form-group">
                 <label>Description (Lore/Details)</label>

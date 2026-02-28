@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { SavedCharacter, CharacterSelections } from '../types';
 
 const STORAGE_KEY = 'pillarWorlds_characters';
 
 export function useCharacters() {
-    const [characters, setCharacters] = useState<SavedCharacter[]>([]);
-
-    useEffect(() => {
+    const [characters, setCharacters] = useState<SavedCharacter[]>(() => {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             try {
-                setCharacters(JSON.parse(stored));
+                return JSON.parse(stored);
             } catch (e) {
                 console.error('Failed to parse saved characters', e);
             }
         }
-    }, []);
+        return [];
+    });
 
     const saveCharacters = (newCharacters: SavedCharacter[]) => {
         setCharacters(newCharacters);

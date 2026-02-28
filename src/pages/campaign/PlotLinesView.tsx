@@ -12,7 +12,6 @@ export function PlotLinesView() {
             id: `plot_${Date.now()}`,
             name: 'New Plot Line',
             description: '',
-            status: 'active',
             relatedEntities: []
         };
         updateEntities('plotLines', [...data.plotLines, newPlot]);
@@ -48,10 +47,9 @@ export function PlotLinesView() {
                             key={plot.id}
                             title={plot.name}
                             description={plot.description}
-                            tags={[plot.status.toUpperCase()]}
+                            tags={[]}
                             onEdit={() => setEditingId(plot.id)}
                             onDelete={() => handleDelete(plot.id)}
-                            isCompleted={plot.status === 'resolved' || plot.status === 'abandoned'}
                         />
                     )
                 ))}
@@ -85,14 +83,6 @@ function PlotLineEditForm({
             <div className="campaign-form-group">
                 <label>Name</label>
                 <input name="name" value={form.name} onChange={handleChange} autoFocus />
-            </div>
-            <div className="campaign-form-group">
-                <label>Status</label>
-                <select name="status" value={form.status} onChange={handleChange}>
-                    <option value="active">Active</option>
-                    <option value="resolved">Resolved</option>
-                    <option value="abandoned">Abandoned</option>
-                </select>
             </div>
             <div className="campaign-form-group">
                 <label>Description (Details/Notes)</label>

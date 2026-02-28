@@ -30,8 +30,16 @@ export function CharacterSheet({ selections, skills, savedCharacter }: Character
   const mp = deriveMP(skills);
   const mpRecovery = deriveMPRecovery(skills);
   const equipment = deriveEquipment(selections, savedCharacter?.leveledGrants ?? []);
-  const armour = equipment.reduce((sum, item) => sum + (item.grants?.armourMax ?? 0), 0);
-  const ward = equipment.reduce((sum, item) => sum + (item.grants?.wardMax ?? 0), 0);
+  const allKnownAbilityIds = [
+    ...Object.values(selections.grantPicks),
+    ...(savedCharacter?.leveledGrants ?? [])
+  ];
+
+  const armourAbilities = allKnownAbilityIds.filter(id => ['armour.bulwark', 'armour.impenetrable', 'armour.juggernaut'].includes(id as string)).length;
+  const wardAbilities = allKnownAbilityIds.filter(id => ['ward.phase_shift', 'ward.mana_reflection', 'ward.arcane_battery'].includes(id as string)).length;
+
+  const armour = equipment.reduce((sum, item) => sum + (item.grants?.armourMax ?? 0), 0) + armourAbilities;
+  const ward = equipment.reduce((sum, item) => sum + (item.grants?.wardMax ?? 0), 0) + wardAbilities;
 
   const fragments = [
     selections.birth,

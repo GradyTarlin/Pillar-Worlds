@@ -43,52 +43,79 @@
 .campaign-layout {
     display: flex;
     flex: 1;
-    max-width: 1400px;
-    margin: 0 auto;
     width: 100%;
+    overflow: hidden;
+    /* Hide main overflow to let the board scroll */
 }
 
-.campaign-sidebar {
-    width: 250px;
-    background: rgba(0, 0, 0, 0.03);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 2rem 0;
-}
-
-.campaign-nav {
+.campaign-holistic-board {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 1.5rem;
+    padding: 1.5rem 5%;
+    width: 100%;
+    height: calc(100vh - 120px);
+    /* Adjust based on header height */
+    align-items: stretch;
 }
 
-.campaign-nav-btn {
-    background: none;
-    border: none;
-    text-align: left;
-    padding: 1rem 1.5rem;
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem;
-    color: var(--ink);
-    cursor: pointer;
-    transition: all 0.2s;
-    border-left: 3px solid transparent;
+/* Custom horizontal scrollbar */
+.campaign-holistic-board::-webkit-scrollbar {
+    height: 12px;
 }
 
-.campaign-nav-btn:hover {
+.campaign-holistic-board::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    margin: 0 5%;
 }
 
-.campaign-nav-btn.active {
-    background: rgba(255, 255, 255, 0.5);
-    font-weight: bold;
-    border-left-color: var(--burgundy);
-    color: var(--burgundy);
+.campaign-holistic-board::-webkit-scrollbar-thumb {
+    background: rgba(90, 32, 40, 0.4);
+    /* soft burgundy */
+    border-radius: 6px;
 }
 
-.campaign-content {
-    flex: 1;
-    padding: 2rem;
+.campaign-holistic-board::-webkit-scrollbar-thumb:hover {
+    background: var(--burgundy);
+}
+
+.campaign-column {
+    flex: 1 1 auto;
+    width: 100%;
     background: rgba(255, 255, 255, 0.6);
-    min-height: 60vh;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+/* Custom vertical scrollbar for columns */
+.campaign-column::-webkit-scrollbar {
+    width: 6px;
+}
+
+.campaign-column::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.campaign-column::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.campaign-column::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.campaign-column>div {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .campaign-placeholder {
@@ -106,7 +133,7 @@
 .campaign-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .campaign-empty-state {

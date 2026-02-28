@@ -1,7 +1,6 @@
 import { Fragment, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import type { CharacterSelections } from '../types';
-import type { Bloodline } from '../types';
+import type { CharacterSelections, Bloodline, SkillKey } from '../types';
 import {
   BODY_OPTIONS,
   SPIRIT_OPTIONS,
@@ -210,7 +209,7 @@ export function CharacterCreationPage() {
                     className="grant-picker__select"
                     style={{ width: '100%', maxWidth: '200px' }}
                     value={selections.humanExtraSkill ?? ''}
-                    onChange={(e) => updateSelection('humanExtraSkill', e.target.value as any)}
+                    onChange={(e) => updateSelection('humanExtraSkill', e.target.value as SkillKey)}
                   >
                     <option value="" disabled>Select skill...</option>
                     {SKILL_KEYS.map((sk) => (

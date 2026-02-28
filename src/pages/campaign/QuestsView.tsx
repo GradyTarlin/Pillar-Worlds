@@ -3,7 +3,11 @@ import { useCampaignData } from '../../hooks/useCampaignData';
 import { ListHeader, EntityCard } from './CampaignShared';
 import type { Quest } from '../../types/campaign';
 
-export function QuestsView() {
+interface QuestsViewProps {
+    locationId?: string;
+}
+
+export function QuestsView({ locationId }: QuestsViewProps) {
     const { data, updateEntities } = useCampaignData();
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -12,8 +16,9 @@ export function QuestsView() {
             id: `quest_${Date.now()}`,
             name: 'New Quest',
             description: '',
-            status: 'available',
-            reward: ''
+            reward: '',
+            objective: '',
+            locationId
         };
         updateEntities('quests', [...data.quests, newQuest]);
         setEditingId(newQuest.id);
@@ -30,17 +35,16 @@ export function QuestsView() {
         setEditingId(null);
     };
 
-    // Helper to format the status for display
-    const formatStatus = (status: string) => {
-        return status.replace('_', ' ').toUpperCase();
-    };
+    const filteredQuests = locationId
+        ? data.quests.filter(q => q.locationId === locationId)
+        : data.quests;
 
     return (
         <div className="campaign-view-section">
             <ListHeader title="Quests" onAdd={handleAdd} addLabel="Quest" />
 
             <div className="campaign-cards-grid">
-                {data.quests.map(quest => (
+                {filteredQuests.map(quest => (
                     editingId === quest.id ? (
                         <QuestEditForm
                             key={quest.id}
@@ -53,16 +57,15 @@ export function QuestsView() {
                             key={quest.id}
                             title={quest.name}
                             subtitle={quest.reward ? `Reward: ${quest.reward}` : undefined}
-                            description={quest.description}
-                            tags={[formatStatus(quest.status)]}
+                            description={quest.objective ? `Objective: ${quest.objective}` : quest.description}
+                            tags={[]}
                             onEdit={() => setEditingId(quest.id)}
                             onDelete={() => handleDelete(quest.id)}
-                            isCompleted={quest.status === 'completed' || quest.status === 'failed'}
                         />
                     )
                 ))}
-                {data.quests.length === 0 && (
-                    <p className="campaign-empty-state">No quests added yet. Click "+ Quest" to start.</p>
+                {filteredQuests.length === 0 && (
+                    <p className="campaign-empty-state">No quests added here yet. Click "+ Quest" to start.</p>
                 )}
             </div>
         </div>
@@ -94,21 +97,20 @@ function QuestEditForm({
             </div>
             <div className="campaign-form-row">
                 <div className="campaign-form-group">
-                    <label>Status</label>
-                    <select name="status" value={form.status} onChange={handleChange}>
-                        <option value="available">Available</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="completed">Completed</option>
-                        <option value="failed">Failed</option>
-                    </select>
-                </div>
-                <div className="campaign-form-group">
-                    <label>Reward</label>
-                    <input name="reward" value={form.reward} onChange={handleChange} placeholder="e.g. 50g, Magic Sword" />
+                    <label>Client / Giver</label>
+                    <input name="clientId" value={form.clientId || ''} onChange={handleChange} placeholder="e.g. Mayor, Innkeeper" />
                 </div>
             </div>
             <div className="campaign-form-group">
-                <label>Description (Objectives/Details)</label>
+                <label>Objective</label>
+                <input name="objective" value={form.objective || ''} onChange={handleChange} placeholder="e.g. Slay the Goblin King" />
+            </div>
+            <div className="campaign-form-group">
+                <label>Reward</label>
+                <input name="reward" value={form.reward} onChange={handleChange} placeholder="e.g. 50g, Magic Sword" />
+            </div>
+            <div className="campaign-form-group">
+                <label>Description & Notes</label>
                 <textarea name="description" value={form.description} onChange={handleChange} rows={5} />
             </div>
             <div className="campaign-form-actions">

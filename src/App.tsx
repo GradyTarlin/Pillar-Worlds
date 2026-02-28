@@ -4,6 +4,7 @@ import { CharacterCreationPage } from './pages/CharacterCreationPage';
 import { MonsterListPage } from './pages/MonsterListPage';
 import { HowToPlayPage } from './pages/HowToPlayPage';
 import { CampaignBuilderPage } from './pages/CampaignBuilderPage';
+import { CampaignProvider } from './hooks/useCampaignData';
 import { CharactersPage } from './pages/CharactersPage';
 import { CharacterViewPage } from './pages/CharacterViewPage';
 
@@ -17,7 +18,7 @@ function App() {
         <Route path="/character-creation" element={<CharacterCreationPage />} />
         <Route path="/monsters" element={<MonsterListPage />} />
         <Route path="/how-to-play" element={<HowToPlayPage />} />
-        <Route path="/campaign-builder" element={<CampaignBuilderPage />} />
+        <Route path="/campaign-builder" element={<CampaignProvider><CampaignBuilderPage /></CampaignProvider>} />
       </Routes>
     </HashRouter>
   );

@@ -2,8 +2,13 @@ import { useState } from 'react';
 import { useCampaignData } from '../../hooks/useCampaignData';
 import { ListHeader, EntityCard } from './CampaignShared';
 import type { CampaignCharacter } from '../../types/campaign';
+import { BLOODLINES } from '../../ruleData';
 
-export function CharactersView() {
+interface CharactersViewProps {
+    locationId?: string;
+}
+
+export function CharactersView({ locationId }: CharactersViewProps) {
     const { data, updateEntities } = useCampaignData();
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -12,9 +17,8 @@ export function CharactersView() {
             id: `char_${Date.now()}`,
             name: 'New Character',
             description: '',
-            type: 'npc',
-            level: 1,
-            notes: ''
+            notes: '',
+            locationId
         };
         updateEntities('characters', [...data.characters, newChar]);
         setEditingId(newChar.id);
@@ -31,12 +35,16 @@ export function CharactersView() {
         setEditingId(null);
     };
 
+    const filteredCharacters = locationId
+        ? data.characters.filter(c => c.locationId === locationId)
+        : data.characters;
+
     return (
         <div className="campaign-view-section">
             <ListHeader title="Characters & NPCs" onAdd={handleAdd} addLabel="Character" />
 
             <div className="campaign-cards-grid">
-                {data.characters.map(char => (
+                {filteredCharacters.map(char => (
                     editingId === char.id ? (
                         <CharacterEditForm
                             key={char.id}
@@ -48,9 +56,9 @@ export function CharactersView() {
                         <EntityCard
                             key={char.id}
                             title={char.name}
-                            subtitle={`Level ${char.level} ${char.classOrRole || char.type.toUpperCase()}`}
+                            subtitle={char.role}
                             description={char.description}
-                            tags={[char.type.toUpperCase()]}
+                            tags={[]}
                             onEdit={() => setEditingId(char.id)}
                             onDelete={() => handleDelete(char.id)}
                         >
@@ -58,8 +66,8 @@ export function CharactersView() {
                         </EntityCard>
                     )
                 ))}
-                {data.characters.length === 0 && (
-                    <p className="campaign-empty-state">No characters added yet. Click "+ Character" to start.</p>
+                {filteredCharacters.length === 0 && (
+                    <p className="campaign-empty-state">No characters added here yet. Click "+ Character" to start.</p>
                 )}
             </div>
         </div>
@@ -79,7 +87,7 @@ function CharacterEditForm({
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setForm(prev => ({ ...prev, [name]: name === 'level' ? parseInt(value) || 1 : value }));
+        setForm(prev => ({ ...prev, [name]: value }));
     };
 
     return (
@@ -89,22 +97,32 @@ function CharacterEditForm({
                 <label>Name</label>
                 <input name="name" value={form.name} onChange={handleChange} autoFocus />
             </div>
+
             <div className="campaign-form-row">
                 <div className="campaign-form-group">
-                    <label>Type</label>
-                    <select name="type" value={form.type} onChange={handleChange}>
-                        <option value="pc">Player Character (PC)</option>
-                        <option value="npc">Non-Player Character (NPC)</option>
+                    <label>Bloodline</label>
+                    <select name="bloodlineId" value={form.bloodlineId || ''} onChange={handleChange}>
+                        <option value="">-- Unknown / None --</option>
+                        {Object.entries(
+                            BLOODLINES.reduce((acc, b) => {
+                                const type = b.type || 'Other';
+                                if (!acc[type]) acc[type] = [];
+                                acc[type].push(b);
+                                return acc;
+                            }, {} as Record<string, typeof BLOODLINES>)
+                        ).map(([type, lines]) => (
+                            <optgroup key={type} label={type.charAt(0).toUpperCase() + type.slice(1)}>
+                                {lines.map(b => (
+                                    <option key={b.id} value={b.id}>{b.name}</option>
+                                ))}
+                            </optgroup>
+                        ))}
                     </select>
                 </div>
                 <div className="campaign-form-group">
-                    <label>Level</label>
-                    <input type="number" name="level" value={form.level} onChange={handleChange} min="1" />
+                    <label>Role</label>
+                    <input name="role" value={form.role || ''} onChange={handleChange} placeholder="e.g. Fighter, Blacksmith" />
                 </div>
-            </div>
-            <div className="campaign-form-group">
-                <label>Class/Role</label>
-                <input name="classOrRole" value={form.classOrRole || ''} onChange={handleChange} placeholder="e.g. Fighter, Blacksmith" />
             </div>
             <div className="campaign-form-group">
                 <label>Description</label>
