@@ -11,7 +11,7 @@ interface InteractiveMapProps {
 export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
     const { data, updateEntities } = useCampaignData();
     const [imgSrc, setImgSrc] = useState<string | null>(null);
-    const [isAddingPin, setIsAddingPin] = useState(false);
+    const [editingPinId, setEditingPinId] = useState<string | null>(null);
     const [newPinPos, setNewPinPos] = useState<{ x: number, y: number } | null>(null);
     const [selectedLocIdForPin, setSelectedLocIdForPin] = useState('');
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -30,6 +30,8 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
         return () => { active = false; };
     }, [data.mapImageId]);
 
+
+
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -46,40 +48,47 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
     };
 
     const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!isAddingPin) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
         setNewPinPos({ x, y });
+        setEditingPinId(null);
     };
+
+
 
     const handleSavePin = () => {
         if (!newPinPos || !selectedLocIdForPin) return;
 
-        const newPin: MapPin = {
-            id: `pin_${Date.now()}`,
-            x: newPinPos.x,
-            y: newPinPos.y,
-            locationId: selectedLocIdForPin
-        };
-
         const pins = data.mapPins || [];
-        updateEntities('mapPins', [...pins, newPin]);
+
+        if (editingPinId) {
+            updateEntities('mapPins', pins.map(p => p.id === editingPinId ? { ...p, locationId: selectedLocIdForPin } : p));
+        } else {
+            const newPin: MapPin = {
+                id: `pin_${Date.now()}`,
+                x: newPinPos.x,
+                y: newPinPos.y,
+                locationId: selectedLocIdForPin
+            };
+            updateEntities('mapPins', [...pins, newPin]);
+        }
 
         setNewPinPos(null);
-        setIsAddingPin(false);
+        setEditingPinId(null);
         setSelectedLocIdForPin('');
     };
 
     const handleCancelPin = () => {
         setNewPinPos(null);
-        setIsAddingPin(false);
+        setEditingPinId(null);
     };
 
     const handleDeletePin = (pinId: string) => {
         if (confirm("Delete this pin?")) {
             const pins = data.mapPins || [];
             updateEntities('mapPins', pins.filter(p => p.id !== pinId));
+            handleCancelPin();
         }
     };
 
@@ -91,15 +100,8 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
     return (
         <section className="campaign-card interactive-map-view">
             <header className="campaign-card-header">
-                <h2>World Map</h2>
-                {imgSrc && (
-                    <button
-                        className={`campaign-btn ${isAddingPin ? 'campaign-btn-secondary' : 'campaign-btn-primary'}`}
-                        onClick={() => setIsAddingPin(!isAddingPin)}
-                    >
-                        {isAddingPin ? 'Cancel Pin' : '+ Add Pin'}
-                    </button>
-                )}
+                <h2>Interactive Map</h2>
+                <div style={{ fontSize: '0.85rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>Click anywhere to add a pin.</div>
             </header>
 
             {!imgSrc ? (
@@ -119,12 +121,18 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                 </div>
             ) : (
                 <div className="map-container-wrapper">
-                    {isAddingPin && newPinPos && (
-                        <div className="pin-add-form">
-                            <h4>Link Pin to Location</h4>
+
+                    {(newPinPos || editingPinId) && (
+                        <div
+                            className="pin-add-form"
+                            style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 100 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <h4>{editingPinId ? 'Edit Pin' : 'Link Pin'}</h4>
                             <select
                                 value={selectedLocIdForPin}
                                 onChange={e => setSelectedLocIdForPin(e.target.value)}
+                                className="app__input"
                             >
                                 <option value="">Select a location...</option>
                                 {mapLocations.map(loc => (
@@ -132,30 +140,34 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                                 ))}
                             </select>
                             <div className="pin-form-actions">
-                                <button className="campaign-btn" onClick={handleSavePin} disabled={!selectedLocIdForPin}>Save</button>
-                                <button className="campaign-btn campaign-btn-danger" onClick={handleCancelPin}>Cancel</button>
+                                <button className="campaign-btn campaign-btn-primary" onClick={handleSavePin} disabled={!selectedLocIdForPin}>Save</button>
+                                {editingPinId && (
+                                    <>
+                                        <button className="campaign-btn campaign-btn-secondary" onClick={() => onSelectLocation(selectedLocIdForPin)}>Go To Location</button>
+                                        <button className="campaign-btn campaign-btn-danger" onClick={() => handleDeletePin(editingPinId)}>Delete</button>
+                                    </>
+                                )}
+                                <button className="campaign-btn campaign-btn-secondary" onClick={handleCancelPin}>Cancel</button>
                             </div>
                         </div>
                     )}
 
                     <div
-                        className={`map-image-container ${isAddingPin ? 'crosshair' : ''}`}
+                        className="map-image-container"
                         onClick={handleMapClick}
                     >
-                        <img src={imgSrc} alt="World Map" className="map-image" />
+                        <img src={imgSrc} alt="World Map" className="map-image" draggable="false" />
 
                         {(data.mapPins || []).map(pin => (
                             <div
                                 key={pin.id}
-                                className="map-pin"
+                                className={`map-pin ${editingPinId === pin.id ? 'editing' : ''}`}
                                 style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    if (isAddingPin) {
-                                        handleDeletePin(pin.id);
-                                    } else {
-                                        onSelectLocation(pin.locationId);
-                                    }
+                                    setEditingPinId(pin.id);
+                                    setSelectedLocIdForPin(pin.locationId);
+                                    setNewPinPos(null);
                                 }}
                                 title={getLocationName(pin.locationId)}
                             >
@@ -164,7 +176,7 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                             </div>
                         ))}
 
-                        {newPinPos && isAddingPin && (
+                        {newPinPos && (
                             <div
                                 className="map-pin new-pin pulse"
                                 style={{ left: `${newPinPos.x}%`, top: `${newPinPos.y}%` }}

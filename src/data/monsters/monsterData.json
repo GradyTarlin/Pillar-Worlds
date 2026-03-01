@@ -310,7 +310,7 @@
         "defenderSkill": "INS",
         "range": "reach"
       },
-      "rulesText": "The target loses 3 MP. If the target has no more MP, it loses HP instead. If the voidleech kills a humanoid with mana sap, it can transform into a voidwalker after an hour-long metamorphosis (the voidleech is defenseless during this transformation)."
+      "rulesText": "The target loses 3 MP. If the target has no more MP, it loses HP instead. If the voidleech kills a humanoid with mana sap, it can transform into a voidwalker after an hour-long metamorphosis (the voidleech is defenceless during this transformation)."
     },
     {
       "id": "monAbility.dragons.dragonfire",
@@ -1450,7 +1450,7 @@
       "equipment": [
         {
           "name": "Diamond Harp",
-          "rulesText": "The angel gains advantage on its next skill check upon successful defense."
+          "rulesText": "The angel gains advantage on its next skill check upon successful defence."
         }
       ],
       "loreText": "Servants of the gods of love, angels lend their divine protection to mortals in their hour of greatest need.",
@@ -2665,7 +2665,7 @@
       "equipment": [
         {
           "name": "Panflute",
-          "rulesText": "The satyr gains advantage on its next skill check upon successful defense."
+          "rulesText": "The satyr gains advantage on its next skill check upon successful defence."
         }
       ],
       "loreText": "Fae tricksters with horns and cloven hooves, satyrs spread revelry and mischief.",
@@ -2982,7 +2982,7 @@
         },
         {
           "name": "Verdant Cloak",
-          "rulesText": "The Sylvani sovereign gains advantage on its next skill check upon successful defense."
+          "rulesText": "The Sylvani sovereign gains advantage on its next skill check upon successful defence."
         },
         {
           "name": "Lunar Longbow",
@@ -3050,7 +3050,7 @@
       "equipment": [
         {
           "name": "Shade Cloak",
-          "rulesText": "The Vanori shadebringer gains advantage on its next skill check upon successful defense."
+          "rulesText": "The Vanori shadebringer gains advantage on its next skill check upon successful defence."
         },
         {
           "name": "Pale Staff",
@@ -3375,7 +3375,7 @@
       "equipment": [
         {
           "name": "Harp",
-          "rulesText": "The Aiagi shepherd gains advantage on its next skill check upon successful defense."
+          "rulesText": "The Aiagi shepherd gains advantage on its next skill check upon successful defence."
         }
       ],
       "loreText": "Demigods of love, the Aiagi care for peaceful places. Their enchanting song soothes the spirit, and their hearts overflow with life.",
@@ -3403,7 +3403,7 @@
       "equipment": [
         {
           "name": "Jeering Mask",
-          "rulesText": "The Livedi troubadour gains advantage on its next skill check upon successful defense."
+          "rulesText": "The Livedi troubadour gains advantage on its next skill check upon successful defence."
         },
         {
           "name": "Emerald Dagger",
@@ -3627,7 +3627,7 @@
       "equipment": [
         {
           "name": "Tattered Cloak",
-          "rulesText": "The viziri gains advantage on its next skill check upon successful defense."
+          "rulesText": "The viziri gains advantage on its next skill check upon successful defence."
         }
       ],
       "loreText": "Masked monsters who appear in mirrors, the viziri latch on to those whose secrecy harms others. They wear cloaks of tattered parchment, which conceal their countless crooked arms.",
@@ -3661,7 +3661,7 @@
       "equipment": [
         {
           "name": "Cursed Fiddle",
-          "rulesText": "The devil gains advantage on its next skill check upon successful defense."
+          "rulesText": "The devil gains advantage on its next skill check upon successful defence."
         },
         {
           "name": "Black Iron Amulet",
@@ -3947,7 +3947,7 @@
       "equipment": [
         {
           "name": "Shadow Cloak",
-          "rulesText": "The elder vampire gains advantage on its next skill check upon successful defense."
+          "rulesText": "The elder vampire gains advantage on its next skill check upon successful defence."
         }
       ],
       "loreText": "Over the course of centuries spent feeding upon mortals, vampires grow and master their dark powers. Elder vampires reign over empires of shadow, commanding the very night itself.",

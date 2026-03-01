@@ -58,11 +58,16 @@ export function CharactersView({ locationId }: CharactersViewProps) {
                             title={char.name}
                             subtitle={char.role}
                             description={char.description}
-                            tags={[]}
+                            tags={char.bloodlineId
+                                ? [BLOODLINES.find(b => b.id === char.bloodlineId)?.name || 'Unknown Bloodline']
+                                : []}
                             onEdit={() => setEditingId(char.id)}
                             onDelete={() => handleDelete(char.id)}
                         >
-                            {char.notes && <p className="campaign-entity-notes"><strong>Notes:</strong> {char.notes}</p>}
+                            {char.affiliation && <p className="campaign-entity-notes"><strong>Affiliation:</strong> {char.affiliation}</p>}
+                            {char.goal && <p className="campaign-entity-notes"><strong>Goal:</strong> {char.goal}</p>}
+                            {char.plan && <p className="campaign-entity-notes"><strong>Plan:</strong> {char.plan}</p>}
+                            {char.notes && <p className="campaign-entity-notes" style={{ marginTop: '0.5rem' }}><strong>Notes:</strong> {char.notes}</p>}
                         </EntityCard>
                     )
                 ))}
@@ -127,6 +132,20 @@ function CharacterEditForm({
             <div className="campaign-form-group">
                 <label>Description</label>
                 <textarea name="description" value={form.description} onChange={handleChange} rows={3} />
+            </div>
+            <div className="campaign-form-group">
+                <label>Affiliation / Faction</label>
+                <input name="affiliation" value={form.affiliation || ''} onChange={handleChange} placeholder="e.g. Guild of Mages" />
+            </div>
+            <div className="campaign-form-row">
+                <div className="campaign-form-group">
+                    <label>Goal</label>
+                    <input name="goal" value={form.goal || ''} onChange={handleChange} placeholder="e.g. Find the lost artifact" />
+                </div>
+                <div className="campaign-form-group">
+                    <label>Plan</label>
+                    <input name="plan" value={form.plan || ''} onChange={handleChange} placeholder="e.g. Hire mercenaries" />
+                </div>
             </div>
             <div className="campaign-form-group">
                 <label>Private Notes</label>

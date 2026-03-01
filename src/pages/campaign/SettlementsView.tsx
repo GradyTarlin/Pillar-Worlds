@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { useCampaignData } from '../../hooks/useCampaignData';
 import { ListHeader, EntityCard } from './CampaignShared';
-import type { Location } from '../../types/campaign';
+import type { Location, CampaignCharacter } from '../../types/campaign';
 
 const settlementTypeLabels: Record<string, string> = {
     camp: 'Camp',
     village: 'Village',
     town: 'Town',
     city: 'City'
+};
+
+const economyTypeLabels: Record<string, string> = {
+    farming: 'Farming',
+    fishing: 'Fishing',
+    logging: 'Logging',
+    mining: 'Mining',
+    magic: 'Magic',
+    manufacturing: 'Manufacturing'
 };
 
 interface SettlementsViewProps {
@@ -42,6 +51,28 @@ export function SettlementsView({ regionId, onSelectLocation }: SettlementsViewP
 
     const handleSave = (updated: Location) => {
         updateEntities('locations', data.locations.map(l => l.id === updated.id ? updated : l));
+
+        if (updated.leader && updated.leader.trim().length > 0) {
+            const leaderName = updated.leader.trim();
+            const existingChars = data.characters || [];
+            const existingLeader = existingChars.find(c =>
+                c.locationId === updated.id &&
+                c.name.toLowerCase() === leaderName.toLowerCase()
+            );
+
+            if (!existingLeader) {
+                const newLeader: CampaignCharacter = {
+                    id: `char_${Date.now()}`,
+                    name: leaderName,
+                    role: `Leader of ${updated.name}`,
+                    description: '',
+                    notes: '',
+                    locationId: updated.id
+                };
+                updateEntities('characters', [...existingChars, newLeader]);
+            }
+        }
+
         setEditingId(null);
     };
 
@@ -69,8 +100,10 @@ export function SettlementsView({ regionId, onSelectLocation }: SettlementsViewP
                             onEdit={() => setEditingId(loc.id)}
                             onDelete={() => handleDelete(loc.id)}
                         >
-                            <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px dashed var(--ink)' }}>
-                                <button className="campaign-btn-primary" style={{ width: '100%' }} onClick={() => onSelectLocation(loc.id)}>
+                            <div style={{ marginTop: '1rem' }}>
+                                {loc.leader && <div className="campaign-entity-notes" style={{ marginBottom: '0.4rem' }}><strong>Leader:</strong> {loc.leader}</div>}
+                                {loc.economy && <div className="campaign-entity-notes" style={{ textTransform: 'capitalize', marginBottom: '0.4rem' }}><strong>Economy:</strong> {loc.economy}</div>}
+                                <button className="campaign-btn-primary" style={{ width: '100%', marginTop: '0.6rem' }} onClick={() => onSelectLocation(loc.id)}>
                                     View Settlement
                                 </button>
                             </div>
@@ -120,9 +153,22 @@ function SettlementEditForm({
                         ))}
                     </select>
                 </div>
+                <div className="campaign-form-group">
+                    <label>Economy</label>
+                    <select name="economy" value={form.economy || ''} onChange={handleChange}>
+                        <option value="">None</option>
+                        {Object.entries(economyTypeLabels).map(([key, label]) => (
+                            <option key={key} value={key}>{label}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
             <div className="campaign-form-group">
-                <label>Description (Lore/Sights/Features)</label>
+                <label>Leader / Mayor</label>
+                <input name="leader" value={form.leader || ''} onChange={handleChange} placeholder="e.g. Mayor Goven" />
+            </div>
+            <div className="campaign-form-group">
+                <label>Description</label>
                 <textarea name="description" value={form.description} onChange={handleChange} rows={5} />
             </div>
             <div className="campaign-form-actions">

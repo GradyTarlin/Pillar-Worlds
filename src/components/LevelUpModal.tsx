@@ -17,7 +17,7 @@ function getAbilityCategory(ability: Ability): string {
     if (ability.tree === 'weaponMastery') return 'Weapon Mastery';
     if (ability.tree === 'relicMastery') return 'Relic Mastery';
     if (ability.tree === 'trickMastery') return 'Trick Mastery';
-    if (ability.tree === 'defenseMastery') return 'Defense Mastery';
+    if (ability.tree === 'defenseMastery') return 'Defence Mastery';
     if (ability.tree === 'power' && ability.tag) {
         return ability.tag.charAt(0).toUpperCase() + ability.tag.slice(1);
     }

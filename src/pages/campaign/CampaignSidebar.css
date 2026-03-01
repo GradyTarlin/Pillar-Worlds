@@ -1,0 +1,102 @@
+.campaign-sidebar {
+    width: 280px;
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+    border-right: 3px double var(--ink);
+    border-radius: 4px 0 0 4px;
+    overflow-y: auto;
+    padding: 1rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--forest);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.sidebar-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.tree-folder {
+    display: flex;
+    flex-direction: column;
+}
+
+.tree-node {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.15s, color 0.15s;
+    user-select: none;
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.tree-node:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.tree-node.active {
+    background-color: var(--burgundy);
+    color: white;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.tree-expander {
+    width: 16px;
+    text-align: center;
+    font-size: 0.7rem;
+    margin-right: 4px;
+    opacity: 0.6;
+}
+
+.tree-node:hover .tree-expander {
+    opacity: 1;
+}
+
+.tree-node.active .tree-expander {
+    color: white;
+}
+
+.tree-icon {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+.tree-label {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tree-children {
+    padding-left: 1.2rem;
+    border-left: 1px dashed rgba(26, 20, 16, 0.2);
+    margin-left: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    margin-top: 0.1rem;
+}
+
+.tree-empty {
+    padding: 0.2rem 0.5rem 0.2rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    font-style: italic;
+}

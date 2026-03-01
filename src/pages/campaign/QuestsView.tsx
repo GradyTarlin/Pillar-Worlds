@@ -4,10 +4,10 @@ import { ListHeader, EntityCard } from './CampaignShared';
 import type { Quest } from '../../types/campaign';
 
 interface QuestsViewProps {
-    locationId?: string;
+    regionId?: string;
 }
 
-export function QuestsView({ locationId }: QuestsViewProps) {
+export function QuestsView({ regionId }: QuestsViewProps) {
     const { data, updateEntities } = useCampaignData();
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -18,7 +18,7 @@ export function QuestsView({ locationId }: QuestsViewProps) {
             description: '',
             reward: '',
             objective: '',
-            locationId
+            regionId
         };
         updateEntities('quests', [...data.quests, newQuest]);
         setEditingId(newQuest.id);
@@ -35,8 +35,8 @@ export function QuestsView({ locationId }: QuestsViewProps) {
         setEditingId(null);
     };
 
-    const filteredQuests = locationId
-        ? data.quests.filter(q => q.locationId === locationId)
+    const filteredQuests = regionId
+        ? data.quests.filter(q => q.regionId === regionId)
         : data.quests;
 
     return (
@@ -57,11 +57,14 @@ export function QuestsView({ locationId }: QuestsViewProps) {
                             key={quest.id}
                             title={quest.name}
                             subtitle={quest.reward ? `Reward: ${quest.reward}` : undefined}
-                            description={quest.objective ? `Objective: ${quest.objective}` : quest.description}
+                            description={quest.objective ? `Objective: ${quest.objective}` : undefined}
                             tags={[]}
                             onEdit={() => setEditingId(quest.id)}
                             onDelete={() => handleDelete(quest.id)}
-                        />
+                        >
+                            {quest.clientId && <p className="campaign-entity-notes"><strong>Client:</strong> {quest.clientId}</p>}
+                            {quest.description && <p className="campaign-entity-notes" style={{ marginTop: '0.5rem' }}><strong>Notes:</strong> {quest.description}</p>}
+                        </EntityCard>
                     )
                 ))}
                 {filteredQuests.length === 0 && (

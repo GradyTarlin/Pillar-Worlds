@@ -66,7 +66,7 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
                             onEdit={() => setEditingId(region.id)}
                             onDelete={() => handleDelete(region.id)}
                         >
-                            <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px dashed var(--ink)' }}>
+                            <div style={{ marginTop: '1rem' }}>
                                 <button className="campaign-btn-primary" style={{ width: '100%' }} onClick={() => onSelectRegion(region.id)}>
                                     View Region
                                 </button>

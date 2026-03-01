@@ -44,8 +44,10 @@ export function DungeonsView({ regionId, onSelectLocation }: DungeonsViewProps) 
             <ListHeader title="Dungeons" onAdd={handleAdd} addLabel="Dungeon" />
 
             <div className="campaign-cards-grid">
-                {regionalDungeons.map(loc => (
-                    editingId === loc.id ? (
+                {regionalDungeons.map(loc => {
+                    const locEncounters = data.encounters ? data.encounters.filter(e => e.locationId === loc.id) : [];
+
+                    return editingId === loc.id ? (
                         <DungeonEditForm
                             key={loc.id}
                             location={loc}
@@ -61,14 +63,22 @@ export function DungeonsView({ regionId, onSelectLocation }: DungeonsViewProps) 
                             onEdit={() => setEditingId(loc.id)}
                             onDelete={() => handleDelete(loc.id)}
                         >
-                            <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px dashed var(--ink)' }}>
-                                <button className="campaign-btn-primary" style={{ width: '100%' }} onClick={() => onSelectLocation(loc.id)}>
+                            <div style={{ marginTop: '1rem' }}>
+                                {loc.traps && <div className="campaign-entity-notes" style={{ marginBottom: '0.4rem' }}><strong>Traps:</strong> {loc.traps}</div>}
+                                {loc.secrets && <div className="campaign-entity-notes" style={{ marginBottom: '0.4rem' }}><strong>Secrets:</strong> {loc.secrets}</div>}
+                                {loc.loot && <div className="campaign-entity-notes" style={{ marginBottom: '0.4rem' }}><strong>Loot:</strong> {loc.loot}</div>}
+                                {locEncounters.length > 0 && (
+                                    <div className="campaign-entity-notes" style={{ marginBottom: '0.4rem', fontStyle: 'italic', color: 'var(--text-light)' }}>
+                                        <strong>Encounters:</strong> {locEncounters.map(e => e.name).join(', ')}
+                                    </div>
+                                )}
+                                <button className="campaign-btn-primary" style={{ width: '100%', marginTop: '0.6rem' }} onClick={() => onSelectLocation(loc.id)}>
                                     View Dungeon
                                 </button>
                             </div>
                         </EntityCard>
-                    )
-                ))}
+                    );
+                })}
                 {regionalDungeons.length === 0 && (
                     <p className="campaign-empty-state">No dungeons added here yet. Click "+ Dungeon" to start.</p>
                 )}
@@ -101,7 +111,21 @@ function DungeonEditForm({
                 <input name="name" value={form.name} onChange={handleChange} autoFocus />
             </div>
             <div className="campaign-form-group">
-                <label>Description (Lore/Hazards)</label>
+                <label>Loot</label>
+                <input name="loot" value={form.loot || ''} onChange={handleChange} placeholder="e.g. 50g, Ring of Protection" />
+            </div>
+            <div className="campaign-form-row">
+                <div className="campaign-form-group">
+                    <label>Traps</label>
+                    <input name="traps" value={form.traps || ''} onChange={handleChange} placeholder="e.g. Poison Dart, Pitfall" />
+                </div>
+                <div className="campaign-form-group">
+                    <label>Secrets</label>
+                    <input name="secrets" value={form.secrets || ''} onChange={handleChange} placeholder="e.g. Hidden Wall in study" />
+                </div>
+            </div>
+            <div className="campaign-form-group">
+                <label>Description</label>
                 <textarea name="description" value={form.description} onChange={handleChange} rows={5} />
             </div>
             <div className="campaign-form-actions">

@@ -4,11 +4,20 @@ export interface BaseEntity {
     description: string;
 }
 
+export interface CampaignFaction extends BaseEntity {
+    factionType: 'religious' | 'military' | 'criminal' | 'arcane' | 'spiritual' | 'guild' | 'monster';
+    leader?: string;
+    goal?: string;
+}
+
 export interface CampaignCharacter extends BaseEntity {
     role?: string;
     bloodlineId?: string;
     notes: string;
     locationId?: string; // Links character to a settlement
+    goal?: string;
+    plan?: string;
+    affiliation?: string;
 }
 
 export interface PlotLine extends BaseEntity {
@@ -21,6 +30,7 @@ export interface Quest extends BaseEntity {
     objective: string;
     clientId?: string;
     locationId?: string; // Links quest to a settlement
+    regionId?: string; // Links quest to a region
 }
 
 export interface MapPin {
@@ -42,6 +52,13 @@ export interface Location extends BaseEntity {
 
     // Settlement specific fields
     settlementType?: 'camp' | 'village' | 'town' | 'city';
+    leader?: string;
+    economy?: 'farming' | 'fishing' | 'logging' | 'mining' | 'magic' | 'manufacturing';
+
+    // Dungeon specific fields
+    traps?: string;
+    secrets?: string;
+    loot?: string;
 }
 
 export interface CampaignMonster {
@@ -85,6 +102,7 @@ export interface CampaignData {
     monsters: CampaignMonster[];
     sessionLogs: SessionLog[];
     encounters: Encounter[];
+    factions?: CampaignFaction[];
     mapImageId?: string;
     mapPins?: MapPin[];
 }
@@ -98,6 +116,7 @@ export const INITIAL_CAMPAIGN_DATA: CampaignData = {
     monsters: [],
     sessionLogs: [],
     encounters: [],
+    factions: [],
 };
 
 export interface Campaign extends BaseEntity {

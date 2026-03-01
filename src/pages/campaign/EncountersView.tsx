@@ -5,7 +5,11 @@ import type { Encounter, EncounterCombatant } from '../../types/campaign';
 import { monsters as monsterArchive, monsterTypes } from '../../data/monsters';
 import './EncountersView.css';
 
-export function EncountersView() {
+interface EncountersViewProps {
+    locationId?: string;
+}
+
+export function EncountersView({ locationId }: EncountersViewProps) {
     const { data, updateEntities } = useCampaignData();
     const [prepEncounterId, setPrepEncounterId] = useState<string | null>(null);
     const [runEncounterId, setRunEncounterId] = useState<string | null>(null);
@@ -21,13 +25,15 @@ export function EncountersView() {
     const [selectedMonsterId, setSelectedMonsterId] = useState<string>('');
     const [monsterCount, setMonsterCount] = useState<number>(1);
 
-    const encounters = data.encounters || [];
+    const encounters = locationId
+        ? (data.encounters || []).filter(e => e.locationId === locationId)
+        : data.encounters || [];
 
     const filteredMonsters = Array.from(monsterArchive).filter(m => {
         if (monsterTypeFilter !== 'All' && m.monsterType !== monsterTypeFilter) return false;
         if (monsterLevelFilter !== 'All' && m.level.toString() !== monsterLevelFilter) return false;
         return true;
-    }).sort((a, b) => a.name.localeCompare(b.name));
+    }).sort((a, b) => a.level - b.level || a.name.localeCompare(b.name));
 
     const handleAddEncounter = () => {
         const newEncounter: Encounter = {
@@ -38,14 +44,15 @@ export function EncountersView() {
             round: 1,
             activeTurnIndex: 0,
             isFinished: false,
+            locationId,
         };
 
-        updateEntities('encounters', [...encounters, newEncounter]);
+        updateEntities('encounters', [...(data.encounters || []), newEncounter]);
         setPrepEncounterId(newEncounter.id);
     };
 
     const handleDeleteEncounter = (id: string) => {
-        updateEntities('encounters', encounters.filter(e => e.id !== id));
+        updateEntities('encounters', (data.encounters || []).filter(e => e.id !== id));
         if (prepEncounterId === id) setPrepEncounterId(null);
         if (runEncounterId === id) setRunEncounterId(null);
     };
@@ -55,7 +62,7 @@ export function EncountersView() {
     const activeEncounter = runEncounter || prepEncounter;
 
     const handleUpdateActiveEncounter = (updated: Encounter) => {
-        updateEntities('encounters', encounters.map(e => e.id === updated.id ? updated : e));
+        updateEntities('encounters', (data.encounters || []).map(e => e.id === updated.id ? updated : e));
     };
 
     const handleAddCombatant = () => {
@@ -295,21 +302,37 @@ export function EncountersView() {
                 {encounters.length === 0 ? (
                     <p className="campaign-empty-state">No encounters planned.</p>
                 ) : (
-                    encounters.map(encounter => (
-                        <EntityCard
-                            key={encounter.id}
-                            title={encounter.name}
-                            onEdit={() => setPrepEncounterId(encounter.id)}
-                            onDelete={() => handleDeleteEncounter(encounter.id)}
-                            editIcon="⚔️"
-                        >
-                            <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px dashed var(--ink)' }}>
-                                <button className="campaign-btn-primary" style={{ width: '100%' }} onClick={() => setRunEncounterId(encounter.id)}>
-                                    Run Encounter
-                                </button>
-                            </div>
-                        </EntityCard>
-                    ))
+                    encounters.map(encounter => {
+                        const combatantCounts = encounter.combatants.reduce((acc, c) => {
+                            const normalizedName = c.name.replace(/ \d+$/, '');
+                            acc[normalizedName] = (acc[normalizedName] || 0) + 1;
+                            return acc;
+                        }, {} as Record<string, number>);
+
+                        return (
+                            <EntityCard
+                                key={encounter.id}
+                                title={encounter.name}
+                                description={encounter.description}
+                                onEdit={() => setPrepEncounterId(encounter.id)}
+                                onDelete={() => handleDeleteEncounter(encounter.id)}
+                                editIcon="⚔️"
+                            >
+                                {Object.entries(combatantCounts).length > 0 && (
+                                    <div className="campaign-entity-notes" style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                        {Object.entries(combatantCounts).map(([name, count]) => (
+                                            <span key={name} className="campaign-entity-tag" style={{ background: 'var(--parchment-dark)', color: 'var(--ink)' }}>{count}x {name}</span>
+                                        ))}
+                                    </div>
+                                )}
+                                <div style={{ marginTop: '1rem' }}>
+                                    <button className="campaign-btn-primary" style={{ width: '100%' }} onClick={() => setRunEncounterId(encounter.id)}>
+                                        Run Encounter
+                                    </button>
+                                </div>
+                            </EntityCard>
+                        )
+                    })
                 )}
             </div>
         </div>

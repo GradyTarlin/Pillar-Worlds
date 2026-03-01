@@ -11,10 +11,12 @@ import { DataManagementPage } from './pages/DataManagementPage';
 import { EquipmentCompendiumPage } from './pages/compendium/EquipmentCompendiumPage';
 import { AbilitiesCompendiumPage } from './pages/compendium/AbilitiesCompendiumPage';
 import { DiceRoller } from './components/DiceRoller';
+import { NavigationBar } from './components/NavigationBar';
 
 function App() {
   return (
     <HashRouter>
+      <NavigationBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/characters" element={<CharactersPage />} />

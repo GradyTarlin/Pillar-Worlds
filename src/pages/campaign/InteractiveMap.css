@@ -38,9 +38,7 @@
     border: 1px solid var(--border-light);
 }
 
-.map-image-container.crosshair {
-    cursor: crosshair;
-}
+
 
 .map-image {
     width: 100%;
@@ -102,18 +100,29 @@
 }
 
 .pin-add-form {
-    background: var(--bg-card);
-    padding: 1rem;
-    border: 1px solid var(--primary-color);
-    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+    padding: 1.5rem;
+    border: 3px double var(--burgundy);
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    min-width: 250px;
+}
+
+.pin-add-form h4 {
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    color: var(--burgundy);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 .pin-form-actions {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
     margin-top: 0.5rem;
 }

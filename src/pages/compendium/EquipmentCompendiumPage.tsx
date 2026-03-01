@@ -23,7 +23,7 @@ export function EquipmentCompendiumPage() {
 
             if (['Armour', 'Shield', 'Ward'].includes(mainType)) {
                 subType = mainType;
-                mainType = 'Defense';
+                mainType = 'Defence';
             }
 
             if (!categories[mainType]) {
@@ -49,7 +49,7 @@ export function EquipmentCompendiumPage() {
 
                 if (['Armour', 'Shield', 'Ward'].includes(mainType)) {
                     subType = mainType;
-                    mainType = 'Defense';
+                    mainType = 'Defence';
                 }
 
                 if (isSubtype) {
@@ -88,12 +88,13 @@ export function EquipmentCompendiumPage() {
 
     return (
         <div className="compendium-page">
-            <header className="compendium-page__header">
-                <div className="compendium-page__header-top">
-                    <Link to="/" className="compendium-page__home-link">← Home</Link>
+            <header className="compendium-page__header" style={{ textAlign: 'center' }}>
+                <div className="compendium-page__header-top" style={{ justifyContent: 'center', position: 'relative' }}>
+                    <Link to="/" className="compendium-page__home-link" style={{ position: 'absolute', left: 0 }}>← Home</Link>
                     <h1>Equipment Archive</h1>
                 </div>
-                <div className="compendium-page__filters">
+                <p className="compendium-page__subtitle" style={{ fontSize: '1.2rem', color: 'var(--ink-muted)', marginTop: '0.25rem', marginBottom: '0.5rem', fontStyle: 'italic' }}>Browse weapons, armour, and items</p>
+                <div className="compendium-page__filters" style={{ justifyContent: 'center' }}>
                     <div className="filter-group">
                         <label htmlFor="type-filter">Type: </label>
                         <select
@@ -150,7 +151,7 @@ export function EquipmentCompendiumPage() {
                                         {isArtifact && <span className="tag-artifact">Artifact</span>}
                                     </div>
                                     <div className="compendium-list-item__type">
-                                        {['armour', 'shield', 'ward'].includes(item.type) ? 'Defense' : item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                                        {['armour', 'shield', 'ward'].includes(item.type) ? 'Defence' : item.type.charAt(0).toUpperCase() + item.type.slice(1)}
                                     </div>
                                     <div className="compendium-list-item__subtype">
                                         {['armour', 'shield', 'ward'].includes(item.type)

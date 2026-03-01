@@ -44,12 +44,13 @@ export function AbilitiesCompendiumPage() {
 
     return (
         <div className="compendium-page">
-            <header className="compendium-page__header">
-                <div className="compendium-page__header-top">
-                    <Link to="/" className="compendium-page__home-link">← Home</Link>
+            <header className="compendium-page__header" style={{ textAlign: 'center' }}>
+                <div className="compendium-page__header-top" style={{ justifyContent: 'center', position: 'relative' }}>
+                    <Link to="/" className="compendium-page__home-link" style={{ position: 'absolute', left: 0 }}>← Home</Link>
                     <h1>Abilities Archive</h1>
                 </div>
-                <div className="compendium-page__filters">
+                <p className="compendium-page__subtitle" style={{ fontSize: '1.2rem', color: 'var(--ink-muted)', marginTop: '0.25rem', marginBottom: '0.5rem', fontStyle: 'italic' }}>Archive of spells and techniques</p>
+                <div className="compendium-page__filters" style={{ justifyContent: 'center' }}>
                     <div className="filter-group">
                         <label htmlFor="tag-filter">Tag: </label>
                         <select

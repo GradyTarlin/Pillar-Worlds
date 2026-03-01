@@ -96,54 +96,70 @@
     gap: 0.75rem;
 }
 
-.dice-quick-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
-}
-
-.dice-btn {
-    background: var(--parchment-dark);
-    color: var(--ink);
-    border: 1px solid var(--ink);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 0;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.dice-btn:hover {
-    background: var(--burgundy);
-    color: var(--parchment);
-    border-color: var(--burgundy);
-}
-
-.dice-custom-form {
+.dice-options {
     display: flex;
     gap: 0.5rem;
 }
 
-.dice-custom-form input {
+.dice-opt-btn {
     flex: 1;
+    background: var(--parchment-dark);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dice-opt-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.dice-opt-btn.active {
+    background: var(--forest);
+    color: var(--parchment-light);
+    border-color: var(--forest-dark);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dice-bonus-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dice-bonus-control label {
+    font-weight: 500;
+    color: var(--ink);
+}
+
+.dice-bonus-control input {
+    width: 60px;
     background: var(--parchment-dark);
     border: 1px solid var(--ink);
     color: var(--ink);
-    padding: 0.5rem;
+    padding: 0.4rem;
     border-radius: var(--radius-sm);
+    text-align: center;
 }
 
-.dice-custom-form button {
+.dice-btn-main {
     background: var(--burgundy);
     color: var(--parchment);
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem;
     border-radius: var(--radius-sm);
     font-weight: bold;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: background 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
-.dice-custom-form button:hover {
+.dice-btn-main:hover {
     background: var(--burgundy-light);
 }
