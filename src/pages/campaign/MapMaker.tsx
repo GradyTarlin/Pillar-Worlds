@@ -112,7 +112,11 @@ export function MapMaker() {
     };
 
     return (
-        <div className="map-maker-container" onMouseLeave={() => setIsMouseDown(false)}>
+        <div
+            className="map-maker-container"
+            onMouseLeave={() => setIsMouseDown(false)}
+            onMouseUp={() => setIsMouseDown(false)}
+        >
             <div className="map-maker-toolbar">
                 <div className="tool-group">
                     <button
