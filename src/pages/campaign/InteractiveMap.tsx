@@ -99,6 +99,51 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
         return loc ? loc.name : 'Unknown';
     };
 
+    const getPoiIcon = (type?: string) => {
+        switch (type) {
+            case 'town': return '🏘️';
+            case 'city': return '🏰';
+            case 'dungeon': return '⚔️';
+            case 'mystery': return '❓';
+            default: return '🏘️';
+        }
+    };
+
+    const renderCustomMap = () => {
+        if (!data.customMap) return null;
+
+        const tiles = [];
+        for (let y = 0; y < data.customMap.height; y++) {
+            for (let x = 0; x < data.customMap.width; x++) {
+                const key = `${x},${y}`;
+                const tile = data.customMap.grid[key];
+                if (tile) {
+                    tiles.push(
+                        <div
+                            key={key}
+                            className={`map-tile tile-${tile.biome} ${tile.feature !== 'none' ? `feature-${tile.feature}` : ''}`}
+                            style={{
+                                gridColumnStart: x + 1,
+                                gridRowStart: y + 1,
+                                width: '24px',
+                                height: '24px',
+                                border: 'none'
+                            }}
+                        >
+                            {tile.poiId && (
+                                <div className="poi-marker" title={tile.label} style={{ fontSize: '1rem' }}>
+                                    {getPoiIcon(tile.poiType)}
+                                    <span className="poi-label" style={{ fontSize: '0.6rem' }}>{tile.label}</span>
+                                </div>
+                            )}
+                        </div>
+                    );
+                }
+            }
+        }
+        return tiles;
+    };
+
     return (
         <section className="campaign-card interactive-map-view">
             <header className="campaign-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -191,29 +236,7 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                                     width: 'fit-content'
                                 }}
                             >
-                                {(() => {
-                                    const tiles = [];
-                                    const currentMap = data.customMap!;
-                                    for (let y = 0; y < currentMap.height; y++) {
-                                        for (let x = 0; x < currentMap.width; x++) {
-                                            const tile = currentMap.grid[`${x},${y}`] || { biome: 'ocean', feature: 'none' };
-                                            tiles.push(
-                                                <div
-                                                    key={`${x},${y}`}
-                                                    className={`map-tile tile-${tile.biome} ${tile.feature !== 'none' ? `feature-${tile.feature}` : ''}`}
-                                                    style={{ width: '24px', height: '24px', border: 'none' }}
-                                                >
-                                                    {tile.poiId && (
-                                                        <div className="poi-marker" style={{ fontSize: '0.8rem' }}>
-                                                            {tile.label?.includes('Dungeon') ? '⚔️' : '🏘️'}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            );
-                                        }
-                                    }
-                                    return tiles;
-                                })()}
+                                {renderCustomMap()}
                             </div>
                         )}
 

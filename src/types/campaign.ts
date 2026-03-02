@@ -44,10 +44,13 @@ export interface MapPin {
 export type MapBiome = 'plain' | 'forest' | 'mountain' | 'desert' | 'jungle' | 'grassland' | 'wetland' | 'taiga' | 'ocean';
 export type MapFeature = 'none' | 'river' | 'lake';
 
+export type MapPoiType = 'town' | 'city' | 'dungeon' | 'mystery';
+
 export interface MapTile {
     biome: MapBiome;
     feature: MapFeature;
     poiId?: string; // Links to a Location (Settlement/Dungeon)
+    poiType?: MapPoiType;
     label?: string; // Custom label for POIs or landmarks
 }
 

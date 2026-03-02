@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { useCampaignData } from '../../hooks/useCampaignData';
-import type { MapBiome, MapFeature, MapTile } from '../../types/campaign';
+import type { MapBiome, MapFeature, MapTile, MapPoiType } from '../../types/campaign';
 import './MapMaker.css';
 
 type ToolMode = 'biome' | 'water' | 'poi' | 'erase';
@@ -10,6 +10,7 @@ export function MapMaker() {
     const [activeTool, setActiveTool] = useState<ToolMode>('biome');
     const [selectedBiome, setSelectedBiome] = useState<MapBiome>('grassland');
     const [selectedFeature, setSelectedFeature] = useState<MapFeature>('river');
+    const [selectedPoiType, setSelectedPoiType] = useState<MapPoiType>('town');
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [zoom, setZoom] = useState(1);
     const [history, setHistory] = useState<Record<string, MapTile>[]>([]);
@@ -35,7 +36,7 @@ export function MapMaker() {
         setHistory(newHistory);
     };
 
-    const handleTileInteraction = useCallback((x: number, y: number) => {
+    const handleTileInteraction = useCallback((x: number, y: number, isInitialClick: boolean = false) => {
         const currentMap = data.customMap || { width: WIDTH, height: HEIGHT, grid: {} };
         const key = `${x},${y}`;
         const newGrid = { ...currentMap.grid };
@@ -46,16 +47,35 @@ export function MapMaker() {
         } else if (activeTool === 'water') {
             newGrid[key] = { ...currentTile, feature: selectedFeature };
         } else if (activeTool === 'poi') {
+            // POIs should ONLY trigger on the initial click, never on drag
+            if (!isInitialClick) return;
+
             const label = prompt('Enter a label for this location:');
             if (label !== null) {
-                newGrid[key] = { ...currentTile, poiId: `poi_${Date.now()}`, label };
+                saveHistory();
+                newGrid[key] = { ...currentTile, poiId: `poi_${Date.now()}`, poiType: selectedPoiType, label };
+            } else {
+                return; // User cancelled prompt
             }
         } else if (activeTool === 'erase') {
-            delete newGrid[key];
+            newGrid[key] = { ...currentTile, feature: 'none' };
+            delete newGrid[key].poiId;
+            delete newGrid[key].poiType;
+            delete newGrid[key].label;
         }
 
         updateEntities('customMap', { ...currentMap, grid: newGrid });
-    }, [data.customMap, activeTool, selectedBiome, selectedFeature, updateEntities]);
+    }, [data.customMap, activeTool, selectedBiome, selectedFeature, selectedPoiType, updateEntities, saveHistory]);
+
+    const getPoiIcon = (type?: MapPoiType) => {
+        switch (type) {
+            case 'town': return '🏘️';
+            case 'city': return '🏰';
+            case 'dungeon': return '⚔️';
+            case 'mystery': return '❓';
+            default: return '🏘️';
+        }
+    };
 
     const renderGrid = () => {
         const tiles = [];
@@ -71,16 +91,16 @@ export function MapMaker() {
                         key={key}
                         className={`map-tile tile-${tile.biome} ${tile.feature !== 'none' ? `feature-${tile.feature}` : ''}`}
                         onMouseDown={() => {
-                            saveHistory();
+                            if (activeTool !== 'poi') saveHistory();
                             setIsMouseDown(true);
-                            handleTileInteraction(x, y);
+                            handleTileInteraction(x, y, true);
                         }}
-                        onMouseEnter={() => { if (isMouseDown) handleTileInteraction(x, y); }}
+                        onMouseEnter={() => { if (isMouseDown) handleTileInteraction(x, y, false); }}
                         onMouseUp={() => setIsMouseDown(false)}
                     >
                         {tile.poiId && (
                             <div className="poi-marker" title={tile.label}>
-                                {tile.label?.includes('Dungeon') || tile.poiId.includes('dungeon') ? '⚔️' : '🏘️'}
+                                {getPoiIcon(tile.poiType)}
                                 <span className="poi-label">{tile.label}</span>
                             </div>
                         )}
@@ -139,6 +159,21 @@ export function MapMaker() {
                     </div>
                 )}
 
+                {activeTool === 'poi' && (
+                    <div className="tool-group">
+                        {(['town', 'city', 'dungeon', 'mystery'] as MapPoiType[]).map(t => (
+                            <button
+                                key={t}
+                                className={`tool-btn ${selectedPoiType === t ? 'active' : ''}`}
+                                onClick={() => setSelectedPoiType(t)}
+                                style={{ textTransform: 'capitalize' }}
+                            >
+                                {getPoiIcon(t)} {t}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
                 <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
                     <button
                         className="tool-btn"
@@ -167,4 +202,3 @@ export function MapMaker() {
         </div>
     );
 }
-
