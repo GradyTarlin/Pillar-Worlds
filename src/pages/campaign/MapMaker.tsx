@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { useCampaignData } from '../../hooks/useCampaignData';
-import type { MapBiome, MapFeature } from '../../types/campaign';
+import type { MapBiome, MapFeature, MapTile } from '../../types/campaign';
 import './MapMaker.css';
 
 type ToolMode = 'biome' | 'water' | 'poi' | 'erase';
@@ -12,12 +12,28 @@ export function MapMaker() {
     const [selectedFeature, setSelectedFeature] = useState<MapFeature>('river');
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [zoom, setZoom] = useState(1);
+    const [history, setHistory] = useState<Record<string, MapTile>[]>([]);
 
     // Default map size
     const WIDTH = 60;
     const HEIGHT = 45;
 
     const canvasRef = useRef<HTMLDivElement>(null);
+
+    const saveHistory = useCallback(() => {
+        const currentGrid = data.customMap?.grid || {};
+        setHistory(prev => [...prev, { ...currentGrid }]);
+    }, [data.customMap?.grid]);
+
+    const undo = () => {
+        if (history.length === 0) return;
+        const previousGrid = history[history.length - 1];
+        const newHistory = history.slice(0, -1);
+
+        const currentMap = data.customMap || { width: WIDTH, height: HEIGHT, grid: {} };
+        updateEntities('customMap', { ...currentMap, grid: previousGrid });
+        setHistory(newHistory);
+    };
 
     const handleTileInteraction = useCallback((x: number, y: number) => {
         const currentMap = data.customMap || { width: WIDTH, height: HEIGHT, grid: {} };
@@ -54,7 +70,11 @@ export function MapMaker() {
                     <div
                         key={key}
                         className={`map-tile tile-${tile.biome} ${tile.feature !== 'none' ? `feature-${tile.feature}` : ''}`}
-                        onMouseDown={() => { setIsMouseDown(true); handleTileInteraction(x, y); }}
+                        onMouseDown={() => {
+                            saveHistory();
+                            setIsMouseDown(true);
+                            handleTileInteraction(x, y);
+                        }}
                         onMouseEnter={() => { if (isMouseDown) handleTileInteraction(x, y); }}
                         onMouseUp={() => setIsMouseDown(false)}
                     >
@@ -120,6 +140,12 @@ export function MapMaker() {
                 )}
 
                 <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
+                    <button
+                        className="tool-btn"
+                        onClick={undo}
+                        disabled={history.length === 0}
+                        style={{ opacity: history.length === 0 ? 0.5 : 1 }}
+                    >↩️ Undo</button>
                     <button className="tool-btn" onClick={() => setZoom(prev => Math.min(prev + 0.1, 2))}>➕</button>
                     <button className="tool-btn" onClick={() => setZoom(prev => Math.max(prev - 0.1, 0.5))}>➖</button>
                 </div>
@@ -141,3 +167,4 @@ export function MapMaker() {
         </div>
     );
 }
+
