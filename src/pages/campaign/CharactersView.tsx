@@ -99,7 +99,7 @@ function CharacterEditForm({
     onCancel
 }: {
     character: CampaignCharacter,
-    data: any, // or CampaignData
+    data: { factions?: { id: string, name: string }[], locations: { id: string, name: string, type: string }[] },
     onSave: (c: CampaignCharacter) => void,
     onCancel: () => void
 }) {
@@ -154,8 +154,8 @@ function CharacterEditForm({
                     {(() => {
                         const currentAffils = Array.isArray(form.affiliation) ? form.affiliation : (form.affiliation ? [form.affiliation] : []);
                         return currentAffils.map(id => {
-                            const f = data.factions?.find((fac: any) => fac.id === id);
-                            const l = data.locations?.find((loc: any) => loc.id === id);
+                            const f = data.factions?.find((fac: { id: string, name: string }) => fac.id === id);
+                            const l = data.locations?.find((loc: { id: string, name: string, type: string }) => loc.id === id);
                             const name = f?.name || l?.name || id;
                             return (
                                 <span key={id} className="campaign-entity-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -188,12 +188,12 @@ function CharacterEditForm({
                     <option value="" disabled>Add Affiliation...</option>
                     {data.factions && data.factions.length > 0 && (
                         <optgroup label="Factions">
-                            {data.factions.map((f: any) => <option key={f.id} value={f.id}>{f.name}</option>)}
+                            {data.factions?.map((f: { id: string, name: string }) => <option key={f.id} value={f.id}>{f.name}</option>)}
                         </optgroup>
                     )}
                     {data.locations && data.locations.length > 0 && (
                         <optgroup label="Settlements">
-                            {data.locations.filter((l: any) => l.type === 'settlement').map((l: any) => <option key={l.id} value={l.id}>{l.name}</option>)}
+                            {data.locations.filter((l: { id: string, name: string, type: string }) => l.type === 'settlement').map((l: { id: string, name: string, type: string }) => <option key={l.id} value={l.id}>{l.name}</option>)}
                         </optgroup>
                     )}
                 </select>

@@ -93,7 +93,10 @@ export function CampaignBuilderPage() {
                     {activeCampaignId && viewMode === 'network' && (
                         /* LEVEL 1: Character Network */
                         <div className="campaign-level-1-wrapper" style={{ display: 'flex', width: '100%', minHeight: '600px' }}>
-                            <SocialNetworkView />
+                            <SocialNetworkView
+                                onSelectRegion={handleSelectRegion}
+                                onSelectLocation={handleSelectLocation}
+                            />
                         </div>
                     )}
 
