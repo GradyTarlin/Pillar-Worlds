@@ -11,6 +11,7 @@ import { EncountersView } from './campaign/EncountersView';
 import { InteractiveMap } from './campaign/InteractiveMap';
 import { CampaignSidebar } from './campaign/CampaignSidebar';
 import { SocialNetworkView } from './campaign/SocialNetworkView';
+import { MapMaker } from './campaign/MapMaker';
 import { useCampaignData } from '../hooks/useCampaignData';
 import './CampaignBuilderPage.css';
 
@@ -18,7 +19,7 @@ export function CampaignBuilderPage() {
     const { data, activeCampaignId, setActiveCampaignId } = useCampaignData();
     const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
     const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
-    const [viewMode, setViewMode] = useState<'world' | 'network'>('world');
+    const [viewMode, setViewMode] = useState<'world' | 'network' | 'map'>('world');
 
     const handleSelectRegion = (id: string | null) => {
         setSelectedRegionId(id);
@@ -31,9 +32,9 @@ export function CampaignBuilderPage() {
         setViewMode('world');
     };
 
-    const handleSelectViewMode = (mode: 'world' | 'network') => {
+    const handleSelectViewMode = (mode: 'world' | 'network' | 'map') => {
         setViewMode(mode);
-        if (mode === 'network') {
+        if (mode === 'network' || mode === 'map') {
             setSelectedRegionId(null);
             setSelectedLocationId(null);
         }
@@ -42,6 +43,8 @@ export function CampaignBuilderPage() {
     let headerTitle = "Campaign Manager";
     if (viewMode === 'network') {
         headerTitle = "Character Network";
+    } else if (viewMode === 'map') {
+        headerTitle = "Map Maker";
     } else if (selectedLocationId) {
         const loc = (data.locations || []).find(l => l.id === selectedLocationId);
         if (loc) headerTitle = loc.type === 'settlement' ? 'Settlement' : 'Dungeon';
@@ -97,6 +100,13 @@ export function CampaignBuilderPage() {
                                 onSelectRegion={handleSelectRegion}
                                 onSelectLocation={handleSelectLocation}
                             />
+                        </div>
+                    )}
+
+                    {activeCampaignId && viewMode === 'map' && (
+                        /* Map Maker Tool */
+                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', width: '100%', minHeight: '600px' }}>
+                            <MapMaker />
                         </div>
                     )}
 

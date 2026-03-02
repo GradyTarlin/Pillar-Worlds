@@ -40,6 +40,23 @@ export interface MapPin {
     locationId: string; // Links to 'settlement' or 'dungeon' location
 }
 
+// Map Maker Types
+export type MapBiome = 'plain' | 'forest' | 'mountain' | 'desert' | 'jungle' | 'grassland' | 'wetland' | 'taiga' | 'ocean';
+export type MapFeature = 'none' | 'river' | 'lake';
+
+export interface MapTile {
+    biome: MapBiome;
+    feature: MapFeature;
+    poiId?: string; // Links to a Location (Settlement/Dungeon)
+    label?: string; // Custom label for POIs or landmarks
+}
+
+export interface CustomMap {
+    width: number;
+    height: number;
+    grid: Record<string, MapTile>; // Key format "x,y"
+}
+
 export interface Region extends BaseEntity {
     climate: string;
 }
@@ -105,6 +122,7 @@ export interface CampaignData {
     factions?: CampaignFaction[];
     mapImageId?: string;
     mapPins?: MapPin[];
+    customMap?: CustomMap;
 }
 
 export const INITIAL_CAMPAIGN_DATA: CampaignData = {
@@ -117,6 +135,11 @@ export const INITIAL_CAMPAIGN_DATA: CampaignData = {
     sessionLogs: [],
     encounters: [],
     factions: [],
+    customMap: {
+        width: 40,
+        height: 30,
+        grid: {}
+    }
 };
 
 export interface Campaign extends BaseEntity {

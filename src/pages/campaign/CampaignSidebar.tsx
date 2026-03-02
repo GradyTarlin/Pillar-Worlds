@@ -3,12 +3,12 @@ import { useCampaignData } from '../../hooks/useCampaignData';
 import './CampaignSidebar.css';
 
 interface CampaignSidebarProps {
-    viewMode: 'world' | 'network';
+    viewMode: 'world' | 'network' | 'map';
     selectedRegionId: string | null;
     selectedLocationId: string | null;
     onSelectRegion: (id: string | null) => void;
     onSelectLocation: (id: string | null) => void;
-    onSelectViewMode: (mode: 'world' | 'network') => void;
+    onSelectViewMode: (mode: 'world' | 'network' | 'map') => void;
 }
 
 export function CampaignSidebar({
@@ -67,12 +67,20 @@ export function CampaignSidebar({
             <h2 className="sidebar-title">Content Browser</h2>
             <div className="sidebar-tree">
 
-                {/* CHARACTER NETWORK */}
-                <div className="tree-folder" style={{ marginBottom: '1rem' }}>
+                <div className="tree-folder" style={{ marginBottom: '0.5rem' }}>
                     <div className={`tree-node ${viewMode === 'network' ? 'active' : ''}`} onClick={() => onSelectViewMode('network')}>
                         <span className="tree-expander" style={{ visibility: 'hidden' }}>▶</span>
                         <span className="tree-icon">🕸️</span>
                         <span className="tree-label">Character Network</span>
+                    </div>
+                </div>
+
+                {/* MAP MAKER */}
+                <div className="tree-folder" style={{ marginBottom: '1rem' }}>
+                    <div className={`tree-node ${viewMode === 'map' ? 'active' : ''}`} onClick={() => onSelectViewMode('map')}>
+                        <span className="tree-expander" style={{ visibility: 'hidden' }}>▶</span>
+                        <span className="tree-icon">🗺️</span>
+                        <span className="tree-label">Map Maker</span>
                     </div>
                 </div>
 

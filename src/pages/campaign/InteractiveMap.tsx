@@ -14,6 +14,7 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
     const [editingPinId, setEditingPinId] = useState<string | null>(null);
     const [newPinPos, setNewPinPos] = useState<{ x: number, y: number } | null>(null);
     const [selectedLocIdForPin, setSelectedLocIdForPin] = useState('');
+    const [mapSource, setMapSource] = useState<'image' | 'custom'>('image');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const mapLocations = data.locations;
@@ -100,12 +101,28 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
 
     return (
         <section className="campaign-card interactive-map-view">
-            <header className="campaign-card-header">
-                <h2>Interactive Map</h2>
-                <div style={{ fontSize: '0.85rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>Click anywhere to add a pin.</div>
+            <header className="campaign-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <h2>Interactive Map</h2>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--ink-muted)', fontStyle: 'italic' }}>Click anywhere to add a pin.</div>
+                </div>
+                {data.customMap && Object.keys(data.customMap.grid).length > 0 && (
+                    <div className="map-source-toggle">
+                        <button
+                            className={`campaign-btn ${mapSource === 'image' ? 'active' : ''}`}
+                            onClick={() => setMapSource('image')}
+                            style={{ padding: '4px 12px', fontSize: '0.8rem', borderRadius: '4px 0 0 4px' }}
+                        >🖼️ Image</button>
+                        <button
+                            className={`campaign-btn ${mapSource === 'custom' ? 'active' : ''}`}
+                            onClick={() => setMapSource('custom')}
+                            style={{ padding: '4px 12px', fontSize: '0.8rem', borderRadius: '0 4px 4px 0', borderLeft: 'none' }}
+                        >🗺️ Custom</button>
+                    </div>
+                )}
             </header>
 
-            {!imgSrc ? (
+            {mapSource === 'image' && !imgSrc ? (
                 <div className="map-upload-state">
                     <p>No map uploaded for this region.</p>
                     <input
@@ -158,14 +175,56 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                     <div
                         className="map-image-container"
                         onClick={handleMapClick}
+                        style={{
+                            background: mapSource === 'custom' ? '#21618c' : 'transparent',
+                            overflow: mapSource === 'custom' ? 'auto' : 'visible'
+                        }}
                     >
-                        <img src={imgSrc} alt="World Map" className="map-image" draggable="false" />
+                        {mapSource === 'image' ? (
+                            <img src={imgSrc!} alt="World Map" className="map-image" draggable="false" />
+                        ) : (
+                            <div
+                                className="custom-map-render"
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: `repeat(${data.customMap?.width || 60}, 24px)`,
+                                    width: 'fit-content'
+                                }}
+                            >
+                                {(() => {
+                                    const tiles = [];
+                                    const currentMap = data.customMap!;
+                                    for (let y = 0; y < currentMap.height; y++) {
+                                        for (let x = 0; x < currentMap.width; x++) {
+                                            const tile = currentMap.grid[`${x},${y}`] || { biome: 'ocean', feature: 'none' };
+                                            tiles.push(
+                                                <div
+                                                    key={`${x},${y}`}
+                                                    className={`map-tile tile-${tile.biome} ${tile.feature !== 'none' ? `feature-${tile.feature}` : ''}`}
+                                                    style={{ width: '24px', height: '24px', border: 'none' }}
+                                                >
+                                                    {tile.poiId && (
+                                                        <div className="poi-marker" style={{ fontSize: '0.8rem' }}>
+                                                            {tile.label?.includes('Dungeon') ? '⚔️' : '🏘️'}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        }
+                                    }
+                                    return tiles;
+                                })()}
+                            </div>
+                        )}
 
                         {(data.mapPins || []).map(pin => (
                             <div
                                 key={pin.id}
                                 className={`map-pin ${editingPinId === pin.id ? 'editing' : ''}`}
-                                style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
+                                style={{
+                                    left: mapSource === 'image' ? `${pin.x}%` : `${(pin.x / 100) * (data.customMap?.width || 60) * 24}px`,
+                                    top: mapSource === 'image' ? `${pin.y}%` : `${(pin.y / 100) * (data.customMap?.height || 45) * 24}px`
+                                }}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setEditingPinId(pin.id);
@@ -182,7 +241,10 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                         {newPinPos && (
                             <div
                                 className="map-pin new-pin pulse"
-                                style={{ left: `${newPinPos.x}%`, top: `${newPinPos.y}%` }}
+                                style={{
+                                    left: mapSource === 'image' ? `${newPinPos.x}%` : `${(newPinPos.x / 100) * (data.customMap?.width || 60) * 24}px`,
+                                    top: mapSource === 'image' ? `${newPinPos.y}%` : `${(newPinPos.y / 100) * (data.customMap?.height || 45) * 24}px`
+                                }}
                             >
                                 📍
                             </div>

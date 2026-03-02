@@ -139,3 +139,62 @@
     gap: 0.5rem;
     margin-top: 0.5rem;
 }
+
+/* Biome Colors */
+.tile-plain {
+    background-color: #f7e1b5;
+}
+
+.tile-forest {
+    background-color: #2d5a27;
+}
+
+.tile-mountain {
+    background-color: #7b7b7b;
+}
+
+.tile-desert {
+    background-color: #edc9af;
+}
+
+.tile-jungle {
+    background-color: #1a4d1a;
+}
+
+.tile-grassland {
+    background-color: #7db131;
+}
+
+.tile-wetland {
+    background-color: #4a6741;
+}
+
+.tile-taiga {
+    background-color: #3f5b4d;
+}
+
+.tile-ocean {
+    background-color: #21618c;
+}
+
+/* Features */
+.feature-river {
+    border: 2px solid #5dade2;
+    box-shadow: inset 0 0 10px #5dade2;
+}
+
+.feature-lake {
+    background-color: #5dade2 !important;
+}
+
+.custom-map-render {
+    position: relative;
+    user-select: none;
+}
+
+.map-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
