@@ -108,7 +108,7 @@ function MonsterEditForm({
 
             <div className="campaign-form-group">
                 <label>Base Monster (Stats/Abilities)</label>
-                <select name="monsterId" value={form.monsterId} onChange={handleChange}>
+                <select className="app__select" name="monsterId" value={form.monsterId} onChange={handleChange}>
                     {monsterArchive.map(m => (
                         <option key={m.id} value={m.id}>{m.name} (Lvl {m.level})</option>
                     ))}

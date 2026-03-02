@@ -34,18 +34,17 @@ export function DiceRoller() {
             rolls.push(Math.floor(Math.random() * 6) + 1);
         }
 
-        let keptRolls = [...rolls];
         let total = 0;
         let details = '';
 
         if (advantageState === 'adv') {
-            keptRolls.sort((a, b) => b - a); // descending
-            const dropped = keptRolls.pop();
+            const keptRolls = [...rolls].sort((a, b) => b - a).slice(0, 3); // descending
+            const dropped = keptRolls.pop(); // Remove the lowest of the top 3, leaving the top 2
             total = keptRolls[0] + keptRolls[1] + bonus;
             details = `[${keptRolls[0]}, ${keptRolls[1]}] (dropped ${dropped})`;
         } else if (advantageState === 'dis') {
-            keptRolls.sort((a, b) => a - b); // ascending
-            const dropped = keptRolls.pop();
+            const keptRolls = [...rolls].sort((a, b) => a - b).slice(0, 3); // ascending
+            const dropped = keptRolls.pop(); // Remove the highest of the bottom 3, leaving the bottom 2
             total = keptRolls[0] + keptRolls[1] + bonus;
             details = `[${keptRolls[0]}, ${keptRolls[1]}] (dropped ${dropped})`;
         } else {

@@ -16,7 +16,7 @@ import {
   MP_LABEL,
   MP_RECOVERY_LABEL,
 } from '../ruleData';
-import { deriveSkills, deriveHP, deriveMP, deriveMPRecovery } from '../derivation';
+import { deriveSkills, deriveHP, deriveMP, deriveMPRecovery, deriveEquipment } from '../derivation';
 import { useCharacters } from '../hooks/useCharacters';
 import { baseItems } from '../data/equipment';
 import { useNavigate } from 'react-router-dom';
@@ -135,19 +135,6 @@ export function CharacterCreationPage() {
 
       <div className="app__content">
         <main className="app__main">
-          <div className="app__name-input-group" style={{ marginBottom: '2rem', background: 'var(--parchment)', padding: '1rem', borderRadius: '4px', border: '1px solid var(--ink)' }}>
-            <label htmlFor="character-name" className="app__name-label" style={{ fontWeight: 'bold' }}>Character Name: </label>
-            <input
-              type="text"
-              id="character-name"
-              className="app__name-input"
-              value={selections.name}
-              onChange={(e) => updateSelection('name', e.target.value)}
-              placeholder="Enter character name..."
-              style={{ padding: '0.5rem', flex: 1, minWidth: '300px', marginLeft: '1rem' }}
-            />
-          </div>
-
           <div className="attributes-group">
             <h3 className="attributes-group__title">Attributes</h3>
             <div className="attributes-group__content">
@@ -215,7 +202,7 @@ export function CharacterCreationPage() {
                     </label>
                     <select
                       id="human-extra-skill"
-                      className="grant-picker__select"
+                      className="app__select"
                       style={{ width: '100%', maxWidth: '200px' }}
                       value={selections.humanExtraSkill ?? ''}
                       onChange={(e) => updateSelection('humanExtraSkill', e.target.value as SkillKey)}
@@ -323,9 +310,34 @@ export function CharacterCreationPage() {
               <dd>{deriveMPRecovery(skills)}</dd>
             </dl>
           </section>
+
+          <section className="derived-stats">
+            <h3>Equipment</h3>
+            {deriveEquipment(selections).length > 0 ? (
+              <ul style={{ paddingLeft: '1.25rem', margin: 0 }}>
+                {deriveEquipment(selections).map((item, idx) => (
+                  <li key={idx} style={{ marginBottom: '0.25rem' }}>{item.name}</li>
+                ))}
+              </ul>
+            ) : (
+              <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--ink-muted)' }}>No equipment yet</p>
+            )}
+          </section>
         </aside>
 
-        <footer className="app__footer">
+        <footer className="app__footer" style={{ flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+          <div className="app__name-input-group" style={{ background: 'var(--parchment)', padding: '1rem', borderRadius: '4px', border: '1px solid var(--ink)' }}>
+            <label htmlFor="character-name" className="app__name-label" style={{ fontWeight: 'bold' }}>Character Name: </label>
+            <input
+              type="text"
+              id="character-name"
+              className="app__name-input"
+              value={selections.name}
+              onChange={(e) => updateSelection('name', e.target.value)}
+              placeholder="Enter character name..."
+              style={{ padding: '0.5rem', flex: 1, minWidth: '300px', marginLeft: '1rem' }}
+            />
+          </div>
           <button
             type="button"
             className="app__finish-button"

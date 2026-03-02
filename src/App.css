@@ -405,22 +405,7 @@
   color: var(--ink);
 }
 
-.grant-picker__select {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.95rem;
-  font-family: 'Lora', serif;
-  background: var(--parchment);
-  border: 2px solid var(--ink);
-  border-radius: 4px;
-  color: var(--ink);
-  cursor: pointer;
-}
 
-.grant-picker__select:focus {
-  outline: none;
-  border-color: var(--burgundy);
-  box-shadow: 0 0 0 2px rgba(90, 32, 40, 0.3);
-}
 
 /* Derived Stats Sidebar */
 .derived-stats {

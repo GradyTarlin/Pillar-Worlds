@@ -99,6 +99,7 @@ export function EquipmentCompendiumPage() {
                         <label htmlFor="type-filter">Type: </label>
                         <select
                             id="type-filter"
+                            className="app__select"
                             value={selectedType}
                             onChange={(e) => {
                                 setSelectedType(e.target.value);

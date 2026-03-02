@@ -67,7 +67,8 @@ export function SettlementsView({ regionId, onSelectLocation }: SettlementsViewP
                     role: `Leader of ${updated.name}`,
                     description: '',
                     notes: '',
-                    locationId: updated.id
+                    locationId: updated.id,
+                    affiliation: [updated.id]
                 };
                 updateEntities('characters', [...existingChars, newLeader]);
             }
@@ -147,7 +148,7 @@ function SettlementEditForm({
             <div className="campaign-form-row">
                 <div className="campaign-form-group">
                     <label>Type</label>
-                    <select name="settlementType" value={form.settlementType || 'village'} onChange={handleChange}>
+                    <select className="app__select" name="settlementType" value={form.settlementType || 'village'} onChange={handleChange}>
                         {Object.entries(settlementTypeLabels).map(([key, label]) => (
                             <option key={key} value={key}>{label}</option>
                         ))}
@@ -155,7 +156,7 @@ function SettlementEditForm({
                 </div>
                 <div className="campaign-form-group">
                     <label>Economy</label>
-                    <select name="economy" value={form.economy || ''} onChange={handleChange}>
+                    <select className="app__select" name="economy" value={form.economy || ''} onChange={handleChange}>
                         <option value="">None</option>
                         {Object.entries(economyTypeLabels).map(([key, label]) => (
                             <option key={key} value={key}>{label}</option>

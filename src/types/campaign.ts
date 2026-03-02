@@ -17,7 +17,7 @@ export interface CampaignCharacter extends BaseEntity {
     locationId?: string; // Links character to a settlement
     goal?: string;
     plan?: string;
-    affiliation?: string;
+    affiliation?: string[];
 }
 
 export interface PlotLine extends BaseEntity {

@@ -70,7 +70,7 @@ export function GrantPicker({ grant, grantKey, value, onChange, allPicks = {} }:
       </label>
       <select
         id={grantKey}
-        className="grant-picker__select"
+        className="app__select"
         value={value}
         onChange={(e) => onChange(grantKey, e.target.value)}
       >

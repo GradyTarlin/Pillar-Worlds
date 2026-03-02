@@ -51,7 +51,7 @@ export function SelectionSection<T>({
 
       {variant === 'dropdown' ? (
         <select
-          className="selection-section__dropdown grant-picker__select"
+          className="selection-section__dropdown app__select"
           style={{ width: '100%', maxWidth: '400px', display: 'block', margin: '0.5rem 0' }}
           value={selected ? getOptionId(selected) : ''}
           onChange={(e) => {

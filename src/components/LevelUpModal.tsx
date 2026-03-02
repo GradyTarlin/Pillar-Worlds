@@ -185,7 +185,7 @@ export function LevelUpModal({ character, onClose, onSave }: LevelUpModalProps) 
                                 setSelectedCategory(e.target.value);
                                 setSelectedGrant(null);
                             }}
-                            className="grant-picker__select"
+                            className="app__select"
                             style={{ width: '100%', marginBottom: '1rem' }}
                         >
                             <option value="">-- Select a Category --</option>
@@ -200,7 +200,7 @@ export function LevelUpModal({ character, onClose, onSave }: LevelUpModalProps) 
                             <select
                                 value={selectedGrant ?? ''}
                                 onChange={(e) => setSelectedGrant(e.target.value)}
-                                className="grant-picker__select"
+                                className="app__select"
                                 style={{ width: '100%', marginBottom: '2rem' }}
                             >
                                 <option value="" disabled>-- Select an Ability --</option>

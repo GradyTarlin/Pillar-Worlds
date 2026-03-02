@@ -10,6 +10,7 @@ import { FactionsView } from './campaign/FactionsView';
 import { EncountersView } from './campaign/EncountersView';
 import { InteractiveMap } from './campaign/InteractiveMap';
 import { CampaignSidebar } from './campaign/CampaignSidebar';
+import { SocialNetworkView } from './campaign/SocialNetworkView';
 import { useCampaignData } from '../hooks/useCampaignData';
 import './CampaignBuilderPage.css';
 
@@ -17,18 +18,31 @@ export function CampaignBuilderPage() {
     const { data, activeCampaignId, setActiveCampaignId } = useCampaignData();
     const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
     const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+    const [viewMode, setViewMode] = useState<'world' | 'network'>('world');
 
     const handleSelectRegion = (id: string | null) => {
         setSelectedRegionId(id);
         setSelectedLocationId(null);
+        setViewMode('world');
     };
 
     const handleSelectLocation = (id: string | null) => {
         setSelectedLocationId(id);
+        setViewMode('world');
+    };
+
+    const handleSelectViewMode = (mode: 'world' | 'network') => {
+        setViewMode(mode);
+        if (mode === 'network') {
+            setSelectedRegionId(null);
+            setSelectedLocationId(null);
+        }
     };
 
     let headerTitle = "Campaign Manager";
-    if (selectedLocationId) {
+    if (viewMode === 'network') {
+        headerTitle = "Character Network";
+    } else if (selectedLocationId) {
         const loc = (data.locations || []).find(l => l.id === selectedLocationId);
         if (loc) headerTitle = loc.type === 'settlement' ? 'Settlement' : 'Dungeon';
     } else if (selectedRegionId) {
@@ -60,10 +74,12 @@ export function CampaignBuilderPage() {
             <div className="campaign-layout" style={{ display: 'flex', gap: '1.5rem', flex: 1, minHeight: 0 }}>
                 {activeCampaignId && (
                     <CampaignSidebar
+                        viewMode={viewMode}
                         selectedRegionId={selectedRegionId}
                         selectedLocationId={selectedLocationId}
                         onSelectRegion={handleSelectRegion}
                         onSelectLocation={handleSelectLocation}
+                        onSelectViewMode={handleSelectViewMode}
                     />
                 )}
                 <main className="campaign-holistic-board">
@@ -74,7 +90,14 @@ export function CampaignBuilderPage() {
                         </div>
                     )}
 
-                    {activeCampaignId && !selectedRegionId && !selectedLocationId && (
+                    {activeCampaignId && viewMode === 'network' && (
+                        /* LEVEL 1: Character Network */
+                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', width: '100%', minHeight: '600px' }}>
+                            <SocialNetworkView />
+                        </div>
+                    )}
+
+                    {activeCampaignId && viewMode === 'world' && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
                         <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', width: '100%' }}>
                             <div className="campaign-row" style={{ flex: '2 1 600px', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
@@ -91,7 +114,7 @@ export function CampaignBuilderPage() {
                         </div>
                     )}
 
-                    {activeCampaignId && selectedRegionId && !selectedLocationId && (() => {
+                    {activeCampaignId && viewMode === 'world' && selectedRegionId && !selectedLocationId && (() => {
                         const region = data.regions.find(r => r.id === selectedRegionId);
                         if (!region) return null;
 
@@ -125,7 +148,7 @@ export function CampaignBuilderPage() {
                         );
                     })()}
 
-                    {activeCampaignId && selectedLocationId && (() => {
+                    {activeCampaignId && viewMode === 'world' && selectedLocationId && (() => {
                         const loc = data.locations.find(l => l.id === selectedLocationId);
                         if (!loc) return null;
 

@@ -91,7 +91,7 @@ function FactionEditForm({
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setForm(prev => ({ ...prev, [name]: value as any }));
+        setForm(prev => ({ ...prev, [name]: value as string }));
     };
 
     return (
@@ -103,7 +103,7 @@ function FactionEditForm({
             </div>
             <div className="campaign-form-group">
                 <label>Type</label>
-                <select name="factionType" value={form.factionType || 'guild'} onChange={handleChange}>
+                <select className="app__select" name="factionType" value={form.factionType || 'guild'} onChange={handleChange}>
                     {Object.entries(factionTypeLabels).map(([key, label]) => (
                         <option key={key} value={key}>{label}</option>
                     ))}

@@ -18,7 +18,8 @@ export function CharactersView({ locationId }: CharactersViewProps) {
             name: 'New Character',
             description: '',
             notes: '',
-            locationId
+            locationId,
+            affiliation: locationId ? [locationId] : []
         };
         updateEntities('characters', [...data.characters, newChar]);
         setEditingId(newChar.id);
@@ -49,6 +50,7 @@ export function CharactersView({ locationId }: CharactersViewProps) {
                         <CharacterEditForm
                             key={char.id}
                             character={char}
+                            data={data}
                             onSave={handleSave}
                             onCancel={() => setEditingId(null)}
                         />
@@ -64,7 +66,18 @@ export function CharactersView({ locationId }: CharactersViewProps) {
                             onEdit={() => setEditingId(char.id)}
                             onDelete={() => handleDelete(char.id)}
                         >
-                            {char.affiliation && <p className="campaign-entity-notes"><strong>Affiliation:</strong> {char.affiliation}</p>}
+                            {char.affiliation && (char.affiliation.length > 0) && (
+                                <p className="campaign-entity-notes">
+                                    <strong>Affiliation:</strong>{' '}
+                                    {Array.isArray(char.affiliation)
+                                        ? char.affiliation.map(id => {
+                                            const f = data.factions?.find(f => f.id === id);
+                                            const l = data.locations?.find(l => l.id === id);
+                                            return f?.name || l?.name || id;
+                                        }).join(', ')
+                                        : char.affiliation}
+                                </p>
+                            )}
                             {char.goal && <p className="campaign-entity-notes"><strong>Goal:</strong> {char.goal}</p>}
                             {char.plan && <p className="campaign-entity-notes"><strong>Plan:</strong> {char.plan}</p>}
                             {char.notes && <p className="campaign-entity-notes" style={{ marginTop: '0.5rem' }}><strong>Notes:</strong> {char.notes}</p>}
@@ -81,10 +94,12 @@ export function CharactersView({ locationId }: CharactersViewProps) {
 
 function CharacterEditForm({
     character,
+    data,
     onSave,
     onCancel
 }: {
     character: CampaignCharacter,
+    data: any, // or CampaignData
     onSave: (c: CampaignCharacter) => void,
     onCancel: () => void
 }) {
@@ -106,7 +121,7 @@ function CharacterEditForm({
             <div className="campaign-form-row">
                 <div className="campaign-form-group">
                     <label>Bloodline</label>
-                    <select name="bloodlineId" value={form.bloodlineId || ''} onChange={handleChange}>
+                    <select className="app__select" name="bloodlineId" value={form.bloodlineId || ''} onChange={handleChange}>
                         <option value="">-- Unknown / None --</option>
                         {Object.entries(
                             BLOODLINES.reduce((acc, b) => {
@@ -135,7 +150,53 @@ function CharacterEditForm({
             </div>
             <div className="campaign-form-group">
                 <label>Affiliation / Faction</label>
-                <input name="affiliation" value={form.affiliation || ''} onChange={handleChange} placeholder="e.g. Guild of Mages" />
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    {(() => {
+                        const currentAffils = Array.isArray(form.affiliation) ? form.affiliation : (form.affiliation ? [form.affiliation] : []);
+                        return currentAffils.map(id => {
+                            const f = data.factions?.find((fac: any) => fac.id === id);
+                            const l = data.locations?.find((loc: any) => loc.id === id);
+                            const name = f?.name || l?.name || id;
+                            return (
+                                <span key={id} className="campaign-entity-tag" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    {name}
+                                    <button
+                                        type="button"
+                                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontSize: '0.9rem' }}
+                                        onClick={() => {
+                                            const filtered = currentAffils.filter(a => a !== id);
+                                            setForm(prev => ({ ...prev, affiliation: filtered }));
+                                        }}
+                                    >✕</button>
+                                </span>
+                            );
+                        });
+                    })()}
+                </div>
+                <select
+                    className="app__select"
+                    value=""
+                    onChange={e => {
+                        const val = e.target.value;
+                        if (!val) return;
+                        const current = Array.isArray(form.affiliation) ? form.affiliation : (form.affiliation ? [form.affiliation] : []);
+                        if (!current.includes(val)) {
+                            setForm(prev => ({ ...prev, affiliation: [...current, val] }));
+                        }
+                    }}
+                >
+                    <option value="" disabled>Add Affiliation...</option>
+                    {data.factions && data.factions.length > 0 && (
+                        <optgroup label="Factions">
+                            {data.factions.map((f: any) => <option key={f.id} value={f.id}>{f.name}</option>)}
+                        </optgroup>
+                    )}
+                    {data.locations && data.locations.length > 0 && (
+                        <optgroup label="Settlements">
+                            {data.locations.filter((l: any) => l.type === 'settlement').map((l: any) => <option key={l.id} value={l.id}>{l.name}</option>)}
+                        </optgroup>
+                    )}
+                </select>
             </div>
             <div className="campaign-form-row">
                 <div className="campaign-form-group">

@@ -3,6 +3,8 @@ import { useCampaignData } from '../../hooks/useCampaignData';
 import { ListHeader, EntityCard } from './CampaignShared';
 import type { Encounter, EncounterCombatant } from '../../types/campaign';
 import { monsters as monsterArchive, monsterTypes } from '../../data/monsters';
+import { MonsterDetailPanel } from '../../components/MonsterDetailPanel';
+import '../compendium/Compendium.css';
 import './EncountersView.css';
 
 interface EncountersViewProps {
@@ -24,6 +26,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
     const [monsterLevelFilter, setMonsterLevelFilter] = useState<string>('All');
     const [selectedMonsterId, setSelectedMonsterId] = useState<string>('');
     const [monsterCount, setMonsterCount] = useState<number>(1);
+    const [viewingMonsterId, setViewingMonsterId] = useState<string | null>(null);
 
     const encounters = locationId
         ? (data.encounters || []).filter(e => e.locationId === locationId)
@@ -69,7 +72,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
         if (!activeEncounter || !newCombatantName || newCombatantHp === '' || newCombatantInit === '') return;
 
         const newCombatant: EncounterCombatant = {
-            id: `comb_${Date.now()}`,
+            id: `comb_${crypto.randomUUID()}`,
             name: newCombatantName,
             isCharacter: false,
             entityId: '',
@@ -100,7 +103,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
         const newCombatants: EncounterCombatant[] = [];
         for (let i = 0; i < monsterCount; i++) {
             newCombatants.push({
-                id: `comb_${Date.now()}_${i}`,
+                id: `comb_${crypto.randomUUID()}`,
                 name: monsterCount > 1 ? `${baseMonster.name} ${i + 1}` : baseMonster.name,
                 isCharacter: false,
                 entityId: baseMonster.id,
@@ -154,8 +157,21 @@ export function EncountersView({ locationId }: EncountersViewProps) {
         handleUpdateActiveEncounter({
             ...activeEncounter,
             combatants: newCombatants,
-            activeTurnIndex: newIndex
         });
+    };
+
+    const renderMonsterPanel = () => {
+        if (!viewingMonsterId) return null;
+        const baseMonster = monsterArchive.find(m => m.id === viewingMonsterId);
+        if (!baseMonster) return null;
+        return (
+            <div className="compendium-detail-container" style={{ position: 'fixed', zIndex: 99999, top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none' }}>
+                <div style={{ pointerEvents: 'auto', width: '100%', height: '100%' }}>
+                    <div className="compendium-detail-overlay" onClick={() => setViewingMonsterId(null)}></div>
+                    <MonsterDetailPanel monster={baseMonster} onClose={() => setViewingMonsterId(null)} />
+                </div>
+            </div>
+        );
     };
 
     if (runEncounter) {
@@ -181,7 +197,16 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                                     <div key={combatant.id} className={`tracker-item ${isActive ? 'tracker-item--active' : ''}`}>
                                         <div className="tracker-item-info">
                                             <span className="tracker-init">{combatant.initiative}</span>
-                                            <span className="tracker-name">{combatant.name}</span>
+                                            <span
+                                                className="tracker-name"
+                                                style={{
+                                                    cursor: !combatant.isCharacter ? 'pointer' : 'default',
+                                                    textDecoration: !combatant.isCharacter ? 'underline dotted' : 'none'
+                                                }}
+                                                onClick={() => { if (!combatant.isCharacter) setViewingMonsterId(combatant.entityId); }}
+                                            >
+                                                {combatant.name}
+                                            </span>
                                         </div>
                                         <div className="tracker-item-stats">
                                             <div className="tracker-hp-control">
@@ -197,6 +222,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                         )}
                     </div>
                 </div>
+                {renderMonsterPanel()}
             </div>
         );
     }
@@ -225,15 +251,15 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                     <div className="tracker-add-section">
                         <div className="tracker-add-row bestiary-row">
                             <strong style={{ width: '80px' }}>Bestiary:</strong>
-                            <select value={monsterTypeFilter} onChange={e => { setMonsterTypeFilter(e.target.value); setSelectedMonsterId(''); }}>
+                            <select className="app__select" value={monsterTypeFilter} onChange={e => { setMonsterTypeFilter(e.target.value); setSelectedMonsterId(''); }}>
                                 <option value="All">All Types</option>
                                 {monsterTypes.map(t => <option key={t} value={t}>{t}</option>)}
                             </select>
-                            <select value={monsterLevelFilter} onChange={e => { setMonsterLevelFilter(e.target.value); setSelectedMonsterId(''); }}>
+                            <select className="app__select" value={monsterLevelFilter} onChange={e => { setMonsterLevelFilter(e.target.value); setSelectedMonsterId(''); }}>
                                 <option value="All">All Levels</option>
                                 {Array.from(new Set(monsterArchive.map(m => m.level))).sort((a, b) => a - b).map(l => <option key={l} value={l.toString()}>Lvl {l}</option>)}
                             </select>
-                            <select value={selectedMonsterId} onChange={e => setSelectedMonsterId(e.target.value)} style={{ flex: 1 }}>
+                            <select className="app__select" value={selectedMonsterId} onChange={e => setSelectedMonsterId(e.target.value)} style={{ flex: 1 }}>
                                 <option value="" disabled>Select Monster...</option>
                                 {filteredMonsters.map(m => <option key={m.id} value={m.id}>{m.name} (Lvl {m.level})</option>)}
                             </select>
@@ -277,7 +303,16 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                                 <div key={combatant.id} className="tracker-item">
                                     <div className="tracker-item-info">
                                         <span className="tracker-init">{combatant.initiative}</span>
-                                        <span className="tracker-name">{combatant.name}</span>
+                                        <span
+                                            className="tracker-name"
+                                            style={{
+                                                cursor: !combatant.isCharacter ? 'pointer' : 'default',
+                                                textDecoration: !combatant.isCharacter ? 'underline dotted' : 'none'
+                                            }}
+                                            onClick={() => { if (!combatant.isCharacter) setViewingMonsterId(combatant.entityId); }}
+                                        >
+                                            {combatant.name}
+                                        </span>
                                     </div>
                                     <div className="tracker-item-stats">
                                         <div className="tracker-hp-control" style={{ pointerEvents: 'none' }}>
@@ -290,6 +325,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                         )}
                     </div>
                 </div>
+                {renderMonsterPanel()}
             </div>
         );
     }

@@ -556,12 +556,10 @@
       "subtree": "darkness.shadowcraft",
       "tier": 1,
       "mpCost": 2,
-      "trigger": "When you have advantage",
       "check": {
-        "attackerSkill": "PRW",
+        "attackerSkill": "PRW (When you have advantage)",
         "defenderSkill": "STL",
-        "range": "reach",
-        "notes": "Requires a weapon attack; triggered when you have advantage."
+        "range": "reach"
       },
       "prerequisites": [],
       "rulesText": "Deal Weapon + STR + STL physical damage."

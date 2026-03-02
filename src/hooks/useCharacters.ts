@@ -22,8 +22,17 @@ export function useCharacters() {
     };
 
     const createCharacter = (selections: CharacterSelections): string => {
+        const activeFragments = [selections.birth?.id, selections.youth?.id, selections.comingOfAge?.id].filter(Boolean);
+        const cleanedGrantPicks = Object.fromEntries(
+            Object.entries(selections.grantPicks).filter(([key]) => {
+                const fragId = key.substring(0, key.lastIndexOf('-'));
+                return activeFragments.includes(fragId);
+            })
+        );
+
         const newChar: SavedCharacter = {
             ...selections,
+            grantPicks: cleanedGrantPicks,
             id: crypto.randomUUID(),
             createdAt: Date.now(),
             level: 1,

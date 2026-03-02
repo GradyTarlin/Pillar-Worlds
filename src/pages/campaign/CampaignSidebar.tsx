@@ -3,17 +3,21 @@ import { useCampaignData } from '../../hooks/useCampaignData';
 import './CampaignSidebar.css';
 
 interface CampaignSidebarProps {
+    viewMode: 'world' | 'network';
     selectedRegionId: string | null;
     selectedLocationId: string | null;
     onSelectRegion: (id: string | null) => void;
     onSelectLocation: (id: string | null) => void;
+    onSelectViewMode: (mode: 'world' | 'network') => void;
 }
 
 export function CampaignSidebar({
+    viewMode,
     selectedRegionId,
     selectedLocationId,
     onSelectRegion,
-    onSelectLocation
+    onSelectLocation,
+    onSelectViewMode
 }: CampaignSidebarProps) {
     const { data } = useCampaignData();
     const [expanded, setExpanded] = useState<Record<string, boolean>>({
@@ -41,11 +45,13 @@ export function CampaignSidebar({
     const handleSelectHome = () => {
         onSelectRegion(null);
         onSelectLocation(null);
+        onSelectViewMode('world');
     };
 
     const handleSelectRegion = (id: string) => {
         onSelectRegion(id);
         onSelectLocation(null);
+        onSelectViewMode('world');
     };
 
     const handleSelectLocation = (id: string, regionId?: string) => {
@@ -53,6 +59,7 @@ export function CampaignSidebar({
             onSelectRegion(regionId);
         }
         onSelectLocation(id);
+        onSelectViewMode('world');
     };
 
     return (
@@ -60,9 +67,18 @@ export function CampaignSidebar({
             <h2 className="sidebar-title">Content Browser</h2>
             <div className="sidebar-tree">
 
+                {/* CHARACTER NETWORK */}
+                <div className="tree-folder" style={{ marginBottom: '1rem' }}>
+                    <div className={`tree-node ${viewMode === 'network' ? 'active' : ''}`} onClick={() => onSelectViewMode('network')}>
+                        <span className="tree-expander" style={{ visibility: 'hidden' }}>▶</span>
+                        <span className="tree-icon">🕸️</span>
+                        <span className="tree-label">Character Network</span>
+                    </div>
+                </div>
+
                 {/* WORLD VIEW / REGIONS */}
                 <div className="tree-folder">
-                    <div className={`tree-node ${!selectedRegionId && !selectedLocationId ? 'active' : ''}`} onClick={handleSelectHome}>
+                    <div className={`tree-node ${viewMode === 'world' && !selectedRegionId && !selectedLocationId ? 'active' : ''}`} onClick={handleSelectHome}>
                         <span className="tree-expander" onClick={(e) => toggle('regions', e)}>{isExp('regions') ? '▼' : '▶'}</span>
                         <span className="tree-icon">🌍</span>
                         <span className="tree-label">World View ({regions.length} Regions)</span>

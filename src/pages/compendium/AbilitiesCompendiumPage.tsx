@@ -55,6 +55,7 @@ export function AbilitiesCompendiumPage() {
                         <label htmlFor="tag-filter">Tag: </label>
                         <select
                             id="tag-filter"
+                            className="app__select"
                             value={selectedTag}
                             onChange={(e) => {
                                 setSelectedTag(e.target.value);

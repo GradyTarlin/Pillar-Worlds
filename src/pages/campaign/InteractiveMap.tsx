@@ -25,6 +25,7 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                 if (active && src) setImgSrc(src);
             });
         } else {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setImgSrc(null);
         }
         return () => { active = false; };
@@ -123,31 +124,33 @@ export function InteractiveMap({ onSelectLocation }: InteractiveMapProps) {
                 <div className="map-container-wrapper">
 
                     {(newPinPos || editingPinId) && (
-                        <div
-                            className="pin-add-form"
-                            style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 100 }}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <h4>{editingPinId ? 'Edit Pin' : 'Link Pin'}</h4>
-                            <select
-                                value={selectedLocIdForPin}
-                                onChange={e => setSelectedLocIdForPin(e.target.value)}
-                                className="app__input"
+                        <div style={{ position: 'sticky', top: '80px', height: 0, zIndex: 1000, alignSelf: 'flex-end' }}>
+                            <div
+                                className="pin-add-form"
+                                style={{ position: 'absolute', top: '10px', right: '10px' }}
+                                onClick={(e) => e.stopPropagation()}
                             >
-                                <option value="">Select a location...</option>
-                                {mapLocations.map(loc => (
-                                    <option key={loc.id} value={loc.id}>{loc.name} ({loc.type})</option>
-                                ))}
-                            </select>
-                            <div className="pin-form-actions">
-                                <button className="campaign-btn campaign-btn-primary" onClick={handleSavePin} disabled={!selectedLocIdForPin}>Save</button>
-                                {editingPinId && (
-                                    <>
-                                        <button className="campaign-btn campaign-btn-secondary" onClick={() => onSelectLocation(selectedLocIdForPin)}>Go To Location</button>
-                                        <button className="campaign-btn campaign-btn-danger" onClick={() => handleDeletePin(editingPinId)}>Delete</button>
-                                    </>
-                                )}
-                                <button className="campaign-btn campaign-btn-secondary" onClick={handleCancelPin}>Cancel</button>
+                                <h4>{editingPinId ? 'Edit Pin' : 'Link Pin'}</h4>
+                                <select
+                                    value={selectedLocIdForPin}
+                                    onChange={e => setSelectedLocIdForPin(e.target.value)}
+                                    className="app__select"
+                                >
+                                    <option value="">Select a location...</option>
+                                    {mapLocations.map(loc => (
+                                        <option key={loc.id} value={loc.id}>{loc.name} ({loc.type})</option>
+                                    ))}
+                                </select>
+                                <div className="pin-form-actions">
+                                    <button className="campaign-btn campaign-btn-primary" onClick={handleSavePin} disabled={!selectedLocIdForPin}>Save</button>
+                                    {editingPinId && (
+                                        <>
+                                            <button className="campaign-btn campaign-btn-secondary" onClick={() => onSelectLocation(selectedLocIdForPin)}>Go To Location</button>
+                                            <button className="campaign-btn campaign-btn-danger" onClick={() => handleDeletePin(editingPinId)}>Delete</button>
+                                        </>
+                                    )}
+                                    <button className="campaign-btn campaign-btn-secondary" onClick={handleCancelPin}>Cancel</button>
+                                </div>
                             </div>
                         </div>
                     )}

@@ -83,7 +83,7 @@ import type { BaseItem } from './data/equipment/types';
  * Derives a list of equipment based on starting selection, backstory grants,
  * and any equipment selections made during level up.
  */
-export function deriveEquipment(selections: Pick<CharacterSelections, 'startingEquipment' | 'grantPicks'>, leveledGrants: string[] = []): BaseItem[] {
+export function deriveEquipment(selections: Pick<CharacterSelections, 'startingEquipment' | 'grantPicks' | 'birth' | 'youth' | 'comingOfAge'>, leveledGrants: string[] = []): BaseItem[] {
   const items: BaseItem[] = [];
 
   // Add explicitly chosen starting equipment
@@ -92,9 +92,12 @@ export function deriveEquipment(selections: Pick<CharacterSelections, 'startingE
     if (startItem) items.push(startItem);
   }
 
-  // Scan all grant picks for equipment choices
-  for (const choiceId of Object.values(selections.grantPicks)) {
-    if (choiceId && choiceId.startsWith('equip.')) {
+  // Scan all grant picks for equipment choices, restricted to currently selected fragments
+  const activeFragments = [selections.birth?.id, selections.youth?.id, selections.comingOfAge?.id].filter(Boolean);
+
+  for (const [key, choiceId] of Object.entries(selections.grantPicks)) {
+    const fragId = key.substring(0, key.lastIndexOf('-'));
+    if (activeFragments.includes(fragId) && choiceId && choiceId.startsWith('equip.')) {
       const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId);
       if (grantedItem) {
         items.push(grantedItem);
