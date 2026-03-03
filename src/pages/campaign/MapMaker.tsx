@@ -36,6 +36,10 @@ export function MapMaker() {
         setHistory(newHistory);
     };
 
+    const [isPromptOpen, setIsPromptOpen] = useState(false);
+    const [promptLabel, setPromptLabel] = useState('');
+    const [pendingTile, setPendingTile] = useState<{ x: number, y: number } | null>(null);
+
     const handleTileInteraction = useCallback((x: number, y: number, isInitialClick: boolean = false) => {
         const currentMap = data.customMap || { width: WIDTH, height: HEIGHT, grid: {} };
         const key = `${x},${y}`;
@@ -47,22 +51,38 @@ export function MapMaker() {
         } else if (activeTool === 'water') {
             newGrid[key] = { ...currentTile, feature: selectedFeature };
         } else if (activeTool === 'poi') {
-            // POIs should ONLY trigger on the initial click, never on drag
             if (!isInitialClick) return;
-
-            const label = prompt('Enter a label for this location:');
-            if (label !== null) {
-                saveHistory();
-                newGrid[key] = { ...currentTile, poiId: `poi_${Date.now()}`, poiType: selectedPoiType, label };
-            } else {
-                return; // User cancelled prompt
-            }
+            setPendingTile({ x, y });
+            setPromptLabel('');
+            setIsPromptOpen(true);
+            return;
         } else if (activeTool === 'erase') {
             newGrid[key] = { biome: 'ocean', feature: 'none' };
         }
 
         updateEntities('customMap', { ...currentMap, grid: newGrid });
-    }, [data.customMap, activeTool, selectedBiome, selectedFeature, selectedPoiType, updateEntities, saveHistory]);
+    }, [data.customMap, activeTool, selectedBiome, selectedFeature, updateEntities]);
+
+    const handleSavePoi = () => {
+        if (!pendingTile || !promptLabel.trim()) return;
+
+        const currentMap = data.customMap || { width: WIDTH, height: HEIGHT, grid: {} };
+        const key = `${pendingTile.x},${pendingTile.y}`;
+        const newGrid = { ...currentMap.grid };
+        const currentTile = newGrid[key] || { biome: 'ocean', feature: 'none' };
+
+        saveHistory();
+        newGrid[key] = { ...currentTile, poiId: `poi_${Date.now()}`, poiType: selectedPoiType, label: promptLabel.trim() };
+
+        updateEntities('customMap', { ...currentMap, grid: newGrid });
+        setIsPromptOpen(false);
+        setPendingTile(null);
+    };
+
+    const handleCancelPoi = () => {
+        setIsPromptOpen(false);
+        setPendingTile(null);
+    };
 
     const getPoiIcon = (type?: MapPoiType) => {
         switch (type) {
@@ -114,6 +134,30 @@ export function MapMaker() {
             onMouseLeave={() => setIsMouseDown(false)}
             onMouseUp={() => setIsMouseDown(false)}
         >
+            {isPromptOpen && (
+                <div className="map-maker-modal-overlay">
+                    <div className="map-maker-modal">
+                        <h3>Name This Location</h3>
+                        <p>Assign a label for the {selectedPoiType} at ({pendingTile?.x}, {pendingTile?.y})</p>
+                        <input
+                            type="text"
+                            value={promptLabel}
+                            onChange={(e) => setPromptLabel(e.target.value)}
+                            placeholder="Location name..."
+                            autoFocus
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') handleSavePoi();
+                                if (e.key === 'Escape') handleCancelPoi();
+                            }}
+                        />
+                        <div className="modal-actions">
+                            <button className="campaign-btn campaign-btn-primary" onClick={handleSavePoi}>Save Location</button>
+                            <button className="campaign-btn campaign-btn-secondary" onClick={handleCancelPoi}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="map-maker-toolbar">
                 <div className="tool-group">
                     <button
