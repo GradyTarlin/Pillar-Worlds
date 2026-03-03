@@ -57,7 +57,17 @@ export function MapMaker() {
             setIsPromptOpen(true);
             return;
         } else if (activeTool === 'erase') {
-            newGrid[key] = { biome: 'ocean', feature: 'none' };
+            if (currentTile.poiId) {
+                // If there's a POI, remove only the POI data
+                const updatedTile = { ...currentTile };
+                delete updatedTile.poiId;
+                delete updatedTile.poiType;
+                delete updatedTile.label;
+                newGrid[key] = updatedTile;
+            } else {
+                // Otherwise, reset terrain to default ocean
+                newGrid[key] = { biome: 'ocean', feature: 'none' };
+            }
         }
 
         updateEntities('customMap', { ...currentMap, grid: newGrid });
