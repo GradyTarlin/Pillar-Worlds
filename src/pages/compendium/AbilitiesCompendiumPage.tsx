@@ -46,7 +46,7 @@ export function AbilitiesCompendiumPage() {
         <div className="compendium-page">
             <header className="compendium-page__header" style={{ textAlign: 'center' }}>
                 <div className="compendium-page__header-top" style={{ justifyContent: 'center', position: 'relative' }}>
-                    <Link to="/" className="compendium-page__home-link" style={{ position: 'absolute', left: 0 }}>← Home</Link>
+                    <Link to="/" className="compendium-page__home-link">← Home</Link>
                     <h1>Abilities Archive</h1>
                 </div>
                 <p className="compendium-page__subtitle" style={{ fontSize: '1.2rem', color: 'var(--ink-muted)', marginTop: '0.25rem', marginBottom: '0.5rem', fontStyle: 'italic' }}>Archive of spells and techniques</p>

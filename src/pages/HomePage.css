@@ -76,6 +76,13 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
+.home-page__button-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 768px) {
   .home-page__header h1 {
     font-size: 1.8rem;
@@ -86,7 +93,11 @@
   }
 
   .home-page__nav-button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .home-page__button-grid {
+    gap: 0.4rem;
   }
 }

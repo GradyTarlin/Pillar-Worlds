@@ -21,7 +21,7 @@ export function HomePage() {
             <Link to="/character-creation" className="home-page__nav-button">
               Character Creation
             </Link>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '0.5rem' }}>
+            <div className="home-page__button-grid">
               <Link to="/monsters" className="home-page__nav-button" style={{ textAlign: 'center' }}>
                 Monsters
               </Link>
