@@ -441,4 +441,39 @@
             transform: translateY(0);
         }
     }
+
+    .compendium-detail-container {
+        top: 0;
+        z-index: 1100;
+    }
+
+    .compendium-detail__close {
+        top: 0.5rem;
+        right: 1rem;
+        z-index: 1200;
+    }
+
+    .character-list-btn {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.75rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .compendium-list-header {
+        display: none;
+    }
+
+    .compendium-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1rem 0.5rem;
+    }
+
+    .compendium-list-item>div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
 }

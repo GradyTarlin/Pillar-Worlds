@@ -358,7 +358,7 @@ export function SocialNetworkView({ onSelectRegion, onSelectLocation }: SocialNe
     };
 
     return (
-        <div style={{ display: 'flex', width: '100%', height: '100%', position: 'relative' }}>
+        <div style={{ display: 'flex', width: '100%', height: '100%', minHeight: '60vh', position: 'relative' }}>
             <div style={{ flex: 1, position: 'relative', background: 'var(--ink)' }}>
                 <ReactFlow
                     nodes={nodes}

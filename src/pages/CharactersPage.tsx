@@ -10,7 +10,7 @@ export function CharactersPage() {
         <div className="compendium-page">
             <header className="compendium-page__header" style={{ textAlign: 'center' }}>
                 <div className="compendium-page__header-top" style={{ justifyContent: 'center', position: 'relative' }}>
-                    <Link to="/" className="compendium-page__home-link" style={{ position: 'absolute', left: 0 }}>← Home</Link>
+                    <Link to="/" className="compendium-page__home-link">← Home</Link>
                     <h1>My Characters</h1>
                 </div>
                 <p className="compendium-page__subtitle" style={{ fontSize: '1.2rem', color: 'var(--ink-muted)', marginTop: '0.25rem', marginBottom: '0.5rem', fontStyle: 'italic' }}>Manage your saved characters</p>
@@ -51,8 +51,7 @@ export function CharactersPage() {
                                     <div style={{ flex: 1, display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', height: '100%' }}>
                                         <button
                                             onClick={() => navigate(`/character/${char.id}`)}
-                                            className="app__finish-button"
-                                            style={{ padding: '0.25rem 0.5rem', margin: 0, fontSize: '0.8rem', minHeight: 'auto' }}
+                                            className="app__finish-button character-list-btn"
                                         >
                                             View
                                         </button>
@@ -62,8 +61,7 @@ export function CharactersPage() {
                                                     deleteCharacter(char.id);
                                                 }
                                             }}
-                                            className="app__back-button"
-                                            style={{ padding: '0.25rem 0.5rem', margin: 0, fontSize: '0.8rem', minHeight: 'auto' }}
+                                            className="app__back-button character-list-btn"
                                         >
                                             Delete
                                         </button>

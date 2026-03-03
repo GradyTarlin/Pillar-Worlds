@@ -596,6 +596,35 @@
   .character-sheet__grid {
     grid-template-columns: 1fr;
   }
+
+  .app__home-link {
+    position: static;
+    display: block;
+    transform: none;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .app__header h1 {
+    font-size: 1.8rem;
+  }
+
+  .app__header {
+    padding: 1.5rem 1rem;
+  }
+
+  .app__name-input-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .attribute-slider-labels {
+    font-size: 0.75rem;
+  }
+
+  .attribute-slider-labels span.active {
+    font-size: 0.85rem;
+  }
 }
 
 /* Attribute Slider */
@@ -637,6 +666,12 @@
 
 .attribute-slider-labels span:last-child {
   text-align: right;
+}
+
+.attribute-slider-labels span {
+  word-wrap: break-word;
+  white-space: normal;
+  hyphens: auto;
 }
 
 .attribute-slider-labels span.active {

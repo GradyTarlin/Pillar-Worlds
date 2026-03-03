@@ -274,8 +274,11 @@
         min-height: 50vh !important;
     }
 
-    .campaign-level-1-grid {
+    .campaign-level-1-grid,
+    .campaign-level-2-grid,
+    .campaign-cards-grid {
         grid-template-columns: 1fr !important;
+        width: 100%;
     }
 
     .campaign-column>div {
