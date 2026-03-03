@@ -23,6 +23,7 @@
 
 .tool-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     padding: 0.5rem;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -129,6 +130,53 @@
 
 .tile-ocean {
     background-color: #21618c;
+}
+
+/* Dungeon Terrains */
+.tile-stone {
+    background-color: #555555;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.tile-wood {
+    background-color: #8b5a2b;
+}
+
+.tile-magic {
+    background-color: #9370db;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.tile-lava {
+    background-color: #ff4500;
+}
+
+.tile-poison {
+    background-color: #32cd32;
+}
+
+.tile-cursed {
+    background-color: #800080;
+}
+
+.tile-haunted {
+    background-color: #4b0082;
+}
+
+.tile-fae {
+    background-color: #ff69b4;
+}
+
+.tile-arcane {
+    background-color: #00ffff;
+}
+
+.tile-darkness {
+    background-color: #1a1a1a;
+}
+
+.tile-gold {
+    background-color: #ffd700;
 }
 
 /* Features */

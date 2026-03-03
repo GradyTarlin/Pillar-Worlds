@@ -136,15 +136,62 @@ export function CampaignBuilderPage() {
                                         {region.name}
                                     </h2>
                                     {region.description && (
-                                        <p style={{ marginBottom: '0', lineHeight: '1.5' }}>{region.description}</p>
+                                        <p style={{ marginBottom: '1.5rem', lineHeight: '1.5' }}>{region.description}</p>
                                     )}
-                                </div>
 
-                                <div className="campaign-level-2-map" style={{ display: 'flex', flexDirection: 'column', minHeight: '500px' }}>
-                                    <UnifiedMap
-                                        context={{ type: 'region', id: selectedRegionId }}
-                                        onSelectLocation={handleSelectLocation}
-                                    />
+                                    {/* Quick Links Section */}
+                                    <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+                                        {(() => {
+                                            const settlements = data.locations.filter(l => l.type === 'settlement' && l.regionId === region.id);
+                                            const dungeons = data.locations.filter(l => l.type === 'dungeon' && l.regionId === region.id);
+                                            const quests = data.quests.filter(q => q.regionId === region.id);
+
+                                            return (
+                                                <>
+                                                    {settlements.length > 0 && (
+                                                        <div>
+                                                            <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--ink)' }}>Settlements</strong>
+                                                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                                                {settlements.map(s => (
+                                                                    <li key={s.id}>
+                                                                        <button className="campaign-link-btn" style={{ background: 'none', border: 'none', color: 'var(--burgundy)', textDecoration: 'underline', cursor: 'pointer', padding: 0, textAlign: 'left', fontFamily: 'inherit' }} onClick={() => handleSelectLocation(s.id)}>
+                                                                            {s.name}
+                                                                        </button>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                                    {dungeons.length > 0 && (
+                                                        <div>
+                                                            <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--ink)' }}>Dungeons</strong>
+                                                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                                                {dungeons.map(d => (
+                                                                    <li key={d.id}>
+                                                                        <button className="campaign-link-btn" style={{ background: 'none', border: 'none', color: 'var(--burgundy)', textDecoration: 'underline', cursor: 'pointer', padding: 0, textAlign: 'left', fontFamily: 'inherit' }} onClick={() => handleSelectLocation(d.id)}>
+                                                                            {d.name}
+                                                                        </button>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                                    {quests.length > 0 && (
+                                                        <div>
+                                                            <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--ink)' }}>Quests</strong>
+                                                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                                                {quests.map(q => (
+                                                                    <li key={q.id}>
+                                                                        <span style={{ color: 'var(--ink-muted)' }}>{q.name}</span>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            );
+                                        })()}
+                                    </div>
                                 </div>
 
                                 <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>

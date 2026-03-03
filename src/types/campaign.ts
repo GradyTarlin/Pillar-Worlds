@@ -34,17 +34,17 @@ export interface Quest extends BaseEntity {
 }
 
 // Map Maker Types
-export type MapBiome = 'plain' | 'forest' | 'mountain' | 'desert' | 'jungle' | 'grassland' | 'wetland' | 'taiga' | 'ocean';
-export type MapFeature = 'none' | 'river' | 'lake';
+export type MapTerrain = 'plain' | 'forest' | 'mountain' | 'desert' | 'jungle' | 'grassland' | 'wetland' | 'taiga' | 'ocean' | 'river' | 'lake'
+    | 'stone' | 'wood' | 'magic' | 'lava' | 'poison' | 'cursed' | 'haunted' | 'fae' | 'arcane' | 'darkness' | 'gold';
 
-export type MapPoiType = 'town' | 'village' | 'city' | 'dungeon' | 'quest';
+export type MapPoiType = 'town' | 'village' | 'city' | 'dungeon' | 'quest' | 'loot' | 'trap' | 'secret' | 'encounter';
 
 export interface MapTile {
-    biome: MapBiome;
-    feature: MapFeature;
-    poiId?: string; // Links to a Location (Settlement/Dungeon/Quest)
+    terrain: MapTerrain;
+    poiId?: string; // Links to a Location (Settlement/Dungeon/Quest/Encounter) or acts as a unique ID for Loot/Traps/Secrets
     poiType?: MapPoiType;
     label?: string; // Custom label for POIs or landmarks
+    description?: string; // Detailed description for Dungeon POIs (e.g., trap mechanics, loot contents)
     regionId?: string; // Links tile to a Region
 }
 
@@ -56,8 +56,6 @@ export interface CustomMap {
 }
 
 export interface Region extends BaseEntity {
-    climate: string;
-    customMap?: CustomMap; // Localized map for the region
 }
 
 export type LocationType = 'settlement' | 'dungeon'; // Level 2 distinctions

@@ -1,12 +1,12 @@
 import { useState, useRef, useCallback } from 'react';
 import { useCampaignData } from '../../hooks/useCampaignData';
-import type { MapBiome, MapFeature, MapTile, MapPoiType, CustomMap, Region } from '../../types/campaign';
+import type { MapTerrain, MapTile, MapPoiType, CustomMap, Region } from '../../types/campaign';
 import './MapMaker.css';
 
-type ToolMode = 'biome' | 'water' | 'poi' | 'erase';
+type ToolMode = 'terrain' | 'bucket' | 'poi' | 'erase';
 
 export interface UnifiedMapContext {
-    type: 'world' | 'region' | 'dungeon';
+    type: 'world' | 'dungeon';
     id?: string;
 }
 
@@ -18,17 +18,18 @@ interface UnifiedMapProps {
 
 export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: UnifiedMapProps) {
     const { data, updateEntities } = useCampaignData();
-    const [activeTool, setActiveTool] = useState<ToolMode>('biome');
-    const [selectedBiome, setSelectedBiome] = useState<MapBiome>('grassland');
-    const [selectedFeature, setSelectedFeature] = useState<MapFeature>('river');
-    const [selectedPoiType, setSelectedPoiType] = useState<MapPoiType>('town');
+    const [activeTool, setActiveTool] = useState<ToolMode>('terrain');
+    const [selectedTerrain, setSelectedTerrain] = useState<MapTerrain>(context.type === 'dungeon' ? 'stone' : 'grassland');
+    const [selectedPoiType, setSelectedPoiType] = useState<MapPoiType>(context.type === 'dungeon' ? 'encounter' : 'town');
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [zoom, setZoom] = useState(1);
     const [history, setHistory] = useState<Record<string, MapTile>[]>([]);
 
-    const [isPromptOpen, setIsPromptOpen] = useState(false);
+    const [isLocationPromptOpen, setIsLocationPromptOpen] = useState(false);
+    const [pendingPoiTile, setPendingPoiTile] = useState<{ x: number, y: number, poiType: MapPoiType } | null>(null);
     const [promptLabel, setPromptLabel] = useState('');
-    const [pendingTile, setPendingTile] = useState<{ x: number, y: number } | null>(null);
+    const [promptDescription, setPromptDescription] = useState('');
+    const [selectedRegionIdForLocation, setSelectedRegionIdForLocation] = useState<string>('');
 
     const [isRegionPromptOpen, setIsRegionPromptOpen] = useState(false);
     const [pendingRegionTiles, setPendingRegionTiles] = useState<string[]>([]);
@@ -40,7 +41,6 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
     // Dynamic sizing based on context
     const getInitialMapSize = () => {
         if (context.type === 'world') return { width: 60, height: 45 };
-        if (context.type === 'region') return { width: 40, height: 30 };
         if (context.type === 'dungeon') return { width: 30, height: 30 };
         return { width: 40, height: 30 };
     };
@@ -48,9 +48,6 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
     const getMapReference = (): CustomMap => {
         if (context.type === 'world') {
             return data.customMap || { ...getInitialMapSize(), grid: {}, isFinalized: false };
-        } else if (context.type === 'region' && context.id) {
-            const region = data.regions.find(r => r.id === context.id);
-            return region?.customMap || { ...getInitialMapSize(), grid: {}, isFinalized: false };
         } else if (context.type === 'dungeon' && context.id) {
             const loc = data.locations.find(l => l.id === context.id);
             return loc?.customMap || { ...getInitialMapSize(), grid: {}, isFinalized: false };
@@ -61,8 +58,6 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
     const saveMapReference = (newMap: CustomMap) => {
         if (context.type === 'world') {
             updateEntities('customMap', newMap);
-        } else if (context.type === 'region' && context.id) {
-            updateEntities('regions', data.regions.map(r => r.id === context.id ? { ...r, customMap: newMap } : r));
         } else if (context.type === 'dungeon' && context.id) {
             updateEntities('locations', data.locations.map(l => l.id === context.id ? { ...l, customMap: newMap } : l));
         }
@@ -95,10 +90,10 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
             if (visited.has(current)) continue;
 
             visited.add(current);
-            const tile = grid[current];
+            const tile = grid[current] || { terrain: 'ocean' };
 
             // Only count non-ocean tiles that haven't been assigned to a region yet
-            if (tile && tile.biome !== 'ocean') {
+            if (tile.terrain !== 'ocean') {
                 landmass.push(current);
 
                 const [cx, cy] = current.split(',').map(Number);
@@ -117,23 +112,60 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
         return landmass;
     };
 
+    const getContiguousSameTerrain = (startX: number, startY: number, targetTerrain: MapTerrain, newGrid: Record<string, MapTile>): string[] => {
+        const visited = new Set<string>();
+        const queue = [`${startX},${startY}`];
+        const area = [];
+
+        while (queue.length > 0) {
+            const current = queue.shift()!;
+            if (visited.has(current)) continue;
+
+            visited.add(current);
+            const tile = newGrid[current] || { terrain: 'ocean' };
+
+            if (tile.terrain === targetTerrain) {
+                area.push(current);
+
+                const [cx, cy] = current.split(',').map(Number);
+                const neighbors = [
+                    `${cx},${cy - 1}`, `${cx},${cy + 1}`,
+                    `${cx - 1},${cy}`, `${cx + 1},${cy}`
+                ];
+
+                for (const n of neighbors) {
+                    if (!visited.has(n)) {
+                        queue.push(n);
+                    }
+                }
+            }
+        }
+        return area;
+    };
+
     const handleTileInteraction = useCallback((x: number, y: number, isInitialClick: boolean = false) => {
         const key = `${x},${y}`;
         const newGrid = { ...currentMap.grid };
-        const currentTile = newGrid[key] || { biome: 'ocean', feature: 'none' };
+        const currentTile = newGrid[key] || { terrain: 'ocean' };
 
         if (isFinalized) {
             if (!isInitialClick) return; // Ignore drag interactions when finalized
 
-            if (currentTile.poiId && onSelectLocation) {
-                // If resolving actual locations based on POI later, mapping logic goes here
-                // We simulate routing by ID for demonstration
+            if (currentTile.poiType && !currentTile.poiId) {
+                // Clicked an Undefined POI
+                setPendingPoiTile({ x, y, poiType: currentTile.poiType });
+                setPromptLabel('');
+                setPromptDescription('');
+                setSelectedRegionIdForLocation('');
+                setIsLocationPromptOpen(true);
+                return;
+            } else if (currentTile.poiId && onSelectLocation) {
                 onSelectLocation(currentTile.poiId);
                 return;
             } else if (currentTile.regionId && onSelectRegion) {
                 onSelectRegion(currentTile.regionId);
                 return;
-            } else if (currentTile.biome !== 'ocean' && context.type === 'world') {
+            } else if (currentTile.terrain !== 'ocean' && context.type === 'world') {
                 const landmassTarget = getContiguousLandmass(x, y);
                 if (landmassTarget.length > 0) {
                     setPendingRegionTiles(landmassTarget);
@@ -145,49 +177,59 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
             return;
         }
 
-        if (activeTool === 'biome') {
-            newGrid[key] = { ...currentTile, biome: selectedBiome };
-        } else if (activeTool === 'water') {
-            newGrid[key] = { ...currentTile, feature: selectedFeature };
+        if (activeTool === 'terrain') {
+            newGrid[key] = { ...currentTile, terrain: selectedTerrain };
+        } else if (activeTool === 'bucket') {
+            if (!isInitialClick) return;
+            const targetTerrain = currentTile.terrain;
+            if (targetTerrain === selectedTerrain) return;
+
+            const areaToFill = getContiguousSameTerrain(x, y, targetTerrain, newGrid);
+            areaToFill.forEach(k => {
+                newGrid[k] = { ...newGrid[k], terrain: selectedTerrain };
+            });
         } else if (activeTool === 'poi') {
             if (!isInitialClick) return;
-            setPendingTile({ x, y });
-            setPromptLabel('');
-            setIsPromptOpen(true);
-            return;
+            newGrid[key] = { ...currentTile, poiType: selectedPoiType };
         } else if (activeTool === 'erase') {
-            if (currentTile.poiId) {
+            if (currentTile.poiType || currentTile.poiId) {
                 const updatedTile = { ...currentTile };
                 delete updatedTile.poiId;
                 delete updatedTile.poiType;
                 delete updatedTile.label;
+                delete updatedTile.description;
                 newGrid[key] = updatedTile;
             } else {
-                newGrid[key] = { biome: 'ocean', feature: 'none' };
+                newGrid[key] = { terrain: 'ocean' };
             }
         }
 
         saveMapReference({ ...currentMap, grid: newGrid });
-    }, [currentMap, activeTool, selectedBiome, selectedFeature, isFinalized, saveMapReference]);
+    }, [currentMap, activeTool, selectedTerrain, selectedPoiType, isFinalized, saveMapReference, context.type, onSelectLocation, onSelectRegion]);
 
     const handleSavePoi = () => {
-        if (!pendingTile || !promptLabel.trim()) return;
+        if (!pendingPoiTile || !promptLabel.trim()) return;
 
-        const key = `${pendingTile.x},${pendingTile.y}`;
+        const key = `${pendingPoiTile.x},${pendingPoiTile.y}`;
         const newGrid = { ...currentMap.grid };
-        const currentTile = newGrid[key] || { biome: 'ocean', feature: 'none' };
+        const currentTile = newGrid[key] || { terrain: 'ocean' };
 
         saveHistory();
 
         let targetId = `poi_${Date.now()}`;
-        // If we are placing a dungeon/settlement, we might auto-create the location entity here
-        // For now, we store it simply as a POI link reference
 
-        newGrid[key] = { ...currentTile, poiId: targetId, poiType: selectedPoiType, label: promptLabel.trim() };
+        newGrid[key] = {
+            ...currentTile,
+            poiId: targetId,
+            poiType: pendingPoiTile.poiType,
+            label: promptLabel.trim(),
+            description: promptDescription.trim(),
+            regionId: selectedRegionIdForLocation || currentTile.regionId
+        };
 
         saveMapReference({ ...currentMap, grid: newGrid });
-        setIsPromptOpen(false);
-        setPendingTile(null);
+        setIsLocationPromptOpen(false);
+        setPendingPoiTile(null);
     };
 
     const handleAssignRegion = () => {
@@ -201,7 +243,6 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                 id: finalRegionId,
                 name: newRegionName.trim(),
                 description: '',
-                climate: 'Temperate',
             };
             updateEntities('regions', [...data.regions, newRegion]);
         }
@@ -225,6 +266,10 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
             case 'city': return '🏰';
             case 'dungeon': return '⚔️';
             case 'quest': return '📜';
+            case 'loot': return '💰';
+            case 'trap': return '⚠️';
+            case 'secret': return '👁️';
+            case 'encounter': return '👹';
             default: return '📍';
         }
     };
@@ -235,10 +280,10 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
         for (let y = 0; y < currentMap.height; y++) {
             for (let x = 0; x < currentMap.width; x++) {
                 const key = `${x},${y}`;
-                const tile = currentMap.grid[key] || { biome: 'ocean', feature: 'none' };
+                const tile = currentMap.grid[key] || { terrain: 'ocean' };
 
-                let tileClasses = `map-tile tile-${tile.biome} ${tile.feature !== 'none' ? `feature-${tile.feature}` : ''}`;
-                if (isFinalized && tile.biome !== 'ocean') {
+                let tileClasses = `map-tile tile-${tile.terrain}`;
+                if (isFinalized && tile.terrain !== 'ocean') {
                     tileClasses += ' interactive';
                     if (tile.regionId) {
                         tileClasses += ' defined-region';
@@ -258,10 +303,10 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                         onMouseUp={() => setIsMouseDown(false)}
                         title={isFinalized && tile.regionId ? data.regions.find(r => r.id === tile.regionId)?.name : ''}
                     >
-                        {tile.poiId && (
-                            <div className={`poi-marker ${isFinalized ? 'clickable' : ''}`} title={tile.label}>
+                        {tile.poiType && (
+                            <div className={`poi-marker ${isFinalized ? 'clickable' : ''}`} title={tile.label || 'Undefined Location'}>
                                 {getPoiIcon(tile.poiType)}
-                                <span className="poi-label">{tile.label}</span>
+                                <span className="poi-label">{tile.label || '?'}</span>
                             </div>
                         )}
                         {/* Region color tinting over landmass */}
@@ -286,7 +331,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
         >
             <div className="map-toolbar-top" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem 1rem', background: 'var(--parchment)', borderBottom: '1px solid var(--gold)' }}>
                 <h3 style={{ margin: 0, fontFamily: 'Cinzel, serif', color: 'var(--burgundy)' }}>
-                    {context.type === 'world' ? 'World Map' : context.type === 'region' ? 'Region Map' : 'Dungeon Layout'}
+                    {context.type === 'world' ? 'World Map' : 'Dungeon Layout'}
                 </h3>
                 <button
                     className="campaign-btn campaign-btn-primary"
@@ -296,28 +341,60 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                 </button>
             </div>
 
-            {isPromptOpen && (
+            {isLocationPromptOpen && (
                 <div className="map-maker-modal-overlay">
                     <div className="map-maker-modal">
-                        <h3>Name This Location</h3>
-                        <p>Assign a name to this {selectedPoiType}.</p>
-                        <input
-                            type="text"
-                            value={promptLabel}
-                            onChange={(e) => setPromptLabel(e.target.value)}
-                            placeholder="Location name..."
-                            autoFocus
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') handleSavePoi();
-                                if (e.key === 'Escape') {
-                                    setIsPromptOpen(false);
-                                    setPendingTile(null);
-                                }
-                            }}
-                        />
-                        <div className="modal-actions">
-                            <button className="campaign-btn campaign-btn-primary" onClick={handleSavePoi}>Save Location</button>
-                            <button className="campaign-btn campaign-btn-secondary" onClick={() => { setIsPromptOpen(false); setPendingTile(null); }}>Cancel</button>
+                        <h3>Define {pendingPoiTile?.poiType || 'Location'}</h3>
+                        <p>Provide details for this point of interest.</p>
+                        <div className="campaign-form-group">
+                            <label>Name</label>
+                            <input
+                                type="text"
+                                value={promptLabel}
+                                onChange={(e) => setPromptLabel(e.target.value)}
+                                placeholder="Location name..."
+                                autoFocus
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && (context.type !== 'world' || selectedRegionIdForLocation)) handleSavePoi();
+                                    if (e.key === 'Escape') {
+                                        setIsLocationPromptOpen(false);
+                                        setPendingPoiTile(null);
+                                    }
+                                }}
+                            />
+                        </div>
+
+                        {context.type === 'world' && (
+                            <div className="campaign-form-group" style={{ marginTop: '1rem' }}>
+                                <label>Assign to Region (Required)</label>
+                                <select
+                                    className="app__select"
+                                    value={selectedRegionIdForLocation}
+                                    onChange={(e) => setSelectedRegionIdForLocation(e.target.value)}
+                                >
+                                    <option value="">-- Select a Region --</option>
+                                    {data.regions.map(r => (
+                                        <option key={r.id} value={r.id}>{r.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+
+                        {context.type === 'dungeon' && (
+                            <div className="campaign-form-group" style={{ marginTop: '1rem' }}>
+                                <label>Description / Mechanics</label>
+                                <textarea
+                                    value={promptDescription}
+                                    onChange={(e) => setPromptDescription(e.target.value)}
+                                    placeholder="Enter trap mechanics, loot contents, etc..."
+                                    rows={3}
+                                />
+                            </div>
+                        )}
+
+                        <div className="modal-actions" style={{ marginTop: '1.5rem' }}>
+                            <button className="campaign-btn campaign-btn-primary" onClick={handleSavePoi} disabled={context.type === 'world' && !selectedRegionIdForLocation}>Save Location</button>
+                            <button className="campaign-btn campaign-btn-secondary" onClick={() => { setIsLocationPromptOpen(false); setPendingPoiTile(null); }}>Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -363,13 +440,13 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                 <div className="map-maker-toolbar" style={{ borderTop: 'none', borderRight: 'none', borderLeft: 'none', borderRadius: 0 }}>
                     <div className="tool-group">
                         <button
-                            className={`tool-btn ${activeTool === 'biome' ? 'active' : ''}`}
-                            onClick={() => setActiveTool('biome')}
-                        >🌳 Biomes</button>
+                            className={`tool-btn ${activeTool === 'terrain' ? 'active' : ''}`}
+                            onClick={() => setActiveTool('terrain')}
+                        >🌳 Terrain</button>
                         <button
-                            className={`tool-btn ${activeTool === 'water' ? 'active' : ''}`}
-                            onClick={() => setActiveTool('water')}
-                        >💧 Water</button>
+                            className={`tool-btn ${activeTool === 'bucket' ? 'active' : ''}`}
+                            onClick={() => setActiveTool('bucket')}
+                        >🪣 Fill</button>
                         <button
                             className={`tool-btn ${activeTool === 'poi' ? 'active' : ''}`}
                             onClick={() => setActiveTool('poi')}
@@ -380,44 +457,55 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                         >🧹 Erase</button>
                     </div>
 
-                    {activeTool === 'biome' && (
+                    {(activeTool === 'terrain' || activeTool === 'bucket') && (
                         <div className="tool-group">
-                            {(['ocean', 'plain', 'grassland', 'forest', 'jungle', 'mountain', 'desert', 'wetland', 'taiga'] as MapBiome[]).map(b => (
-                                <button
-                                    key={b}
-                                    className={`tool-btn ${selectedBiome === b ? 'active' : ''}`}
-                                    onClick={() => setSelectedBiome(b)}
-                                    style={{ textTransform: 'capitalize' }}
-                                >{b}</button>
-                            ))}
-                        </div>
-                    )}
-
-                    {activeTool === 'water' && (
-                        <div className="tool-group">
-                            {(['river', 'lake'] as MapFeature[]).map(f => (
-                                <button
-                                    key={f}
-                                    className={`tool-btn ${selectedFeature === f ? 'active' : ''}`}
-                                    onClick={() => setSelectedFeature(f)}
-                                    style={{ textTransform: 'capitalize' }}
-                                >{f}</button>
-                            ))}
+                            {context.type === 'world' ? (
+                                (['ocean', 'lake', 'river', 'plain', 'grassland', 'forest', 'jungle', 'mountain', 'desert', 'wetland', 'taiga'] as MapTerrain[]).map(t => (
+                                    <button
+                                        key={t}
+                                        className={`tool-btn ${selectedTerrain === t ? 'active' : ''}`}
+                                        onClick={() => setSelectedTerrain(t)}
+                                        style={{ textTransform: 'capitalize' }}
+                                    >{t}</button>
+                                ))
+                            ) : (
+                                (['stone', 'wood', 'magic', 'lava', 'poison', 'cursed', 'haunted', 'fae', 'arcane', 'darkness', 'gold', 'river', 'lake'] as MapTerrain[]).map(t => (
+                                    <button
+                                        key={t}
+                                        className={`tool-btn ${selectedTerrain === t ? 'active' : ''}`}
+                                        onClick={() => setSelectedTerrain(t)}
+                                        style={{ textTransform: 'capitalize' }}
+                                    >{t}</button>
+                                ))
+                            )}
                         </div>
                     )}
 
                     {activeTool === 'poi' && (
                         <div className="tool-group">
-                            {(['village', 'town', 'city', 'dungeon', 'quest'] as MapPoiType[]).map(t => (
-                                <button
-                                    key={t}
-                                    className={`tool-btn ${selectedPoiType === t ? 'active' : ''}`}
-                                    onClick={() => setSelectedPoiType(t)}
-                                    style={{ textTransform: 'capitalize' }}
-                                >
-                                    {getPoiIcon(t)} {t}
-                                </button>
-                            ))}
+                            {context.type === 'world' ? (
+                                (['village', 'town', 'city', 'dungeon', 'quest'] as MapPoiType[]).map(t => (
+                                    <button
+                                        key={t}
+                                        className={`tool-btn ${selectedPoiType === t ? 'active' : ''}`}
+                                        onClick={() => setSelectedPoiType(t)}
+                                        style={{ textTransform: 'capitalize' }}
+                                    >
+                                        {getPoiIcon(t)} {t}
+                                    </button>
+                                ))
+                            ) : (
+                                (['encounter', 'loot', 'trap', 'secret'] as MapPoiType[]).map(t => (
+                                    <button
+                                        key={t}
+                                        className={`tool-btn ${selectedPoiType === t ? 'active' : ''}`}
+                                        onClick={() => setSelectedPoiType(t)}
+                                        style={{ textTransform: 'capitalize' }}
+                                    >
+                                        {getPoiIcon(t)} {t}
+                                    </button>
+                                ))
+                            )}
                         </div>
                     )}
 

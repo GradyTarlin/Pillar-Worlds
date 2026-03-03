@@ -16,7 +16,6 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
             id: `region_${Date.now()}`,
             name: 'New Region',
             description: '',
-            climate: 'Temperate',
         };
         updateEntities('regions', [...data.regions, newRegion]);
         setEditingId(newRegion.id);
@@ -49,8 +48,15 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
             <ListHeader title="Regions" onAdd={handleAdd} addLabel="Region" />
 
             <div className="campaign-cards-grid">
-                {data.regions.map(region => (
-                    editingId === region.id ? (
+                {data.regions.map(region => {
+                    const linkedLocations = data.locations.filter(loc => loc.regionId === region.id);
+                    const linkedQuests = data.quests.filter(q => q.regionId === region.id);
+                    const stats = [
+                        linkedLocations.length > 0 ? `${linkedLocations.length} locations` : null,
+                        linkedQuests.length > 0 ? `${linkedQuests.length} quests` : null
+                    ].filter(Boolean).join(', ');
+
+                    return editingId === region.id ? (
                         <RegionEditForm
                             key={region.id}
                             region={region}
@@ -61,7 +67,7 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
                         <EntityCard
                             key={region.id}
                             title={region.name}
-                            subtitle={`${region.climate} Climate`}
+                            subtitle={stats || 'Empty Region'}
                             description={region.description}
                             onEdit={() => setEditingId(region.id)}
                             onDelete={() => handleDelete(region.id)}
@@ -72,8 +78,8 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
                                 </button>
                             </div>
                         </EntityCard>
-                    )
-                ))}
+                    );
+                })}
                 {data.regions.length === 0 && (
                     <p className="campaign-empty-state">No regions added yet. Click "+ Region" to start.</p>
                 )}
@@ -104,10 +110,6 @@ function RegionEditForm({
             <div className="campaign-form-group">
                 <label>Name</label>
                 <input name="name" value={form.name} onChange={handleChange} autoFocus />
-            </div>
-            <div className="campaign-form-group">
-                <label>Climate / Biome</label>
-                <input name="climate" value={form.climate} onChange={handleChange} placeholder="e.g. Temperate Forest, Arid Desert" />
             </div>
             <div className="campaign-form-group">
                 <label>Description (Lore/Details)</label>
