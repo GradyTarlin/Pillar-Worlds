@@ -142,3 +142,30 @@
         transform: translateY(0);
     }
 }
+
+@media (max-width: 768px) {
+    .data-page__header {
+        padding: 1.5rem 1rem;
+    }
+
+    .data-page__header-top {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .data-page__home-link {
+        margin-bottom: 0.5rem;
+    }
+
+    .data-page__header-top h1 {
+        font-size: 1.8rem;
+    }
+
+    .data-page__main {
+        padding: 1.5rem 1rem;
+    }
+
+    .data-panel {
+        padding: 1rem;
+    }
+}
