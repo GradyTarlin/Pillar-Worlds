@@ -148,7 +148,7 @@ export function MapMaker() {
                 <div className="map-maker-modal-overlay">
                     <div className="map-maker-modal">
                         <h3>Name This Location</h3>
-                        <p>Assign a label for the {selectedPoiType} at ({pendingTile?.x}, {pendingTile?.y})</p>
+                        <p>Assign a name to this {selectedPoiType}.</p>
                         <input
                             type="text"
                             value={promptLabel}

@@ -216,12 +216,6 @@
     padding-bottom: 0.5rem;
 }
 
-.map-maker-modal p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--ink-muted);
-}
-
 .map-maker-modal input {
     padding: 0.75rem;
     border: 1px solid var(--gold);
@@ -229,6 +223,13 @@
     font-size: 1rem;
     background: white;
     font-family: inherit;
+    color: var(--ink);
+}
+
+.map-maker-modal p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink);
 }
 
 .map-maker-modal input:focus {
