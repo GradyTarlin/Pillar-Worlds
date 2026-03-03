@@ -9,6 +9,18 @@
     padding: 1rem;
 }
 
+.unified-map-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: var(--parchment-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    gap: 1rem;
+    padding: 1rem;
+}
+
 .map-maker-toolbar {
     display: flex;
     gap: 1rem;
@@ -60,16 +72,22 @@
 
 .map-grid-viewport {
     flex: 1;
-    overflow: auto;
+    overflow: hidden;
+    /* Removing scrollbars for pan/zoom logic */
     border: 1px solid var(--gold);
-    background: #aadaff;
-    /* Default ocean color */
+    background: #21618c;
+    /* Match ocean for seamless edge logic */
     border-radius: 4px;
     position: relative;
-    cursor: crosshair;
-    padding-bottom: 30px;
-    /* Fix for bottom row cutoff */
-    padding-right: 30px;
+    cursor: grab;
+}
+
+.map-grid-viewport.dungeon-viewport {
+    background: #1a1a1a;
+}
+
+.map-grid-viewport:active {
+    cursor: grabbing;
 }
 
 .map-grid {
@@ -179,26 +197,16 @@
     background-color: #ffd700;
 }
 
-/* Features */
-.feature-river {
-    position: relative;
-    background-color: rgba(33, 97, 140, 0.4);
-    box-shadow: inset 0 0 12px rgba(93, 173, 226, 0.6);
+/* Water Terrains */
+.tile-river {
+    background-color: #5dade2;
+    box-shadow: inset 0 0 8px rgba(33, 97, 140, 0.4);
 }
 
-.feature-river::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle at center, transparent 30%, rgba(93, 173, 226, 0.3) 100%);
-    pointer-events: none;
-}
-
-.feature-lake {
-    background-color: #2e86c1 !important;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
+.tile-lake {
+    background-color: #2874a6;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+    background-image: radial-gradient(circle at center, transparent 40%, rgba(33, 97, 140, 0.5) 100%);
 }
 
 .tile-poi {

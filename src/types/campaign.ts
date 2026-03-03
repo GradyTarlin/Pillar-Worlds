@@ -55,8 +55,7 @@ export interface CustomMap {
     isFinalized?: boolean;
 }
 
-export interface Region extends BaseEntity {
-}
+export type Region = BaseEntity;
 
 export type LocationType = 'settlement' | 'dungeon'; // Level 2 distinctions
 

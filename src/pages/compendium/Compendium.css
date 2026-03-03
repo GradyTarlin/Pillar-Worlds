@@ -170,8 +170,7 @@
 .compendium-detail-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(2px);
+    background: transparent;
 }
 
 .compendium-detail {

@@ -15,7 +15,7 @@ import { useCampaignData } from '../hooks/useCampaignData';
 import './CampaignBuilderPage.css';
 
 export function CampaignBuilderPage() {
-    const { data, activeCampaignId, setActiveCampaignId } = useCampaignData();
+    const { data, activeCampaignId, setActiveCampaignId, campaigns } = useCampaignData();
     const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
     const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<'world' | 'network'>('world');
@@ -44,11 +44,12 @@ export function CampaignBuilderPage() {
         headerTitle = "Character Network";
     } else if (selectedLocationId) {
         const loc = (data.locations || []).find(l => l.id === selectedLocationId);
-        if (loc) headerTitle = loc.type === 'settlement' ? 'Settlement' : 'Dungeon';
+        if (loc) headerTitle = loc.type === 'dungeon' ? 'Dungeon' : 'Settlement';
     } else if (selectedRegionId) {
         headerTitle = "Region";
     } else if (activeCampaignId) {
-        headerTitle = "World";
+        const cmp = campaigns.find(c => c.id === activeCampaignId);
+        headerTitle = cmp ? cmp.name : "World";
     }
 
     return (
@@ -102,19 +103,19 @@ export function CampaignBuilderPage() {
 
                     {activeCampaignId && viewMode === 'world' && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
-                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', width: '100%' }}>
-                            <div className="campaign-row" style={{ flex: '2 1 600px', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
+                            <div className="campaign-row" style={{ width: '100%', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)', minHeight: '400px' }}>
                                 <UnifiedMap
                                     context={{ type: 'world' }}
                                     onSelectLocation={handleSelectLocation}
                                     onSelectRegion={handleSelectRegion}
                                 />
                             </div>
-                            <div className="campaign-level-1-grid" style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignSelf: 'flex-start' }}>
-                                <div className="campaign-column" style={{ marginBottom: 0, flex: '0 0 auto' }}>
+                            <div className="campaign-level-1-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '1.5rem', width: '100%' }}>
+                                <div className="campaign-column" style={{ marginBottom: 0 }}>
                                     <RegionsView onSelectRegion={handleSelectRegion} />
                                 </div>
-                                <div className="campaign-column" style={{ marginBottom: 0, flex: '0 0 auto' }}>
+                                <div className="campaign-column" style={{ marginBottom: 0 }}>
                                     <FactionsView />
                                 </div>
                             </div>
@@ -139,59 +140,6 @@ export function CampaignBuilderPage() {
                                         <p style={{ marginBottom: '1.5rem', lineHeight: '1.5' }}>{region.description}</p>
                                     )}
 
-                                    {/* Quick Links Section */}
-                                    <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-                                        {(() => {
-                                            const settlements = data.locations.filter(l => l.type === 'settlement' && l.regionId === region.id);
-                                            const dungeons = data.locations.filter(l => l.type === 'dungeon' && l.regionId === region.id);
-                                            const quests = data.quests.filter(q => q.regionId === region.id);
-
-                                            return (
-                                                <>
-                                                    {settlements.length > 0 && (
-                                                        <div>
-                                                            <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--ink)' }}>Settlements</strong>
-                                                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                                                                {settlements.map(s => (
-                                                                    <li key={s.id}>
-                                                                        <button className="campaign-link-btn" style={{ background: 'none', border: 'none', color: 'var(--burgundy)', textDecoration: 'underline', cursor: 'pointer', padding: 0, textAlign: 'left', fontFamily: 'inherit' }} onClick={() => handleSelectLocation(s.id)}>
-                                                                            {s.name}
-                                                                        </button>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    )}
-                                                    {dungeons.length > 0 && (
-                                                        <div>
-                                                            <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--ink)' }}>Dungeons</strong>
-                                                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                                                                {dungeons.map(d => (
-                                                                    <li key={d.id}>
-                                                                        <button className="campaign-link-btn" style={{ background: 'none', border: 'none', color: 'var(--burgundy)', textDecoration: 'underline', cursor: 'pointer', padding: 0, textAlign: 'left', fontFamily: 'inherit' }} onClick={() => handleSelectLocation(d.id)}>
-                                                                            {d.name}
-                                                                        </button>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    )}
-                                                    {quests.length > 0 && (
-                                                        <div>
-                                                            <strong style={{ display: 'block', marginBottom: '0.25rem', color: 'var(--ink)' }}>Quests</strong>
-                                                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                                                                {quests.map(q => (
-                                                                    <li key={q.id}>
-                                                                        <span style={{ color: 'var(--ink-muted)' }}>{q.name}</span>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    )}
-                                                </>
-                                            );
-                                        })()}
-                                    </div>
                                 </div>
 
                                 <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
