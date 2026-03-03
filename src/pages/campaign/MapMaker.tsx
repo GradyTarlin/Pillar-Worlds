@@ -58,10 +58,7 @@ export function MapMaker() {
                 return; // User cancelled prompt
             }
         } else if (activeTool === 'erase') {
-            newGrid[key] = { ...currentTile, feature: 'none' };
-            delete newGrid[key].poiId;
-            delete newGrid[key].poiType;
-            delete newGrid[key].label;
+            newGrid[key] = { biome: 'ocean', feature: 'none' };
         }
 
         updateEntities('customMap', { ...currentMap, grid: newGrid });
