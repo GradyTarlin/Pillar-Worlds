@@ -66,6 +66,9 @@
     border-radius: 4px;
     position: relative;
     cursor: crosshair;
+    padding-bottom: 30px;
+    /* Fix for bottom row cutoff */
+    padding-right: 30px;
 }
 
 .map-grid {
@@ -88,7 +91,8 @@
 
 /* Biome Colors */
 .tile-plain {
-    background-color: #f7e1b5;
+    background-color: #e5d890;
+    /* Differentiated: more muted golden/grassy yellow */
 }
 
 .tile-forest {
@@ -100,7 +104,8 @@
 }
 
 .tile-desert {
-    background-color: #edc9af;
+    background-color: #f4a460;
+    /* Sandy orange to clearly separate from plains */
 }
 
 .tile-jungle {
@@ -116,7 +121,10 @@
 }
 
 .tile-taiga {
-    background-color: #3f5b4d;
+    background-color: #f0f8ff;
+    /* Snow / Alice Blue */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* So the tiles don't blend into one giant blob */
 }
 
 .tile-ocean {

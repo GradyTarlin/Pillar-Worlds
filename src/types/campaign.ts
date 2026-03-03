@@ -33,35 +33,31 @@ export interface Quest extends BaseEntity {
     regionId?: string; // Links quest to a region
 }
 
-export interface MapPin {
-    id: string;
-    x: number;
-    y: number;
-    locationId: string; // Links to 'settlement' or 'dungeon' location
-}
-
 // Map Maker Types
 export type MapBiome = 'plain' | 'forest' | 'mountain' | 'desert' | 'jungle' | 'grassland' | 'wetland' | 'taiga' | 'ocean';
 export type MapFeature = 'none' | 'river' | 'lake';
 
-export type MapPoiType = 'town' | 'city' | 'dungeon' | 'mystery';
+export type MapPoiType = 'town' | 'village' | 'city' | 'dungeon' | 'quest';
 
 export interface MapTile {
     biome: MapBiome;
     feature: MapFeature;
-    poiId?: string; // Links to a Location (Settlement/Dungeon)
+    poiId?: string; // Links to a Location (Settlement/Dungeon/Quest)
     poiType?: MapPoiType;
     label?: string; // Custom label for POIs or landmarks
+    regionId?: string; // Links tile to a Region
 }
 
 export interface CustomMap {
     width: number;
     height: number;
     grid: Record<string, MapTile>; // Key format "x,y"
+    isFinalized?: boolean;
 }
 
 export interface Region extends BaseEntity {
     climate: string;
+    customMap?: CustomMap; // Localized map for the region
 }
 
 export type LocationType = 'settlement' | 'dungeon'; // Level 2 distinctions
@@ -79,6 +75,7 @@ export interface Location extends BaseEntity {
     traps?: string;
     secrets?: string;
     loot?: string;
+    customMap?: CustomMap; // Localized map for the dungeon
 }
 
 export interface CampaignMonster {
@@ -123,8 +120,6 @@ export interface CampaignData {
     sessionLogs: SessionLog[];
     encounters: Encounter[];
     factions?: CampaignFaction[];
-    mapImageId?: string;
-    mapPins?: MapPin[];
     customMap?: CustomMap;
 }
 
@@ -141,7 +136,8 @@ export const INITIAL_CAMPAIGN_DATA: CampaignData = {
     customMap: {
         width: 40,
         height: 30,
-        grid: {}
+        grid: {},
+        isFinalized: false
     }
 };
 

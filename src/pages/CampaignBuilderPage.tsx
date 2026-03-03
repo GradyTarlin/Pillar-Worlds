@@ -8,10 +8,9 @@ import { SettlementsView } from './campaign/SettlementsView';
 import { DungeonsView } from './campaign/DungeonsView';
 import { FactionsView } from './campaign/FactionsView';
 import { EncountersView } from './campaign/EncountersView';
-import { InteractiveMap } from './campaign/InteractiveMap';
+import { UnifiedMap } from './campaign/UnifiedMap';
 import { CampaignSidebar } from './campaign/CampaignSidebar';
 import { SocialNetworkView } from './campaign/SocialNetworkView';
-import { MapMaker } from './campaign/MapMaker';
 import { useCampaignData } from '../hooks/useCampaignData';
 import './CampaignBuilderPage.css';
 
@@ -19,7 +18,7 @@ export function CampaignBuilderPage() {
     const { data, activeCampaignId, setActiveCampaignId } = useCampaignData();
     const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
     const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
-    const [viewMode, setViewMode] = useState<'world' | 'network' | 'map'>('world');
+    const [viewMode, setViewMode] = useState<'world' | 'network'>('world');
 
     const handleSelectRegion = (id: string | null) => {
         setSelectedRegionId(id);
@@ -32,9 +31,9 @@ export function CampaignBuilderPage() {
         setViewMode('world');
     };
 
-    const handleSelectViewMode = (mode: 'world' | 'network' | 'map') => {
+    const handleSelectViewMode = (mode: 'world' | 'network') => {
         setViewMode(mode);
-        if (mode === 'network' || mode === 'map') {
+        if (mode === 'network') {
             setSelectedRegionId(null);
             setSelectedLocationId(null);
         }
@@ -43,8 +42,6 @@ export function CampaignBuilderPage() {
     let headerTitle = "Campaign Manager";
     if (viewMode === 'network') {
         headerTitle = "Character Network";
-    } else if (viewMode === 'map') {
-        headerTitle = "Map Maker";
     } else if (selectedLocationId) {
         const loc = (data.locations || []).find(l => l.id === selectedLocationId);
         if (loc) headerTitle = loc.type === 'settlement' ? 'Settlement' : 'Dungeon';
@@ -103,18 +100,15 @@ export function CampaignBuilderPage() {
                         </div>
                     )}
 
-                    {activeCampaignId && viewMode === 'map' && (
-                        /* Map Maker Tool */
-                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', width: '100%', minHeight: '600px' }}>
-                            <MapMaker />
-                        </div>
-                    )}
-
                     {activeCampaignId && viewMode === 'world' && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
                         <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', width: '100%' }}>
                             <div className="campaign-row" style={{ flex: '2 1 600px', minWidth: 0, display: 'flex', flexDirection: 'column' }}>
-                                <InteractiveMap onSelectLocation={handleSelectLocation} />
+                                <UnifiedMap
+                                    context={{ type: 'world' }}
+                                    onSelectLocation={handleSelectLocation}
+                                    onSelectRegion={handleSelectRegion}
+                                />
                             </div>
                             <div className="campaign-level-1-grid" style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '1.5rem', alignSelf: 'flex-start' }}>
                                 <div className="campaign-column" style={{ marginBottom: 0, flex: '0 0 auto' }}>
@@ -144,6 +138,13 @@ export function CampaignBuilderPage() {
                                     {region.description && (
                                         <p style={{ marginBottom: '0', lineHeight: '1.5' }}>{region.description}</p>
                                     )}
+                                </div>
+
+                                <div className="campaign-level-2-map" style={{ display: 'flex', flexDirection: 'column', minHeight: '500px' }}>
+                                    <UnifiedMap
+                                        context={{ type: 'region', id: selectedRegionId }}
+                                        onSelectLocation={handleSelectLocation}
+                                    />
                                 </div>
 
                                 <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
@@ -194,6 +195,14 @@ export function CampaignBuilderPage() {
                                         )}
                                     </div>
                                 </div>
+
+                                {loc.type === 'dungeon' && (
+                                    <div className="campaign-level-2-map" style={{ display: 'flex', flexDirection: 'column', minHeight: '500px' }}>
+                                        <UnifiedMap
+                                            context={{ type: 'dungeon', id: selectedLocationId }}
+                                        />
+                                    </div>
+                                )}
 
                                 <div className="campaign-level-3-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
                                     {loc.type === 'settlement' && (
