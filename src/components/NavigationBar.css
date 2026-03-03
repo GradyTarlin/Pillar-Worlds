@@ -60,3 +60,26 @@
     color: white;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+@media (max-width: 768px) {
+    .global-nav {
+        flex-direction: column;
+        padding: 0.8rem 1rem;
+        gap: 0.8rem;
+    }
+
+    .global-nav__brand {
+        position: static;
+    }
+
+    .global-nav__links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .global-nav__links li a {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.6rem;
+    }
+}

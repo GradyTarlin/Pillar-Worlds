@@ -237,3 +237,53 @@
 .campaign-btn-secondary:hover {
     background: rgba(0, 0, 0, 0.05);
 }
+
+@media (max-width: 768px) {
+    .campaign-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .campaign-header__top {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .campaign-home-link {
+        position: static !important;
+        margin-bottom: 0.5rem;
+    }
+
+    .campaign-header__top h1 {
+        font-size: 1.8rem;
+    }
+
+    .campaign-layout {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .campaign-holistic-board {
+        height: auto;
+        min-height: auto;
+        overflow-y: visible;
+        padding: 1rem;
+    }
+
+    .campaign-level-1-wrapper>.campaign-row {
+        height: auto !important;
+        min-height: 50vh !important;
+    }
+
+    .campaign-level-1-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .campaign-column>div {
+        padding: 1rem;
+    }
+
+    .campaign-form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

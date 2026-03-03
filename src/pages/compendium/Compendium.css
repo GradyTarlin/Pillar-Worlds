@@ -391,3 +391,54 @@
     font-style: italic;
     font-size: 0.9rem;
 }
+
+@media (max-width: 768px) {
+    .compendium-page__header {
+        padding: 1.5rem 1rem;
+    }
+
+    .compendium-page__header-top {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .compendium-page__home-link {
+        margin-bottom: 0.5rem;
+    }
+
+    .compendium-page__header-top h1 {
+        font-size: 1.8rem;
+    }
+
+    .compendium-page__filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-group select,
+    .filter-group input {
+        width: 100%;
+    }
+
+    .compendium-detail {
+        max-width: 100%;
+        border-left: none;
+        border-top: 3px solid var(--ink);
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+}

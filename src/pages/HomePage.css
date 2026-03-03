@@ -75,3 +75,18 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
+
+@media (max-width: 768px) {
+  .home-page__header h1 {
+    font-size: 1.8rem;
+  }
+
+  .home-page__header {
+    padding: 1.5rem 1rem;
+  }
+
+  .home-page__nav-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
