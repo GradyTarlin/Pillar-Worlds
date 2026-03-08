@@ -1034,7 +1034,23 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                                     {inspectedEntity.economy && <li><strong>Economy:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.economy}</span></li>}
                                                 </ul>
                                             </section>
-
+                                            <section className="compendium-detail__section">
+                                                <h3>Encounters</h3>
+                                                {(() => {
+                                                    const combatEncounters = (data.encounters || []).filter(e => e.locationId === inspectedEntity.id);
+                                                    if (combatEncounters.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No encounters planned.</p>;
+                                                    return (
+                                                        <ul className="monster-traits-list">
+                                                            {combatEncounters.map(e => (
+                                                                <li key={e.id}>
+                                                                    <strong>⚔️ {e.name}</strong>
+                                                                    {e.description ? `: ${e.description}` : ''}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    );
+                                                })()}
+                                            </section>
                                         </>
                                     )}
 
@@ -1052,14 +1068,25 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                             <section className="compendium-detail__section">
                                                 <h3>Encounters</h3>
                                                 {(() => {
-                                                    const encounters = data.monsters.filter(m => m.dungeonId === inspectedEntity.id);
-                                                    if (encounters.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known monsters here.</p>;
+                                                    const monsters = (data.monsters || []).filter(m => m.dungeonId === inspectedEntity.id);
+                                                    const combatEncounters = (data.encounters || []).filter(e => e.locationId === inspectedEntity.id);
+
+                                                    if (monsters.length === 0 && combatEncounters.length === 0) {
+                                                        return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No encounters planned.</p>;
+                                                    }
+
                                                     return (
                                                         <ul className="monster-traits-list">
-                                                            {encounters.map(m => (
+                                                            {monsters.map(m => (
                                                                 <li key={m.id}>
                                                                     <strong>{m.name}</strong>
                                                                     {m.notes ? `: ${m.notes}` : ''}
+                                                                </li>
+                                                            ))}
+                                                            {combatEncounters.map(e => (
+                                                                <li key={e.id}>
+                                                                    <strong>⚔️ {e.name}</strong>
+                                                                    {e.description ? `: ${e.description}` : ''}
                                                                 </li>
                                                             ))}
                                                         </ul>
