@@ -337,7 +337,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                     updateEntities('locations', [...data.locations, {
                         id: targetId,
                         name: promptLabel.trim(),
-                        description: promptDescription.trim() || 'A newly discovered settlement',
+                        description: promptDescription.trim() || '',
                         type: 'settlement',
                         settlementType: pendingPoiTile.poiType as 'village' | 'town' | 'city',
                         regionId: selectedRegionIdForLocation || undefined,
@@ -646,9 +646,12 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
 
             {isRegionPromptOpen && (
                 <div className="map-maker-modal-overlay">
-                    <div className="map-maker-modal">
+                    <div className="map-maker-modal" style={{ maxWidth: '450px' }}>
                         <h3>Define Region</h3>
-                        <p>You selected a contiguous landmass. Assign it to a region:</p>
+                        <p style={{ fontSize: '0.95rem', color: 'var(--ink-muted)', marginBottom: '1rem' }}>
+                            A <strong>Region</strong> groups together settlements, dungeons, and quests.
+                            You've selected a contiguous landmass—assign it to a region to organize your world!
+                        </p>
                         <select
                             className="app__select"
                             value={selectedRegionIdForAssign}
@@ -686,22 +689,27 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                         <button
                             className={`tool-btn ${activeTool === 'move' ? 'active' : ''}`}
                             onClick={() => setActiveTool('move')}
+                            title="Pan the map view. Once finalized, click a tile to define it as a region or place a POI."
                         >🖐️ Move</button>
                         <button
                             className={`tool-btn ${activeTool === 'terrain' ? 'active' : ''}`}
                             onClick={() => setActiveTool('terrain')}
+                            title="Paint individual terrain tiles onto the map."
                         >🌳 Terrain</button>
                         <button
                             className={`tool-btn ${activeTool === 'bucket' ? 'active' : ''}`}
                             onClick={() => setActiveTool('bucket')}
+                            title="Fill contiguous areas of the same terrain type."
                         >🪣 Fill</button>
                         <button
                             className={`tool-btn ${activeTool === 'poi' ? 'active' : ''}`}
                             onClick={() => setActiveTool('poi')}
+                            title="Place settlements, dungeons, or quest markers. You must finalize the map to name and detailed them."
                         >📍 POI</button>
                         <button
                             className={`tool-btn ${activeTool === 'erase' ? 'active' : ''}`}
                             onClick={() => setActiveTool('erase')}
+                            title="Remove POIs or reset terrain to defaults."
                         >🧹 Erase</button>
                     </div>
 

@@ -3,12 +3,12 @@ import { useCampaignData } from '../../hooks/useCampaignData';
 import './CampaignSidebar.css';
 
 interface CampaignSidebarProps {
-    viewMode: 'world' | 'network';
+    viewMode: 'world' | 'network' | 'characters';
     selectedRegionId: string | null;
     selectedLocationId: string | null;
     onSelectRegion: (id: string | null) => void;
     onSelectLocation: (id: string | null) => void;
-    onSelectViewMode: (mode: 'world' | 'network') => void;
+    onSelectViewMode: (mode: 'world' | 'network' | 'characters') => void;
 }
 
 export function CampaignSidebar({
@@ -71,7 +71,15 @@ export function CampaignSidebar({
                     <div className={`tree-node ${viewMode === 'network' ? 'active' : ''}`} onClick={() => onSelectViewMode('network')}>
                         <span className="tree-expander" style={{ visibility: 'hidden' }}>▶</span>
                         <span className="tree-icon">🕸️</span>
-                        <span className="tree-label">Character Network</span>
+                        <span className="tree-label">Social Network</span>
+                    </div>
+                </div>
+
+                <div className="tree-folder" style={{ marginBottom: '0.5rem' }}>
+                    <div className={`tree-node ${viewMode === 'characters' ? 'active' : ''}`} onClick={() => onSelectViewMode('characters')}>
+                        <span className="tree-expander" style={{ visibility: 'hidden' }}>▶</span>
+                        <span className="tree-icon">👥</span>
+                        <span className="tree-label">Characters</span>
                     </div>
                 </div>
 
