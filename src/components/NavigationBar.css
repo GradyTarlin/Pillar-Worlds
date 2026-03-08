@@ -1,6 +1,6 @@
 .global-nav {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background: linear-gradient(to right, var(--parchment-dark) 0%, var(--parchment) 100%);
     padding: 0.8rem 2rem;
@@ -9,11 +9,12 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    gap: 2rem;
 }
 
 .global-nav__brand {
-    position: absolute;
-    left: 2rem;
+    flex-shrink: 0;
+    margin-right: auto;
 }
 
 .global-nav__brand a {
@@ -35,6 +36,8 @@
     padding: 0;
     display: flex;
     gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .global-nav__links li a {
@@ -69,7 +72,7 @@
     }
 
     .global-nav__brand {
-        position: static;
+        margin-right: 0;
     }
 
     .global-nav__links {

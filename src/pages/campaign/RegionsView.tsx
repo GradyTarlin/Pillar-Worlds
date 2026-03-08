@@ -81,7 +81,12 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
                     );
                 })}
                 {data.regions.length === 0 && (
-                    <p className="campaign-empty-state">No regions added yet. Click "+ Region" to start.</p>
+                    <div className="campaign-empty-state">
+                        <p style={{ fontWeight: 'bold', marginBottom: '0.5rem', color: 'var(--burgundy)', fontStyle: 'normal' }}>No regions added yet.</p>
+                        <p style={{ fontSize: '0.9rem', maxWidth: '600px', margin: '0 auto', lineHeight: '1.5' }}>
+                            A Region is a distinct geographical area that groups your settlements, dungeons, and quests together. You can manually create regions here by clicking <strong>"+ Region"</strong>, or you can automatically generate them by clicking on a contiguous landmass with the <strong>🖐️ Move</strong> tool on the World Map!
+                        </p>
+                    </div>
                 )}
             </div>
         </div>

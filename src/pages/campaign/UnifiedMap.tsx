@@ -46,6 +46,10 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
 
     const [inspectedRegionId, setInspectedRegionId] = useState<string | null>(null);
 
+    const [isEditingPoi, setIsEditingPoi] = useState(false);
+    const [editPoiName, setEditPoiName] = useState('');
+    const [editPoiDesc, setEditPoiDesc] = useState('');
+
     const canvasRef = useRef<HTMLDivElement>(null);
 
     // Dynamic sizing based on context
@@ -765,7 +769,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                     <div className="compendium-detail-container">
                         <div className="compendium-detail-overlay" onClick={() => setInspectedRegionId(null)}></div>
                         <div className="compendium-detail">
-                            <button className="compendium-detail__close" onClick={() => setInspectedRegionId(null)}>✕</button>
+                            <button className="compendium-detail__close" onClick={() => { setInspectedRegionId(null); setIsEditingPoi(false); }}>✕</button>
                             <header className="compendium-detail__header">
                                 <h2>{region.name}</h2>
                                 <div className="compendium-detail__tags">
@@ -773,50 +777,84 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                 </div>
                             </header>
                             <div className="compendium-detail__content">
-                                {region.description && (
-                                    <p className="compendium-detail__lore">{region.description}</p>
-                                )}
+                                {isEditingPoi ? (
+                                    <div className="campaign-entity-form" style={{ marginTop: '1rem' }}>
+                                        <div className="campaign-form-group">
+                                            <label>Name</label>
+                                            <input
+                                                type="text"
+                                                value={editPoiName}
+                                                onChange={(e) => setEditPoiName(e.target.value)}
+                                                placeholder="Name..."
+                                            />
+                                        </div>
+                                        <div className="campaign-form-group">
+                                            <label>Description</label>
+                                            <textarea
+                                                value={editPoiDesc}
+                                                onChange={(e) => setEditPoiDesc(e.target.value)}
+                                                placeholder="Lore or specifics..."
+                                                rows={4}
+                                            />
+                                        </div>
+                                        <div className="campaign-form-actions">
+                                            <button className="campaign-btn campaign-btn-primary" onClick={() => {
+                                                updateEntities('regions', data.regions.map(r => r.id === region.id ? { ...r, name: editPoiName.trim(), description: editPoiDesc.trim() } : r));
+                                                setIsEditingPoi(false);
+                                            }}>Save</button>
+                                            <button className="campaign-btn campaign-btn-secondary" onClick={() => setIsEditingPoi(false)}>Cancel</button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        {region.description && (
+                                            <p className="compendium-detail__lore">{region.description}</p>
+                                        )}
 
-                                <section className="compendium-detail__section">
-                                    <h3>Notable Locations</h3>
-                                    {linkedLocations.length === 0 ? (
-                                        <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No documented locations.</p>
-                                    ) : (
-                                        <ul className="monster-traits-list">
-                                            {linkedLocations.map(loc => (
-                                                <li key={loc.id}>
-                                                    <strong>{loc.name}</strong>
-                                                    {loc.type && <span style={{ fontSize: '0.85em', color: 'var(--ink-muted)', marginLeft: '0.5rem', textTransform: 'capitalize' }}>({loc.type})</span>}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </section>
+                                        <section className="compendium-detail__section">
+                                            <h3>Notable Locations</h3>
+                                            {linkedLocations.length === 0 ? (
+                                                <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No documented locations.</p>
+                                            ) : (
+                                                <ul className="monster-traits-list">
+                                                    {linkedLocations.map(loc => (
+                                                        <li key={loc.id}>
+                                                            <strong>{loc.name}</strong>
+                                                            {loc.type && <span style={{ fontSize: '0.85em', color: 'var(--ink-muted)', marginLeft: '0.5rem', textTransform: 'capitalize' }}>({loc.type})</span>}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </section>
 
-                                <section className="compendium-detail__section">
-                                    <h3>Active Quests</h3>
-                                    {linkedQuests.length === 0 ? (
-                                        <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known quests in this region.</p>
-                                    ) : (
-                                        <ul className="monster-traits-list">
-                                            {linkedQuests.map(q => (
-                                                <li key={q.id}>
-                                                    <strong>{q.name}</strong>
-                                                    {q.objective ? `: ${q.objective}` : ''}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </section>
+                                        <section className="compendium-detail__section">
+                                            <h3>Active Quests</h3>
+                                            {linkedQuests.length === 0 ? (
+                                                <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known quests in this region.</p>
+                                            ) : (
+                                                <ul className="monster-traits-list">
+                                                    {linkedQuests.map(q => (
+                                                        <li key={q.id}>
+                                                            <strong>{q.name}</strong>
+                                                            {q.objective ? `: ${q.objective}` : ''}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </section>
 
-                                {onSelectRegion && (
-                                    <button
-                                        className="campaign-btn campaign-btn-secondary"
-                                        style={{ width: '100%', marginTop: '1rem', padding: '0.75rem' }}
-                                        onClick={() => onSelectRegion(region.id)}
-                                    >
-                                        View Full Details
-                                    </button>
+                                        <button
+                                            className="campaign-btn campaign-btn-secondary"
+                                            style={{ width: '100%', marginTop: '1.5rem', padding: '0.75rem' }}
+                                            onClick={() => {
+                                                setEditPoiName(region.name);
+                                                setEditPoiDesc(region.description || '');
+                                                setIsEditingPoi(true);
+                                            }}
+                                        >
+                                            ✏️ Edit Region
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </div>
@@ -828,7 +866,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                 <div className="compendium-detail-container">
                     <div className="compendium-detail-overlay" onClick={() => setInspectedPoiId(null)}></div>
                     <div className="compendium-detail">
-                        <button className="compendium-detail__close" onClick={() => setInspectedPoiId(null)}>✕</button>
+                        <button className="compendium-detail__close" onClick={() => { setInspectedPoiId(null); setIsEditingPoi(false); }}>✕</button>
                         <header className="compendium-detail__header">
                             <h2>{inspectedEntity.name}</h2>
                             <div className="compendium-detail__tags">
@@ -852,23 +890,6 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                             {inspectedEntity.leader && <li><strong>Leader:</strong> {inspectedEntity.leader}</li>}
                                             {inspectedEntity.economy && <li><strong>Economy:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.economy}</span></li>}
                                         </ul>
-                                    </section>
-                                    <section className="compendium-detail__section">
-                                        <h3>Characters & NPCs</h3>
-                                        {(() => {
-                                            const chars = data.characters.filter(c => c.locationId === inspectedEntity.id);
-                                            if (chars.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known characters here.</p>;
-                                            return (
-                                                <ul className="monster-traits-list">
-                                                    {chars.map(c => (
-                                                        <li key={c.id}>
-                                                            <strong>{c.name}</strong>
-                                                            {c.role ? ` - ${c.role}` : ''}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            );
-                                        })()}
                                     </section>
                                 </>
                             )}
