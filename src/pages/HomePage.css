@@ -7,42 +7,70 @@
   padding: 2rem;
   width: 100%;
   margin: 0 auto;
-  background-color: var(--bg-main);
-  background-image: var(--parchment-texture);
-  color: var(--ink);
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(122, 31, 44, 0.2) 0%, transparent 100%),
+    url('https://www.transparenttextures.com/patterns/dark-leather.png');
 }
 
 .home-page__container {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
+  animation: fadeIn 1.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .home-page__header {
   text-align: center;
-  padding: 2rem;
-  background: var(--parchment-dark);
-  border: 2px solid var(--ink);
-  border-radius: 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  padding: 3.5rem 2rem;
+  background: var(--burgundy-dark);
+  border: 4px double var(--gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(0, 0, 0, 0.5);
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-page__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .home-page__header h1 {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-weight: 700;
   font-family: 'Cinzel', serif;
-  letter-spacing: 0.15em;
-  color: var(--burgundy);
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.2em;
+  color: var(--gold-light);
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), 0 0 20px var(--burgundy-light);
 }
 
 .home-page__tagline {
-  margin: 0.75rem 0 0;
-  font-size: 1rem;
+  margin: 1.5rem 0 0;
+  font-size: 1.4rem;
   font-weight: 500;
-  color: var(--ink);
-  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .home-page__main {
@@ -52,52 +80,82 @@
 .home-page__nav {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .home-page__nav-button {
   display: block;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 1.5rem 2.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
   font-family: 'Cinzel', serif;
   text-align: center;
   text-decoration: none;
-  color: var(--burgundy);
-  background: var(--parchment);
-  border: 2px solid var(--ink);
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  color: var(--gold-light);
+  background: var(--burgundy);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-page__nav-button::after {
+  content: '→';
+  margin-left: 1rem;
+  opacity: 0;
+  transition: var(--transition);
 }
 
 .home-page__nav-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  background: var(--burgundy-light);
+  border-color: var(--gold-light);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--gold-dark);
+  color: white;
+}
+
+.home-page__nav-button:hover::after {
+  opacity: 1;
+  margin-left: 1.5rem;
 }
 
 .home-page__button-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.home-page__button-grid .home-page__nav-button {
+  padding: 1rem;
+  font-size: 1rem;
 }
 
 @media (max-width: 768px) {
   .home-page__header h1 {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
   }
 
   .home-page__header {
-    padding: 1.5rem 1rem;
+    padding: 2.5rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .home-page__tagline {
+    font-size: 1rem;
   }
 
   .home-page__nav-button {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.85rem;
+    padding: 1.25rem 1rem;
+    font-size: 1.1rem;
   }
 
   .home-page__button-grid {
-    gap: 0.4rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

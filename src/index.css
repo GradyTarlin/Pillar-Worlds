@@ -15,17 +15,32 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Fantasy palette - darker, higher contrast */
-  --parchment: #c4b59a;
-  --parchment-dark: #a8987a;
+  /* EPIC FANTASY PALETTE */
+  --parchment: #f4e4bc;
+  --parchment-dark: #d4c49c;
+  --parchment-light: #fdf5e6;
   --ink: #1a1410;
-  --ink-muted: #2d2520;
-  --forest: #1e3a0f;
-  --forest-light: #2d5a18;
-  --gold: #9a7b0a;
-  --gold-light: #c9a227;
-  --burgundy: #5a2028;
-  --burgundy-light: #7a3038;
+  --ink-muted: #3d3530;
+  --gold: #c5a059;
+  --gold-light: #e5c079;
+  --gold-dark: #8c6e3d;
+  --burgundy: #7a1f2c;
+  --burgundy-light: #a52a3a;
+  --burgundy-dark: #4d141c;
+  --forest: #2d4a22;
+  --forest-light: #3e632f;
+
+  /* UI Tokens */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.4);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Text Styles */
+  --text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -36,6 +51,10 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(122, 31, 44, 0.1) 0%, transparent 100%),
+    url('https://www.transparenttextures.com/patterns/dark-leather.png');
 }
 
 #root {
@@ -44,24 +63,57 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  text-shadow: var(--text-shadow);
+  margin-top: 0;
+}
+
+p,
+span,
+div,
+li {
+  font-family: 'Lora', serif;
 }
 
 button {
-  border-radius: 4px;
-  padding: 0.6em 1.2em;
+  border-radius: var(--radius-sm);
+  padding: 0.6em 1.5em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+  font-weight: 600;
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition);
+  border: 1px solid var(--gold);
+  background: var(--burgundy);
+  color: var(--gold-light);
+  box-shadow: var(--shadow-sm);
+}
+
+button:hover {
+  background: var(--burgundy-light);
+  border-color: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 button:focus,
 button:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
 }
 
 /* Standardized Dropdown Select Menus */
