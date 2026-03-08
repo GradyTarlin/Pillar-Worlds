@@ -42,7 +42,7 @@ export function CharactersView({ locationId }: CharactersViewProps) {
 
     return (
         <div className="campaign-view-section">
-            <ListHeader title="Characters & NPCs" onAdd={handleAdd} addLabel="Character" />
+            <ListHeader title="Characters" onAdd={handleAdd} addLabel="Character" />
 
             <div className="campaign-cards-grid">
                 {filteredCharacters.map(char => (

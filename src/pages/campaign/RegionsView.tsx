@@ -51,10 +51,7 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
                 {data.regions.map(region => {
                     const linkedLocations = data.locations.filter(loc => loc.regionId === region.id);
                     const linkedQuests = data.quests.filter(q => q.regionId === region.id);
-                    const stats = [
-                        linkedLocations.length > 0 ? `${linkedLocations.length} locations` : null,
-                        linkedQuests.length > 0 ? `${linkedQuests.length} quests` : null
-                    ].filter(Boolean).join(', ');
+
 
                     return editingId === region.id ? (
                         <RegionEditForm
@@ -67,14 +64,34 @@ export function RegionsView({ onSelectRegion }: RegionsViewProps) {
                         <EntityCard
                             key={region.id}
                             title={region.name}
-                            subtitle={stats || 'Empty Region'}
                             description={region.description}
                             onEdit={() => setEditingId(region.id)}
                             onDelete={() => handleDelete(region.id)}
                         >
+                            <div className="campaign-entity-details-list" style={{ marginTop: '0.75rem', fontSize: '0.9rem', color: 'var(--ink-muted)' }}>
+                                {linkedLocations.length > 0 && (
+                                    <div style={{ marginBottom: '0.5rem' }}>
+                                        <div style={{ fontWeight: 'bold', borderBottom: '1px solid rgba(0,0,0,0.1)', marginBottom: '0.25rem' }}>Locations</div>
+                                        {linkedLocations.map(l => (
+                                            <div key={l.id} style={{ paddingLeft: '0.5rem' }}>• {l.name} ({l.type === 'settlement' ? 'Settlement' : 'Dungeon'})</div>
+                                        ))}
+                                    </div>
+                                )}
+                                {linkedQuests.length > 0 && (
+                                    <div>
+                                        <div style={{ fontWeight: 'bold', borderBottom: '1px solid rgba(0,0,0,0.1)', marginBottom: '0.25rem' }}>Quests</div>
+                                        {linkedQuests.map(q => (
+                                            <div key={q.id} style={{ paddingLeft: '0.5rem' }}>• {q.name}</div>
+                                        ))}
+                                    </div>
+                                )}
+                                {linkedLocations.length === 0 && linkedQuests.length === 0 && (
+                                    <div style={{ fontStyle: 'italic' }}>No locations or quests defined.</div>
+                                )}
+                            </div>
                             <div style={{ marginTop: '1rem' }}>
                                 <button className="campaign-btn-primary" style={{ width: '100%' }} onClick={() => onSelectRegion(region.id)}>
-                                    View Region
+                                    Explore Region
                                 </button>
                             </div>
                         </EntityCard>

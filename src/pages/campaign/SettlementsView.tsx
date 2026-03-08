@@ -21,10 +21,9 @@ const economyTypeLabels: Record<string, string> = {
 
 interface SettlementsViewProps {
     regionId: string;
-    onSelectLocation: (id: string) => void;
 }
 
-export function SettlementsView({ regionId, onSelectLocation }: SettlementsViewProps) {
+export function SettlementsView({ regionId }: SettlementsViewProps) {
     const { data, updateEntities } = useCampaignData();
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -104,9 +103,6 @@ export function SettlementsView({ regionId, onSelectLocation }: SettlementsViewP
                             <div style={{ marginTop: '1rem' }}>
                                 {loc.leader && <div className="campaign-entity-notes" style={{ marginBottom: '0.4rem' }}><strong>Leader:</strong> {loc.leader}</div>}
                                 {loc.economy && <div className="campaign-entity-notes" style={{ textTransform: 'capitalize', marginBottom: '0.4rem' }}><strong>Economy:</strong> {loc.economy}</div>}
-                                <button className="campaign-btn-primary" style={{ width: '100%', marginTop: '0.6rem' }} onClick={() => onSelectLocation(loc.id)}>
-                                    View Settlement
-                                </button>
                             </div>
                         </EntityCard>
                     )

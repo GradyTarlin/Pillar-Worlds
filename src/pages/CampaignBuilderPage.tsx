@@ -64,14 +64,7 @@ export function CampaignBuilderPage() {
 
                     {activeCampaignId && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
-                        <div className="campaign-level-1-wrapper" style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '1.5rem', width: '100%', height: 'calc(100vh - 160px)', minHeight: '600px' }}>
-                            <div className="campaign-map-viewport" style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
-                                <UnifiedMap
-                                    context={{ type: 'world' }}
-                                    onSelectRegion={handleSelectRegion}
-                                />
-                            </div>
-
+                        <div className="campaign-level-1-wrapper" style={{ display: 'grid', gridTemplateColumns: '400px 1fr', gap: '1.5rem', width: '100%', height: 'calc(100vh - 160px)', minHeight: '600px' }}>
                             <div className="campaign-side-panel" style={{
                                 background: 'var(--parchment)',
                                 border: '1px solid var(--ink)',
@@ -108,6 +101,13 @@ export function CampaignBuilderPage() {
                                     {activeTab === 'factions' && <FactionsView />}
                                 </div>
                             </div>
+
+                            <div className="campaign-map-viewport" style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+                                <UnifiedMap
+                                    context={{ type: 'world' }}
+                                    onSelectRegion={handleSelectRegion}
+                                />
+                            </div>
                         </div>
                     )}
 
@@ -132,7 +132,7 @@ export function CampaignBuilderPage() {
 
                                 <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
                                     <div className="campaign-column">
-                                        <SettlementsView regionId={selectedRegionId} onSelectLocation={() => { }} />
+                                        <SettlementsView regionId={selectedRegionId} />
                                     </div>
                                     <div className="campaign-column">
                                         <DungeonsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
@@ -150,41 +150,39 @@ export function CampaignBuilderPage() {
                         if (!loc) return null;
 
                         return (
-                            /* LEVEL 3: Dungeon View (Only Dungeons get a map/view now) */
-                            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                                <div className="campaign-location-overview" style={{
-                                    background: 'var(--parchment)', padding: '1.5rem', borderRadius: 'var(--radius-md)',
-                                    border: '1px solid var(--ink)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-                                }}>
-                                    <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--burgundy)', margin: '0 0 1rem 0' }}>
-                                        {loc.name}
-                                    </h2>
-                                    {loc.description && (
-                                        <p style={{ marginBottom: '1rem', lineHeight: '1.5' }}>{loc.description}</p>
-                                    )}
-                                    <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', wordBreak: 'break-word' }}>
-                                        {loc.type === 'dungeon' && (
-                                            <>
-                                                {loc.traps && <div><strong>Traps:</strong> {loc.traps}</div>}
-                                                {loc.secrets && <div><strong>Secrets:</strong> {loc.secrets}</div>}
-                                                {loc.loot && <div><strong>Loot:</strong> {loc.loot}</div>}
-                                            </>
+                            /* LEVEL 3: Dungeon View */
+                            <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '320px 1fr', gap: '2rem' }}>
+                                <div className="campaign-dungeon-specs" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                                    <div className="campaign-location-overview" style={{
+                                        background: 'var(--parchment)', padding: '1.5rem', borderRadius: 'var(--radius-md)',
+                                        border: '1px solid var(--ink)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                                    }}>
+                                        <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--burgundy)', margin: '0 0 1rem 0', fontSize: '1.5rem' }}>
+                                            {loc.name}
+                                        </h2>
+                                        {loc.description && (
+                                            <p style={{ marginBottom: '1rem', lineHeight: '1.5', fontSize: '0.95rem' }}>{loc.description}</p>
                                         )}
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                            {loc.type === 'dungeon' && (
+                                                <>
+                                                    {loc.traps && <div><strong>Traps:</strong> {loc.traps}</div>}
+                                                    {loc.secrets && <div><strong>Secrets:</strong> {loc.secrets}</div>}
+                                                    {loc.loot && <div><strong>Loot:</strong> {loc.loot}</div>}
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {loc.type === 'dungeon' && (
-                                    <div className="campaign-level-2-map" style={{ display: 'flex', flexDirection: 'column', minHeight: '500px' }}>
-                                        <UnifiedMap
-                                            context={{ type: 'dungeon', id: selectedLocationId }}
-                                        />
-                                    </div>
-                                )}
-
-                                <div className="campaign-level-3-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
                                     <div className="campaign-column">
                                         <EncountersView locationId={selectedLocationId} />
                                     </div>
+                                </div>
+
+                                <div className="campaign-level-2-map" style={{ display: 'flex', flexDirection: 'column', minHeight: '600px' }}>
+                                    <UnifiedMap
+                                        context={{ type: 'dungeon', id: selectedLocationId }}
+                                    />
                                 </div>
                             </div>
                         );
