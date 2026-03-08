@@ -118,31 +118,29 @@ function CharacterEditForm({
                 <input name="name" value={form.name} onChange={handleChange} autoFocus />
             </div>
 
-            <div className="campaign-form-row">
-                <div className="campaign-form-group">
-                    <label>Bloodline</label>
-                    <select className="app__select" name="bloodlineId" value={form.bloodlineId || ''} onChange={handleChange}>
-                        <option value="">-- Unknown / None --</option>
-                        {Object.entries(
-                            BLOODLINES.reduce((acc, b) => {
-                                const type = b.type || 'Other';
-                                if (!acc[type]) acc[type] = [];
-                                acc[type].push(b);
-                                return acc;
-                            }, {} as Record<string, typeof BLOODLINES>)
-                        ).map(([type, lines]) => (
-                            <optgroup key={type} label={type.charAt(0).toUpperCase() + type.slice(1)}>
-                                {lines.map(b => (
-                                    <option key={b.id} value={b.id}>{b.name}</option>
-                                ))}
-                            </optgroup>
-                        ))}
-                    </select>
-                </div>
-                <div className="campaign-form-group">
-                    <label>Role</label>
-                    <input name="role" value={form.role || ''} onChange={handleChange} placeholder="e.g. Fighter, Blacksmith" />
-                </div>
+            <div className="campaign-form-group">
+                <label>Bloodline</label>
+                <select className="app__select" name="bloodlineId" value={form.bloodlineId || ''} onChange={handleChange}>
+                    <option value="">-- Unknown / None --</option>
+                    {Object.entries(
+                        BLOODLINES.reduce((acc, b) => {
+                            const type = b.type || 'Other';
+                            if (!acc[type]) acc[type] = [];
+                            acc[type].push(b);
+                            return acc;
+                        }, {} as Record<string, typeof BLOODLINES>)
+                    ).map(([type, lines]) => (
+                        <optgroup key={type} label={type.charAt(0).toUpperCase() + type.slice(1)}>
+                            {lines.map(b => (
+                                <option key={b.id} value={b.id}>{b.name}</option>
+                            ))}
+                        </optgroup>
+                    ))}
+                </select>
+            </div>
+            <div className="campaign-form-group">
+                <label>Role</label>
+                <input name="role" value={form.role || ''} onChange={handleChange} placeholder="e.g. Fighter, Blacksmith" />
             </div>
             <div className="campaign-form-group">
                 <label>Description</label>
@@ -198,15 +196,13 @@ function CharacterEditForm({
                     )}
                 </select>
             </div>
-            <div className="campaign-form-row">
-                <div className="campaign-form-group">
-                    <label>Goal</label>
-                    <input name="goal" value={form.goal || ''} onChange={handleChange} placeholder="e.g. Find the lost artifact" />
-                </div>
-                <div className="campaign-form-group">
-                    <label>Plan</label>
-                    <input name="plan" value={form.plan || ''} onChange={handleChange} placeholder="e.g. Hire mercenaries" />
-                </div>
+            <div className="campaign-form-group">
+                <label>Goal</label>
+                <input name="goal" value={form.goal || ''} onChange={handleChange} placeholder="e.g. Find the lost artifact" />
+            </div>
+            <div className="campaign-form-group">
+                <label>Plan</label>
+                <input name="plan" value={form.plan || ''} onChange={handleChange} placeholder="e.g. Hire mercenaries" />
             </div>
             <div className="campaign-form-group">
                 <label>Private Notes</label>
