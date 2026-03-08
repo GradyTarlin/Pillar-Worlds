@@ -16,6 +16,7 @@ export function CampaignBuilderPage() {
     const { data, activeCampaignId, setActiveCampaignId, campaigns } = useCampaignData();
     const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
     const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
+    const [activeTab, setActiveTab] = useState<'regions' | 'characters' | 'factions'>('regions');
 
     const handleSelectRegion = (id: string | null) => {
         setSelectedRegionId(id);
@@ -63,22 +64,48 @@ export function CampaignBuilderPage() {
 
                     {activeCampaignId && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
-                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
-                            <div className="campaign-row" style={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: '500px' }}>
+                        <div className="campaign-level-1-wrapper" style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '1.5rem', width: '100%', height: 'calc(100vh - 160px)', minHeight: '600px' }}>
+                            <div className="campaign-map-viewport" style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
                                 <UnifiedMap
                                     context={{ type: 'world' }}
                                     onSelectRegion={handleSelectRegion}
                                 />
                             </div>
-                            <div className="campaign-level-1-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem', width: '100%' }}>
-                                <div className="campaign-column">
-                                    <RegionsView onSelectRegion={handleSelectRegion} />
+
+                            <div className="campaign-side-panel" style={{
+                                background: 'var(--parchment)',
+                                border: '1px solid var(--ink)',
+                                borderRadius: 'var(--radius-md)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                overflow: 'hidden'
+                            }}>
+                                <div className="campaign-side-panel__tabs" style={{ display: 'flex', borderBottom: '1px solid var(--ink)' }}>
+                                    {(['regions', 'characters', 'factions'] as const).map(tab => (
+                                        <button
+                                            key={tab}
+                                            className={`campaign-side-tab ${activeTab === tab ? 'active' : ''}`}
+                                            onClick={() => setActiveTab(tab)}
+                                            style={{
+                                                flex: 1,
+                                                padding: '0.75rem',
+                                                border: 'none',
+                                                background: activeTab === tab ? 'var(--burgundy)' : 'transparent',
+                                                color: activeTab === tab ? 'white' : 'var(--ink)',
+                                                cursor: 'pointer',
+                                                fontFamily: 'Cinzel, serif',
+                                                fontSize: '0.9rem',
+                                                transition: 'all 0.2s'
+                                            }}
+                                        >
+                                            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                                        </button>
+                                    ))}
                                 </div>
-                                <div className="campaign-column">
-                                    <CharactersView />
-                                </div>
-                                <div className="campaign-column">
-                                    <FactionsView />
+                                <div className="campaign-side-panel__content" style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
+                                    {activeTab === 'regions' && <RegionsView onSelectRegion={handleSelectRegion} />}
+                                    {activeTab === 'characters' && <CharactersView />}
+                                    {activeTab === 'factions' && <FactionsView />}
                                 </div>
                             </div>
                         </div>

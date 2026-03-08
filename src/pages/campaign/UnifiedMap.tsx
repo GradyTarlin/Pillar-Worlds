@@ -183,7 +183,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
             if (visited.has(current)) continue;
 
             visited.add(current);
-            const tile = grid[current] || { terrain: 'ocean' };
+            const tile = grid[current] || { terrain: context.type === 'world' ? 'ocean' : 'darkness' };
 
             // Only count non-ocean tiles that haven't been assigned to a region yet
             if (tile.terrain !== 'ocean') {
@@ -215,7 +215,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
             if (visited.has(current)) continue;
 
             visited.add(current);
-            const tile = newGrid[current] || { terrain: 'ocean' };
+            const tile = newGrid[current] || { terrain: context.type === 'world' ? 'ocean' : 'darkness' };
 
             if (tile.terrain === targetTerrain) {
                 area.push(current);
