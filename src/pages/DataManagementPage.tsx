@@ -120,13 +120,13 @@ export function DataManagementPage() {
     };
 
     return (
-        <div className="data-page">
-            <header className="data-page__header">
-                <div className="data-page__header-top">
-                    <Link to="/" className="data-page__home-link">← Home</Link>
+        <div className="compendium-page">
+            <header className="page-header">
+                <div className="page-header__top">
+                    <Link to="/" className="page-header__home-link">← Home</Link>
                     <h1>Data Management</h1>
                 </div>
-                <p className="data-page__subtitle">Backup and Restore your Characters & Campaigns</p>
+                <p className="page-header__subtitle">Backup and restore your heroes & worlds</p>
             </header>
 
             <main className="data-page__main">

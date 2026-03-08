@@ -22,21 +22,21 @@ export function HomePage() {
               Character Creation
             </Link>
             <div className="home-page__button-grid">
-              <Link to="/monsters" className="home-page__nav-button" style={{ textAlign: 'center' }}>
+              <Link to="/monsters" className="home-page__nav-button">
                 Monsters
               </Link>
-              <Link to="/equipment" className="home-page__nav-button" style={{ textAlign: 'center' }}>
+              <Link to="/equipment" className="home-page__nav-button">
                 Equipment
               </Link>
-              <Link to="/abilities" className="home-page__nav-button" style={{ textAlign: 'center' }}>
+              <Link to="/abilities" className="home-page__nav-button">
                 Abilities
               </Link>
             </div>
-            <Link to="/campaign-builder" className="home-page__nav-button" style={{ marginTop: '1rem', background: 'var(--burgundy)', color: 'white' }}>
+            <Link to="/campaign-builder" className="home-page__nav-button home-page__nav-button--primary">
               Campaign Builder
             </Link>
-            <Link to="/settings" className="home-page__nav-button" style={{ marginTop: '0.2rem', borderColor: 'var(--ink)' }}>
-              Data & Settings
+            <Link to="/settings" className="home-page__nav-button">
+              Data
             </Link>
           </nav>
         </main>

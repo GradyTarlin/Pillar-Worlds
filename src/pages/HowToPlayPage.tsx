@@ -5,12 +5,12 @@ import './compendium/Compendium.css';
 export function HowToPlayPage() {
     return (
         <div className="compendium-page">
-            <header className="compendium-page__header" style={{ textAlign: 'center' }}>
-                <div className="compendium-page__header-top" style={{ justifyContent: 'center', position: 'relative' }}>
-                    <Link to="/" className="compendium-page__home-link">← Home</Link>
+            <header className="page-header">
+                <div className="page-header__top">
+                    <Link to="/" className="page-header__home-link">← Home</Link>
                     <h1>How To Play</h1>
                 </div>
-                <p className="compendium-page__subtitle" style={{ fontSize: '1.2rem', color: 'var(--ink-muted)', marginTop: '0.25rem', marginBottom: '0.5rem', fontStyle: 'italic' }}>Rulebook and guides for Pillar Worlds</p>
+                <p className="page-header__subtitle">Rulebook and guides for Pillar Worlds</p>
             </header>
 
             <main className="how-to-play-page__main">

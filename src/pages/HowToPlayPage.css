@@ -1,28 +1,34 @@
 .how-to-play-page__main {
-    background: var(--parchment);
-    border: 0;
-    border-radius: 0;
-    padding: 3rem 5%;
-    color: var(--ink);
+    padding: 3rem 1rem;
     flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .how-to-play-article {
-    max-width: 800px;
+    max-width: 900px;
+    width: 100%;
     margin: 0 auto;
+    background: var(--parchment);
+    padding: 4rem 10%;
+    border: 3px double var(--gold-dark);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    color: var(--ink);
+    position: relative;
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
 }
 
 .how-to-play-article h2 {
     font-family: 'Cinzel', serif;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--burgundy);
-    border-bottom: 2px solid var(--burgundy);
-    padding-bottom: 0.5rem;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    border-bottom: 3px double var(--gold-dark);
+    padding-bottom: 0.75rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .how-to-play-article h2:first-of-type {
@@ -32,81 +38,96 @@
 .how-to-play-article h3 {
     font-family: 'Cinzel', serif;
     font-weight: 700;
-    font-size: 1.4rem;
-    color: var(--ink);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    color: var(--burgundy-dark);
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    border-left: 4px solid var(--burgundy);
+    padding-left: 1rem;
 }
 
 .how-to-play-article p {
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 1.15rem;
+    line-height: 1.8;
     color: var(--ink);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .how-to-play-article ul {
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 1.15rem;
+    line-height: 1.8;
     color: var(--ink);
-    margin-bottom: 1.5rem;
-    padding-left: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 2.5rem;
 }
 
 .how-to-play-article li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .divider {
     border: 0;
-    height: 2px;
-    background: var(--burgundy);
-    margin: 3rem auto;
-    width: 50%;
-    opacity: 0.5;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 4rem auto;
+    width: 80%;
 }
 
 .skill-action {
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(26, 20, 16, 0.2);
-    border-left: 4px solid var(--ink);
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.5rem;
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(26, 20, 16, 0.1);
+    border-left: 5px solid var(--burgundy);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
 }
 
 .skill-action h4 {
-    margin: 0 0 0.5rem 0;
-    font-family: 'Lora', serif;
+    margin: 0 0 0.75rem 0;
+    font-family: 'Cinzel', serif;
     font-size: 1.2rem;
-    color: var(--burgundy);
+    color: var(--burgundy-dark);
     font-weight: 700;
+    letter-spacing: 0.05em;
 }
 
 .skill-check-details {
-    font-family: monospace;
-    font-size: 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
     font-weight: bold;
-    color: var(--ink);
-    background: rgba(255, 255, 255, 0.4);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    color: var(--burgundy);
+    background: rgba(122, 31, 44, 0.08);
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(122, 31, 44, 0.2);
+    border-radius: var(--radius-sm);
     display: inline-block;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
 }
 
 .skill-action p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .stats-derived-list {
-    background: rgba(255, 255, 255, 0.3);
-    padding: 1.5rem 1.5rem 1.5rem 3rem;
-    border: 1px dashed var(--burgundy);
-    border-radius: 4px;
+    background: rgba(122, 31, 44, 0.05);
+    padding: 2rem 2rem 2rem 3.5rem;
+    border: 2px dashed var(--gold-dark);
+    border-radius: var(--radius-md);
+    list-style-type: square;
 }
 
 .stats-derived-list li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
+    color: var(--ink);
+}
+
+@media (max-width: 768px) {
+    .how-to-play-article {
+        padding: 3rem 1.5rem;
+        border-width: 2px;
+    }
 }

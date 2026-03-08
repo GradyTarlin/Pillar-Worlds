@@ -88,13 +88,13 @@ export function EquipmentCompendiumPage() {
 
     return (
         <div className="compendium-page">
-            <header className="compendium-page__header" style={{ textAlign: 'center' }}>
-                <div className="compendium-page__header-top" style={{ justifyContent: 'center', position: 'relative' }}>
-                    <Link to="/" className="compendium-page__home-link">← Home</Link>
+            <header className="page-header">
+                <div className="page-header__top">
+                    <Link to="/" className="page-header__home-link">← Home</Link>
                     <h1>Equipment Archive</h1>
                 </div>
-                <p className="compendium-page__subtitle" style={{ fontSize: '1.2rem', color: 'var(--ink-muted)', marginTop: '0.25rem', marginBottom: '0.5rem', fontStyle: 'italic' }}>Browse weapons, armour, and items</p>
-                <div className="compendium-page__filters" style={{ justifyContent: 'center' }}>
+                <p className="page-header__subtitle">Browse weapons, armour, and items</p>
+                <div className="compendium-page__filters">
                     <div className="filter-group">
                         <label htmlFor="type-filter">Type: </label>
                         <select

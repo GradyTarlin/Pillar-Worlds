@@ -2,49 +2,6 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: var(--bg-main);
-    background-image: var(--parchment-texture);
-    color: var(--ink);
-}
-
-.data-page__header {
-    padding: 2rem 5%;
-    border-bottom: 3px double var(--ink);
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.data-page__header-top {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.data-page__header-top h1 {
-    margin: 0;
-    font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    color: var(--burgundy);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.data-page__home-link {
-    text-decoration: none;
-    color: var(--ink);
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: color 0.2s;
-}
-
-.data-page__home-link:hover {
-    color: var(--burgundy);
-}
-
-.data-page__subtitle {
-    margin-top: 1rem;
-    font-size: 1.1rem;
-    color: #444;
-    font-style: italic;
 }
 
 .data-page__main {
@@ -59,82 +16,95 @@
 }
 
 .data-panel {
-    background: rgba(255, 255, 255, 0.6);
-    border: 2px solid var(--ink);
-    border-radius: 6px;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: var(--parchment);
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+    border: 3px double var(--gold-dark);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    color: var(--ink);
 }
 
 .data-panel h3 {
     margin-top: 0;
     font-family: 'Cinzel', serif;
     color: var(--burgundy);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--gold-dark);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
 }
 
 .data-panel p {
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
 }
 
 .data-btn {
-    padding: 0.75rem 1.5rem;
+    padding: 0.8rem 2rem;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
     font-family: 'Cinzel', serif;
     font-weight: bold;
     font-size: 1.1rem;
-    transition: all 0.2s;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: var(--shadow-sm);
 }
 
 .data-btn.primary {
     background: var(--burgundy);
-    color: #fff;
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
 }
 
 .data-btn.primary:hover {
-    background: var(--ink);
+    background: var(--burgundy-light);
+    border-color: var(--gold-light);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .data-btn.secondary {
-    background: transparent;
-    color: var(--ink);
-    border: 2px solid var(--ink);
+    background: var(--parchment-light);
+    color: var(--burgundy);
+    border: 2px solid var(--burgundy);
 }
 
 .data-btn.secondary:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--burgundy);
+    color: var(--gold-light);
 }
 
 .data-status {
-    padding: 1rem;
-    border-radius: 6px;
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
     text-align: center;
     font-weight: bold;
-    animation: fadeIn 0.3s ease;
+    font-family: 'Cinzel', serif;
+    animation: fadeInDown 0.4s ease;
+    box-shadow: var(--shadow-md);
 }
 
 .data-status.success {
     background: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #a5d6a7;
+    color: #1b5e20;
+    border: 2px solid #a5d6a7;
 }
 
 .data-status.error {
     background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef9a9a;
+    color: #b71c1c;
+    border: 2px solid #ef9a9a;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInDown {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-20px);
     }
 
     to {
@@ -144,28 +114,15 @@
 }
 
 @media (max-width: 768px) {
-    .data-page__header {
-        padding: 1.5rem 1rem;
-    }
-
-    .data-page__header-top {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .data-page__home-link {
-        margin-bottom: 0.5rem;
-    }
-
-    .data-page__header-top h1 {
-        font-size: 1.8rem;
-    }
-
     .data-page__main {
-        padding: 1.5rem 1rem;
+        padding: 2rem 1rem;
     }
 
     .data-panel {
-        padding: 1rem;
+        padding: 1.5rem;
+    }
+
+    .data-panel h3 {
+        font-size: 1.3rem;
     }
 }

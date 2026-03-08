@@ -89,8 +89,7 @@
     flex: 1 1 auto;
     width: 100%;
     background: var(--parchment);
-    background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
-    /* subtle texture */
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
     border: 3px solid var(--gold-dark);
     border-radius: var(--radius-md);
     display: flex;
@@ -98,6 +97,7 @@
     box-shadow: var(--shadow-lg);
     margin-bottom: 2.5rem;
     position: relative;
+    color: var(--ink);
 }
 
 .campaign-column::after {

@@ -125,12 +125,12 @@ export function CharacterCreationPage() {
 
   return (
     <div className="app">
-      <header className="app__header" style={{ textAlign: 'center' }}>
-        <div className="app__header-top" style={{ justifyContent: 'center', position: 'relative' }}>
-          <Link to="/" className="app__home-link" style={{ position: 'absolute', left: 0 }}>← Home</Link>
+      <header className="page-header">
+        <div className="page-header__top">
+          <Link to="/" className="page-header__home-link">← Home</Link>
           <h1>Character Creation</h1>
         </div>
-        <p className="app__subtitle" style={{ fontSize: '1.2rem', color: 'var(--ink-muted)', marginTop: '0.25rem', marginBottom: '0.5rem', fontStyle: 'italic' }}>Forge your next hero</p>
+        <p className="page-header__subtitle">Forge your next hero</p>
       </header>
 
       <div className="app__content">
