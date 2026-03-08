@@ -21,28 +21,28 @@ export function CharactersView({ locationId }: CharactersViewProps) {
             locationId,
             affiliation: locationId ? [locationId] : []
         };
-        updateEntities('characters', [...(data.characters || []), newChar]);
+        updateEntities('characters', [...data.characters, newChar]);
         setEditingId(newChar.id);
     };
 
     const handleDelete = (id: string) => {
         if (confirm('Are you sure you want to delete this character?')) {
-            updateEntities('characters', (data.characters || []).filter(c => c.id !== id));
+            updateEntities('characters', data.characters.filter(c => c.id !== id));
         }
     };
 
     const handleSave = (updated: CampaignCharacter) => {
-        updateEntities('characters', (data.characters || []).map(c => c.id === updated.id ? updated : c));
+        updateEntities('characters', data.characters.map(c => c.id === updated.id ? updated : c));
         setEditingId(null);
     };
 
     const filteredCharacters = locationId
-        ? (data.characters || []).filter(c => c.locationId === locationId)
-        : (data.characters || []);
+        ? data.characters.filter(c => c.locationId === locationId)
+        : data.characters;
 
     return (
         <div className="campaign-view-section">
-            <ListHeader title="Characters" onAdd={handleAdd} addLabel="Character" />
+            <ListHeader title="Characters & NPCs" onAdd={handleAdd} addLabel="Character" />
 
             <div className="campaign-cards-grid">
                 {filteredCharacters.map(char => (
@@ -117,46 +117,32 @@ function CharacterEditForm({
                 <label>Name</label>
                 <input name="name" value={form.name} onChange={handleChange} autoFocus />
             </div>
-            <div className="campaign-form-group">
-                <label>Current Location</label>
-                <select className="app__select" name="locationId" value={form.locationId || ''} onChange={handleChange}>
-                    <option value="">-- Free Roaming / Unknown --</option>
-                    {data.locations && data.locations.length > 0 && (
-                        <>
-                            <optgroup label="Settlements">
-                                {data.locations.filter((l: { id: string, name: string, type: string }) => l.type === 'settlement').map((l: { id: string, name: string, type: string }) => <option key={l.id} value={l.id}>{l.name}</option>)}
-                            </optgroup>
-                            <optgroup label="Dungeons">
-                                {data.locations.filter((l: { id: string, name: string, type: string }) => l.type === 'dungeon').map((l: { id: string, name: string, type: string }) => <option key={l.id} value={l.id}>{l.name}</option>)}
-                            </optgroup>
-                        </>
-                    )}
-                </select>
-            </div>
 
-            <div className="campaign-form-group">
-                <label>Bloodline</label>
-                <select className="app__select" name="bloodlineId" value={form.bloodlineId || ''} onChange={handleChange}>
-                    <option value="">-- Unknown / None --</option>
-                    {Object.entries(
-                        BLOODLINES.reduce((acc, b) => {
-                            const type = b.type || 'Other';
-                            if (!acc[type]) acc[type] = [];
-                            acc[type].push(b);
-                            return acc;
-                        }, {} as Record<string, typeof BLOODLINES>)
-                    ).map(([type, lines]) => (
-                        <optgroup key={type} label={type.charAt(0).toUpperCase() + type.slice(1)}>
-                            {lines.map(b => (
-                                <option key={b.id} value={b.id}>{b.name}</option>
-                            ))}
-                        </optgroup>
-                    ))}
-                </select>
-            </div>
-            <div className="campaign-form-group">
-                <label>Role</label>
-                <input name="role" value={form.role || ''} onChange={handleChange} placeholder="e.g. Fighter, Blacksmith" />
+            <div className="campaign-form-row">
+                <div className="campaign-form-group">
+                    <label>Bloodline</label>
+                    <select className="app__select" name="bloodlineId" value={form.bloodlineId || ''} onChange={handleChange}>
+                        <option value="">-- Unknown / None --</option>
+                        {Object.entries(
+                            BLOODLINES.reduce((acc, b) => {
+                                const type = b.type || 'Other';
+                                if (!acc[type]) acc[type] = [];
+                                acc[type].push(b);
+                                return acc;
+                            }, {} as Record<string, typeof BLOODLINES>)
+                        ).map(([type, lines]) => (
+                            <optgroup key={type} label={type.charAt(0).toUpperCase() + type.slice(1)}>
+                                {lines.map(b => (
+                                    <option key={b.id} value={b.id}>{b.name}</option>
+                                ))}
+                            </optgroup>
+                        ))}
+                    </select>
+                </div>
+                <div className="campaign-form-group">
+                    <label>Role</label>
+                    <input name="role" value={form.role || ''} onChange={handleChange} placeholder="e.g. Fighter, Blacksmith" />
+                </div>
             </div>
             <div className="campaign-form-group">
                 <label>Description</label>
@@ -212,13 +198,15 @@ function CharacterEditForm({
                     )}
                 </select>
             </div>
-            <div className="campaign-form-group">
-                <label>Goal</label>
-                <input name="goal" value={form.goal || ''} onChange={handleChange} placeholder="e.g. Find the lost artifact" />
-            </div>
-            <div className="campaign-form-group">
-                <label>Plan</label>
-                <input name="plan" value={form.plan || ''} onChange={handleChange} placeholder="e.g. Hire mercenaries" />
+            <div className="campaign-form-row">
+                <div className="campaign-form-group">
+                    <label>Goal</label>
+                    <input name="goal" value={form.goal || ''} onChange={handleChange} placeholder="e.g. Find the lost artifact" />
+                </div>
+                <div className="campaign-form-group">
+                    <label>Plan</label>
+                    <input name="plan" value={form.plan || ''} onChange={handleChange} placeholder="e.g. Hire mercenaries" />
+                </div>
             </div>
             <div className="campaign-form-group">
                 <label>Private Notes</label>

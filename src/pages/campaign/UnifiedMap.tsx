@@ -49,6 +49,14 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
     const [isEditingPoi, setIsEditingPoi] = useState(false);
     const [editPoiName, setEditPoiName] = useState('');
     const [editPoiDesc, setEditPoiDesc] = useState('');
+    const [editPoiType, setEditPoiType] = useState<string>('');
+    const [editPoiEconomy, setEditPoiEconomy] = useState<string>('');
+    const [editPoiLeader, setEditPoiLeader] = useState('');
+    const [editPoiTraps, setEditPoiTraps] = useState('');
+    const [editPoiSecrets, setEditPoiSecrets] = useState('');
+    const [editPoiLoot, setEditPoiLoot] = useState('');
+    const [editQuestObjective, setEditQuestObjective] = useState('');
+    const [editQuestReward, setEditQuestReward] = useState('');
 
     const canvasRef = useRef<HTMLDivElement>(null);
 
@@ -820,7 +828,9 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                                     {linkedLocations.map(loc => (
                                                         <li key={loc.id}>
                                                             <strong>{loc.name}</strong>
-                                                            {loc.type && <span style={{ fontSize: '0.85em', color: 'var(--ink-muted)', marginLeft: '0.5rem', textTransform: 'capitalize' }}>({loc.type})</span>}
+                                                            <span style={{ fontSize: '0.85em', color: 'var(--ink-muted)', marginLeft: '0.5rem', textTransform: 'capitalize' }}>
+                                                                ({(loc as any).settlementType || loc.type || 'Location'})
+                                                            </span>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -843,17 +853,30 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                             )}
                                         </section>
 
-                                        <button
-                                            className="campaign-btn campaign-btn-secondary"
-                                            style={{ width: '100%', marginTop: '1.5rem', padding: '0.75rem' }}
-                                            onClick={() => {
-                                                setEditPoiName(region.name);
-                                                setEditPoiDesc(region.description || '');
-                                                setIsEditingPoi(true);
-                                            }}
-                                        >
-                                            ✏️ Edit Region
-                                        </button>
+                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+                                            {onSelectRegion && (
+                                                <button
+                                                    className="campaign-btn campaign-btn-secondary"
+                                                    style={{ flex: 1, padding: '0.75rem' }}
+                                                    onClick={() => onSelectRegion(region.id)}
+                                                >
+                                                    View Full Details
+                                                </button>
+                                            )}
+                                            {!isEditingPoi && (
+                                                <button
+                                                    className="campaign-btn campaign-btn-primary"
+                                                    style={{ flex: 1, padding: '0.75rem' }}
+                                                    onClick={() => {
+                                                        setEditPoiName(region.name);
+                                                        setEditPoiDesc(region.description || '');
+                                                        setIsEditingPoi(true);
+                                                    }}
+                                                >
+                                                    ✏️ Edit
+                                                </button>
+                                            )}
+                                        </div>
                                     </>
                                 )}
                             </div>
@@ -877,62 +900,213 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                             </div>
                         </header>
                         <div className="compendium-detail__content">
-                            {inspectedEntity.description && (
-                                <p className="compendium-detail__lore">{inspectedEntity.description}</p>
-                            )}
+                            {isEditingPoi ? (
+                                <div className="campaign-entity-form" style={{ marginTop: '1rem' }}>
+                                    <div className="campaign-form-group">
+                                        <label>Name</label>
+                                        <input
+                                            type="text"
+                                            value={editPoiName}
+                                            onChange={(e) => setEditPoiName(e.target.value)}
+                                            placeholder="Name..."
+                                        />
+                                    </div>
+                                    <div className="campaign-form-group">
+                                        <label>Description</label>
+                                        <textarea
+                                            value={editPoiDesc}
+                                            onChange={(e) => setEditPoiDesc(e.target.value)}
+                                            placeholder="Lore or specifics..."
+                                            rows={4}
+                                        />
+                                    </div>
 
-                            {(inspectedEntity.type === 'settlement' || ['village', 'town', 'city'].includes(inspectedEntity.type || '')) && (
-                                <>
-                                    <section className="compendium-detail__section">
-                                        <h3>Settlement Details</h3>
-                                        <ul className="monster-stats-list" style={{ gap: '1rem', flexWrap: 'wrap', fontSize: '1rem' }}>
-                                            {(inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')) && <li><strong>Type:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')}</span></li>}
-                                            {inspectedEntity.leader && <li><strong>Leader:</strong> {inspectedEntity.leader}</li>}
-                                            {inspectedEntity.economy && <li><strong>Economy:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.economy}</span></li>}
-                                        </ul>
-                                    </section>
-                                </>
-                            )}
+                                    {(inspectedEntity.type === 'settlement' || ['village', 'town', 'city'].includes(inspectedEntity.type || '')) && (
+                                        <>
+                                            <div className="campaign-form-group">
+                                                <label>Settlement Size</label>
+                                                <select className="app__select" value={editPoiType} onChange={(e) => setEditPoiType(e.target.value)}>
+                                                    <option value="village">Village</option>
+                                                    <option value="town">Town</option>
+                                                    <option value="city">City</option>
+                                                </select>
+                                            </div>
+                                            <div className="campaign-form-group">
+                                                <label>Economy</label>
+                                                <select className="app__select" value={editPoiEconomy} onChange={(e) => setEditPoiEconomy(e.target.value)}>
+                                                    <option value="subsistence">Subsistence</option>
+                                                    <option value="trading">Trading</option>
+                                                    <option value="industrial">Industrial</option>
+                                                    <option value="wealthy">Wealthy</option>
+                                                </select>
+                                            </div>
+                                            <div className="campaign-form-group">
+                                                <label>Leader</label>
+                                                <input
+                                                    type="text"
+                                                    value={editPoiLeader}
+                                                    onChange={(e) => setEditPoiLeader(e.target.value)}
+                                                    placeholder="Who runs this place?"
+                                                />
+                                            </div>
+                                        </>
+                                    )}
 
-                            {inspectedEntity.type === 'dungeon' && (
+                                    {inspectedEntity.type === 'dungeon' && (
+                                        <>
+                                            <div className="campaign-form-group">
+                                                <label>Traps</label>
+                                                <input value={editPoiTraps} onChange={(e) => setEditPoiTraps(e.target.value)} placeholder="Spikes, pits..." />
+                                            </div>
+                                            <div className="campaign-form-group">
+                                                <label>Secrets</label>
+                                                <input value={editPoiSecrets} onChange={(e) => setEditPoiSecrets(e.target.value)} placeholder="Hidden doors..." />
+                                            </div>
+                                            <div className="campaign-form-group">
+                                                <label>Loot</label>
+                                                <input value={editPoiLoot} onChange={(e) => setEditPoiLoot(e.target.value)} placeholder="Treasures..." />
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {inspectedEntity.entityType === 'quest' && (
+                                        <>
+                                            <div className="campaign-form-group">
+                                                <label>Objective</label>
+                                                <input value={editQuestObjective} onChange={(e) => setEditQuestObjective(e.target.value)} placeholder="Goal..." />
+                                            </div>
+                                            <div className="campaign-form-group">
+                                                <label>Reward</label>
+                                                <input value={editQuestReward} onChange={(e) => setEditQuestReward(e.target.value)} placeholder="Payment..." />
+                                            </div>
+                                        </>
+                                    )}
+
+                                    <div className="campaign-form-actions">
+                                        <button className="campaign-btn campaign-btn-primary" onClick={() => {
+                                            if (inspectedEntity.entityType === 'quest') {
+                                                updateEntities('quests', data.quests.map(q => q.id === inspectedEntity.id ? {
+                                                    ...q,
+                                                    name: editPoiName.trim(),
+                                                    description: editPoiDesc.trim(),
+                                                    objective: editQuestObjective.trim(),
+                                                    reward: editQuestReward.trim()
+                                                } : q));
+                                            } else {
+                                                updateEntities('locations', data.locations.map(l => l.id === inspectedEntity.id ? {
+                                                    ...l,
+                                                    name: editPoiName.trim(),
+                                                    description: editPoiDesc.trim(),
+                                                    settlementType: editPoiType as any,
+                                                    economy: editPoiEconomy as any,
+                                                    leader: editPoiLeader,
+                                                    traps: editPoiTraps,
+                                                    secrets: editPoiSecrets,
+                                                    loot: editPoiLoot
+                                                } : l));
+                                            }
+                                            setIsEditingPoi(false);
+                                        }}>Save</button>
+                                        <button className="campaign-btn campaign-btn-secondary" onClick={() => setIsEditingPoi(false)}>Cancel</button>
+                                    </div>
+                                </div>
+                            ) : (
                                 <>
-                                    <section className="compendium-detail__section">
-                                        <h3>Dungeon Data</h3>
-                                        <ul className="monster-traits-list">
-                                            {inspectedEntity.traps && <li><strong>Traps:</strong> {inspectedEntity.traps}</li>}
-                                            {inspectedEntity.secrets && <li><strong>Secrets:</strong> {inspectedEntity.secrets}</li>}
-                                            {inspectedEntity.loot && <li><strong>Loot:</strong> {inspectedEntity.loot}</li>}
-                                            {!inspectedEntity.traps && !inspectedEntity.secrets && !inspectedEntity.loot && <li>No specific mechanics defined.</li>}
-                                        </ul>
-                                    </section>
-                                    <section className="compendium-detail__section">
-                                        <h3>Encounters</h3>
-                                        {(() => {
-                                            const encounters = data.monsters.filter(m => m.dungeonId === inspectedEntity.id);
-                                            if (encounters.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known monsters here.</p>;
-                                            return (
-                                                <ul className="monster-traits-list">
-                                                    {encounters.map(m => (
-                                                        <li key={m.id}>
-                                                            <strong>{m.name}</strong>
-                                                            {m.notes ? `: ${m.notes}` : ''}
-                                                        </li>
-                                                    ))}
+                                    {inspectedEntity.description && (
+                                        <p className="compendium-detail__lore">{inspectedEntity.description}</p>
+                                    )}
+
+                                    {(inspectedEntity.type === 'settlement' || ['village', 'town', 'city'].includes(inspectedEntity.type || '')) && (
+                                        <>
+                                            <section className="compendium-detail__section">
+                                                <h3>Settlement Details</h3>
+                                                <ul className="monster-stats-list" style={{ gap: '1rem', flexWrap: 'wrap', fontSize: '1rem' }}>
+                                                    {(inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')) && <li><strong>Type:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')}</span></li>}
+                                                    {inspectedEntity.leader && <li><strong>Leader:</strong> {inspectedEntity.leader}</li>}
+                                                    {inspectedEntity.economy && <li><strong>Economy:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.economy}</span></li>}
                                                 </ul>
-                                            );
-                                        })()}
-                                    </section>
-                                </>
-                            )}
+                                            </section>
+                                            <section className="compendium-detail__section">
+                                                <h3>Characters & NPCs</h3>
+                                                {(() => {
+                                                    const chars = data.characters.filter(c => c.locationId === inspectedEntity.id);
+                                                    if (chars.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known characters here.</p>;
+                                                    return (
+                                                        <ul className="monster-traits-list">
+                                                            {chars.map(c => (
+                                                                <li key={c.id}>
+                                                                    <strong>{c.name}</strong>
+                                                                    {c.role ? ` - ${c.role}` : ''}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    );
+                                                })()}
+                                            </section>
+                                        </>
+                                    )}
 
-                            {inspectedEntity.entityType === 'quest' && (
-                                <section className="compendium-detail__section">
-                                    <h3>Quest Details</h3>
-                                    <ul className="monster-traits-list">
-                                        {inspectedEntity.objective && <li><strong>Objective:</strong> {inspectedEntity.objective}</li>}
-                                        {inspectedEntity.reward && <li><strong>Reward:</strong> {inspectedEntity.reward}</li>}
-                                    </ul>
-                                </section>
+                                    {inspectedEntity.type === 'dungeon' && (
+                                        <>
+                                            <section className="compendium-detail__section">
+                                                <h3>Dungeon Data</h3>
+                                                <ul className="monster-traits-list">
+                                                    {inspectedEntity.traps && <li><strong>Traps:</strong> {inspectedEntity.traps}</li>}
+                                                    {inspectedEntity.secrets && <li><strong>Secrets:</strong> {inspectedEntity.secrets}</li>}
+                                                    {inspectedEntity.loot && <li><strong>Loot:</strong> {inspectedEntity.loot}</li>}
+                                                    {!inspectedEntity.traps && !inspectedEntity.secrets && !inspectedEntity.loot && <li>No specific mechanics defined.</li>}
+                                                </ul>
+                                            </section>
+                                            <section className="compendium-detail__section">
+                                                <h3>Encounters</h3>
+                                                {(() => {
+                                                    const encounters = data.monsters.filter(m => m.dungeonId === inspectedEntity.id);
+                                                    if (encounters.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known monsters here.</p>;
+                                                    return (
+                                                        <ul className="monster-traits-list">
+                                                            {encounters.map(m => (
+                                                                <li key={m.id}>
+                                                                    <strong>{m.name}</strong>
+                                                                    {m.notes ? `: ${m.notes}` : ''}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    );
+                                                })()}
+                                            </section>
+                                        </>
+                                    )}
+
+                                    {inspectedEntity.entityType === 'quest' && (
+                                        <section className="compendium-detail__section">
+                                            <h3>Quest Details</h3>
+                                            <ul className="monster-traits-list">
+                                                {inspectedEntity.objective && <li><strong>Objective:</strong> {inspectedEntity.objective}</li>}
+                                                {inspectedEntity.reward && <li><strong>Reward:</strong> {inspectedEntity.reward}</li>}
+                                            </ul>
+                                        </section>
+                                    )}
+
+                                    <button
+                                        className="campaign-btn campaign-btn-primary"
+                                        style={{ width: '100%', marginTop: '1rem', padding: '0.75rem' }}
+                                        onClick={() => {
+                                            setEditPoiName(inspectedEntity.name);
+                                            setEditPoiDesc(inspectedEntity.description || '');
+                                            setEditPoiType(inspectedEntity.settlementType || inspectedEntity.type || 'village');
+                                            setEditPoiEconomy(inspectedEntity.economy || 'subsistence');
+                                            setEditPoiLeader(inspectedEntity.leader || '');
+                                            setEditPoiTraps(inspectedEntity.traps || '');
+                                            setEditPoiSecrets(inspectedEntity.secrets || '');
+                                            setEditPoiLoot(inspectedEntity.loot || '');
+                                            setEditQuestObjective(inspectedEntity.objective || '');
+                                            setEditQuestReward(inspectedEntity.reward || '');
+                                            setIsEditingPoi(true);
+                                        }}
+                                    >
+                                        ✏️ Edit
+                                    </button>
+                                </>
                             )}
                         </div>
                     </div>

@@ -4,6 +4,7 @@ import { CharactersView } from './campaign/CharactersView';
 import { CampaignsView } from './campaign/CampaignsView';
 import { QuestsView } from './campaign/QuestsView';
 import { RegionsView } from './campaign/RegionsView';
+import { SettlementsView } from './campaign/SettlementsView';
 import { DungeonsView } from './campaign/DungeonsView';
 import { FactionsView } from './campaign/FactionsView';
 import { EncountersView } from './campaign/EncountersView';
@@ -142,6 +143,9 @@ export function CampaignBuilderPage() {
                                 </div>
 
                                 <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
+                                    <div className="campaign-column">
+                                        <SettlementsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
+                                    </div>
                                     <div className="campaign-column">
                                         <DungeonsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
                                     </div>

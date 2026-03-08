@@ -117,46 +117,32 @@ export function SocialNetworkView({ onSelectRegion, onSelectLocation }: SocialNe
     useEffect(() => {
         const newNodes: Node[] = [];
         const newEdges: Edge[] = [];
-        const addedCharacterIds = new Set<string>();
 
         // 1. Create Regional Groups/Containers in a Grid
         const regions = data.regions || [];
         const cols = 2; // Use 2 columns to use vertical space better
 
-        let maxGridY = 0;
-        let currentGridY = 0;
-        let currentRowMaxHeight = 0;
-
         regions.forEach((r, rIdx) => {
-            const isNewRow = rIdx > 0 && rIdx % cols === 0;
-            if (isNewRow) {
-                currentGridY += currentRowMaxHeight + 100; // 100px padding between rows
-                currentRowMaxHeight = 0;
-            }
-
             const gridX = (rIdx % cols) * 1100;
-            const gridY = currentGridY;
+            const gridY = Math.floor(rIdx / cols) * 1000;
 
-            // First pass: Calculate bounds for this region based on locations
+            newNodes.push({
+                id: `group_${r.id}`,
+                type: 'group',
+                position: { x: gridX, y: gridY },
+                data: { label: r.name },
+                style: { width: 1000, height: 900, zIndex: -1, backgroundColor: 'transparent' },
+                draggable: true
+            });
+
             const regionLocs = data.locations.filter(l => l.regionId === r.id);
-            let maxX = 500; // minimum width
-            let maxY = 300; // minimum height
-
-            // Create temporary arrays for this group's children
-            const groupNodes: Node[] = [];
-            const groupEdges: Edge[] = [];
-
             regionLocs.forEach((loc, lIdx) => {
                 const locId = loc.id;
-                // RELATIVE positioning inside the group node
+                // RELATIVE positioning inside the group node - increased spacing
                 const relX = (lIdx % 2 === 0 ? 150 : 650);
                 const relY = Math.floor(lIdx / 2) * 450 + 80;
 
-                // Update bounds based on location node (approx 150px wide, 100px tall)
-                maxX = Math.max(maxX, relX + 250);
-                maxY = Math.max(maxY, relY + 250);
-
-                groupNodes.push({
+                newNodes.push({
                     id: locId,
                     type: loc.type === 'dungeon' ? 'dungeon' : 'location',
                     position: { x: relX, y: relY },
@@ -175,11 +161,7 @@ export function SocialNetworkView({ onSelectRegion, onSelectLocation }: SocialNe
                     const charRelX = relX + Math.cos(angle) * radius + 10;
                     const charRelY = relY + Math.sin(angle) * radius + 50;
 
-                    // Update bounds based on character node (approx wide and tall)
-                    maxX = Math.max(maxX, charRelX + 150);
-                    maxY = Math.max(maxY, charRelY + 100);
-
-                    groupNodes.push({
+                    newNodes.push({
                         id: c.id,
                         type: 'character',
                         position: { x: charRelX, y: charRelY },
@@ -187,10 +169,9 @@ export function SocialNetworkView({ onSelectRegion, onSelectLocation }: SocialNe
                         parentNode: `group_${r.id}`,
                         extent: 'parent'
                     });
-                    addedCharacterIds.add(c.id);
 
                     // Edge: Character -> Location (Home)
-                    groupEdges.push({
+                    newEdges.push({
                         id: `e_${c.id}_${loc.id}`,
                         source: c.id,
                         target: loc.id,
@@ -206,13 +187,18 @@ export function SocialNetworkView({ onSelectRegion, onSelectLocation }: SocialNe
                         if (affilId !== loc.id) {
                             const otherLoc = data.locations.find(l => l.id === affilId);
 
+                            // Determine relative verticality for shortest path
+                            // Factions are at -400, gridY starts at 0. So factions are always "top".
+                            // Location inside another group might be anywhere.
                             let targetIsAbove = true;
                             if (otherLoc) {
-                                // Simplified calculation for visual layout
-                                targetIsAbove = true;
+                                const otherGroup = data.regions.findIndex(r => r.id === otherLoc.regionId);
+                                const otherGridY = Math.floor(otherGroup / cols) * 850;
+                                const otherRelY = (data.locations.filter(l => l.regionId === otherLoc.regionId).indexOf(otherLoc) / 2) * 350 + 50;
+                                targetIsAbove = (otherGridY + otherRelY) < (gridY + charRelY);
                             }
 
-                            groupEdges.push({
+                            newEdges.push({
                                 id: `e_${c.id}_affil_${affilId}`,
                                 source: c.id,
                                 target: affilId,
@@ -224,24 +210,6 @@ export function SocialNetworkView({ onSelectRegion, onSelectLocation }: SocialNe
                     });
                 });
             });
-
-            // Update max height for current row
-            currentRowMaxHeight = Math.max(currentRowMaxHeight, maxY);
-            maxGridY = Math.max(maxGridY, currentGridY + maxY);
-
-            // Add the Group node with calculated dimensions
-            newNodes.push({
-                id: `group_${r.id}`,
-                type: 'group',
-                position: { x: gridX, y: gridY },
-                data: { label: r.name },
-                style: { width: maxX, height: maxY, zIndex: -1, backgroundColor: 'transparent' },
-                draggable: true // Fixed typo in original file
-            });
-
-            // Add the calculated group nodes and edges to main arrays
-            newNodes.push(...groupNodes);
-            newEdges.push(...groupEdges);
         });
 
         // 2. Add Faction Nodes ABOVE the grid
@@ -255,33 +223,15 @@ export function SocialNetworkView({ onSelectRegion, onSelectLocation }: SocialNe
             });
         });
 
-        // 3. Add Unassociated/Free-Roaming Characters BELOW the grid
-        const unassocChars = data.characters.filter(c => !addedCharacterIds.has(c.id));
+        // 3. Add Unassociated Characters BELOW the grid
+        const unassocChars = data.characters.filter(c => !c.locationId);
+        const maxY = Math.ceil(regions.length / cols) * 1000;
         unassocChars.forEach((c, cIdx) => {
-            const charY = maxGridY + 200;
             newNodes.push({
                 id: c.id,
                 type: 'character',
-                position: { x: cIdx * 150, y: charY },
+                position: { x: cIdx * 150, y: maxY + 100 },
                 data: { label: c.name }
-            });
-
-            // Edge: Character Affiliations (Factions or Locations)
-            const affils = Array.isArray(c.affiliation) ? c.affiliation : (c.affiliation ? [c.affiliation] : []);
-            affils.forEach(affilId => {
-                const otherLoc = data.locations.find(l => l.id === affilId);
-                const otherFac = data.factions?.find(f => f.id === affilId);
-
-                if (otherLoc || otherFac) {
-                    newEdges.push({
-                        id: `e_${c.id}_affil_${affilId}`,
-                        source: c.id,
-                        target: affilId,
-                        sourceHandle: 'top',
-                        targetHandle: 'bottom',
-                        style: { stroke: 'var(--parchment-dark)', strokeDasharray: '4 4', opacity: 0.3 }
-                    });
-                }
             });
         });
 

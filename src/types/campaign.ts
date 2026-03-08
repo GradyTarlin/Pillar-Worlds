@@ -57,11 +57,6 @@ export interface CustomMap {
 
 export type Region = BaseEntity;
 
-export interface DungeonFeature extends BaseEntity {
-    type: 'trap' | 'secret' | 'loot';
-    locationId: string;
-}
-
 export type LocationType = 'settlement' | 'dungeon'; // Level 2 distinctions
 
 export interface Location extends BaseEntity {
@@ -123,7 +118,6 @@ export interface CampaignData {
     encounters: Encounter[];
     factions?: CampaignFaction[];
     customMap?: CustomMap;
-    dungeonFeatures: DungeonFeature[];
 }
 
 export const INITIAL_CAMPAIGN_DATA: CampaignData = {
@@ -136,7 +130,6 @@ export const INITIAL_CAMPAIGN_DATA: CampaignData = {
     sessionLogs: [],
     encounters: [],
     factions: [],
-    dungeonFeatures: [],
     customMap: {
         width: 40,
         height: 30,
