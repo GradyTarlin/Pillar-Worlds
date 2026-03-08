@@ -4,13 +4,11 @@ import { CharactersView } from './campaign/CharactersView';
 import { CampaignsView } from './campaign/CampaignsView';
 import { QuestsView } from './campaign/QuestsView';
 import { RegionsView } from './campaign/RegionsView';
-
+import { SettlementsView } from './campaign/SettlementsView';
 import { DungeonsView } from './campaign/DungeonsView';
 import { FactionsView } from './campaign/FactionsView';
 import { EncountersView } from './campaign/EncountersView';
 import { UnifiedMap } from './campaign/UnifiedMap';
-import { CampaignSidebar } from './campaign/CampaignSidebar';
-import { SocialNetworkView } from './campaign/SocialNetworkView';
 import { useCampaignData } from '../hooks/useCampaignData';
 import './CampaignBuilderPage.css';
 
@@ -18,33 +16,18 @@ export function CampaignBuilderPage() {
     const { data, activeCampaignId, setActiveCampaignId, campaigns } = useCampaignData();
     const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
     const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
-    const [viewMode, setViewMode] = useState<'world' | 'network' | 'characters'>('world');
 
     const handleSelectRegion = (id: string | null) => {
         setSelectedRegionId(id);
         setSelectedLocationId(null);
-        setViewMode('world');
     };
 
     const handleSelectLocation = (id: string | null) => {
         setSelectedLocationId(id);
-        setViewMode('world');
-    };
-
-    const handleSelectViewMode = (mode: 'world' | 'network' | 'characters') => {
-        setViewMode(mode);
-        if (mode !== 'world') {
-            setSelectedRegionId(null);
-            setSelectedLocationId(null);
-        }
     };
 
     let headerTitle = "Campaign Manager";
-    if (viewMode === 'network') {
-        headerTitle = "Character Network";
-    } else if (viewMode === 'characters') {
-        headerTitle = "Characters";
-    } else if (selectedRegionId) {
+    if (selectedRegionId) {
         headerTitle = "Region Explorer";
     } else if (activeCampaignId) {
         const cmp = campaigns.find(c => c.id === activeCampaignId);
@@ -58,7 +41,7 @@ export function CampaignBuilderPage() {
                     {selectedRegionId ? (
                         <button className="campaign-home-link" style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'absolute', left: 0 }} onClick={() => handleSelectRegion(null)}>← Back to World</button>
                     ) : activeCampaignId ? (
-                        <button className="campaign-home-link" style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'absolute', left: 0 }} onClick={() => { setActiveCampaignId(null); handleSelectViewMode('world'); }}>← Switch Campaign</button>
+                        <button className="campaign-home-link" style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'absolute', left: 0 }} onClick={() => setActiveCampaignId(null)}>← Switch Campaign</button>
                     ) : (
                         <Link to="/" className="campaign-home-link" style={{ position: 'absolute', left: 0 }}>← Home</Link>
                     )}
@@ -69,18 +52,8 @@ export function CampaignBuilderPage() {
                 )}
             </header>
 
-            <div className="campaign-layout" style={{ display: 'flex', gap: '1.5rem', flex: 1, minHeight: 0 }}>
-                {activeCampaignId && (
-                    <CampaignSidebar
-                        viewMode={viewMode}
-                        selectedRegionId={selectedRegionId}
-                        selectedLocationId={selectedLocationId}
-                        onSelectRegion={handleSelectRegion}
-                        onSelectLocation={handleSelectLocation}
-                        onSelectViewMode={handleSelectViewMode}
-                    />
-                )}
-                <main className="campaign-holistic-board">
+            <div className="campaign-layout" style={{ display: 'flex', gap: '1.5rem', flex: 1, minHeight: 0, padding: '1rem' }}>
+                <main className="campaign-holistic-board" style={{ width: '100%' }}>
                     {!activeCampaignId && (
                         /* LEVEL 0: Campaign Selection */
                         <div className="campaign-column" style={{ maxWidth: '800px', margin: '0 auto', flex: 1 }}>
@@ -88,24 +61,7 @@ export function CampaignBuilderPage() {
                         </div>
                     )}
 
-                    {activeCampaignId && viewMode === 'network' && (
-                        /* LEVEL 1: Character Network */
-                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', width: '100%', minHeight: '600px' }}>
-                            <SocialNetworkView
-                                onSelectRegion={handleSelectRegion}
-                                onSelectLocation={handleSelectLocation}
-                            />
-                        </div>
-                    )}
-
-                    {activeCampaignId && viewMode === 'characters' && (
-                        /* LEVEL 1: Characters List */
-                        <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '600px' }}>
-                            <CharactersView />
-                        </div>
-                    )}
-
-                    {activeCampaignId && viewMode === 'world' && !selectedRegionId && !selectedLocationId && (
+                    {activeCampaignId && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
                         <div className="campaign-level-1-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' }}>
                             <div className="campaign-row" style={{ width: '100%', display: 'flex', flexDirection: 'column', minHeight: '500px' }}>
@@ -114,18 +70,21 @@ export function CampaignBuilderPage() {
                                     onSelectRegion={handleSelectRegion}
                                 />
                             </div>
-                            <div className="campaign-level-1-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '1.5rem', width: '100%' }}>
-                                <div className="campaign-column" style={{ marginBottom: 0 }}>
+                            <div className="campaign-level-1-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem', width: '100%' }}>
+                                <div className="campaign-column">
                                     <RegionsView onSelectRegion={handleSelectRegion} />
                                 </div>
-                                <div className="campaign-column" style={{ marginBottom: 0 }}>
+                                <div className="campaign-column">
+                                    <CharactersView />
+                                </div>
+                                <div className="campaign-column">
                                     <FactionsView />
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    {activeCampaignId && viewMode === 'world' && selectedRegionId && !selectedLocationId && (() => {
+                    {activeCampaignId && selectedRegionId && !selectedLocationId && (() => {
                         const region = data.regions.find(r => r.id === selectedRegionId);
                         if (!region) return null;
 
@@ -144,7 +103,10 @@ export function CampaignBuilderPage() {
                                     )}
                                 </div>
 
-                                <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
+                                <div className="campaign-level-2-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
+                                    <div className="campaign-column">
+                                        <SettlementsView regionId={selectedRegionId} onSelectLocation={() => { }} />
+                                    </div>
                                     <div className="campaign-column">
                                         <DungeonsView regionId={selectedRegionId} onSelectLocation={handleSelectLocation} />
                                     </div>
@@ -156,7 +118,7 @@ export function CampaignBuilderPage() {
                         );
                     })()}
 
-                    {activeCampaignId && viewMode === 'world' && selectedLocationId && (() => {
+                    {activeCampaignId && selectedLocationId && (() => {
                         const loc = data.locations.find(l => l.id === selectedLocationId);
                         if (!loc) return null;
 
@@ -192,12 +154,10 @@ export function CampaignBuilderPage() {
                                     </div>
                                 )}
 
-                                <div className="campaign-level-3-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem' }}>
-                                    {loc.type === 'dungeon' && (
-                                        <div className="campaign-column">
-                                            <EncountersView locationId={selectedLocationId} />
-                                        </div>
-                                    )}
+                                <div className="campaign-level-3-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
+                                    <div className="campaign-column">
+                                        <EncountersView locationId={selectedLocationId} />
+                                    </div>
                                 </div>
                             </div>
                         );

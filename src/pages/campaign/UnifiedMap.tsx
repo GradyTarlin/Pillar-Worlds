@@ -1034,23 +1034,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                                     {inspectedEntity.economy && <li><strong>Economy:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.economy}</span></li>}
                                                 </ul>
                                             </section>
-                                            <section className="compendium-detail__section">
-                                                <h3>Characters & NPCs</h3>
-                                                {(() => {
-                                                    const chars = data.characters.filter(c => c.locationId === inspectedEntity.id);
-                                                    if (chars.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No known characters here.</p>;
-                                                    return (
-                                                        <ul className="monster-traits-list">
-                                                            {chars.map(c => (
-                                                                <li key={c.id}>
-                                                                    <strong>{c.name}</strong>
-                                                                    {c.role ? ` - ${c.role}` : ''}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    );
-                                                })()}
-                                            </section>
+
                                         </>
                                     )}
 
