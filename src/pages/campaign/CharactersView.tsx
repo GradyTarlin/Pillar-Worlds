@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCampaignData } from '../../hooks/useCampaignData';
 import { ListHeader, EntityCard } from './CampaignShared';
-import type { CampaignCharacter } from '../../types/campaign';
+import type { CampaignCharacter, Region, Location } from '../../types/campaign';
 import { BLOODLINES } from '../../ruleData';
 
 interface CharactersViewProps {
@@ -11,6 +11,8 @@ interface CharactersViewProps {
 export function CharactersView({ locationId }: CharactersViewProps) {
     const { data, updateEntities } = useCampaignData();
     const [editingId, setEditingId] = useState<string | null>(null);
+    const [regionFilter, setRegionFilter] = useState<string>('All');
+    const [factionFilter, setFactionFilter] = useState<string>('All');
 
     const handleAdd = () => {
         const newChar: CampaignCharacter = {
@@ -18,8 +20,8 @@ export function CharactersView({ locationId }: CharactersViewProps) {
             name: 'New Character',
             description: '',
             notes: '',
-            locationId,
-            affiliation: locationId ? [locationId] : []
+            locationId: locationId || undefined,
+            affiliation: []
         };
         updateEntities('characters', [...data.characters, newChar]);
         setEditingId(newChar.id);
@@ -36,13 +38,50 @@ export function CharactersView({ locationId }: CharactersViewProps) {
         setEditingId(null);
     };
 
-    const filteredCharacters = locationId
-        ? data.characters.filter(c => c.locationId === locationId)
-        : data.characters;
+    const filteredCharacters = data.characters.filter(char => {
+        // 1. Mandatory Location constraint (if viewing from a specific dungeon/settlement)
+        if (locationId && char.locationId !== locationId) return false;
+
+        // 2. Region Filter
+        if (regionFilter !== 'All') {
+            const isRoamingTargetRegion = char.locationId === `roaming_${regionFilter}`;
+            const targetPoi = data.locations?.find(l => l.id === char.locationId);
+            const isPoiInTargetRegion = targetPoi?.regionId === regionFilter;
+
+            if (!isRoamingTargetRegion && !isPoiInTargetRegion) return false;
+        }
+
+        // 3. Faction Filter
+        if (factionFilter !== 'All') {
+            const affiliations = Array.isArray(char.affiliation) ? char.affiliation : [];
+            if (!affiliations.includes(factionFilter)) return false;
+        }
+
+        return true;
+    });
 
     return (
         <div className="campaign-view-section">
             <ListHeader title="Characters" onAdd={handleAdd} addLabel="Character" />
+
+            {!locationId && (
+                <div className="campaign-filters" style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', padding: '1rem', background: 'var(--parchment-dark)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--gold-dark)' }}>
+                    <div className="filter-group" style={{ display: 'flex', flex: 1, flexDirection: 'column', gap: '0.4rem' }}>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--burgundy)', fontFamily: 'Cinzel, serif' }}>Filter by Region</label>
+                        <select className="app__select" value={regionFilter} onChange={e => setRegionFilter(e.target.value)} style={{ width: '100%' }}>
+                            <option value="All">All Regions</option>
+                            {data.regions.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
+                        </select>
+                    </div>
+                    <div className="filter-group" style={{ display: 'flex', flex: 1, flexDirection: 'column', gap: '0.4rem' }}>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--burgundy)', fontFamily: 'Cinzel, serif' }}>Filter by Faction</label>
+                        <select className="app__select" value={factionFilter} onChange={e => setFactionFilter(e.target.value)} style={{ width: '100%' }}>
+                            <option value="All">All Factions</option>
+                            {data.factions?.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+                        </select>
+                    </div>
+                </div>
+            )}
 
             <div className="campaign-cards-grid">
                 {filteredCharacters.map(char => (
@@ -66,31 +105,48 @@ export function CharactersView({ locationId }: CharactersViewProps) {
                             onEdit={() => setEditingId(char.id)}
                             onDelete={() => handleDelete(char.id)}
                         >
-                            {char.affiliation && (char.affiliation.length > 0) && (
+                            <div className="campaign-entity-notes-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                 <p className="campaign-entity-notes">
-                                    <strong>Affiliation:</strong>{' '}
-                                    {Array.isArray(char.affiliation)
-                                        ? char.affiliation.map(id => {
-                                            const f = data.factions?.find(f => f.id === id);
-                                            const l = data.locations?.find(l => l.id === id);
-                                            return f?.name || l?.name || id;
-                                        }).join(', ')
-                                        : char.affiliation}
+                                    <strong>Current Location:</strong>{' '}
+                                    {(() => {
+                                        if (!char.locationId) return 'Unknown';
+                                        if (char.locationId.startsWith('roaming_')) {
+                                            const rId = char.locationId.replace('roaming_', '');
+                                            const r = data.regions.find(reg => reg.id === rId);
+                                            return `Roaming ${r?.name || 'Region'}`;
+                                        }
+                                        const loc = data.locations.find(l => l.id === char.locationId);
+                                        return loc?.name || 'Unknown Location';
+                                    })()}
                                 </p>
-                            )}
-                            {char.goal && <p className="campaign-entity-notes"><strong>Goal:</strong> {char.goal}</p>}
-                            {char.plan && <p className="campaign-entity-notes"><strong>Plan:</strong> {char.plan}</p>}
-                            {char.notes && <p className="campaign-entity-notes" style={{ marginTop: '0.5rem' }}><strong>Notes:</strong> {char.notes}</p>}
+
+                                {char.affiliation && (char.affiliation.length > 0) && (
+                                    <p className="campaign-entity-notes">
+                                        <strong>Affiliation:</strong>{' '}
+                                        {Array.isArray(char.affiliation)
+                                            ? char.affiliation.map(id => {
+                                                const f = data.factions?.find(f => f.id === id);
+                                                const l = data.locations?.find(l => l.id === id);
+                                                return f?.name || l?.name || id;
+                                            }).join(', ')
+                                            : char.affiliation}
+                                    </p>
+                                )}
+                                {char.goal && <p className="campaign-entity-notes"><strong>Goal:</strong> {char.goal}</p>}
+                                {char.plan && <p className="campaign-entity-notes"><strong>Plan:</strong> {char.plan}</p>}
+                                {char.notes && <p className="campaign-entity-notes"><strong>Notes:</strong> {char.notes}</p>}
+                            </div>
                         </EntityCard>
                     )
                 ))}
                 {filteredCharacters.length === 0 && (
-                    <p className="campaign-empty-state">No characters added here yet. Click "+ Character" to start.</p>
+                    <p className="campaign-empty-state">No characters found matching the filters.</p>
                 )}
             </div>
         </div>
     );
 }
+
 
 function CharacterEditForm({
     character,
@@ -99,7 +155,11 @@ function CharacterEditForm({
     onCancel
 }: {
     character: CampaignCharacter,
-    data: { factions?: { id: string, name: string }[], locations: { id: string, name: string, type: string }[] },
+    data: {
+        factions?: { id: string, name: string }[],
+        locations: Location[],
+        regions: Region[]
+    },
     onSave: (c: CampaignCharacter) => void,
     onCancel: () => void
 }) {
@@ -142,6 +202,32 @@ function CharacterEditForm({
                 <label>Role</label>
                 <input name="role" value={form.role || ''} onChange={handleChange} placeholder="e.g. Fighter, Blacksmith" />
             </div>
+
+            <div className="campaign-form-group">
+                <label>Current Location</label>
+                <select
+                    className="app__select"
+                    name="locationId"
+                    value={form.locationId || ''}
+                    onChange={handleChange}
+                >
+                    <option value="">-- Unknown / Not Set --</option>
+                    {data.regions.map(region => {
+                        const regionPois = data.locations.filter(l => l.regionId === region.id);
+                        return (
+                            <optgroup key={region.id} label={region.name}>
+                                <option value={`roaming_${region.id}`}>Roaming {region.name}</option>
+                                {regionPois.map(poi => (
+                                    <option key={poi.id} value={poi.id}>
+                                        {poi.name} ({poi.type === 'settlement' ? 'Settlement' : 'Dungeon'})
+                                    </option>
+                                ))}
+                            </optgroup>
+                        );
+                    })}
+                </select>
+            </div>
+
             <div className="campaign-form-group">
                 <label>Description</label>
                 <textarea name="description" value={form.description} onChange={handleChange} rows={3} />

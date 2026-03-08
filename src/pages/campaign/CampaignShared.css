@@ -13,9 +13,8 @@
 .campaign-list-header h2 {
     margin: 0;
     font-family: 'Cinzel', serif;
-    color: var(--gold-light);
-    font-size: 1.75rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: var(--burgundy);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     letter-spacing: 0.05em;
 }
 
@@ -43,6 +42,52 @@
 
 .campaign-btn-primary:active {
     transform: translateY(0);
+}
+
+.campaign-btn-secondary {
+    padding: 0.6rem 1.5rem;
+    background: white;
+    color: var(--burgundy-dark);
+    border: 1px solid var(--burgundy-dark);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.campaign-btn-secondary:hover {
+    background: var(--parchment-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.campaign-btn-danger {
+    padding: 0.6rem 1.5rem;
+    background: var(--burgundy-dark);
+    color: white;
+    border: 1px solid var(--burgundy-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.campaign-btn-danger:hover {
+    background: var(--burgundy);
+    color: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.campaign-btn-small {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
 }
 
 /* Campaign Entity Card */

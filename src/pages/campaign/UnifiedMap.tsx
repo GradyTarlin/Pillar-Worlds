@@ -356,17 +356,27 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                         loot: '',
                     } as CampaignLocation]);
                 }
-            } else if (context.type === 'dungeon' && pendingPoiTile.poiType === 'encounter') {
-                updateEntities('encounters', [...(data.encounters || []), {
-                    id: targetId,
-                    name: promptLabel.trim(),
-                    description: promptDescription.trim() || 'A deadly encounter',
-                    locationId: context.id,
-                    combatants: [],
-                    round: 1,
-                    activeTurnIndex: 0,
-                    isFinished: false
-                }]);
+            } else if (context.type === 'dungeon') {
+                if (pendingPoiTile.poiType === 'encounter') {
+                    updateEntities('encounters', [...(data.encounters || []), {
+                        id: targetId,
+                        name: promptLabel.trim(),
+                        description: promptDescription.trim() || 'A deadly encounter',
+                        locationId: context.id,
+                        combatants: [],
+                        round: 1,
+                        activeTurnIndex: 0,
+                        isFinished: false
+                    }]);
+                } else if (['trap', 'loot', 'secret'].includes(pendingPoiTile.poiType)) {
+                    updateEntities('dungeonFeatures', [...(data.dungeonFeatures || []), {
+                        id: targetId,
+                        name: promptLabel.trim(),
+                        description: promptDescription.trim() || `A newly discovered ${pendingPoiTile.poiType}`,
+                        type: pendingPoiTile.poiType as 'trap' | 'loot' | 'secret',
+                        locationId: context.id || ''
+                    }]);
+                }
             }
         }
 
@@ -374,9 +384,17 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
         let finalDesc = selectedExistingEntityId === 'new' ? promptDescription.trim() : undefined;
 
         if (selectedExistingEntityId !== 'new') {
-            const existingEntity = pendingPoiTile.poiType === 'quest'
-                ? data.quests.find(q => q.id === targetId)
-                : data.locations.find(l => l.id === targetId);
+            let existingEntity: any = null;
+            if (context.type === 'world') {
+                existingEntity = pendingPoiTile.poiType === 'quest'
+                    ? data.quests.find(q => q.id === targetId)
+                    : data.locations.find(l => l.id === targetId);
+            } else {
+                existingEntity = pendingPoiTile.poiType === 'encounter'
+                    ? (data.encounters || []).find(e => e.id === targetId)
+                    : (data.dungeonFeatures || []).find(f => f.id === targetId);
+            }
+
             if (existingEntity) {
                 finalLabel = existingEntity.name;
                 finalDesc = existingEntity.description || '';
@@ -579,7 +597,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                             </div>
                         )}
 
-                        {context.type === 'world' && selectedRegionIdForLocation && (
+                        {selectedRegionIdForLocation || context.type === 'dungeon' ? (
                             <div className="campaign-form-group" style={{ marginTop: '1rem' }}>
                                 <label>Existing {pendingPoiTile?.poiType}</label>
                                 <select
@@ -591,18 +609,30 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                     }}
                                 >
                                     <option value="new">-- Create New --</option>
-                                    {pendingPoiTile?.poiType === 'quest' ? (
-                                        data.quests.filter(q => q.regionId === selectedRegionIdForLocation && !placedPoiIds.has(q.id)).map(q => (
-                                            <option key={q.id} value={q.id}>{q.name}</option>
-                                        ))
+                                    {context.type === 'world' ? (
+                                        pendingPoiTile?.poiType === 'quest' ? (
+                                            data.quests.filter(q => q.regionId === selectedRegionIdForLocation && !placedPoiIds.has(q.id)).map(q => (
+                                                <option key={q.id} value={q.id}>{q.name}</option>
+                                            ))
+                                        ) : (
+                                            data.locations.filter(l => l.regionId === selectedRegionIdForLocation && (l.type === pendingPoiTile?.poiType || (l.type === 'settlement' && l.settlementType === pendingPoiTile?.poiType)) && !placedPoiIds.has(l.id)).map(l => (
+                                                <option key={l.id} value={l.id}>{l.name}</option>
+                                            ))
+                                        )
                                     ) : (
-                                        data.locations.filter(l => l.regionId === selectedRegionIdForLocation && (l.type === pendingPoiTile?.poiType || (l.type === 'settlement' && l.settlementType === pendingPoiTile?.poiType)) && !placedPoiIds.has(l.id)).map(l => (
-                                            <option key={l.id} value={l.id}>{l.name}</option>
-                                        ))
+                                        pendingPoiTile?.poiType === 'encounter' ? (
+                                            (data.encounters || []).filter(e => e.locationId === context.id && !placedPoiIds.has(e.id)).map(e => (
+                                                <option key={e.id} value={e.id}>{e.name}</option>
+                                            ))
+                                        ) : (
+                                            (data.dungeonFeatures || []).filter(f => f.locationId === context.id && f.type === pendingPoiTile?.poiType && !placedPoiIds.has(f.id)).map(f => (
+                                                <option key={f.id} value={f.id}>{f.name}</option>
+                                            ))
+                                        )
                                     )}
                                 </select>
                             </div>
-                        )}
+                        ) : null}
 
                         {selectedExistingEntityId === 'new' && (
                             <div className="campaign-form-group" style={{ marginTop: '1rem' }}>
@@ -932,20 +962,15 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                     {(inspectedEntity.type === 'settlement' || ['village', 'town', 'city'].includes(inspectedEntity.type || '')) && (
                                         <>
                                             <div className="campaign-form-group">
-                                                <label>Settlement Size</label>
-                                                <select className="app__select" value={editPoiType} onChange={(e) => setEditPoiType(e.target.value)}>
-                                                    <option value="village">Village</option>
-                                                    <option value="town">Town</option>
-                                                    <option value="city">City</option>
-                                                </select>
-                                            </div>
-                                            <div className="campaign-form-group">
                                                 <label>Economy</label>
                                                 <select className="app__select" value={editPoiEconomy} onChange={(e) => setEditPoiEconomy(e.target.value)}>
-                                                    <option value="subsistence">Subsistence</option>
-                                                    <option value="trading">Trading</option>
-                                                    <option value="industrial">Industrial</option>
-                                                    <option value="wealthy">Wealthy</option>
+                                                    <option value="">None</option>
+                                                    <option value="farming">Farming</option>
+                                                    <option value="fishing">Fishing</option>
+                                                    <option value="logging">Logging</option>
+                                                    <option value="mining">Mining</option>
+                                                    <option value="magic">Magic</option>
+                                                    <option value="manufacturing">Manufacturing</option>
                                                 </select>
                                             </div>
                                             <div className="campaign-form-group">
@@ -1024,48 +1049,76 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                         <p className="compendium-detail__lore">{inspectedEntity.description}</p>
                                     )}
 
-                                    {(inspectedEntity.type === 'settlement' || ['village', 'town', 'city'].includes(inspectedEntity.type || '')) && (
-                                        <>
-                                            <section className="compendium-detail__section">
-                                                <h3>Settlement Details</h3>
-                                                <ul className="monster-stats-list" style={{ gap: '1rem', flexWrap: 'wrap', fontSize: '1rem' }}>
-                                                    {(inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')) && <li><strong>Type:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')}</span></li>}
-                                                    {inspectedEntity.leader && <li><strong>Leader:</strong> {inspectedEntity.leader}</li>}
-                                                    {inspectedEntity.economy && <li><strong>Economy:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.economy}</span></li>}
-                                                </ul>
-                                            </section>
-                                            <section className="compendium-detail__section">
-                                                <h3>Encounters</h3>
+                                    {(inspectedEntity.type === 'settlement' || ['village', 'town', 'city', 'camp'].includes(inspectedEntity.type || '')) && (
+                                        <section className="compendium-detail__section">
+                                            <h3>Settlement Details</h3>
+                                            <ul className="monster-stats-list" style={{ gap: '1rem', flexWrap: 'wrap', fontSize: '1rem' }}>
+                                                {(inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')) && <li><strong>Type:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.settlementType || (inspectedEntity.type !== 'settlement' ? inspectedEntity.type : '')}</span></li>}
+                                                {inspectedEntity.leader && <li><strong>Leader:</strong> {inspectedEntity.leader}</li>}
+                                                {inspectedEntity.economy && <li><strong>Economy:</strong> <span style={{ textTransform: 'capitalize' }}>{inspectedEntity.economy}</span></li>}
+                                            </ul>
+                                            <div style={{ marginTop: '1rem' }}>
+                                                <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Characters</h3>
                                                 {(() => {
-                                                    const combatEncounters = (data.encounters || []).filter(e => e.locationId === inspectedEntity.id);
-                                                    if (combatEncounters.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No encounters planned.</p>;
+                                                    const localChars = data.characters.filter(c => c.locationId === inspectedEntity.id);
+                                                    if (localChars.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No characters here.</p>;
                                                     return (
                                                         <ul className="monster-traits-list">
-                                                            {combatEncounters.map(e => (
-                                                                <li key={e.id}>
-                                                                    <strong>⚔️ {e.name}</strong>
-                                                                    {e.description ? `: ${e.description}` : ''}
+                                                            {localChars.map(c => (
+                                                                <li key={c.id}>
+                                                                    <strong>{c.name}</strong> {c.role ? `(${c.role})` : ''}
                                                                 </li>
                                                             ))}
                                                         </ul>
                                                     );
                                                 })()}
-                                            </section>
-                                        </>
+                                            </div>
+                                        </section>
                                     )}
 
                                     {inspectedEntity.type === 'dungeon' && (
                                         <>
                                             <section className="compendium-detail__section">
-                                                <h3>Dungeon Data</h3>
-                                                <ul className="monster-traits-list">
-                                                    {inspectedEntity.traps && <li><strong>Traps:</strong> {inspectedEntity.traps}</li>}
-                                                    {inspectedEntity.secrets && <li><strong>Secrets:</strong> {inspectedEntity.secrets}</li>}
-                                                    {inspectedEntity.loot && <li><strong>Loot:</strong> {inspectedEntity.loot}</li>}
-                                                    {!inspectedEntity.traps && !inspectedEntity.secrets && !inspectedEntity.loot && <li>No specific mechanics defined.</li>}
-                                                </ul>
+                                                <h3>Traps</h3>
+                                                {(() => {
+                                                    const features = (data.dungeonFeatures || []).filter(f => f.locationId === inspectedEntity.id && f.type === 'trap');
+                                                    if (features.length === 0 && !inspectedEntity.traps) return <p className="campaign-empty-state">No traps discovered.</p>;
+                                                    return (
+                                                        <ul className="monster-traits-list">
+                                                            {inspectedEntity.traps && <li>{inspectedEntity.traps}</li>}
+                                                            {features.map(f => <li key={f.id}><strong>{f.name}</strong>: {f.description}</li>)}
+                                                        </ul>
+                                                    );
+                                                })()}
                                             </section>
+
                                             <section className="compendium-detail__section">
+                                                <h3>Secrets</h3>
+                                                {(() => {
+                                                    const features = (data.dungeonFeatures || []).filter(f => f.locationId === inspectedEntity.id && f.type === 'secret');
+                                                    if (features.length === 0 && !inspectedEntity.secrets) return <p className="campaign-empty-state">No secrets hidden here.</p>;
+                                                    return (
+                                                        <ul className="monster-traits-list">
+                                                            {inspectedEntity.secrets && <li>{inspectedEntity.secrets}</li>}
+                                                            {features.map(f => <li key={f.id}><strong>{f.name}</strong>: {f.description}</li>)}
+                                                        </ul>
+                                                    );
+                                                })()}
+                                            </section>
+
+                                            <section className="compendium-detail__section">
+                                                <h3>Loot</h3>
+                                                {(() => {
+                                                    const features = (data.dungeonFeatures || []).filter(f => f.locationId === inspectedEntity.id && f.type === 'loot');
+                                                    if (features.length === 0 && !inspectedEntity.loot) return <p className="campaign-empty-state">No loot found.</p>;
+                                                    return (
+                                                        <ul className="monster-traits-list">
+                                                            {inspectedEntity.loot && <li>{inspectedEntity.loot}</li>}
+                                                            {features.map(f => <li key={f.id}><strong>{f.name}</strong>: {f.description}</li>)}
+                                                        </ul>
+                                                    );
+                                                })()}
+                                            </section>                                            <section className="compendium-detail__section">
                                                 <h3>Encounters</h3>
                                                 {(() => {
                                                     const monsters = (data.monsters || []).filter(m => m.dungeonId === inspectedEntity.id);
@@ -1093,6 +1146,34 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                                     );
                                                 })()}
                                             </section>
+
+                                            <section className="compendium-detail__section">
+                                                <h3>Characters</h3>
+                                                {(() => {
+                                                    const localChars = data.characters.filter(c => c.locationId === inspectedEntity.id);
+                                                    if (localChars.length === 0) return <p className="campaign-empty-state" style={{ padding: '0.5rem 0' }}>No characters here.</p>;
+                                                    return (
+                                                        <ul className="monster-traits-list">
+                                                            {localChars.map(c => (
+                                                                <li key={c.id}>
+                                                                    <strong>{c.name}</strong> {c.role ? `(${c.role})` : ''}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    );
+                                                })()}
+                                            </section>
+                                            <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
+                                                {onSelectLocation && (
+                                                    <button
+                                                        className="campaign-btn campaign-btn-secondary"
+                                                        style={{ flex: 1, padding: '0.75rem' }}
+                                                        onClick={() => onSelectLocation(inspectedEntity.id)}
+                                                    >
+                                                        View Dungeon Layout
+                                                    </button>
+                                                )}
+                                            </div>
                                         </>
                                     )}
 
@@ -1113,7 +1194,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                             setEditPoiName(inspectedEntity.name);
                                             setEditPoiDesc(inspectedEntity.description || '');
                                             setEditPoiType(inspectedEntity.settlementType || inspectedEntity.type || 'village');
-                                            setEditPoiEconomy(inspectedEntity.economy || 'subsistence');
+                                            setEditPoiEconomy(inspectedEntity.economy || '');
                                             setEditPoiLeader(inspectedEntity.leader || '');
                                             setEditPoiTraps(inspectedEntity.traps || '');
                                             setEditPoiSecrets(inspectedEntity.secrets || '');

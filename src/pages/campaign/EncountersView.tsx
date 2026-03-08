@@ -250,7 +250,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                 <div className="encounter-content" style={{ marginTop: '1rem' }}>
                     <div className="tracker-add-section">
                         <div className="tracker-add-row bestiary-row">
-                            <strong style={{ width: '80px' }}>Bestiary:</strong>
+                            <strong style={{ width: '80px', color: 'var(--ink)' }}>Bestiary:</strong>
                             <select className="app__select" value={monsterTypeFilter} onChange={e => { setMonsterTypeFilter(e.target.value); setSelectedMonsterId(''); }}>
                                 <option value="All">All Types</option>
                                 {monsterTypes.map(t => <option key={t} value={t}>{t}</option>)}
@@ -263,13 +263,13 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                                 <option value="" disabled>Select Monster...</option>
                                 {filteredMonsters.map(m => <option key={m.id} value={m.id}>{m.name} (Lvl {m.level})</option>)}
                             </select>
-                            <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Qty:</span>
+                            <span style={{ fontSize: '0.9rem', color: 'var(--ink-muted)' }}>Qty:</span>
                             <input type="number" min="1" max="20" value={monsterCount} onChange={e => setMonsterCount(Math.max(1, parseInt(e.target.value) || 1))} className="short-input" title="Quantity" />
-                            <button className="campaign-btn" onClick={handleAddFromBestiary} disabled={!selectedMonsterId}>Add</button>
+                            <button className="campaign-btn-primary" onClick={handleAddFromBestiary} disabled={!selectedMonsterId}>Add</button>
                         </div>
 
                         <div className="tracker-add-row custom-row">
-                            <strong style={{ width: '80px' }}>Custom:</strong>
+                            <strong style={{ width: '80px', color: 'var(--ink)' }}>Custom:</strong>
                             <input
                                 type="text"
                                 placeholder="Name"
@@ -291,7 +291,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                                 value={newCombatantInit}
                                 onChange={e => setNewCombatantInit(e.target.value === '' ? '' : Number(e.target.value))}
                             />
-                            <button className="campaign-btn" onClick={handleAddCombatant}>Add</button>
+                            <button className="campaign-btn-primary" onClick={handleAddCombatant}>Add</button>
                         </div>
                     </div>
 

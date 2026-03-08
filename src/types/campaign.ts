@@ -107,6 +107,11 @@ export interface Encounter extends BaseEntity {
     isFinished: boolean;
 }
 
+export interface DungeonFeature extends BaseEntity {
+    type: 'trap' | 'loot' | 'secret';
+    locationId: string;
+}
+
 export interface CampaignData {
     characters: CampaignCharacter[];
     plotLines: PlotLine[];
@@ -117,6 +122,7 @@ export interface CampaignData {
     sessionLogs: SessionLog[];
     encounters: Encounter[];
     factions?: CampaignFaction[];
+    dungeonFeatures?: DungeonFeature[];
     customMap?: CustomMap;
 }
 
@@ -130,6 +136,7 @@ export const INITIAL_CAMPAIGN_DATA: CampaignData = {
     sessionLogs: [],
     encounters: [],
     factions: [],
+    dungeonFeatures: [],
     customMap: {
         width: 40,
         height: 30,

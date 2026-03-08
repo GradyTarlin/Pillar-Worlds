@@ -32,7 +32,7 @@ export function HomePage() {
                 Abilities
               </Link>
             </div>
-            <Link to="/campaign-builder" className="home-page__nav-button home-page__nav-button--primary">
+            <Link to="/campaign-builder" className="home-page__nav-button">
               Campaign Builder
             </Link>
             <Link to="/settings" className="home-page__nav-button">
