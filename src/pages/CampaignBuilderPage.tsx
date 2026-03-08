@@ -151,38 +151,38 @@ export function CampaignBuilderPage() {
 
                         return (
                             /* LEVEL 3: Dungeon View */
-                            <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '320px 1fr', gap: '2rem' }}>
-                                <div className="campaign-dungeon-specs" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                                    <div className="campaign-location-overview" style={{
-                                        background: 'var(--parchment)', padding: '1.5rem', borderRadius: 'var(--radius-md)',
-                                        border: '1px solid var(--ink)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-                                    }}>
-                                        <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--burgundy)', margin: '0 0 1rem 0', fontSize: '1.5rem' }}>
-                                            {loc.name}
-                                        </h2>
-                                        {loc.description && (
-                                            <p style={{ marginBottom: '1rem', lineHeight: '1.5', fontSize: '0.95rem' }}>{loc.description}</p>
+                            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                                <div className="campaign-location-overview" style={{
+                                    background: 'var(--parchment)', padding: '1.5rem', borderRadius: 'var(--radius-md)',
+                                    border: '1px solid var(--ink)', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                                }}>
+                                    <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--burgundy)', margin: '0 0 1rem 0', fontSize: '1.5rem' }}>
+                                        {loc.name}
+                                    </h2>
+                                    {loc.description && (
+                                        <p style={{ marginBottom: '1rem', lineHeight: '1.5', fontSize: '1rem' }}>{loc.description}</p>
+                                    )}
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                        {loc.type === 'dungeon' && (
+                                            <>
+                                                {loc.traps && <div><strong>Traps:</strong> {loc.traps}</div>}
+                                                {loc.secrets && <div><strong>Secrets:</strong> {loc.secrets}</div>}
+                                                {loc.loot && <div><strong>Loot:</strong> {loc.loot}</div>}
+                                            </>
                                         )}
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                            {loc.type === 'dungeon' && (
-                                                <>
-                                                    {loc.traps && <div><strong>Traps:</strong> {loc.traps}</div>}
-                                                    {loc.secrets && <div><strong>Secrets:</strong> {loc.secrets}</div>}
-                                                    {loc.loot && <div><strong>Loot:</strong> {loc.loot}</div>}
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className="campaign-column">
-                                        <EncountersView locationId={selectedLocationId} />
                                     </div>
                                 </div>
 
-                                <div className="campaign-level-2-map" style={{ display: 'flex', flexDirection: 'column', minHeight: '600px' }}>
-                                    <UnifiedMap
-                                        context={{ type: 'dungeon', id: selectedLocationId }}
-                                    />
+                                <div style={{ display: 'grid', gridTemplateColumns: '400px 1fr', gap: '2rem', minHeight: '600px' }}>
+                                    <div className="campaign-column" style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+                                        <EncountersView locationId={selectedLocationId} />
+                                    </div>
+
+                                    <div className="campaign-level-2-map" style={{ display: 'flex', flexDirection: 'column', minHeight: '600px' }}>
+                                        <UnifiedMap
+                                            context={{ type: 'dungeon', id: selectedLocationId }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         );
