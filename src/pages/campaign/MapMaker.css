@@ -1,10 +1,9 @@
 .map-maker-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 120px);
+    min-height: calc(100vh - 120px);
     background: var(--parchment-dark);
     border-radius: 8px;
-    overflow: hidden;
     gap: 1rem;
     padding: 1rem;
 }
@@ -12,11 +11,10 @@
 .unified-map-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     background: var(--parchment-dark);
     border-radius: 8px;
-    overflow: hidden;
     gap: 1rem;
     padding: 1rem;
 }
@@ -72,6 +70,7 @@
 
 .map-grid-viewport {
     flex: 1;
+    min-height: 400px;
     overflow: hidden;
     /* Removing scrollbars for pan/zoom logic */
     border: 1px solid var(--gold);

@@ -84,12 +84,13 @@
 }
 
 .tracker-add-row select {
-    max-width: 200px;
+    flex: 1;
+    min-width: 100px;
     cursor: pointer;
 }
 
 .short-input {
-    width: 70px;
+    width: 65px;
     text-align: center;
 }
 

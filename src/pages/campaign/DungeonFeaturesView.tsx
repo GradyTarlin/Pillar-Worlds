@@ -14,7 +14,8 @@ export function DungeonFeaturesView({ locationId, featureType }: DungeonFeatures
 
     const features = (data.dungeonFeatures || []).filter(f => f.locationId === locationId && f.type === featureType);
 
-    const title = featureType.charAt(0).toUpperCase() + featureType.slice(1) + 's';
+    const title = featureType === 'loot' ? 'Loot' : featureType.charAt(0).toUpperCase() + featureType.slice(1) + 's';
+    const singleLabel = featureType === 'loot' ? 'Loot' : title.slice(0, -1);
 
     const handleAdd = () => {
         const newFeature: DungeonFeature = {
@@ -41,7 +42,7 @@ export function DungeonFeaturesView({ locationId, featureType }: DungeonFeatures
 
     return (
         <div className="campaign-view-section">
-            <ListHeader title={title} onAdd={handleAdd} addLabel={title.slice(0, -1)} />
+            <ListHeader title={title} onAdd={handleAdd} addLabel={singleLabel} />
 
             <div className="campaign-cards-grid">
                 {features.map(feat => {
@@ -64,7 +65,7 @@ export function DungeonFeaturesView({ locationId, featureType }: DungeonFeatures
                     );
                 })}
                 {features.length === 0 && (
-                    <p className="campaign-empty-state">No {title.toLowerCase()} added yet. Click "+ {title.slice(0, -1)}" to start.</p>
+                    <p className="campaign-empty-state">No {title.toLowerCase()} added yet. Click "+ {singleLabel}" to start.</p>
                 )}
             </div>
         </div>

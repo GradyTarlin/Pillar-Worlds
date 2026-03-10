@@ -53,8 +53,11 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
     const [editPoiEconomy, setEditPoiEconomy] = useState<string>('');
     const [editPoiLeader, setEditPoiLeader] = useState('');
     const [editPoiTraps, setEditPoiTraps] = useState('');
+    const [editPoiTrapsDesc, setEditPoiTrapsDesc] = useState('');
     const [editPoiSecrets, setEditPoiSecrets] = useState('');
+    const [editPoiSecretsDesc, setEditPoiSecretsDesc] = useState('');
     const [editPoiLoot, setEditPoiLoot] = useState('');
+    const [editPoiLootDesc, setEditPoiLootDesc] = useState('');
     const [editQuestObjective, setEditQuestObjective] = useState('');
     const [editQuestReward, setEditQuestReward] = useState('');
 
@@ -97,6 +100,8 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
         if (entity) return { ...entity, entityType: 'quest' };
         entity = data.encounters.find(e => e.id === inspectedPoiId);
         if (entity) return { ...entity, entityType: 'encounter' };
+        entity = (data.dungeonFeatures || []).find(f => f.id === inspectedPoiId);
+        if (entity) return { ...entity, entityType: 'dungeonFeature' };
 
         const allTiles = Object.values(currentMap.grid);
         const tile = allTiles.find(t => t.poiId === inspectedPoiId);
@@ -171,6 +176,36 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, [applyBounds]);
+
+    useEffect(() => {
+        const el = canvasRef.current;
+        if (!el) return;
+
+        const handleWheel = (e: WheelEvent) => {
+            e.preventDefault();
+            const PAN_SPEED = 1.5;
+            setPan(prevPan => {
+                let newX = prevPan.x - e.deltaX * PAN_SPEED;
+                let newY = prevPan.y - e.deltaY * PAN_SPEED;
+
+                const gridWidth = currentMap.width * 32 * zoom;
+                const gridHeight = currentMap.height * 32 * zoom;
+                const viewportWidth = el.clientWidth;
+                const viewportHeight = el.clientHeight;
+
+                if (gridWidth <= viewportWidth) newX = (viewportWidth - gridWidth) / 2;
+                else newX = Math.min(0, Math.max(viewportWidth - gridWidth, newX));
+
+                if (gridHeight <= viewportHeight) newY = (viewportHeight - gridHeight) / 2;
+                else newY = Math.min(0, Math.max(viewportHeight - gridHeight, newY));
+
+                return { x: newX, y: newY };
+            });
+        };
+
+        el.addEventListener('wheel', handleWheel, { passive: false });
+        return () => el.removeEventListener('wheel', handleWheel);
+    }, [currentMap.width, currentMap.height, zoom]);
 
     const getContiguousLandmass = (startX: number, startY: number): string[] => {
         const grid = currentMap.grid;
@@ -473,6 +508,23 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                     }
                 }
 
+                let displayLabel = tile.label;
+                let displayType = tile.poiType;
+                if (tile.poiId && !isLocationPromptOpen) {
+                    if (context.type === 'world') {
+                        const entity = tile.poiType === 'quest' ? data.quests.find(q => q.id === tile.poiId) : data.locations.find(l => l.id === tile.poiId);
+                        if (entity) {
+                            displayLabel = entity.name;
+                            if ('type' in entity && entity.type !== 'settlement') {
+                                displayType = entity.type as MapPoiType;
+                            }
+                        }
+                    } else {
+                        const entity = tile.poiType === 'encounter' ? (data.encounters || []).find(e => e.id === tile.poiId) : (data.dungeonFeatures || []).find(f => f.id === tile.poiId);
+                        if (entity) displayLabel = entity.name;
+                    }
+                }
+
                 tiles.push(
                     <div
                         key={key}
@@ -492,9 +544,9 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                         title={isFinalized && tile.regionId ? data.regions.find(r => r.id === tile.regionId)?.name : ''}
                     >
                         {tile.poiType && (
-                            <div className={`poi-marker ${isFinalized ? 'clickable' : ''}`} title={tile.label || 'Undefined Location'}>
-                                {getPoiIcon(tile.poiType)}
-                                <span className="poi-label">{tile.label || '?'}</span>
+                            <div className={`poi-marker ${isFinalized ? 'clickable' : ''}`} title={displayLabel || 'Undefined Location'}>
+                                {getPoiIcon(displayType || tile.poiType)}
+                                <span className="poi-label">{displayLabel || '?'}</span>
                             </div>
                         )}
                         {/* Region color tinting over landmass */}
@@ -734,12 +786,12 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                         <button
                             className={`tool-btn ${activeTool === 'poi' ? 'active' : ''}`}
                             onClick={() => setActiveTool('poi')}
-                            title="Place settlements, dungeons, or quest markers. You must finalize the map to name and detailed them."
-                        >📍 POI</button>
+                            title="Place settlements, dungeons, or quest markers. You must finalize the map to name and detail them."
+                        >📍 Marker</button>
                         <button
                             className={`tool-btn ${activeTool === 'erase' ? 'active' : ''}`}
                             onClick={() => setActiveTool('erase')}
-                            title="Remove POIs or reset terrain to defaults."
+                            title="Remove markers or reset terrain to defaults."
                         >🧹 Erase</button>
                     </div>
 
@@ -931,7 +983,7 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                         <header className="compendium-detail__header">
                             <h2>{inspectedEntity.name}</h2>
                             <div className="compendium-detail__tags">
-                                <span className="compendium-detail__tag highlight">{inspectedEntity.type || 'POI'}</span>
+                                <span className="compendium-detail__tag highlight">{inspectedEntity.type || 'Marker'}</span>
                                 {inspectedEntity.regionId && (
                                     <span className="compendium-detail__tag">{data.regions.find(r => r.id === inspectedEntity.regionId)?.name}</span>
                                 )}
@@ -987,17 +1039,20 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
 
                                     {inspectedEntity.type === 'dungeon' && (
                                         <>
-                                            <div className="campaign-form-group">
-                                                <label>Traps</label>
-                                                <input value={editPoiTraps} onChange={(e) => setEditPoiTraps(e.target.value)} placeholder="Spikes, pits..." />
+                                            <div className="campaign-form-group" style={{ marginTop: '1rem', padding: '0.75rem', background: 'rgba(0,0,0,0.03)', borderRadius: '4px', border: '1px solid var(--gold)' }}>
+                                                <label style={{ color: 'var(--burgundy)', marginBottom: '0.5rem' }}>Add New Trap</label>
+                                                <input value={editPoiTraps} onChange={(e) => setEditPoiTraps(e.target.value)} placeholder="Trap Name..." style={{ marginBottom: '0.5rem' }} />
+                                                <textarea value={editPoiTrapsDesc} onChange={(e) => setEditPoiTrapsDesc(e.target.value)} placeholder="Trap mechanics or description..." rows={2} />
                                             </div>
-                                            <div className="campaign-form-group">
-                                                <label>Secrets</label>
-                                                <input value={editPoiSecrets} onChange={(e) => setEditPoiSecrets(e.target.value)} placeholder="Hidden doors..." />
+                                            <div className="campaign-form-group" style={{ marginTop: '0.75rem', padding: '0.75rem', background: 'rgba(0,0,0,0.03)', borderRadius: '4px', border: '1px solid var(--gold)' }}>
+                                                <label style={{ color: 'var(--burgundy)', marginBottom: '0.5rem' }}>Add New Secret</label>
+                                                <input value={editPoiSecrets} onChange={(e) => setEditPoiSecrets(e.target.value)} placeholder="Secret Name..." style={{ marginBottom: '0.5rem' }} />
+                                                <textarea value={editPoiSecretsDesc} onChange={(e) => setEditPoiSecretsDesc(e.target.value)} placeholder="How is it hidden?" rows={2} />
                                             </div>
-                                            <div className="campaign-form-group">
-                                                <label>Loot</label>
-                                                <input value={editPoiLoot} onChange={(e) => setEditPoiLoot(e.target.value)} placeholder="Treasures..." />
+                                            <div className="campaign-form-group" style={{ marginTop: '0.75rem', padding: '0.75rem', background: 'rgba(0,0,0,0.03)', borderRadius: '4px', border: '1px solid var(--gold)' }}>
+                                                <label style={{ color: 'var(--burgundy)', marginBottom: '0.5rem' }}>Add New Loot</label>
+                                                <input value={editPoiLoot} onChange={(e) => setEditPoiLoot(e.target.value)} placeholder="Loot Name..." style={{ marginBottom: '0.5rem' }} />
+                                                <textarea value={editPoiLootDesc} onChange={(e) => setEditPoiLootDesc(e.target.value)} placeholder="What did they find?" rows={2} />
                                             </div>
                                         </>
                                     )}
@@ -1025,18 +1080,49 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                                     objective: editQuestObjective.trim(),
                                                     reward: editQuestReward.trim()
                                                 } : q));
-                                            } else {
+                                            } else if (inspectedEntity.entityType === 'location') {
+                                                const newFeatures = [...(data.dungeonFeatures || [])];
+                                                if (editPoiTraps.trim()) {
+                                                    newFeatures.push({ id: `trap_${Date.now()}_1`, name: editPoiTraps.trim(), description: editPoiTrapsDesc.trim(), type: 'trap', locationId: inspectedEntity.id });
+                                                }
+                                                if (editPoiSecrets.trim()) {
+                                                    newFeatures.push({ id: `secret_${Date.now()}_2`, name: editPoiSecrets.trim(), description: editPoiSecretsDesc.trim(), type: 'secret', locationId: inspectedEntity.id });
+                                                }
+                                                if (editPoiLoot.trim()) {
+                                                    newFeatures.push({ id: `loot_${Date.now()}_3`, name: editPoiLoot.trim(), description: editPoiLootDesc.trim(), type: 'loot', locationId: inspectedEntity.id });
+                                                }
+                                                if (editPoiTraps.trim() || editPoiSecrets.trim() || editPoiLoot.trim()) {
+                                                    updateEntities('dungeonFeatures', newFeatures);
+                                                }
+
                                                 updateEntities('locations', data.locations.map(l => l.id === inspectedEntity.id ? {
                                                     ...l,
                                                     name: editPoiName.trim(),
                                                     description: editPoiDesc.trim(),
                                                     settlementType: editPoiType as any,
                                                     economy: editPoiEconomy as any,
-                                                    leader: editPoiLeader,
-                                                    traps: editPoiTraps,
-                                                    secrets: editPoiSecrets,
-                                                    loot: editPoiLoot
+                                                    leader: editPoiLeader
                                                 } : l));
+                                            } else if (inspectedEntity.entityType === 'encounter') {
+                                                updateEntities('encounters', (data.encounters || []).map(e => e.id === inspectedEntity.id ? {
+                                                    ...e,
+                                                    name: editPoiName.trim(),
+                                                    description: editPoiDesc.trim()
+                                                } : e));
+                                            } else if (inspectedEntity.entityType === 'dungeonFeature') {
+                                                updateEntities('dungeonFeatures', (data.dungeonFeatures || []).map(f => f.id === inspectedEntity.id ? {
+                                                    ...f,
+                                                    name: editPoiName.trim(),
+                                                    description: editPoiDesc.trim()
+                                                } : f));
+                                            } else {
+                                                // Generic unlinked tile fallback
+                                                const newGrid = { ...currentMap.grid };
+                                                const tileKey = Object.keys(newGrid).find(k => newGrid[k].poiId === inspectedEntity.id);
+                                                if (tileKey) {
+                                                    newGrid[tileKey] = { ...newGrid[tileKey], label: editPoiName.trim(), description: editPoiDesc.trim() };
+                                                    saveMapReference({ ...currentMap, grid: newGrid });
+                                                }
                                             }
                                             setIsEditingPoi(false);
                                         }}>Save</button>
@@ -1196,9 +1282,12 @@ export function UnifiedMap({ context, onSelectLocation, onSelectRegion }: Unifie
                                             setEditPoiType(inspectedEntity.settlementType || inspectedEntity.type || 'village');
                                             setEditPoiEconomy(inspectedEntity.economy || '');
                                             setEditPoiLeader(inspectedEntity.leader || '');
-                                            setEditPoiTraps(inspectedEntity.traps || '');
-                                            setEditPoiSecrets(inspectedEntity.secrets || '');
-                                            setEditPoiLoot(inspectedEntity.loot || '');
+                                            setEditPoiTraps('');
+                                            setEditPoiTrapsDesc('');
+                                            setEditPoiSecrets('');
+                                            setEditPoiSecretsDesc('');
+                                            setEditPoiLoot('');
+                                            setEditPoiLootDesc('');
                                             setEditQuestObjective(inspectedEntity.objective || '');
                                             setEditQuestReward(inspectedEntity.reward || '');
                                             setIsEditingPoi(true);

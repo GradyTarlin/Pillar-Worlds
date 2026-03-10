@@ -14,11 +14,14 @@ import { useCampaignData } from '../hooks/useCampaignData';
 import './CampaignBuilderPage.css';
 
 export function CampaignBuilderPage() {
-    const { data, activeCampaignId, setActiveCampaignId, campaigns } = useCampaignData();
+    const { data, activeCampaignId, setActiveCampaignId, campaigns, updateEntities } = useCampaignData();
     const [selectedRegionId, setSelectedRegionId] = useState<string | null>(null);
     const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<'regions' | 'characters' | 'factions'>('regions');
     const [activeDungeonTab, setActiveDungeonTab] = useState<'encounters' | 'traps' | 'loot' | 'secrets'>('encounters');
+
+    const [isEditingDungeonInfo, setIsEditingDungeonInfo] = useState(false);
+    const [dungeonEditForm, setDungeonEditForm] = useState({ name: '', description: '' });
 
     const handleSelectRegion = (id: string | null) => {
         setSelectedRegionId(id);
@@ -68,7 +71,7 @@ export function CampaignBuilderPage() {
 
                     {activeCampaignId && !selectedRegionId && !selectedLocationId && (
                         /* LEVEL 1: World View */
-                        <div className="campaign-level-1-wrapper" style={{ display: 'grid', gridTemplateColumns: '400px 1fr', gap: '1.5rem', width: '100%', height: 'calc(100vh - 160px)', minHeight: '600px' }}>
+                        <div className="campaign-level-1-wrapper" style={{ display: 'grid', gridTemplateColumns: '400px 1fr', gap: '1.5rem', width: '100%', minHeight: 'calc(100vh - 160px)' }}>
                             <div className="campaign-side-panel" style={{
                                 background: 'var(--parchment)',
                                 border: '1px solid var(--ink)',
@@ -156,18 +159,57 @@ export function CampaignBuilderPage() {
 
                         return (
                             /* LEVEL 3: Dungeon View */
-                            <div className="campaign-level-3-wrapper" style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem', height: 'calc(100vh - 160px)', minHeight: '600px' }}>
+                            <div className="campaign-level-3-wrapper" style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '1.5rem', minHeight: 'calc(100vh - 160px)' }}>
                                 <div className="campaign-location-overview" style={{
                                     background: 'var(--parchment)', padding: '1.5rem', borderRadius: 'var(--radius-md)',
                                     border: '3px solid var(--gold-dark)', boxShadow: 'var(--shadow-lg)'
                                 }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                                        <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--burgundy)', margin: 0 }}>
-                                            {loc.name}
-                                        </h2>
-                                    </div>
-                                    {loc.description && (
-                                        <p className="campaign-description-text" style={{ margin: 0, lineHeight: '1.6', fontSize: '1.1rem', color: 'var(--ink)' }}>{loc.description}</p>
+                                    {isEditingDungeonInfo ? (
+                                        <div className="campaign-entity-form">
+                                            <div className="campaign-form-group">
+                                                <label>Dungeon Name</label>
+                                                <input
+                                                    type="text"
+                                                    value={dungeonEditForm.name}
+                                                    onChange={e => setDungeonEditForm({ ...dungeonEditForm, name: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="campaign-form-group">
+                                                <label>Description</label>
+                                                <textarea
+                                                    value={dungeonEditForm.description}
+                                                    onChange={e => setDungeonEditForm({ ...dungeonEditForm, description: e.target.value })}
+                                                    rows={4}
+                                                />
+                                            </div>
+                                            <div className="campaign-form-actions" style={{ marginTop: '1rem' }}>
+                                                <button className="campaign-btn-primary" onClick={() => {
+                                                    updateEntities('locations', data.locations.map(l => l.id === selectedLocationId ? { ...l, name: dungeonEditForm.name, description: dungeonEditForm.description } : l));
+                                                    setIsEditingDungeonInfo(false);
+                                                }}>Save</button>
+                                                <button className="campaign-btn-secondary" onClick={() => setIsEditingDungeonInfo(false)}>Cancel</button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                                <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--burgundy)', margin: 0 }}>
+                                                    {loc.name}
+                                                </h2>
+                                                <button
+                                                    className="campaign-btn-secondary campaign-btn-small"
+                                                    onClick={() => {
+                                                        setDungeonEditForm({ name: loc.name, description: loc.description || '' });
+                                                        setIsEditingDungeonInfo(true);
+                                                    }}
+                                                >
+                                                    ✏️ Edit
+                                                </button>
+                                            </div>
+                                            {loc.description && (
+                                                <p className="campaign-description-text" style={{ margin: 0, lineHeight: '1.6', fontSize: '1.1rem', color: 'var(--ink)' }}>{loc.description}</p>
+                                            )}
+                                        </>
                                     )}
                                 </div>
 

@@ -245,6 +245,15 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                             placeholder="e.g. Goblin Ambush"
                         />
                     </div>
+                    <div className="campaign-form-group" style={{ marginTop: '1rem' }}>
+                        <label>Encounter Description</label>
+                        <textarea
+                            value={prepEncounter.description || ''}
+                            onChange={(e) => handleUpdateActiveEncounter({ ...prepEncounter, description: e.target.value })}
+                            placeholder="e.g. Context, room features, or encounter notes..."
+                            rows={3}
+                        />
+                    </div>
                 </div>
 
                 <div className="encounter-content" style={{ marginTop: '1rem' }}>
@@ -326,7 +335,7 @@ export function EncountersView({ locationId }: EncountersViewProps) {
                     </div>
                 </div>
                 {renderMonsterPanel()}
-            </div>
+            </div >
         );
     }
 
