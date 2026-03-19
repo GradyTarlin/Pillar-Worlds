@@ -506,6 +506,18 @@
         "range": "reach"
       },
       "rulesText": "2 magic damage and the target has disadvantage on their next skill check."
+    },
+    {
+      "id": "monAbility.dragons.cosmic_beam",
+      "name": "Cosmic Beam",
+      "check": null,
+      "rulesText": "When the diamond dragon deals magic damage, the target regains an equal amount of MP. The target is blinded until the end of the diamond dragon's next turn. Blinded creatures have disadvantage on all skill checks and cannot see."
+    },
+    {
+      "id": "monAbility.dragons.prismatic_beam",
+      "name": "Prismatic Beam",
+      "check": null,
+      "rulesText": "When the crystal dragon deals magic damage, the target regains an equal amount of MP. The target is blinded until the end of the crystal dragon's next turn. Blinded creatures have disadvantage on all skill checks and cannot see."
     }
   ],
   "monsters": [
@@ -1593,77 +1605,6 @@
       "notes": []
     },
     {
-      "id": "monster.dragons.ancient_dragon",
-      "name": "Ancient Dragon",
-      "monsterType": "Dragons",
-      "level": 54,
-      "hpMax": 68,
-      "armourMax": 0,
-      "wardMax": 0,
-      "traits": [
-        "bold",
-        "deafening",
-        "flying",
-        "gigantic",
-        "grounded",
-        "hazardous",
-        "magical",
-        "mighty",
-        "observant",
-        "potent",
-        "tough"
-      ],
-      "skills": {
-        "INS": 10,
-        "PRW": 10,
-        "STR": 10,
-        "CHA": 10,
-        "WIS": 10,
-        "STL": 10
-      },
-      "abilities": [
-        "monAbility.dragons.dragonfire"
-      ],
-      "equipment": [],
-      "loreText": "After slumbering for a thousand years, dragons amass enough raw mana to frighten the gods. Their rumbling call is the thunder that shakes the mountains and their fiery maw burns with the setting sun. Ancient dragons are few and far between, but reverberations of their immense power can be felt throughout the land. Their blood soaked legacy built the pillar worlds, and now they reign as undisputed sovereigns.",
-      "notes": []
-    },
-    {
-      "id": "monster.dragons.young_dragon",
-      "name": "Young Dragon",
-      "monsterType": "Dragons",
-      "level": 34,
-      "hpMax": 44,
-      "armourMax": 0,
-      "wardMax": 0,
-      "traits": [
-        "bold",
-        "fast",
-        "flying",
-        "grounded",
-        "hazardous",
-        "magical",
-        "observant",
-        "potent",
-        "tough",
-        "vengeful"
-      ],
-      "skills": {
-        "PRW": 8,
-        "STR": 8,
-        "INS": 8,
-        "STL": 6,
-        "CHA": 6,
-        "WIS": 4
-      },
-      "abilities": [
-        "monAbility.dragons.dragonfire"
-      ],
-      "equipment": [],
-      "loreText": "Dragons do not fully mature until they are a hundred years old, but even a young dragon can destroy entire cities. During this formative age, dragons choose a den, mate with other young dragons, and develop opinions of mortals that often last thousands of years. Dragons are much more active during their youth, and often settle into an indefinite slumber once they fully mature.",
-      "notes": []
-    },
-    {
       "id": "monster.dragons.hydra",
       "name": "Hydra",
       "monsterType": "Dragons",
@@ -1717,37 +1658,6 @@
       ],
       "equipment": [],
       "loreText": "Magical serpents that turn their prey to stone with their petrifying gaze, basilisks are descended from a bloodline of dragons that was imprisoned underground for millennia. Though basilisks don't have wings or breathe fire, they share their nearly indestructible scales and vengeful wrath with true dragons. The only way to cure a basilisk's petrification is by exposing the victim to the basilisk's saliva.",
-      "notes": []
-    },
-    {
-      "id": "monster.dragons.dragon_hatchling",
-      "name": "Dragon Hatchling",
-      "monsterType": "Dragons",
-      "level": 8,
-      "hpMax": 14,
-      "armourMax": 0,
-      "wardMax": 0,
-      "traits": [
-        "flying",
-        "grounded",
-        "hazardous",
-        "magical",
-        "observant",
-        "tough"
-      ],
-      "skills": {
-        "PRW": 3,
-        "INS": 3,
-        "CHA": 2,
-        "STR": 2,
-        "STL": 2,
-        "WIS": 2
-      },
-      "abilities": [
-        "monAbility.dragons.dragonfire"
-      ],
-      "equipment": [],
-      "loreText": "Though each dragon bloodline varies, some of them are as small as cats when they first emerge from their eggs. Their veins still flow with raw mana, but it takes years for their bodies to fully develop and for them to refine their hunting skills. If socialized during their infancy, some bloodlines can grow up to live in harmony with mortals.",
       "notes": []
     },
     {
@@ -4602,6 +4512,427 @@
       "abilities": [],
       "equipment": [],
       "loreText": "When enough quoggs consume enough mana, they merge together into a fearsome quoggaloth. A massive four-armed beast, the quoggaloth’s purpose is to lay a new clutch of quogg eggs. They seek out places suffused with latent mana to make their intricate nests, destroying anything that stands in their way. This often results in magical institutions falling under attack by roaming quoggaloths who are attracted by the concentrated mana. Quoggaloths can fire a devastating beam of raw mana from their cranial crystal, or crush their foes with their immense strength.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.diamond_dragon",
+      "name": "Diamond Dragon",
+      "monsterType": "Dragons",
+      "level": 60,
+      "hpMax": 70,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "catalyst",
+        "deafening",
+        "fast",
+        "flying",
+        "grounded",
+        "magical",
+        "observant",
+        "phasewalking",
+        "potent",
+        "regeneration",
+        "tough"
+      ],
+      "skills": {
+        "CHA": 12,
+        "INS": 12,
+        "PRW": 10,
+        "STR": 10,
+        "WIS": 10,
+        "STL": 10
+      },
+      "abilities": [
+        "monAbility.dragons.cosmic_beam"
+      ],
+      "equipment": [],
+      "loreText": "Glittering with the cold light of the stars, the ancient diamond dragons are masters of the dream world. Favoured by the twinkling cosmos, diamond dragons are at home in the infinite aether. They wield psychic abilities of inconceivable power, dancing through dimensions as easily as a scholar flips through the pages of a tome. They are descended from Inji the Beacon, the divine dragon of love who inspires hope across the Diamond Pillar.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.obsidian_dragon",
+      "name": "Obsidian Dragon",
+      "monsterType": "Dragons",
+      "level": 56,
+      "hpMax": 70,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "corrupt",
+        "curse",
+        "flying",
+        "gigantic",
+        "grounded",
+        "hazardous",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "siphon",
+        "tough"
+      ],
+      "skills": {
+        "INS": 12,
+        "PRW": 10,
+        "STR": 10,
+        "WIS": 10,
+        "CHA": 10,
+        "STL": 10
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "With dark hearts of pure malice, the ancient obsidian dragons strike fear across the Pillar Worlds. They embody the insatiable hunger of the Void, consuming and corrupting everything within their reach. There are few greater threats to the balance of the Pillar Worlds than the obsidian dragons, who strive for nothing less than the total obliteration of reality itself. They are descended from Hagaar the Vengeful, the divine dragon of time whose vile influence curses the Obsidian Pillar.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.gold_dragon",
+      "name": "Gold Dragon",
+      "monsterType": "Dragons",
+      "level": 52,
+      "hpMax": 66,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "catalyst",
+        "fast",
+        "flying",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "tough"
+      ],
+      "skills": {
+        "PRW": 10,
+        "STR": 10,
+        "INS": 10,
+        "WIS": 10,
+        "CHA": 10,
+        "STL": 8
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Radiating with the righteous brilliance of the Sun, the ancient golden dragons lord over mortal kingdoms as immortal sovereigns. They mete out fiery judgement upon their subjects, punishing injustice with decisive violence. Each golden dragon maintains their own strict code of honour, demanding absolute purity of the mortals who live under them. Golden dragons are descended from the almighty Empress Razeroth, the divine dragon of honour whose gleaming empire rules the Golden Pillar.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.ruby_dragon",
+      "name": "Ruby Dragon",
+      "monsterType": "Dragons",
+      "level": 48,
+      "hpMax": 60,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "cruel",
+        "flying",
+        "gigantic",
+        "grounded",
+        "hazardous",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "tough",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 10,
+        "STR": 10,
+        "INS": 10,
+        "WIS": 8,
+        "CHA": 8,
+        "STL": 8
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Ancient ruby dragons are unbridled forces of destruction, annihilating everything in their path with reckless abandon. No fire burns hotter than the breath of a ruby dragon, which they unleash upon any mortal settlement unfortunate enough to catch their attention. Ruby dragons revel in bloodshed, traveling far and wide to find capable opponents. They are descended from the Crimson Tyrant, the divine dragon of war who terrorizes the Ruby Pillar.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.silver_dragon",
+      "name": "Silver Dragon",
+      "monsterType": "Dragons",
+      "level": 44,
+      "hpMax": 55,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "enchanted",
+        "fast",
+        "flying",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "tough"
+      ],
+      "skills": {
+        "WIS": 10,
+        "PRW": 9,
+        "INS": 9,
+        "STR": 8,
+        "CHA": 7,
+        "STL": 7
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Bestowed with the grace and elegance of the Moon, the ancient silver dragons transmute the mundane matter of the Pillar Worlds into marvels beyond mortal comprehension. Silver dragons are renowned for their unshakeable focus, obsessing over their masterworks for centuries at a time. They forged the magical Iron Road which unites the Pillar Worlds, enabling the flow of spirits through the realm. Silver dragons are descended from the mystical Forgemaster, the divine dragon of craft who toils eternally in the legendary Dragonforge of the Silver Pillar.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.emerald_dragon",
+      "name": "Emerald Dragon",
+      "monsterType": "Dragons",
+      "level": 40,
+      "hpMax": 53,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "flying",
+        "gigantic",
+        "grounded",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "sneaky",
+        "tough",
+        "venomous"
+      ],
+      "skills": {
+        "STL": 9,
+        "CHA": 9,
+        "INS": 8,
+        "PRW": 8,
+        "WIS": 6,
+        "STR": 6
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Insidious, cruel, and vain, the ancient emerald dragons corrupt the people of the Pillar Worlds with poisoned whispers. Emerald dragons see mortals as puppets and playthings, pitting them against one another for their own amusement. They are much more secretive than other dragons, manipulating networks of mortals from their hidden lairs. Emerald dragons are descended from Kressel the Whisperer, the divine dragon of trickery who rules the Emerald Pillar from the shadows.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.black_dragon",
+      "name": "Black Dragon",
+      "monsterType": "Dragons",
+      "level": 30,
+      "hpMax": 39,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "curse",
+        "flying",
+        "grounded",
+        "hazardous",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "siphon",
+        "tough"
+      ],
+      "skills": {
+        "INS": 7,
+        "WIS": 6,
+        "STR": 6,
+        "PRW": 6,
+        "STL": 6,
+        "CHA": 5
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Black dragons are the most dangerous of the common dragons, plaguing the pillar worlds with corrupt darkness. They are descended from the wicked obsidian dragons, and draw from the same shadowy powers. Black dragons have no particular preference for habitats as long as there are mortal souls to devour.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.crystal_dragon",
+      "name": "Crystal Dragon",
+      "monsterType": "Dragons",
+      "level": 26,
+      "hpMax": 36,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "deafening",
+        "flying",
+        "grounded",
+        "magical",
+        "phasewalking",
+        "observant",
+        "potent",
+        "tough"
+      ],
+      "skills": {
+        "INS": 7,
+        "CHA": 6,
+        "STL": 5,
+        "WIS": 5,
+        "PRW": 5,
+        "STR": 4
+      },
+      "abilities": [
+        "monAbility.dragons.prismatic_beam"
+      ],
+      "equipment": [],
+      "loreText": "Crystal dragons are smaller than red and bronze dragons, but their natural connection to the aether makes them more powerful. They are descended from diamond dragons, wielding only an echo of their mighty ancestors' great cosmic power. They can be found living in frozen regions, slumbering while their consciousness explores the realm of dreams.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.red_dragon",
+      "name": "Red Dragon",
+      "monsterType": "Dragons",
+      "level": 22,
+      "hpMax": 30,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "grounded",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "tough",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STR": 6,
+        "INS": 5,
+        "CHA": 4,
+        "WIS": 4,
+        "STL": 3
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Red dragons are fearsome and aggressive, burning down mortal settlements for their own enjoyment. They are descended from the vicious ruby dragons, and are similarly indiscriminate in their violence. Red dragons can be found hoarding their plunder high up in mountain caves.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.bronze_dragon",
+      "name": "Bronze Dragon",
+      "monsterType": "Dragons",
+      "level": 20,
+      "hpMax": 28,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "catalyst",
+        "fast",
+        "flying",
+        "grounded",
+        "magical",
+        "mighty",
+        "observant",
+        "potent",
+        "tough"
+      ],
+      "skills": {
+        "PRW": 5,
+        "STR": 5,
+        "WIS": 4,
+        "CHA": 4,
+        "INS": 4,
+        "STL": 4
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Bronze dragons are large, regal creatures that often enjoy interacting with mortals. They are descended from the noble gold dragons, but have a more nuanced understanding of mortal morality than their righteous ancestors. Bronze dragons can be found in arid and coastal areas, making their homes in cliffsides and canyons.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.green_dragon",
+      "name": "Green Dragon",
+      "monsterType": "Dragons",
+      "level": 16,
+      "hpMax": 24,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "grounded",
+        "magical",
+        "observant",
+        "potent",
+        "sneaky",
+        "tough"
+      ],
+      "skills": {
+        "CHA": 4,
+        "STL": 4,
+        "WIS": 4,
+        "INS": 4,
+        "PRW": 3,
+        "STR": 3
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Green dragons are relatively small, but make up for their size with a keen intellect and a sharp tongue. They are descended from emerald dragons, and share their ancestors' love of toying with mortals. Green dragons can be found in natural areas near settlements, where they can lure wanderers into their overgrown lairs.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.iron_dragon",
+      "name": "Iron Dragon",
+      "monsterType": "Dragons",
+      "level": 10,
+      "hpMax": 16,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "grounded",
+        "magical",
+        "observant",
+        "potent",
+        "tough"
+      ],
+      "skills": {
+        "STR": 5,
+        "PRW": 4,
+        "INS": 3,
+        "STL": 2,
+        "WIS": 2,
+        "CHA": 2
+      },
+      "abilities": [
+        "monAbility.dragons.dragonfire"
+      ],
+      "equipment": [],
+      "loreText": "Iron dragons are the smallest and least powerful of the true dragons. They are descended from silver dragons, but are not as intelligent or graceful as their ancestors. Iron dragons are also the most common type of dragon, and can be found hoarding treasure in caves across the pillar worlds.",
       "notes": []
     }
   ],
