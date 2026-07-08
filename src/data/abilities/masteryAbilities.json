@@ -265,11 +265,8 @@
         },
         {
           "kind": "ability",
-          "id": "orb.mana_charge"
+          "id": "staff.arcane_bombardment"
         }
-      ],
-      "notes": [
-        "This is a cross-subtree prerequisite (Orb ability required for a Staff ability), per the text."
       ],
       "rulesText": "Whenever you succeed on a defensive roll to avoid magic damage, you recover MP."
     },

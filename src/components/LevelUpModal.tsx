@@ -201,7 +201,7 @@ export function LevelUpModal({ character, onClose, onSave }: LevelUpModalProps) 
                                 value={selectedGrant ?? ''}
                                 onChange={(e) => setSelectedGrant(e.target.value)}
                                 className="app__select"
-                                style={{ width: '100%', marginBottom: '2rem' }}
+                                style={{ width: '100%', marginBottom: '1rem' }}
                             >
                                 <option value="" disabled>-- Select an Ability --</option>
                                 {abilitiesInCategory.map((a) => (
@@ -210,6 +210,60 @@ export function LevelUpModal({ character, onClose, onSave }: LevelUpModalProps) 
                                     </option>
                                 ))}
                             </select>
+                        )}
+
+                        {selectedGrant && (
+                            (() => {
+                                const selectedAbility = allAbilities.find(a => a.id === selectedGrant);
+                                if (!selectedAbility) return null;
+                                return (
+                                    <div style={{
+                                        marginBottom: '1.5rem',
+                                        padding: '1rem',
+                                        background: 'rgba(0, 0, 0, 0.05)',
+                                        border: '1px solid rgba(139, 115, 85, 0.3)',
+                                        borderRadius: '4px',
+                                        color: 'var(--ink)'
+                                    }}>
+                                        <div style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                                            <h4 style={{ margin: 0, fontSize: '1.1rem', fontFamily: '"Cinzel", serif', color: 'var(--burgundy)' }}>
+                                                {selectedAbility.name}
+                                            </h4>
+                                            {selectedAbility.mpCost && (
+                                                <span style={{ fontSize: '0.85rem', color: 'var(--forest)', fontWeight: 'bold' }}>
+                                                    ({selectedAbility.mpCost} MP)
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div style={{ fontSize: '0.9rem', paddingLeft: '0.75rem', borderLeft: '2px solid rgba(139, 115, 85, 0.4)' }}>
+                                            {selectedAbility.trigger && (
+                                                <div style={{ fontStyle: 'italic', marginBottom: '0.25rem' }}>
+                                                    <strong>Trigger:</strong> {selectedAbility.trigger}
+                                                </div>
+                                            )}
+                                            {selectedAbility.requiresAttention && (
+                                                <div style={{ color: 'var(--attention-color, #d90429)', marginBottom: '0.25rem', fontWeight: 'bold' }}>
+                                                    Requires Attention
+                                                </div>
+                                            )}
+                                            {selectedAbility.check && (
+                                                <div style={{ marginBottom: '0.25rem', fontWeight: 'bold' }}>
+                                                    {selectedAbility.check.attackerSkill}
+                                                    {selectedAbility.check.defenderSkill ? ` vs. ${selectedAbility.check.defenderSkill}` : ''}
+                                                    {selectedAbility.check.range || selectedAbility.check.area ? ` (` : ''}
+                                                    {selectedAbility.check.range && `range: ${selectedAbility.check.range}`}
+                                                    {selectedAbility.check.range && selectedAbility.check.area ? `, ` : ''}
+                                                    {selectedAbility.check.area && `area: ${selectedAbility.check.area}`}
+                                                    {selectedAbility.check.range || selectedAbility.check.area ? `)` : ''}
+                                                </div>
+                                            )}
+                                            <div style={{ lineHeight: '1.4', marginTop: '0.5rem', whiteSpace: 'pre-wrap' }}>
+                                                {selectedAbility.rulesText}
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })()
                         )}
 
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>

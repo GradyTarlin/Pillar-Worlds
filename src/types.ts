@@ -93,4 +93,6 @@ export interface SavedCharacter extends CharacterSelections {
   extraHp: number;
   skillIncreases: Partial<Skills>;
   leveledGrants: string[];
+  inventory?: string[];
+  notes?: string;
 }

@@ -25,10 +25,14 @@ export function MonsterDetailPanel({ monster, onClose }: { monster: Monster, onC
                         {monster.armourMax > 0 && <li><strong>Armour:</strong> {monster.armourMax}</li>}
                         {monster.wardMax > 0 && <li><strong>Ward:</strong> {monster.wardMax}</li>}
                     </ul>
-                    {['Golem', 'Automaton', 'Titan', 'Land Spirit'].includes(monster.name) && (
-                        <div className="compendium-detail__note">
-                            The {monster.name.toLowerCase()} has extra HP equal to its STR bonus.
-                        </div>
+                    {monster.notes && monster.notes.length > 0 && (
+                        <ul className="monster-notes-list">
+                            {monster.notes.map((note, idx) => (
+                                <li key={idx} className="compendium-detail__note">
+                                    {note}
+                                </li>
+                            ))}
+                        </ul>
                     )}
                 </section>
 
@@ -43,13 +47,9 @@ export function MonsterDetailPanel({ monster, onClose }: { monster: Monster, onC
                                 </div>
                             ))}
                         </div>
-                        {['Cyclops', 'Ogre'].includes(monster.name) && (
-                            <div className="compendium-detail__note">
-                                The {monster.name.toLowerCase()} has disadvantage on all {monster.name === 'Cyclops' ? 'INS' : 'WIS'} checks.
-                            </div>
-                        )}
                     </section>
-                )}            {
+                )}
+                {
                     monster.traits && monster.traits.length > 0 && (
                         <section className="compendium-detail__section">
                             <h3>Traits</h3>

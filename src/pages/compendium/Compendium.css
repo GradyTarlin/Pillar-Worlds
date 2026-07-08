@@ -346,6 +346,27 @@
     color: var(--burgundy);
 }
 
+.monster-notes-list {
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.compendium-detail__note {
+    background: white;
+    padding: 1rem;
+    border: 1px solid var(--parchment-dark);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--burgundy);
+    box-shadow: var(--shadow-sm);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+}
+
 .compendium-detail__lore {
     font-size: 1.2rem;
     font-style: italic;

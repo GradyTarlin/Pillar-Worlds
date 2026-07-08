@@ -1,12 +1,15 @@
+import { useState, useEffect } from 'react';
 import type { CharacterSelections, Skills, SavedCharacter } from '../types';
 import { deriveHP, deriveMP, deriveMPRecovery, deriveEquipment } from '../derivation';
 import { SKILL_KEYS, HP_LABEL, MP_LABEL, MP_RECOVERY_LABEL } from '../ruleData';
 import { getAbilityById, type Ability } from '../data/abilities';
+import { baseItems, artifacts } from '../data/equipment';
 
 interface CharacterSheetProps {
   selections: CharacterSelections;
   skills: Skills;
   savedCharacter?: SavedCharacter;
+  onUpdateCharacter?: (updates: Partial<SavedCharacter>) => void;
 }
 
 interface PickedAbilityDetail {
@@ -24,12 +27,22 @@ function getPickedItemDetail(id: string, source: string): PickedAbilityDetail | 
   return null;
 }
 
-export function CharacterSheet({ selections, skills, savedCharacter }: CharacterSheetProps) {
+export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCharacter }: CharacterSheetProps) {
+  const [notesText, setNotesText] = useState(savedCharacter?.notes ?? '');
+  const [selectedEquipId, setSelectedEquipId] = useState('');
+
+  useEffect(() => {
+    setNotesText(savedCharacter?.notes ?? '');
+  }, [savedCharacter?.notes]);
+
   const level = savedCharacter?.level ?? 1;
   const hp = deriveHP(skills, selections.bloodline?.id ?? null, savedCharacter?.extraHp ?? 0);
   const mp = deriveMP(skills);
   const mpRecovery = deriveMPRecovery(skills);
-  const equipment = deriveEquipment(selections, savedCharacter?.leveledGrants ?? []);
+  const equipment = deriveEquipment(
+    { ...selections, inventory: savedCharacter?.inventory },
+    savedCharacter?.leveledGrants ?? []
+  );
   const fragments = [
     selections.birth,
     selections.youth,
@@ -55,8 +68,15 @@ export function CharacterSheet({ selections, skills, savedCharacter }: Character
   const armourAbilities = allKnownAbilityIds.filter(id => ['armour.bulwark', 'armour.impenetrable', 'armour.juggernaut'].includes(id as string)).length;
   const wardAbilities = allKnownAbilityIds.filter(id => ['ward.phase_shift', 'ward.mana_reflection', 'ward.arcane_battery'].includes(id as string)).length;
 
-  const armour = equipment.reduce((sum, item) => sum + (item.grants?.armourMax ?? 0), 0) + armourAbilities;
-  const ward = equipment.reduce((sum, item) => sum + (item.grants?.wardMax ?? 0), 0) + wardAbilities;
+  const armour = equipment.reduce((sum, item) => {
+    const grants = 'grants' in item ? item.grants : undefined;
+    return sum + (grants?.armourMax ?? 0);
+  }, 0) + armourAbilities;
+
+  const ward = equipment.reduce((sum, item) => {
+    const grants = 'grants' in item ? item.grants : undefined;
+    return sum + (grants?.wardMax ?? 0);
+  }, 0) + wardAbilities;
 
   return (
     <div className="character-sheet">
@@ -180,28 +200,161 @@ export function CharacterSheet({ selections, skills, savedCharacter }: Character
         </section>
 
         <section className="character-sheet__section character-sheet__section--full">
-          <h2>Equipment</h2>
+          <h2>Equipment &amp; Inventory</h2>
           {equipment.length > 0 ? (
             <ul className="character-sheet__equipment" style={{ listStyleType: 'none', paddingLeft: 0 }}>
               {equipment.map((item, i) => (
                 <li key={i} style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                  <div style={{ marginBottom: '0.25rem' }}>
-                    <strong style={{ fontSize: '1.1rem', color: 'var(--burgundy)' }}>{item.name}</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                    <strong style={{ fontSize: '1.1rem', color: 'var(--burgundy)' }}>
+                      {item.name}
+                    </strong>
+                    {onUpdateCharacter && savedCharacter?.inventory?.includes(item.id) && (
+                      <button
+                        type="button"
+                        className="app__back-button"
+                        style={{
+                          padding: '0.2rem 0.6rem',
+                          fontSize: '0.8rem',
+                          margin: 0,
+                          backgroundColor: '#d90429',
+                          border: 'none',
+                          color: '#fff',
+                          borderRadius: '4px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => {
+                          const currentInventory = savedCharacter.inventory ?? [];
+                          const idx = currentInventory.indexOf(item.id);
+                          if (idx > -1) {
+                            const newInventory = [...currentInventory];
+                            newInventory.splice(idx, 1);
+                            onUpdateCharacter({ inventory: newInventory });
+                          }
+                        }}
+                      >
+                        Remove
+                      </button>
+                    )}
                   </div>
-                  {item.rulesText && item.rulesText.length > 0 && (
-                    <ul style={{ paddingLeft: '1.25rem', marginTop: '0.25rem', marginBottom: 0, lineHeight: 1.5 }}>
-                      {item.rulesText.map((rule, imgIdx) => (
-                        <li key={imgIdx} style={{ marginBottom: '0.5rem', whiteSpace: 'pre-wrap' }}>
-                          {rule}
-                        </li>
-                      ))}
-                    </ul>
+                  {item.rulesText && (
+                    <div style={{ paddingLeft: '1.25rem', marginTop: '0.25rem', lineHeight: 1.5 }}>
+                      {Array.isArray(item.rulesText) ? (
+                        <ul style={{ paddingLeft: 0, margin: 0, listStyleType: 'disc' }}>
+                          {item.rulesText.map((rule, imgIdx) => (
+                            <li key={imgIdx} style={{ marginBottom: '0.5rem', whiteSpace: 'pre-wrap' }}>
+                              {rule}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div style={{ whiteSpace: 'pre-wrap' }}>{item.rulesText}</div>
+                      )}
+                    </div>
                   )}
                 </li>
               ))}
             </ul>
           ) : (
             <p>No equipment.</p>
+          )}
+
+          {onUpdateCharacter && savedCharacter && (
+            <div style={{
+              marginTop: '1.5rem',
+              padding: '1rem',
+              background: 'rgba(0, 0, 0, 0.15)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '4px'
+            }}>
+              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.75rem', fontFamily: '"Cinzel", serif' }}>Add Equipment or Artifact</h3>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <select
+                  style={{
+                    flex: 1,
+                    minWidth: '200px',
+                    padding: '0.5rem',
+                    background: 'var(--parchment)',
+                    color: 'var(--ink)',
+                    border: '1px solid var(--ink)',
+                    borderRadius: '4px',
+                    fontSize: '0.95rem'
+                  }}
+                  value={selectedEquipId}
+                  onChange={(e) => setSelectedEquipId(e.target.value)}
+                >
+                  <option value="">-- Choose Equipment / Artifact --</option>
+                  <optgroup label="Standard Equipment">
+                    {baseItems.map(item => (
+                      <option key={item.id} value={item.id}>{item.name} ({item.type})</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Artifacts">
+                    {artifacts.map(item => (
+                      <option key={item.id} value={item.id}>{item.name} (Artifact, {item.type})</option>
+                    ))}
+                  </optgroup>
+                </select>
+                <button
+                  type="button"
+                  className="app__finish-button"
+                  style={{ margin: 0, padding: '0.5rem 1.25rem' }}
+                  onClick={() => {
+                    if (selectedEquipId) {
+                      const currentInventory = savedCharacter.inventory ?? [];
+                      onUpdateCharacter({ inventory: [...currentInventory, selectedEquipId] });
+                      setSelectedEquipId('');
+                    }
+                  }}
+                  disabled={!selectedEquipId}
+                >
+                  Add to Inventory
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
+
+        <section className="character-sheet__section character-sheet__section--full">
+          <h2>Notes</h2>
+          {onUpdateCharacter ? (
+            <textarea
+              className="character-sheet__notes-input"
+              value={notesText}
+              onChange={(e) => setNotesText(e.target.value)}
+              onBlur={() => {
+                if (onUpdateCharacter) {
+                  onUpdateCharacter({ notes: notesText });
+                }
+              }}
+              placeholder="Record your character's deeds, factions, or reminders here..."
+              style={{
+                width: '100%',
+                minHeight: '150px',
+                background: 'var(--parchment)',
+                color: 'var(--ink)',
+                border: '1px solid var(--ink)',
+                borderRadius: '4px',
+                padding: '0.75rem',
+                fontSize: '1rem',
+                fontFamily: 'inherit',
+                resize: 'vertical',
+                outline: 'none',
+                boxSizing: 'border-box',
+                lineHeight: '1.5'
+              }}
+            />
+          ) : (
+            <div style={{
+              whiteSpace: 'pre-wrap',
+              background: 'rgba(0, 0, 0, 0.05)',
+              padding: '0.75rem',
+              borderRadius: '4px',
+              border: '1px dashed rgba(255, 255, 255, 0.1)',
+              lineHeight: '1.5'
+            }}>
+              {savedCharacter?.notes || <span style={{ fontStyle: 'italic', color: 'var(--ink-muted)' }}>No notes compiled yet. Use the character view to edit notes.</span>}
+            </div>
           )}
         </section>
       </div>

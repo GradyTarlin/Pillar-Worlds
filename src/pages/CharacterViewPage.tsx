@@ -30,7 +30,12 @@ export function CharacterViewPage() {
     return (
         <div className="app-sheet-view">
             {/* We pass the saved character into the CharacterSheet so it can render leveled stats */}
-            <CharacterSheet selections={character} skills={skills} savedCharacter={character} />
+            <CharacterSheet
+                selections={character}
+                skills={skills}
+                savedCharacter={character}
+                onUpdateCharacter={(updates) => updateCharacter(character.id, updates)}
+            />
 
             <div className="app__back-actions">
                 <button type="button" className="app__finish-button" onClick={() => setShowLevelUp(true)}>

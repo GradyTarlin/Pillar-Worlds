@@ -461,7 +461,17 @@
         "defenderSkill": "INS",
         "range": "reach"
       },
-      "rulesText": "See monster notes/rules text for damage and any additional requirements/effects."
+      "rulesText": "2 physical damage and the target loses a skill check on its next turn."
+    },
+    {
+      "id": "monAbility.undead.vampire_lord.blood_drain",
+      "name": "Blood Drain",
+      "check": {
+        "attackerSkill": "STL",
+        "defenderSkill": "INS",
+        "range": "reach"
+      },
+      "rulesText": "4 physical damage and the target loses a skill check on its next turn."
     },
     {
       "id": "monAbility.undead.elder_vampire.hypnosis",
@@ -518,6 +528,89 @@
       "name": "Prismatic Beam",
       "check": null,
       "rulesText": "When the crystal dragon deals magic damage, the target regains an equal amount of MP. The target is blinded until the end of the crystal dragon's next turn. Blinded creatures have disadvantage on all skill checks and cannot see."
+    },
+    {
+      "id": "monAbility.fae.wisp.luring_light",
+      "name": "Luring Light",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see"
+      },
+      "rulesText": "The target immediately moves in a direction of the wisp’s choice."
+    },
+    {
+      "id": "monAbility.arcane.cornare.stampede",
+      "name": "Stampede",
+      "check": null,
+      "rulesText": "After it moves, the cornare deals +2 magic damage on its next attack this turn."
+    },
+    {
+      "id": "monAbility.arcane.insiri.fade",
+      "name": "Fade",
+      "check": null,
+      "rulesText": "If the insirus has not moved at the end of its turn, it turns invisible. While the insirus is invisible, enemies cannot target it with checks that require sight, such as attacks and focusing. The insirus has advantage on its next offensive check while invisible. The insirus becomes visible again once it makes an offensive skill check, moves, or takes damage."
+    },
+    {
+      "id": "monAbility.arcane.laceri.electrocute",
+      "name": "Electrocute",
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "reach",
+        "notes": "every creature within the laceri’s reach while it is in water"
+      },
+      "rulesText": "2 magic damage."
+    },
+    {
+      "id": "monAbility.elementals.infernean.eruption",
+      "name": "Eruption",
+      "check": {
+        "attackerSkill": "INS",
+        "defenderSkill": "STL",
+        "range": "reach",
+        "notes": "every creature within the infernean’s reach"
+      },
+      "rulesText": "3 magic damage."
+    },
+    {
+      "id": "monAbility.elementals.umbrean.split",
+      "name": "Split",
+      "check": null,
+      "rulesText": "The umbrean splits into its light and dark halves. One half can move on each turn.\nWhen the light half deals damage, the target is blinded until it makes a skill check. While blinded, the target has disadvantage on skill checks and cannot see.\nWhen the dark half succeeds on an attack with advantage, it deals +2 damage."
+    },
+    {
+      "id": "monAbility.fae.vixalim.beguile",
+      "name": "Beguile",
+      "check": {
+        "attackerSkill": "CHA",
+        "defenderSkill": "WIS",
+        "range": "see",
+        "notes": "an enemy the vixalim can see"
+      },
+      "rulesText": "The target immediately makes a free skill check controlled by the vixalim."
+    },
+    {
+      "id": "monAbility.fae.chronalim.slow_time",
+      "name": "Slow Time",
+      "check": {
+        "attackerSkill": "WIS",
+        "defenderSkill": "CHA",
+        "range": "see",
+        "notes": "every enemy the chronalim can see"
+      },
+      "rulesText": "The target loses either one movement or one skill check on its next turn (their choice)."
+    },
+    {
+      "id": "monAbility.fae.vinalim.entangling_vines",
+      "name": "Entangling Vines",
+      "check": {
+        "attackerSkill": "STR",
+        "defenderSkill": "STR",
+        "range": "see",
+        "notes": "every creature within a zone the vinalim can see"
+      },
+      "rulesText": "The target is entangled and cannot move until they score 9 on a STR check to remove the vines. While the target is ensnared, the vinalim has advantage on PRW checks against them."
     }
   ],
   "monsters": [
@@ -727,6 +820,35 @@
       "notes": []
     },
     {
+      "id": "monster.arcane.cornare",
+      "name": "Cornare",
+      "monsterType": "Arcane",
+      "level": 13,
+      "hpMax": 21,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "grounded",
+        "magical",
+        "mighty",
+        "tough"
+      ],
+      "skills": {
+        "STR": 5,
+        "CHA": 4,
+        "WIS": 4,
+        "INS": 3,
+        "PRW": 2,
+        "STL": 1
+      },
+      "abilities": [
+        "monAbility.arcane.cornare.stampede"
+      ],
+      "equipment": [],
+      "loreText": "Cornare are descended from rhinoceroses exposed to arcane magic. They have incredibly durable natural armour and large magical horns that destroy everything in their path.",
+      "notes": []
+    },
+    {
       "id": "monster.arcane.caverus",
       "name": "Caverus",
       "monsterType": "Arcane",
@@ -779,6 +901,60 @@
       "notes": []
     },
     {
+      "id": "monster.arcane.insiri",
+      "name": "Insiri",
+      "monsterType": "Arcane",
+      "level": 10,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 4,
+        "PRW": 4,
+        "STR": 3,
+        "INS": 2,
+        "WIS": 2,
+        "CHA": 1
+      },
+      "abilities": [
+        "monAbility.arcane.insiri.fade"
+      ],
+      "equipment": [],
+      "loreText": "Insiri are descended from crocodiles exposed to arcane magic. They have manes of shaggy fur and long legs that make them more agile on land than their natural counterparts. Insiri are magical ambush predators, fading from view as long as they stay still.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.laceri",
+      "name": "Laceri",
+      "monsterType": "Arcane",
+      "level": 9,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "catalyst",
+        "fast",
+        "hazardous"
+      ],
+      "skills": {
+        "PRW": 4,
+        "INS": 3,
+        "STL": 3,
+        "STR": 2,
+        "CHA": 2,
+        "WIS": 1
+      },
+      "abilities": [
+        "monAbility.arcane.laceri.electrocute"
+      ],
+      "equipment": [],
+      "loreText": "Laceri are descended from monitor lizards exposed to arcane magic. They have elongated jagged scales which crackle with electricity, and can move incredibly quickly. While dangerous on land, laceri are especially hazardous in the water, where their electrical abilities are easily conducted. Laceri absorb nearby magical energy and use it to build their electrical charge.",
+      "notes": []
+    },
+    {
       "id": "monster.arcane.gryphon",
       "name": "Gryphon",
       "monsterType": "Arcane",
@@ -801,6 +977,31 @@
       "abilities": [],
       "equipment": [],
       "loreText": "Gryphons have the head and wings of a falcon and the body of a lion. They represent nobility in many cultures, and can be trained as mounts if raised from birth. Gryphons have keen senses and sharp talons, dive bombing large prey from high in the skies.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.indigo_squid",
+      "name": "Indigo Squid",
+      "monsterType": "Arcane",
+      "level": 7,
+      "hpMax": 11,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "grounded",
+        "staggering"
+      ],
+      "skills": {
+        "INS": 3,
+        "PRW": 3,
+        "STL": 3,
+        "STR": 3,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Glimmering purple molluscs, indigo squid hatch in waters exposed to arcane magic. Their gentle glow illuminates the depths in which they school, creating beautiful patterns of gleaming light. Indigo squid are drawn to magical objects, collecting them in underwater troves.",
       "notes": []
     },
     {
@@ -912,6 +1113,33 @@
       ]
     },
     {
+      "id": "monster.arcane.jackari",
+      "name": "Jackari",
+      "monsterType": "Arcane",
+      "level": 4,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "observant",
+        "phasewalking",
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STR": 2,
+        "STL": 2,
+        "INS": 2,
+        "CHA": 1,
+        "WIS": 0
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Jackari are descended from jackals exposed to arcane magic. They have jagged spines extending from their backs and long canine fangs. Jackari are able to teleport, and are extremely dangerous when hunting in packs.",
+      "notes": []
+    },
+    {
       "id": "monster.arcane.harpy",
       "name": "Harpy",
       "monsterType": "Arcane",
@@ -1007,6 +1235,31 @@
       "notes": []
     },
     {
+      "id": "monster.arcane.ranari",
+      "name": "Ranari",
+      "monsterType": "Arcane",
+      "level": 2,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "venomous"
+      ],
+      "skills": {
+        "CHA": 3,
+        "STL": 2,
+        "PRW": 1,
+        "INS": 1,
+        "WIS": 1,
+        "STR": 0
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Ranari are descended from frogs exposed to arcane magic. They appear in a wide array of bright colours, and have gleaming gemstones embedded in their foreheads. Ranari are renowned for their beautiful song, which has been known to hypnotize unsuspecting travellers. Though relatively harmless themselves, ranari can lull people into a false sense of security when other more dangerous monsters lurk nearby. Ranari are highly toxic, and can poison enemies with their long tongues in self-defence.",
+      "notes": []
+    },
+    {
       "id": "monster.arcane.ludori",
       "name": "Ludori",
       "monsterType": "Arcane",
@@ -1095,6 +1348,30 @@
       ],
       "equipment": [],
       "loreText": "Slimes are the product of careless alchemy, spawning from the magical residues of potion ingredients.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.vermari",
+      "name": "Vermari",
+      "monsterType": "Arcane",
+      "level": 0,
+      "hpMax": 1,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "shapeshifting"
+      ],
+      "skills": {
+        "STL": 1,
+        "INS": 1,
+        "STR": 0,
+        "PRW": 0,
+        "WIS": 0,
+        "CHA": 0
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Vermari are descended from rats exposed to arcane magic. They have small pointed horns and walk on two legs, seeking out anything that shines or sparkles to collect in hidden troves. Among the most common arcane monsters, vermari are universally hated by mortals. Vermari use their magical abilities to adapt to the task at hand, taking on a variety of specialized forms.",
       "notes": []
     },
     {
@@ -1400,6 +1677,121 @@
       ],
       "equipment": [],
       "loreText": "Immortal embodiments of the night sky, nocturi wield incredible powers of darkness. Shadowy figures dappled with cold starlight, the nocturi float silently through the aether. They collect the shadows of mortals, draining their spirits.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.diamondshell",
+      "name": "Diamondshell",
+      "monsterType": "Celestials",
+      "level": 16,
+      "hpMax": 27,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "catalyst",
+        "gigantic",
+        "grounded",
+        "magical",
+        "phasewalking",
+        "potent",
+        "tough"
+      ],
+      "skills": {
+        "WIS": 7,
+        "CHA": 7,
+        "STR": 4,
+        "INS": 4
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Turtle-like celestials with glittering armour of starlight, diamondshells are the messengers of the aether. They appear in the dreams of lost souls, guiding them to their destiny.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.goldenfang",
+      "name": "Goldenfang",
+      "monsterType": "Celestials",
+      "level": 12,
+      "hpMax": 20,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "grounded",
+        "fast",
+        "magical",
+        "observant",
+        "regeneration",
+        "tough",
+        "vengeful"
+      ],
+      "skills": {
+        "STR": 4,
+        "CHA": 4,
+        "PRW": 3,
+        "INS": 3,
+        "WIS": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Leonine celestials with masks of gleaming gold, goldenfangs watch over the dreams of those who have faced profound injustice. Goldenfangs are beacons of warm radiance, driving away the denizens of darkness with their brilliant presence.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.silvermane",
+      "name": "Silvermane",
+      "monsterType": "Celestials",
+      "level": 10,
+      "hpMax": 16,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bold",
+        "fast",
+        "magical",
+        "observant",
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 4,
+        "INS": 3,
+        "STR": 3,
+        "WIS": 2,
+        "CHA": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Wolf-like celestials with long, flowing silver fur, silvermanes pace silently through the dreams of those touched by sorrow. Silvermanes are fiercely opposed to the dark fae wolf, often fighting against wargs and werewolves in Eden.",
+      "notes": []
+    },
+    {
+      "id": "monster.celestials.blackweb",
+      "name": "Blackweb",
+      "monsterType": "Celestials",
+      "level": 8,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "curse",
+        "magical",
+        "siphon",
+        "sneaky",
+        "staggering",
+        "venomous"
+      ],
+      "skills": {
+        "STL": 4,
+        "PRW": 3,
+        "INS": 3,
+        "STR": 2,
+        "WIS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Enormous celestial spiders, blackwebs lurk in the nightmares of mortal beings. They feed on fear, sapping mortals until they are too weak to carry on.",
       "notes": []
     },
     {
@@ -1939,6 +2331,92 @@
       "notes": []
     },
     {
+      "id": "monster.elementals.infernean",
+      "name": "Infernean",
+      "monsterType": "Elementals",
+      "level": 10,
+      "hpMax": 17,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "hazardous",
+        "magical",
+        "overcharged",
+        "tough"
+      ],
+      "skills": {
+        "STR": 4,
+        "PRW": 3,
+        "INS": 3,
+        "WIS": 3,
+        "CHA": 3,
+        "STL": 0
+      },
+      "abilities": [
+        "monAbility.elementals.infernean.eruption"
+      ],
+      "equipment": [],
+      "loreText": "Cursed spirits of earth and fire, inferneans destroy everything they touch. Inferneans have humanoid bodies of stone with hearts of raging fire, which engulfs them and anyone nearby.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.tempean",
+      "name": "Tempean",
+      "monsterType": "Elementals",
+      "level": 10,
+      "hpMax": 18,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "ethereal",
+        "flying",
+        "magical"
+      ],
+      "skills": {
+        "CHA": 4,
+        "PRW": 3,
+        "STR": 3,
+        "INS": 2,
+        "WIS": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Cursed spirits of air and water, tempeans fight with the fury of a storm. They are swirling tornadoes in humanoid form, with crackling lightning extending from their fingertips.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.umbrean",
+      "name": "Umbrean",
+      "monsterType": "Elementals",
+      "level": 10,
+      "hpMax": 16,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "grounded",
+        "magical",
+        "phasewalking",
+        "siphon",
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 4,
+        "INS": 3,
+        "WIS": 3,
+        "PRW": 2,
+        "STR": 2,
+        "CHA": 2
+      },
+      "abilities": [
+        "monAbility.elementals.umbrean.split"
+      ],
+      "equipment": [],
+      "loreText": "Cursed spirits of light and darkness, umbreans are never truly whole. Featureless humanoid figures with one light half and one dark half, umbreans can split their bodies in two and control each side independently.",
+      "notes": []
+    },
+    {
       "id": "monster.elementals.great_worm",
       "name": "Great Worm",
       "monsterType": "Elementals",
@@ -2019,11 +2497,7 @@
       "abilities": [],
       "equipment": [],
       "loreText": "Embodiments of pure flame, fire spirits may take many forms but are always dangerous.",
-      "notes": [
-        "Many magi seek to tame fire spirits, harnessing their destructive energy in battle.",
-        "Fire spirits can be useful in domestic life if properly cared for.",
-        "Water is effective against them; starving them of fuel/oxygen is a good way to defeat them."
-      ]
+      "notes": []
     },
     {
       "id": "monster.elementals.water_spirit",
@@ -2197,9 +2671,7 @@
       "abilities": [],
       "equipment": [],
       "loreText": "Grundlings are ravenous little beasts that devour crops, ruin roads, and weaken the foundations of buildings.",
-      "notes": [
-        "They can be dispelled by placing a salt circle around the affected region."
-      ]
+      "notes": []
     },
     {
       "id": "monster.elementals.wilp",
@@ -2220,9 +2692,7 @@
       "abilities": [],
       "equipment": [],
       "loreText": "Wilps are flying pests who swoop and claw at unprotected mortals, stealing any shiny items they see.",
-      "notes": [
-        "They can be dispelled by sacrificing poultry."
-      ]
+      "notes": []
     },
     {
       "id": "monster.elementals.znipe",
@@ -2244,9 +2714,7 @@
       "abilities": [],
       "equipment": [],
       "loreText": "Znipes are little peeking shadows that curse mortals who meet their gaze.",
-      "notes": [
-        "They can be dispelled by burning ceremonial herbs."
-      ]
+      "notes": []
     },
     {
       "id": "monster.fae.guardian_beast",
@@ -2306,6 +2774,82 @@
       ],
       "equipment": [],
       "loreText": "Among the first fae creatures to wander Eden's mystical wilds, unicorns represent purity. They have unparalleled healing abilities, and are coveted for their magical horns.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.wisp",
+      "name": "Wisp",
+      "monsterType": "Fae",
+      "level": 10,
+      "hpMax": 17,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "ethereal",
+        "magical"
+      ],
+      "skills": {
+        "INS": 5,
+        "WIS": 4,
+        "STL": 4,
+        "CHA": 3
+      },
+      "abilities": [
+        "monAbility.fae.wisp.luring_light"
+      ],
+      "equipment": [],
+      "loreText": "Wisps are ghostly fae spirits that illuminate dark woods with their somber glow. Wisps are born when fairies succumb to profound sorrow, losing their will to live as mortals.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.warg",
+      "name": "Warg",
+      "monsterType": "Fae",
+      "level": 8,
+      "hpMax": 13,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "fast",
+        "observant",
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 4,
+        "STR": 3,
+        "INS": 3,
+        "STL": 3,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Wargs are massive fae predators that stalk the depths of Eden. They are kindred to wolves, but their strength and cunning are far greater. Wargs are able to speak, and sometimes serve under other monsters as scouts, guards, or mounts.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.woodwalker",
+      "name": "Woodwalker",
+      "monsterType": "Fae",
+      "level": 7,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "tough"
+      ],
+      "skills": {
+        "STR": 4,
+        "STL": 3,
+        "WIS": 3,
+        "PRW": 1,
+        "CHA": 1,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Woodwalkers are territorial tree spirits that defend fae wilderness from intruders. They are much taller, faster, and stronger than their dryad cousins.",
       "notes": []
     },
     {
@@ -2404,6 +2948,185 @@
       "abilities": [],
       "equipment": [],
       "loreText": "Savari are vicious fae monsters who trick mortals into entering Eden to devour them. Savari were once Sylvani who betrayed their oaths to the noble zodiac beasts in favour of the dark fae.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.vixalim",
+      "name": "Vixalim",
+      "monsterType": "Fae",
+      "level": 18,
+      "hpMax": 28,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bold",
+        "camouflage",
+        "fast",
+        "magical",
+        "observant",
+        "phasewalking",
+        "sneaky"
+      ],
+      "skills": {
+        "CHA": 6,
+        "STL": 5,
+        "PRW": 5,
+        "INS": 3,
+        "STR": 3,
+        "WIS": 2
+      },
+      "abilities": [
+        "monAbility.fae.vixalim.beguile"
+      ],
+      "equipment": [],
+      "loreText": "Vulpine servants of the zodiac fox, vixalim wield great powers of mischief. They are large fox-like creatures with shimmering green fur and antler-like branches that bud with flowers when they are happy. Vixalim love riddles and often try to trick mortals into unfavourable exchanges with carefully-worded agreements.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.chronalim",
+      "name": "Chronalim",
+      "monsterType": "Fae",
+      "level": 17,
+      "hpMax": 22,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "enchanted",
+        "flying",
+        "grounded",
+        "magical",
+        "observant"
+      ],
+      "skills": {
+        "WIS": 7,
+        "PRW": 4,
+        "STL": 4,
+        "INS": 4,
+        "STR": 3,
+        "CHA": 1
+      },
+      "abilities": [
+        "monAbility.fae.chronalim.slow_time"
+      ],
+      "equipment": [],
+      "loreText": "Enigmatic servants of the zodiac owl, chronalim bend the passage of time to unknown ends. They are great owl-like creatures whose wings are lined with autumn leaves. Chronalim cannot resist the allure of a mystery, and enjoy learning new secrets from mortals. Their knowledge is endless, but they seldom share it freely.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.vinalim",
+      "name": "Vinalim",
+      "monsterType": "Fae",
+      "level": 16,
+      "hpMax": 22,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "magical",
+        "regeneration",
+        "staggering"
+      ],
+      "skills": {
+        "STL": 6,
+        "PRW": 5,
+        "STR": 4,
+        "INS": 3,
+        "WIS": 2,
+        "CHA": 2
+      },
+      "abilities": [
+        "monAbility.fae.vinalim.entangling_vines"
+      ],
+      "equipment": [],
+      "loreText": "Benevolent servants of the zodiac serpent, vinalim intertwine the threads of life that connect natural places. Easily mistaken for vines, vinalim are snake-like creatures with leafy scales. Vinalim have the ability to animate roots and vines around them, using them to create webs and grasp their enemies. Vinalim are most commonly found in jungles, where they use their powers to strengthen the bonds between plants and cultivate new growth.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.ursalim",
+      "name": "Ursalim",
+      "monsterType": "Fae",
+      "level": 15,
+      "hpMax": 22,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "camouflage",
+        "gigantic",
+        "fury",
+        "mighty",
+        "tough"
+      ],
+      "skills": {
+        "STR": 9,
+        "PRW": 4,
+        "CHA": 3,
+        "WIS": 2,
+        "INS": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Mighty servants of the zodiac bear, ursalim defend the wilderness with fearsome strength. They are large bear-like creatures with leafy manes, who slumber peacefully in sunny clearings. When their habitats are threatened, Ursalim unleash an earth-shattering frenzy that even veteran rangers fear to witness.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.rosalim",
+      "name": "Rosalim",
+      "monsterType": "Fae",
+      "level": 14,
+      "hpMax": 20,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "fast",
+        "hazardous",
+        "observant",
+        "regeneration",
+        "sneaky"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STL": 4,
+        "STR": 4,
+        "INS": 3,
+        "CHA": 2,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Elegant servants of the zodiac tiger, rosalim are as graceful as they are deadly. They are sleek tiger-like creatures with manes of rose petals and thorns that protrude from their tails. Rosalim bring serenity and balance to places that have been despoiled by overgrowth and dark magic, hunting monsters and mortals who would stain nature’s beauty.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.coralim",
+      "name": "Coralim",
+      "monsterType": "Fae",
+      "level": 13,
+      "hpMax": 21,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "camouflage",
+        "fast",
+        "magical",
+        "mighty",
+        "observant"
+      ],
+      "skills": {
+        "INS": 5,
+        "CHA": 4,
+        "STL": 3,
+        "WIS": 3,
+        "STR": 2,
+        "PRW": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Regal servants of the zodiac stag, coralim preside over green kingdoms of wilderness. They are lithe elk-like creatures with leafy green fur and long tails, whose gleaming eyes betray a keen intuition. Coralim sometimes act as ambassadors of the wild, speaking to mortals on behalf of the plants and animals that live around them.",
       "notes": []
     },
     {
@@ -2996,6 +3719,41 @@
       "notes": []
     },
     {
+      "id": "monster.humanoids.goliath",
+      "name": "Goliath",
+      "monsterType": "Humanoids",
+      "level": 12,
+      "hpMax": 21,
+      "armourMax": 2,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "gigantic",
+        "mighty",
+        "tough"
+      ],
+      "skills": {
+        "STR": 7,
+        "CHA": 5,
+        "PRW": 2,
+        "WIS": 2,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Bearhide Armour",
+          "rulesText": "2 Armour"
+        },
+        {
+          "name": "Giant Axe",
+          "rulesText": "+2 physical damage"
+        }
+      ],
+      "loreText": "Enormous humanoids, goliaths are said to be descended from the elemental giants. Though they lack the innate magic of their ancestors, their immense size and strength makes them far more powerful than the average human. Goliaths range from double to triple the height of a human being, and are far more intelligent than similarly-sized ogres.",
+      "notes": []
+    },
+    {
       "id": "monster.humanoids.astari_seer",
       "name": "Astari Seer",
       "monsterType": "Humanoids",
@@ -3222,6 +3980,42 @@
         }
       ],
       "loreText": "Radiant souls reincarnated by the sun's mercy, the Luminari bring light to dark places. Their golden gaze illuminates their surroundings, casting away corruption wherever they look. Many Luminari become wandering monks, who travel the pillar worlds in search of greater enlightenment.",
+      "notes": []
+    },
+    {
+      "id": "monster.humanoids.human_guard",
+      "name": "Human Guard",
+      "monsterType": "Humanoids",
+      "level": 5,
+      "hpMax": 12,
+      "armourMax": 2,
+      "wardMax": 0,
+      "traits": [
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STR": 3,
+        "CHA": 2,
+        "WIS": 2,
+        "INS": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Halberd",
+          "rulesText": "+1 physical damage"
+        },
+        {
+          "name": "Plate Armour",
+          "rulesText": "2 Armour"
+        },
+        {
+          "name": "Buckler Shield",
+          "rulesText": ""
+        }
+      ],
+      "loreText": "Enforcers of the law, guards maintain order within human settlements and protect powerful people. They are trained with weapons and armour and can easily overpower unprepared troublemakers. Guards rarely patrol alone, and are much harder to fight when in formation.",
       "notes": []
     },
     {
@@ -3851,7 +4645,7 @@
         "STR": 4
       },
       "abilities": [
-        "monAbility.undead.vampire.blood_drain",
+        "monAbility.undead.vampire_lord.blood_drain",
         "monAbility.undead.elder_vampire.hypnosis"
       ],
       "equipment": [
@@ -3863,8 +4657,7 @@
       "loreText": "Over the course of centuries spent feeding upon mortals, vampires grow and master their dark powers. Elder vampires reign over empires of shadow, commanding the very night itself.",
       "notes": [
         "The elder vampire takes 6 magic damage if it ends its turn in direct sunlight.",
-        "Instead of restoring HP, healing effects deal magic damage to the elder vampire equal to the amount of HP that would have been restored.",
-        "Blood Drain (STL vs. INS; range reach): 4 physical damage and the target loses a skill check on its next turn."
+        "Instead of restoring HP, healing effects deal magic damage to the elder vampire equal to the amount of HP that would have been restored."
       ]
     },
     {
@@ -3930,14 +4723,13 @@
         "WIS": 3
       },
       "abilities": [
-        "monAbility.undead.vampire.blood_drain"
+        "monAbility.undead.vampire_lord.blood_drain"
       ],
       "equipment": [],
       "loreText": "Vampires follow a hierarchy based on age and dark power. Vampire lords are those who have infected numerous others with their dark curse, and spent decades developing their bond with darkness.",
       "notes": [
         "The vampire lord takes 6 magic damage if it ends its turn in direct sunlight.",
-        "Instead of restoring HP, healing effects deal magic damage to the vampire lord equal to the amount of HP that would have been restored.",
-        "Blood Drain (STL vs. INS; range reach; only against an enemy within reach that it has advantage against): 4 physical damage and the target loses a skill check on its next turn."
+        "Instead of restoring HP, healing effects deal magic damage to the vampire lord equal to the amount of HP that would have been restored."
       ]
     },
     {
@@ -4087,8 +4879,7 @@
       "loreText": "Bloodthirsty shadows, vampires cheat death by draining mortals of their vitality. It is said that the first vampires were born when the bloodthirsty Ragori, demi-gods of war, fed on the ill-omened Vanori, demi-gods of time. The combined powers of these two accursed bloodlines fused to create one of the most dreaded monsters to ever stalk the night. Vampirism is contagious, and those who survive a vampire bite inherit the curse. Not every mortal bloodline is equally susceptible to vampirism, and some can stave off its effects after a bout of illness. Luminari are particularly resistant to vampirism due to their close connection to the sun. On the opposite end of the spectrum, Ragori and Vanori are both especially vulnerable to vampirism, and can become especially powerful if they embrace their dark gifts.",
       "notes": [
         "The vampire takes 6 magic damage if it ends its turn in direct sunlight.",
-        "Instead of restoring HP, healing effects deal magic damage to the vampire equal to the amount of HP that would have been restored.",
-        "Blood Drain (STL vs. INS; range reach; only against an enemy within reach that it has advantage against): 2 physical damage and the target loses a skill check on its next turn."
+        "Instead of restoring HP, healing effects deal magic damage to the vampire equal to the amount of HP that would have been restored."
       ]
     },
     {

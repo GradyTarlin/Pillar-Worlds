@@ -77,14 +77,17 @@ export function deriveMPRecovery(skills: Skills): number {
 export const LEVEL = 1;
 
 import { equipment } from './data/equipment';
-import type { BaseItem } from './data/equipment/types';
+import type { BaseItem, Artifact } from './data/equipment/types';
 
 /**
  * Derives a list of equipment based on starting selection, backstory grants,
  * and any equipment selections made during level up.
  */
-export function deriveEquipment(selections: Pick<CharacterSelections, 'startingEquipment' | 'grantPicks' | 'birth' | 'youth' | 'comingOfAge'>, leveledGrants: string[] = []): BaseItem[] {
-  const items: BaseItem[] = [];
+export function deriveEquipment(
+  selections: Pick<CharacterSelections, 'startingEquipment' | 'grantPicks' | 'birth' | 'youth' | 'comingOfAge'> & { inventory?: string[] },
+  leveledGrants: string[] = []
+): (BaseItem | Artifact)[] {
+  const items: (BaseItem | Artifact)[] = [];
 
   // Add explicitly chosen starting equipment
   if (selections.startingEquipment) {
@@ -109,6 +112,17 @@ export function deriveEquipment(selections: Pick<CharacterSelections, 'startingE
   for (const choiceId of leveledGrants) {
     if (choiceId.startsWith('equip.')) {
       const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId);
+      if (grantedItem) {
+        items.push(grantedItem);
+      }
+    }
+  }
+
+  // Add custom inventory items (from character inventory sheets)
+  if (selections.inventory) {
+    for (const choiceId of selections.inventory) {
+      const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId) ||
+                          equipment.equipment.artifacts.find(i => i.id === choiceId);
       if (grantedItem) {
         items.push(grantedItem);
       }
