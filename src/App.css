@@ -611,7 +611,12 @@
       'name'
       'footer';
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
     padding: 1.5rem;
+  }
+
+  .app__summary {
+    position: static;
   }
 
   .character-sheet__grid {
