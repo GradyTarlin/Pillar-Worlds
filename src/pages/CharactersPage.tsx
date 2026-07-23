@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useCharacters } from '../hooks/useCharacters';
 import './compendium/Compendium.css';
+import './CharactersPage.css';
 
 export function CharactersPage() {
     const { characters, deleteCharacter } = useCharacters();
@@ -16,7 +17,7 @@ export function CharactersPage() {
                 <p className="page-header__subtitle">Manage your saved heroes</p>
             </header>
 
-            <main className="compendium-page__main" style={{ width: '100%', maxWidth: '800px', margin: '2rem auto', padding: '0 1rem' }}>
+            <main className="compendium-page__main characters-page__main">
                 {characters.length === 0 ? (
                     <div style={{ textAlign: 'center', background: 'linear-gradient(135deg, var(--parchment) 0%, var(--parchment-dark) 100%)', padding: '3rem 2rem', border: '3px double var(--burgundy)', borderRadius: '4px', color: 'var(--ink)', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
                         <h2 style={{ fontFamily: '"Cinzel", serif', marginBottom: '1rem' }}>No Characters Found</h2>
@@ -26,29 +27,30 @@ export function CharactersPage() {
                         </Link>
                     </div>
                 ) : (
-                    <div className="compendium-list-container" style={{ padding: 0 }}>
-                        <div className="compendium-list-header">
-                            <span style={{ flex: 2 }}>Name</span>
-                            <span style={{ flex: 1 }}>Bloodline</span>
-                            <span style={{ flex: 1 }}>Level</span>
-                            <span style={{ flex: 1, textAlign: 'right' }}>Actions</span>
+                    <div className="compendium-list-container character-list-container">
+                        <div className="compendium-list-header character-list-header" aria-hidden="true">
+                            <span className="character-list-header__name">Name</span>
+                            <span>Bloodline</span>
+                            <span>Level</span>
+                            <span className="character-list-header__actions">Actions</span>
                         </div>
                         <ul className="compendium-list">
                             {characters.map(char => (
                                 <li
                                     key={char.id}
-                                    className="compendium-list-item"
+                                    className="compendium-list-item character-list-item"
                                 >
-                                    <div className="compendium-list-item__name" style={{ flex: 2 }}>
-                                        <strong style={{ fontFamily: '"Cinzel", serif', fontSize: '1.1rem' }}>{char.name}</strong>
+                                    <div className="compendium-list-item__name character-list-item__name">
+                                        <strong>{char.name}</strong>
                                     </div>
-                                    <div className="compendium-list-item__type" style={{ flex: 1 }}>
-                                        {char.bloodline?.name || 'Unknown'}
+                                    <div className="compendium-list-item__type character-list-item__bloodline">
+                                        <span className="character-list-item__label">Bloodline</span>
+                                        <span>{char.bloodline?.name || 'Unknown'}</span>
                                     </div>
-                                    <div className="compendium-list-item__cat" style={{ flex: 1 }}>
-                                        lvl {char.level}
+                                    <div className="compendium-list-item__cat character-list-item__level">
+                                        Level {char.level}
                                     </div>
-                                    <div style={{ flex: 1, display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', height: '100%' }}>
+                                    <div className="character-list-item__actions">
                                         <button
                                             onClick={() => navigate(`/character/${char.id}`)}
                                             className="app__finish-button character-list-btn"
