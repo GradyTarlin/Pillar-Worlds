@@ -133,7 +133,13 @@ export function CharacterCreationPage() {
         <p className="page-header__subtitle">Forge your next hero</p>
       </header>
 
-      <div className="app__content">
+      <form
+        className="app__content"
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleFinish();
+        }}
+      >
         <main className="app__main">
           <div className="attributes-group">
             <h3 className="attributes-group__title">Attributes</h3>
@@ -287,7 +293,7 @@ export function CharacterCreationPage() {
           </div>
         </main>
 
-        <aside className="app__sidebar">
+        <section className="app__summary" aria-label="Character summary">
           <section className="derived-stats">
             <h3>Skills</h3>
             <dl>
@@ -323,31 +329,30 @@ export function CharacterCreationPage() {
               <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--ink-muted)' }}>No equipment yet</p>
             )}
           </section>
-        </aside>
+        </section>
 
-        <footer className="app__footer" style={{ flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
-          <div className="app__name-input-group" style={{ background: 'var(--parchment)', padding: '1rem', borderRadius: '4px', border: '1px solid var(--ink)' }}>
-            <label htmlFor="character-name" className="app__name-label" style={{ fontWeight: 'bold' }}>Character Name: </label>
-            <input
-              type="text"
-              id="character-name"
-              className="app__name-input"
-              value={selections.name}
-              onChange={(e) => updateSelection('name', e.target.value)}
-              placeholder="Enter character name..."
-              style={{ padding: '0.5rem', flex: 1, minWidth: '300px', marginLeft: '1rem' }}
-            />
-          </div>
+        <div className="app__name-input-group">
+          <label htmlFor="character-name" className="app__name-label">Character Name: </label>
+          <input
+            type="text"
+            id="character-name"
+            className="app__name-input"
+            value={selections.name}
+            onChange={(e) => updateSelection('name', e.target.value)}
+            placeholder="Enter character name..."
+          />
+        </div>
+
+        <footer className="app__footer">
           <button
-            type="button"
+            type="submit"
             className="app__finish-button"
             disabled={!isComplete}
-            onClick={handleFinish}
           >
             Finish Character
           </button>
         </footer>
-      </div>
+      </form>
     </div>
   );
 }

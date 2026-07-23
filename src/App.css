@@ -9,7 +9,8 @@
 .app__content {
   display: grid;
   grid-template-areas:
-    'main sidebar'
+    'main summary'
+    'name name'
     'footer footer';
   grid-template-columns: 1fr 280px;
   grid-template-rows: 1fr auto;
@@ -77,11 +78,17 @@
 }
 
 .app__name-input-group {
-  margin-top: 1.5rem;
+  grid-area: name;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  width: 100%;
+  max-width: 560px;
+  padding: 1rem;
+  background: var(--parchment);
+  border: 1px solid var(--ink);
+  border-radius: 4px;
 }
 
 .app__name-label {
@@ -101,6 +108,7 @@
   color: var(--ink);
   width: 100%;
   max-width: 300px;
+  min-width: 0;
 }
 
 .app__name-input:focus {
@@ -116,8 +124,8 @@
   gap: 1.5rem;
 }
 
-.app__sidebar {
-  grid-area: sidebar;
+.app__summary {
+  grid-area: summary;
   position: sticky;
   top: 1.5rem;
   height: fit-content;
@@ -126,6 +134,9 @@
 .app__footer {
   grid-area: footer;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   justify-content: center;
   padding-top: 1rem;
 }
@@ -596,7 +607,8 @@
   .app__content {
     grid-template-areas:
       'main'
-      'sidebar'
+      'summary'
+      'name'
       'footer';
     grid-template-columns: 1fr;
     padding: 1.5rem;
@@ -625,6 +637,10 @@
   .app__name-input-group {
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .app__name-input {
+    max-width: none;
   }
 
   .attribute-slider-labels {
