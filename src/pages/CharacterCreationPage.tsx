@@ -1,6 +1,6 @@
 import { Fragment, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import type { CharacterSelections, Bloodline, SkillKey, Grant } from '../types';
+import type { CharacterSelections, SkillKey, Grant } from '../types';
 import {
   BODY_OPTIONS,
   SPIRIT_OPTIONS,
@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { AttributeSlider } from '../components/AttributeSlider';
 import { SelectionSection } from '../components/SelectionSection';
 import { GrantPicker } from '../components/GrantPicker';
+import { BloodlineCarousel } from '../components/BloodlineCarousel';
 import '../App.css';
 
 const INITIAL_SELECTIONS: CharacterSelections = {
@@ -188,28 +189,20 @@ export function CharacterCreationPage() {
             ghostUnselectedWhenSelected
             isComplete={!!selections.zodiac}
           />
-          <SelectionSection<Bloodline>
-            title="Bloodline"
-            subheading="Your ancestry — each grants a unique racial feature."
-            options={BLOODLINES}
+          <BloodlineCarousel
+            bloodlines={BLOODLINES}
             selected={selections.bloodline}
             onSelect={(opt) => updateSelection('bloodline', opt)}
-            getOptionId={(o) => o.id}
-            getOptionName={(o) => o.name}
-            variant="dropdown"
-            getOptionGroup={(o) => o.type}
             renderSelectedDetail={(bloodline) => (
               <div className="bloodline-detail">
-                <strong>{bloodline.featureName}:</strong> {bloodline.featureText}
                 {bloodline.id === 'bloodline.human' && (
-                  <div style={{ marginTop: '0.75rem' }}>
-                    <label htmlFor="human-extra-skill" style={{ display: 'block', marginBottom: '0.25rem', fontWeight: 600 }}>
+                  <div className="bloodline-detail__human-skill">
+                    <label htmlFor="human-extra-skill">
                       Select Extra Skill:
                     </label>
                     <select
                       id="human-extra-skill"
                       className="app__select"
-                      style={{ width: '100%', maxWidth: '200px' }}
                       value={selections.humanExtraSkill ?? ''}
                       onChange={(e) => updateSelection('humanExtraSkill', e.target.value as SkillKey)}
                     >
@@ -222,7 +215,6 @@ export function CharacterCreationPage() {
                 )}
               </div>
             )}
-            ghostUnselectedWhenSelected
             isComplete={!!selections.bloodline && (selections.bloodline.id === 'bloodline.human' ? !!selections.humanExtraSkill : true)}
           />
           <SelectionSection

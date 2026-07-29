@@ -19,6 +19,11 @@ npm run build
 
 Output is in the `dist/` directory.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the current monster, playable
+bloodline, and artwork data conventions.
+
 ## Features
 
 - **Derived skills only** — CHA, INS, PRW, STL, STR, WIS are calculated from Body, Mind, Spirit, and Zodiac

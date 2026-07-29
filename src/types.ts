@@ -45,7 +45,10 @@ export interface Bloodline {
   name: string;
   type: BloodlineType;
   featureName: string;
+  featureDescription?: string;
   featureText: string;
+  imageUrl?: string;
+  description?: string;
 }
 
 export type GrantKind = 'equipmentPick' | 'masteryPick' | 'abilityPick';
