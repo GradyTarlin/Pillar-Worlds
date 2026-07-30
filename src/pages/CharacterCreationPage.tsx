@@ -1,6 +1,6 @@
 import { Fragment, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import type { CharacterSelections, SkillKey, Grant } from '../types';
+import type { BackstoryFragment, CharacterSelections, SkillKey, Grant } from '../types';
 import {
   BODY_OPTIONS,
   SPIRIT_OPTIONS,
@@ -39,6 +39,20 @@ const INITIAL_SELECTIONS: CharacterSelections = {
   comingOfAge: null,
   grantPicks: {},
   startingEquipment: null,
+};
+
+const getBackstoryOptionName = (fragment: BackstoryFragment) => {
+  const grantLabels = fragment.grants.flatMap((grant) => {
+    if (grant.kind === 'abilityPick') {
+      return grant.tags?.map((tag) => tag.charAt(0).toUpperCase() + tag.slice(1)) ?? [];
+    }
+
+    return [grant.kind === 'masteryPick' ? 'Mastery' : 'Equipment'];
+  });
+
+  return grantLabels.length > 0
+    ? `${fragment.name} (${[...new Set(grantLabels)].join(', ')})`
+    : fragment.name;
 };
 
 export function CharacterCreationPage() {
@@ -250,7 +264,7 @@ export function CharacterCreationPage() {
               selected={selections.birth}
               onSelect={(opt) => updateSelection('birth', opt)}
               getOptionId={(o) => o.id}
-              getOptionName={(o) => o.name}
+              getOptionName={getBackstoryOptionName}
               variant="dropdown"
               renderSelectedDetail={renderBackstoryDetail}
               ghostUnselectedWhenSelected
@@ -263,7 +277,7 @@ export function CharacterCreationPage() {
               selected={selections.youth}
               onSelect={(opt) => updateSelection('youth', opt)}
               getOptionId={(o) => o.id}
-              getOptionName={(o) => o.name}
+              getOptionName={getBackstoryOptionName}
               variant="dropdown"
               renderSelectedDetail={renderBackstoryDetail}
               ghostUnselectedWhenSelected
@@ -276,7 +290,7 @@ export function CharacterCreationPage() {
               selected={selections.comingOfAge}
               onSelect={(opt) => updateSelection('comingOfAge', opt)}
               getOptionId={(o) => o.id}
-              getOptionName={(o) => o.name}
+              getOptionName={getBackstoryOptionName}
               variant="dropdown"
               renderSelectedDetail={renderBackstoryDetail}
               ghostUnselectedWhenSelected

@@ -185,7 +185,17 @@ function EquipmentDetailPanel({ item, onClose }: { item: EquipmentItem, onClose:
 
     return (
         <div className="compendium-detail">
-            <button className="compendium-detail__close" onClick={onClose}>✕</button>
+            <button
+                type="button"
+                className="compendium-detail__close"
+                onClick={onClose}
+                aria-label="Close equipment details"
+                title="Close"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+            </button>
             <header className="compendium-detail__header">
                 <h2>{item.name}</h2>
                 <div className="compendium-detail__tags">
