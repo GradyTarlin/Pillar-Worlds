@@ -55,12 +55,12 @@
     {
       "id": "venomous",
       "category": "offensive",
-      "rulesText": "Whenever the monster hits a physical attack, it inflicts venom on the target. Whenever the afflicted enemy fails a skill check on its next turn, it takes 2 magic damage."
+      "rulesText": "Whenever the monster hits a physical attack, it inflicts venom on the target. Whenever the afflicted enemy fails a skill check on its next turn, it takes X magic damage."
     },
     {
       "id": "bloodthirsty",
       "category": "survivability",
-      "rulesText": "Whenever the monster kills an enemy, it regains 3 HP."
+      "rulesText": "Whenever the monster kills an enemy, it regains X HP."
     },
     {
       "id": "ethereal",
@@ -70,22 +70,22 @@
     {
       "id": "grounded",
       "category": "survivability",
-      "rulesText": "The monster resists 1 magic damage."
+      "rulesText": "The monster resists X magic damage."
     },
     {
       "id": "hazardous",
       "category": "survivability",
-      "rulesText": "Any creature that hits the monster with a melee attack takes 1 magic damage."
+      "rulesText": "Any creature that hits the monster with a melee attack takes X magic damage."
     },
     {
       "id": "lifesteal",
       "category": "survivability",
-      "rulesText": "The monster regains 1 HP whenever it deals physical damage."
+      "rulesText": "The monster regains X HP whenever it deals physical damage."
     },
     {
       "id": "mana_hunger",
       "category": "survivability",
-      "rulesText": "The monster regains 2 HP whenever it takes magic damage."
+      "rulesText": "The monster regains X HP whenever it takes magic damage."
     },
     {
       "id": "observant",
@@ -95,12 +95,12 @@
     {
       "id": "regeneration",
       "category": "survivability",
-      "rulesText": "The creature regains 1 HP whenever it succeeds on a skill check."
+      "rulesText": "The creature regains X HP whenever it succeeds on a skill check."
     },
     {
       "id": "tough",
       "category": "survivability",
-      "rulesText": "The monster resists 1 physical damage."
+      "rulesText": "The monster resists X physical damage."
     },
     {
       "id": "catalyst",
@@ -110,12 +110,12 @@
     {
       "id": "curse",
       "category": "magic",
-      "rulesText": "When the monster deals magic damage, its target is cursed until the end of their next turn. While cursed, they take +1 magic damage whenever they take damage."
+      "rulesText": "When the monster deals magic damage, its target is cursed until the end of their next turn. While cursed, they take +X magic damage whenever they take damage."
     },
     {
       "id": "enchanted",
       "category": "magic",
-      "rulesText": "When an enemy focuses on the monster, they lose 1 MP."
+      "rulesText": "When an enemy focuses on the monster, they lose X MP."
     },
     {
       "id": "magical",
@@ -125,7 +125,7 @@
     {
       "id": "overcharged",
       "category": "magic",
-      "rulesText": "The monster can sacrifice 1 HP to deal +1 magic damage before it makes an attack."
+      "rulesText": "The monster can sacrifice 1 HP to deal +X magic damage before it makes an attack."
     },
     {
       "id": "potent",
@@ -145,7 +145,7 @@
     {
       "id": "unstable",
       "category": "magic",
-      "rulesText": "The monster explodes when it dies, dealing 1 magic damage to every creature within its reach."
+      "rulesText": "The monster explodes when it dies, dealing X magic damage to every creature within its reach."
     },
     {
       "id": "agile",
@@ -165,12 +165,12 @@
     {
       "id": "corrupt",
       "category": "trickery",
-      "rulesText": "When the monster succeeds on a CHA check, it gains a +1 bonus to the damage of its next attack against the target."
+      "rulesText": "When the monster succeeds on a CHA check, it gains a +X bonus to the damage of its next attack against the target."
     },
     {
       "id": "deafening",
       "category": "trickery",
-      "rulesText": "When the monster succeeds on a CHA check, the target takes 1 magic damage."
+      "rulesText": "When the monster succeeds on a CHA check, the target takes X magic damage."
     },
     {
       "id": "fast",
@@ -237,6 +237,17 @@
       "name": "Merge",
       "check": null,
       "rulesText": "Once per turn, the slimes can combine with another slime within its reach, adding their HP and skill bonuses together.\nWhen the slime takes physical damage, it splits in half. Each half retains half of the original slime's remaining HP and STR bonus."
+    },
+    {
+      "id": "monAbility.arcane.zimaril.beckoning_dream",
+      "name": "Beckoning Dream",
+      "check": {
+        "attackerSkill": "WIS",
+        "defenderSkill": "CHA",
+        "range": "see",
+        "notes": "an enemy the Zimaril can see"
+      },
+      "rulesText": "The target falls asleep. While the target is asleep, all skill checks against them are automatically successful. The target wakes up if they take damage, are pushed, or after ten minutes have passed."
     },
     {
       "id": "monAbility.beasts.giant_spider.enweb",
@@ -625,21 +636,21 @@
       "traits": [
         "bold",
         "catalyst",
-        "deafening",
-        "enchanted",
+        "deafening:3",
+        "enchanted:2",
         "fast",
         "fury",
         "gigantic",
-        "grounded",
-        "mana_hunger",
+        "grounded:5",
+        "mana_hunger:3",
         "magical",
         "mighty",
         "potent",
         "observant",
         "siphon",
-        "tough",
+        "tough:2",
         "vengeful",
-        "venomous"
+        "venomous:2"
       ],
       "skills": {
         "STR": 10,
@@ -663,13 +674,13 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "enchanted",
+        "enchanted:3",
         "gigantic",
         "magical",
         "mighty",
         "potent",
-        "tough",
-        "unstable"
+        "tough:5",
+        "unstable:10"
       ],
       "skills": {
         "STR": 10,
@@ -686,6 +697,44 @@
       ]
     },
     {
+      "id": "monster.arcane.zimaril",
+      "name": "Zimaril",
+      "monsterType": "Arcane",
+      "level": 20,
+      "hpMax": 28,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "enchanted:3",
+        "flying",
+        "grounded:5",
+        "magical",
+        "mana_hunger:3",
+        "phasewalking",
+        "potent",
+        "regeneration:3"
+      ],
+      "skills": {
+        "WIS": 9,
+        "INS": 5,
+        "STL": 4,
+        "CHA": 4,
+        "PRW": 2,
+        "STR": 2
+      },
+      "abilities": [
+        "monAbility.arcane.zimaril.beckoning_dream"
+      ],
+      "equipment": [
+        {
+          "name": "Cerulean Orb",
+          "rulesText": "+1 to magic attack rolls"
+        }
+      ],
+      "loreText": "Large winged beings with long feathery necks, Zimaril conceal inscrutable knowledge behind their enigmatic faces. Zimaril are the product of complex rituals that only the most knowledgeable magi would dare to attempt, typically in the pursuit of immortality. Zimaril are quiet, pensive beings, with incredible power over the aether. They can communicate telepathically and use their psychic powers to put creatures to sleep.",
+      "notes": []
+    },
+    {
       "id": "monster.arcane.gorgon",
       "name": "Gorgon",
       "monsterType": "Arcane",
@@ -697,7 +746,7 @@
         "agile",
         "magical",
         "observant",
-        "venomous"
+        "venomous:5"
       ],
       "skills": {
         "INS": 6,
@@ -751,9 +800,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
+        "bloodthirsty:3",
         "fury",
-        "venomous"
+        "venomous:2"
       ],
       "skills": {
         "PRW": 6,
@@ -795,6 +844,39 @@
       "notes": []
     },
     {
+      "id": "monster.arcane.pokaro",
+      "name": "Pokaro",
+      "monsterType": "Arcane",
+      "level": 15,
+      "hpMax": 21,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "enchanted:1",
+        "grounded:1",
+        "magical",
+        "mighty"
+      ],
+      "skills": {
+        "PRW": 4,
+        "STR": 4,
+        "WIS": 4,
+        "INS": 3,
+        "STL": 3,
+        "CHA": 3
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Amethyst Axe (Blade/Staff)",
+          "rulesText": "+1 to magic attack rolls\n+1 physical damage\n+1 magic damage"
+        }
+      ],
+      "loreText": "Pokaro are magical creatures with the mane, tail, and claws of a lion, and the horns and cloven hooves of a goat. They have wide, human-like faces, and their broad grins reveal many sharp teeth. Powerful mages perform alchemical rituals to transform their mortal servants into Pokaros, enhancing their strength, speed, and magical abilities.",
+      "notes": []
+    },
+    {
       "id": "monster.arcane.cockatrice",
       "name": "Cockatrice",
       "monsterType": "Arcane",
@@ -805,7 +887,7 @@
       "traits": [
         "fast",
         "observant",
-        "venomous"
+        "venomous:2"
       ],
       "skills": {
         "PRW": 5,
@@ -828,10 +910,10 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "grounded",
+        "grounded:3",
         "magical",
         "mighty",
-        "tough"
+        "tough:4"
       ],
       "skills": {
         "STR": 5,
@@ -937,7 +1019,7 @@
       "traits": [
         "catalyst",
         "fast",
-        "hazardous"
+        "hazardous:1"
       ],
       "skills": {
         "PRW": 4,
@@ -989,7 +1071,7 @@
       "wardMax": 0,
       "traits": [
         "agile",
-        "grounded",
+        "grounded:1",
         "staggering"
       ],
       "skills": {
@@ -1015,7 +1097,7 @@
       "traits": [
         "agile",
         "bold",
-        "corrupt"
+        "corrupt:2"
       ],
       "skills": {
         "CHA": 4,
@@ -1041,9 +1123,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "enchanted",
-        "tough",
-        "unstable"
+        "enchanted:1",
+        "tough:2",
+        "unstable:3"
       ],
       "skills": {
         "STR": 6,
@@ -1070,7 +1152,7 @@
         "flying",
         "observant",
         "vengeful",
-        "venomous"
+        "venomous:2"
       ],
       "skills": {
         "PRW": 3,
@@ -1131,8 +1213,7 @@
         "STR": 2,
         "STL": 2,
         "INS": 2,
-        "CHA": 1,
-        "WIS": 0
+        "CHA": 1
       },
       "abilities": [],
       "equipment": [],
@@ -1148,7 +1229,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "deafening",
+        "deafening:2",
         "flying"
       ],
       "skills": {
@@ -1172,7 +1253,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "mana_hunger",
+        "mana_hunger:2",
         "siphon"
       ],
       "skills": {
@@ -1198,7 +1279,7 @@
         "agile",
         "flying",
         "sneaky",
-        "venomous"
+        "venomous:2"
       ],
       "skills": {
         "STL": 3,
@@ -1244,15 +1325,14 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "venomous"
+        "venomous:2"
       ],
       "skills": {
         "CHA": 3,
         "STL": 2,
         "PRW": 1,
         "INS": 1,
-        "WIS": 1,
-        "STR": 0
+        "WIS": 1
       },
       "abilities": [],
       "equipment": [],
@@ -1271,7 +1351,7 @@
         "agile",
         "bold",
         "flying",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "CHA": 3,
@@ -1316,8 +1396,8 @@
       "wardMax": 0,
       "traits": [
         "magical",
-        "overcharged",
-        "unstable"
+        "overcharged:2",
+        "unstable:1"
       ],
       "skills": {
         "INS": 2,
@@ -1363,11 +1443,7 @@
       ],
       "skills": {
         "STL": 1,
-        "INS": 1,
-        "STR": 0,
-        "PRW": 0,
-        "WIS": 0,
-        "CHA": 0
+        "INS": 1
       },
       "abilities": [],
       "equipment": [],
@@ -1384,7 +1460,7 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "deafening",
+        "deafening:2",
         "flying",
         "gigantic",
         "mighty",
@@ -1412,7 +1488,7 @@
       "wardMax": 0,
       "traits": [
         "sneaky",
-        "venomous"
+        "venomous:4"
       ],
       "skills": {
         "STL": 5,
@@ -1483,7 +1559,7 @@
       "wardMax": 0,
       "traits": [
         "agile",
-        "bloodthirsty",
+        "bloodthirsty:3",
         "observant"
       ],
       "skills": {
@@ -1626,13 +1702,13 @@
       "traits": [
         "bold",
         "gigantic",
-        "grounded",
+        "grounded:8",
         "magical",
         "mighty",
         "phasewalking",
         "potent",
-        "regeneration",
-        "tough"
+        "regeneration:8",
+        "tough:8"
       ],
       "skills": {
         "CHA": 10,
@@ -1690,11 +1766,11 @@
       "traits": [
         "catalyst",
         "gigantic",
-        "grounded",
+        "grounded:3",
         "magical",
         "phasewalking",
         "potent",
-        "tough"
+        "tough:3"
       ],
       "skills": {
         "WIS": 7,
@@ -1716,12 +1792,12 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "grounded",
+        "grounded:2",
         "fast",
         "magical",
         "observant",
-        "regeneration",
-        "tough",
+        "regeneration:2",
+        "tough:1",
         "vengeful"
       ],
       "skills": {
@@ -1775,12 +1851,11 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "curse",
         "magical",
         "siphon",
         "sneaky",
         "staggering",
-        "venomous"
+        "venomous:3"
       ],
       "skills": {
         "STL": 4,
@@ -1806,7 +1881,7 @@
         "bold",
         "flying",
         "magical",
-        "regeneration"
+        "regeneration:4"
       ],
       "skills": {
         "CHA": 8,
@@ -1838,7 +1913,7 @@
         "bold",
         "flying",
         "magical",
-        "regeneration"
+        "regeneration:4"
       ],
       "skills": {
         "CHA": 6,
@@ -1871,8 +1946,8 @@
       "traits": [
         "bold",
         "brutal",
-        "corrupt",
-        "deafening",
+        "corrupt:2",
+        "deafening:3",
         "magical"
       ],
       "skills": {
@@ -1886,9 +1961,7 @@
       "abilities": [],
       "equipment": [],
       "loreText": "Angels who have fallen from grace, wingbreakers are dangerous monsters. Their celestial powers bring a dissonant cacophony, disrupting the balance of everything they touch. Wingbreakers earned their name by hunting down and killing angels to absorb their divine essence.",
-      "notes": [
-        "Trait line in source ends with a trailing comma; interpreted as the 5 traits listed."
-      ]
+      "notes": []
     },
     {
       "id": "monster.celestials.pegasus",
@@ -1924,7 +1997,7 @@
       "armourMax": 3,
       "wardMax": 0,
       "traits": [
-        "enchanted"
+        "enchanted:1"
       ],
       "skills": {
         "WIS": 3,
@@ -2006,9 +2079,9 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "deafening",
+        "deafening:3",
         "observant",
-        "regeneration"
+        "regeneration:4"
       ],
       "skills": {
         "STR": 5,
@@ -2034,7 +2107,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "tough",
+        "tough:3",
         "vengeful"
       ],
       "skills": {
@@ -2062,7 +2135,7 @@
       "wardMax": 0,
       "traits": [
         "fast",
-        "tough",
+        "tough:1",
         "vengeful"
       ],
       "skills": {
@@ -2135,15 +2208,15 @@
       "traits": [
         "catalyst",
         "bold",
-        "deafening",
+        "deafening:10",
         "gigantic",
-        "grounded",
+        "grounded:7",
         "magical",
         "mighty",
         "potent",
-        "regeneration",
+        "regeneration:5",
         "staggering",
-        "tough"
+        "tough:9"
       ],
       "skills": {
         "STR": 10,
@@ -2199,7 +2272,7 @@
       "traits": [
         "catalyst",
         "gigantic",
-        "grounded",
+        "grounded:4",
         "magical",
         "mighty",
         "phasewalking",
@@ -2230,7 +2303,7 @@
         "fury",
         "gigantic",
         "mighty",
-        "tough"
+        "tough:3"
       ],
       "skills": {
         "STR": 8,
@@ -2254,10 +2327,10 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "deafening",
+        "deafening:4",
         "flying",
         "gigantic",
-        "grounded",
+        "grounded:2",
         "magical",
         "mighty"
       ],
@@ -2285,10 +2358,10 @@
       "traits": [
         "bold",
         "flying",
-        "hazardous",
         "magical",
-        "regeneration",
-        "unstable"
+        "regeneration:3",
+        "unstable:5",
+        "overcharged:3"
       ],
       "skills": {
         "CHA": 6,
@@ -2316,7 +2389,7 @@
       "traits": [
         "fast",
         "mighty",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "STR": 5,
@@ -2339,18 +2412,17 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "hazardous",
+        "hazardous:2",
         "magical",
-        "overcharged",
-        "tough"
+        "overcharged:2",
+        "tough:2"
       ],
       "skills": {
         "STR": 4,
         "PRW": 3,
         "INS": 3,
         "WIS": 3,
-        "CHA": 3,
-        "STL": 0
+        "CHA": 3
       },
       "abilities": [
         "monAbility.elementals.infernean.eruption"
@@ -2395,7 +2467,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "grounded",
+        "grounded:1",
         "magical",
         "phasewalking",
         "siphon",
@@ -2427,7 +2499,7 @@
       "traits": [
         "gigantic",
         "staggering",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "STR": 7,
@@ -2453,7 +2525,7 @@
       "traits": [
         "agile",
         "bold",
-        "deafening",
+        "deafening:2",
         "ethereal",
         "fast",
         "flying",
@@ -2481,11 +2553,11 @@
       "wardMax": 0,
       "traits": [
         "catalyst",
-        "hazardous",
+        "hazardous:2",
         "magical",
-        "overcharged",
-        "unstable",
-        "tough"
+        "overcharged:2",
+        "unstable:3",
+        "tough:1"
       ],
       "skills": {
         "INS": 3,
@@ -2536,10 +2608,9 @@
       "wardMax": 0,
       "traits": [
         "gigantic",
-        "grounded",
         "mighty",
         "staggering",
-        "tough"
+        "tough:2"
       ],
       "skills": {
         "STR": 6,
@@ -2561,7 +2632,7 @@
       "wardMax": 0,
       "traits": [
         "agile",
-        "deafening",
+        "deafening:1",
         "ethereal",
         "fast",
         "flying",
@@ -2612,10 +2683,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "grounded",
-        "hazardous",
+        "hazardous:1",
         "magical",
-        "unstable"
+        "unstable:1"
       ],
       "skills": {
         "INS": 2,
@@ -2640,7 +2710,7 @@
       "wardMax": 0,
       "traits": [
         "staggering",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "STR": 3,
@@ -2703,7 +2773,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "curse",
+        "curse:1",
         "magical"
       ],
       "skills": {
@@ -2728,9 +2798,9 @@
         "agile",
         "bold",
         "fast",
-        "mana_hunger",
+        "mana_hunger:5",
         "observant",
-        "regeneration"
+        "regeneration:5"
       ],
       "skills": {
         "INS": 10,
@@ -2759,7 +2829,7 @@
         "bold",
         "fast",
         "magical",
-        "regeneration"
+        "regeneration:5"
       ],
       "skills": {
         "CHA": 10,
@@ -2837,7 +2907,7 @@
       "wardMax": 0,
       "traits": [
         "camouflage",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "STR": 4,
@@ -2863,16 +2933,16 @@
       "traits": [
         "bold",
         "flying",
-        "grounded",
+        "grounded:5",
         "magical",
-        "lifesteal",
+        "lifesteal:3",
         "observant",
         "phasewalking",
         "potent",
-        "regeneration",
+        "regeneration:3",
         "shapeshifting",
         "siphon",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "INS": 8,
@@ -2903,8 +2973,8 @@
         "gigantic",
         "mighty",
         "observant",
-        "regeneration",
-        "tough"
+        "regeneration:3",
+        "tough:5"
       ],
       "skills": {
         "STR": 10,
@@ -2928,8 +2998,8 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
-        "corrupt",
+        "bloodthirsty:5",
+        "corrupt:3",
         "cruel",
         "fast",
         "magical",
@@ -2993,9 +3063,8 @@
       "wardMax": 0,
       "traits": [
         "camouflage",
-        "enchanted",
+        "enchanted:2",
         "flying",
-        "grounded",
         "magical",
         "observant"
       ],
@@ -3025,7 +3094,7 @@
       "traits": [
         "camouflage",
         "magical",
-        "regeneration",
+        "regeneration:2",
         "staggering"
       ],
       "skills": {
@@ -3056,7 +3125,7 @@
         "gigantic",
         "fury",
         "mighty",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "STR": 9,
@@ -3082,9 +3151,9 @@
       "traits": [
         "agile",
         "fast",
-        "hazardous",
+        "hazardous:2",
         "observant",
-        "regeneration",
+        "regeneration:1",
         "sneaky"
       ],
       "skills": {
@@ -3142,7 +3211,7 @@
         "camouflage",
         "fury",
         "gigantic",
-        "regeneration",
+        "regeneration:3",
         "sneaky"
       ],
       "skills": {
@@ -3167,10 +3236,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "corrupt",
-        "curse",
+        "corrupt:2",
+        "curse:2",
         "flying",
-        "grounded",
         "magical",
         "shapeshifting"
       ],
@@ -3210,7 +3278,7 @@
         "camouflage",
         "cruel",
         "sneaky",
-        "venomous"
+        "venomous:3"
       ],
       "skills": {
         "STL": 5,
@@ -3235,7 +3303,7 @@
       "traits": [
         "brutal",
         "fury",
-        "regeneration"
+        "regeneration:2"
       ],
       "skills": {
         "STR": 4,
@@ -3463,10 +3531,10 @@
       "wardMax": 5,
       "traits": [
         "catalyst",
-        "enchanted",
-        "grounded",
+        "enchanted:3",
+        "grounded:7",
         "magical",
-        "mana_hunger",
+        "mana_hunger:5",
         "phasewalking",
         "potent"
       ],
@@ -3515,12 +3583,12 @@
       "wardMax": 0,
       "traits": [
         "fury",
-        "grounded",
-        "hazardous",
+        "grounded:3",
+        "hazardous:2",
         "magical",
-        "overcharged",
+        "overcharged:3",
         "potent",
-        "tough",
+        "tough:3",
         "vengeful"
       ],
       "skills": {
@@ -3557,7 +3625,7 @@
       "armourMax": 0,
       "wardMax": 3,
       "traits": [
-        "grounded",
+        "grounded:3",
         "magical",
         "phasewalking",
         "potent"
@@ -3634,7 +3702,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
+        "bloodthirsty:5",
         "cruel",
         "strategic",
         "vengeful"
@@ -3665,8 +3733,8 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "curse",
-        "lifesteal",
+        "curse:2",
+        "lifesteal:3",
         "magical",
         "siphon",
         "sneaky"
@@ -3702,9 +3770,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "enchanted",
-        "tough",
-        "unstable"
+        "enchanted:1",
+        "tough:1",
+        "unstable:3"
       ],
       "skills": {
         "STR": 5,
@@ -3730,7 +3798,7 @@
         "bold",
         "gigantic",
         "mighty",
-        "tough"
+        "tough:1"
       ],
       "skills": {
         "STR": 7,
@@ -3893,7 +3961,7 @@
       "armourMax": 3,
       "wardMax": 0,
       "traits": [
-        "enchanted",
+        "enchanted:1",
         "mighty",
         "magical"
       ],
@@ -3928,7 +3996,7 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "deafening",
+        "deafening:3",
         "fast",
         "flying"
       ],
@@ -4028,7 +4096,7 @@
       "wardMax": 0,
       "traits": [
         "fury",
-        "overcharged"
+        "overcharged:2"
       ],
       "skills": {
         "STR": 3,
@@ -4066,7 +4134,7 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "regeneration"
+        "regeneration:1"
       ],
       "skills": {
         "CHA": 3,
@@ -4094,7 +4162,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "corrupt",
+        "corrupt:1",
         "sneaky"
       ],
       "skills": {
@@ -4169,8 +4237,8 @@
       "notes": []
     },
     {
-      "id": "monster.infernals.demon",
-      "name": "Demon",
+      "id": "monster.infernals.caerus",
+      "name": "Caerus",
       "monsterType": "Infernals",
       "level": 30,
       "hpMax": 37,
@@ -4178,10 +4246,10 @@
       "wardMax": 2,
       "traits": [
         "cruel",
-        "curse",
+        "curse:3",
         "flying",
         "gigantic",
-        "hazardous",
+        "hazardous:2",
         "magical",
         "potent",
         "vengeful"
@@ -4209,7 +4277,7 @@
           "rulesText": "2 ward"
         }
       ],
-      "loreText": "Beings of pure cruelty, demons feed on mortal suffering.",
+      "loreText": "Demons of pure evil, Caeri feed on mortal suffering. They lead legions of infernal monsters through eternal wars in the Everburning Wastes, waiting for any opportunity to invade the mortal realm and gorge on souls.",
       "notes": []
     },
     {
@@ -4221,10 +4289,10 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "corrupt",
+        "corrupt:5",
         "cruel",
-        "curse",
-        "enchanted",
+        "curse:3",
+        "enchanted:3",
         "ethereal",
         "phasewalking",
         "siphon"
@@ -4280,10 +4348,10 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
+        "bloodthirsty:5",
         "cruel",
         "gigantic",
-        "overcharged"
+        "overcharged:3"
       ],
       "skills": {
         "PRW": 7,
@@ -4311,9 +4379,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "corrupt",
-        "curse",
-        "enchanted",
+        "corrupt:4",
+        "curse:2",
+        "enchanted:3",
         "magical",
         "phasewalking",
         "sneaky",
@@ -4347,8 +4415,8 @@
       "wardMax": 1,
       "traits": [
         "bold",
-        "corrupt",
-        "curse",
+        "corrupt:3",
+        "curse:2",
         "flying",
         "magical",
         "shapeshifting"
@@ -4384,9 +4452,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
+        "bloodthirsty:5",
         "brutal",
-        "mana_hunger"
+        "mana_hunger:3"
       ],
       "skills": {
         "STR": 4,
@@ -4411,7 +4479,7 @@
       "wardMax": 0,
       "traits": [
         "cruel",
-        "venomous"
+        "venomous:2"
       ],
       "skills": {
         "PRW": 3,
@@ -4441,7 +4509,7 @@
       "wardMax": 0,
       "traits": [
         "fury",
-        "overcharged",
+        "overcharged:2",
         "vengeful"
       ],
       "skills": {
@@ -4470,7 +4538,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "lifesteal",
+        "lifesteal:1",
         "siphon"
       ],
       "skills": {
@@ -4495,7 +4563,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "enchanted",
+        "enchanted:1",
         "magical",
         "shapeshifting"
       ],
@@ -4551,7 +4619,7 @@
       "traits": [
         "agile",
         "cruel",
-        "lifesteal"
+        "lifesteal:1"
       ],
       "skills": {
         "PRW": 3,
@@ -4575,7 +4643,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "corrupt"
+        "corrupt:1"
       ],
       "skills": {
         "PRW": 2,
@@ -4597,7 +4665,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "deafening",
+        "deafening:1",
         "flying"
       ],
       "skills": {
@@ -4624,17 +4692,17 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
-        "corrupt",
+        "bloodthirsty:5",
+        "corrupt:5",
         "flying",
-        "lifesteal",
+        "lifesteal:5",
         "magical",
         "observant",
         "phasewalking",
         "shapeshifting",
         "siphon",
         "sneaky",
-        "tough"
+        "tough:5"
       ],
       "skills": {
         "STL": 10,
@@ -4670,8 +4738,8 @@
       "wardMax": 0,
       "traits": [
         "agile",
-        "bloodthirsty",
-        "curse",
+        "bloodthirsty:5",
+        "curse:3",
         "magical",
         "potent",
         "vengeful"
@@ -4705,14 +4773,14 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
-        "corrupt",
+        "bloodthirsty:5",
+        "corrupt:4",
         "flying",
-        "lifesteal",
+        "lifesteal:4",
         "magical",
         "observant",
         "sneaky",
-        "tough"
+        "tough:3"
       ],
       "skills": {
         "STL": 6,
@@ -4741,8 +4809,8 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "curse",
-        "deafening",
+        "curse:5",
+        "deafening:3",
         "magical"
       ],
       "skills": {
@@ -4794,7 +4862,7 @@
       "armourMax": 3,
       "wardMax": 0,
       "traits": [
-        "lifesteal"
+        "lifesteal:3"
       ],
       "skills": {
         "PRW": 5,
@@ -4832,7 +4900,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "enchanted",
+        "enchanted:1",
         "magical"
       ],
       "skills": {
@@ -4859,11 +4927,11 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "bloodthirsty",
-        "corrupt",
-        "lifesteal",
+        "bloodthirsty:3",
+        "corrupt:2",
+        "lifesteal:2",
         "sneaky",
-        "tough"
+        "tough:2"
       ],
       "skills": {
         "STL": 3,
@@ -4891,9 +4959,9 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "curse",
+        "curse:1",
         "ethereal",
-        "lifesteal",
+        "lifesteal:1",
         "magical",
         "siphon"
       ],
@@ -4904,7 +4972,12 @@
         "WIS": 2
       },
       "abilities": [],
-      "equipment": [],
+      "equipment": [
+        {
+          "name": "Spectral Blade",
+          "rulesText": "+1 physical damage"
+        }
+      ],
       "loreText": "Tormented souls stolen from the afterlife, wraiths radiate shadowy malice.",
       "notes": [
         "Instead of restoring HP, healing effects deal magic damage to the wraith equal to the amount of HP that would have been restored."
@@ -4953,8 +5026,8 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "corrupt",
-        "deafening",
+        "corrupt:2",
+        "deafening:3",
         "ethereal"
       ],
       "skills": {
@@ -5082,13 +5155,13 @@
       "traits": [
         "camouflage",
         "gigantic",
-        "grounded",
+        "grounded:7",
         "magical",
         "mighty",
         "potent",
-        "regeneration",
+        "regeneration:4",
         "staggering",
-        "tough"
+        "tough:5"
       ],
       "skills": {
         "STR": 10,
@@ -5117,11 +5190,11 @@
         "ethereal",
         "fast",
         "gigantic",
-        "grounded",
+        "grounded:3",
         "magical",
         "mighty",
         "potent",
-        "regeneration",
+        "regeneration:3",
         "staggering"
       ],
       "skills": {
@@ -5148,14 +5221,14 @@
       "traits": [
         "bold",
         "camouflage",
-        "deafening",
+        "deafening:5",
         "ethereal",
         "fast",
         "flying",
         "gigantic",
-        "grounded",
+        "grounded:3",
         "mighty",
-        "regeneration"
+        "regeneration:2"
       ],
       "skills": {
         "CHA": 6,
@@ -5180,7 +5253,7 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "deafening",
+        "deafening:1",
         "magical",
         "potent",
         "siphon",
@@ -5208,7 +5281,7 @@
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
-        "lifesteal",
+        "lifesteal:1",
         "magical",
         "potent"
       ],
@@ -5262,7 +5335,7 @@
       "traits": [
         "fast",
         "magical",
-        "regeneration"
+        "regeneration:1"
       ],
       "skills": {
         "CHA": 3,
@@ -5310,22 +5383,22 @@
       "name": "Diamond Dragon",
       "monsterType": "Dragons",
       "level": 60,
-      "hpMax": 70,
+      "hpMax": 76,
       "armourMax": 0,
       "wardMax": 0,
       "traits": [
         "bold",
         "catalyst",
-        "deafening",
+        "deafening:10",
         "fast",
         "flying",
-        "grounded",
+        "grounded:10",
         "magical",
         "observant",
         "phasewalking",
         "potent",
-        "regeneration",
-        "tough"
+        "regeneration:10",
+        "tough:10"
       ],
       "skills": {
         "CHA": 12,
@@ -5352,18 +5425,18 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "corrupt",
-        "curse",
+        "corrupt:5",
+        "curse:3",
         "flying",
         "gigantic",
-        "grounded",
-        "hazardous",
+        "grounded:10",
+        "hazardous:5",
         "magical",
         "mighty",
         "observant",
         "potent",
         "siphon",
-        "tough"
+        "tough:10"
       ],
       "skills": {
         "INS": 12,
@@ -5394,12 +5467,12 @@
         "fast",
         "flying",
         "gigantic",
-        "grounded",
+        "grounded:7",
         "magical",
         "mighty",
         "observant",
         "potent",
-        "tough"
+        "tough:7"
       ],
       "skills": {
         "PRW": 10,
@@ -5429,13 +5502,13 @@
         "cruel",
         "flying",
         "gigantic",
-        "grounded",
-        "hazardous",
+        "grounded:6",
+        "hazardous:3",
         "magical",
         "mighty",
         "observant",
         "potent",
-        "tough",
+        "tough:6",
         "vengeful"
       ],
       "skills": {
@@ -5463,16 +5536,16 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "enchanted",
+        "enchanted:3",
         "fast",
         "flying",
         "gigantic",
-        "grounded",
+        "grounded:5",
         "magical",
         "mighty",
         "observant",
         "potent",
-        "tough"
+        "tough:5"
       ],
       "skills": {
         "WIS": 10,
@@ -5501,14 +5574,14 @@
         "bold",
         "flying",
         "gigantic",
-        "grounded",
+        "grounded:4",
         "magical",
         "mighty",
         "observant",
         "potent",
         "sneaky",
-        "tough",
-        "venomous"
+        "tough:4",
+        "venomous:5"
       ],
       "skills": {
         "STL": 9,
@@ -5535,16 +5608,16 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "curse",
+        "curse:3",
         "flying",
-        "grounded",
-        "hazardous",
+        "grounded:5",
+        "hazardous:3",
         "magical",
         "mighty",
         "observant",
         "potent",
         "siphon",
-        "tough"
+        "tough:6"
       ],
       "skills": {
         "INS": 7,
@@ -5571,14 +5644,14 @@
       "wardMax": 0,
       "traits": [
         "bold",
-        "deafening",
+        "deafening:4",
         "flying",
-        "grounded",
+        "grounded:6",
         "magical",
         "phasewalking",
         "observant",
         "potent",
-        "tough"
+        "tough:4"
       ],
       "skills": {
         "INS": 7,
@@ -5605,12 +5678,12 @@
       "wardMax": 0,
       "traits": [
         "flying",
-        "grounded",
+        "grounded:5",
         "magical",
         "mighty",
         "observant",
         "potent",
-        "tough",
+        "tough:4",
         "vengeful"
       ],
       "skills": {
@@ -5641,12 +5714,12 @@
         "catalyst",
         "fast",
         "flying",
-        "grounded",
+        "grounded:4",
         "magical",
         "mighty",
         "observant",
         "potent",
-        "tough"
+        "tough:5"
       ],
       "skills": {
         "PRW": 5,
@@ -5673,12 +5746,12 @@
       "wardMax": 0,
       "traits": [
         "flying",
-        "grounded",
+        "grounded:3",
         "magical",
         "observant",
         "potent",
         "sneaky",
-        "tough"
+        "tough:3"
       ],
       "skills": {
         "CHA": 4,
@@ -5705,11 +5778,11 @@
       "wardMax": 0,
       "traits": [
         "flying",
-        "grounded",
+        "grounded:3",
         "magical",
         "observant",
         "potent",
-        "tough"
+        "tough:3"
       ],
       "skills": {
         "STR": 5,
@@ -5722,8 +5795,413 @@
       "abilities": [
         "monAbility.dragons.dragonfire"
       ],
-      "equipment": [],
       "loreText": "Iron dragons are the smallest and least powerful of the true dragons. They are descended from silver dragons, but are not as intelligent or graceful as their ancestors. Iron dragons are also the most common type of dragon, and can be found hoarding treasure in caves across the pillar worlds.",
+      "notes": []
+    },
+    {
+      "id": "monster.arcane.sithiril",
+      "name": "Sithiril",
+      "monsterType": "Arcane",
+      "level": 6,
+      "hpMax": 10,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "sneaky",
+        "venomous:2"
+      ],
+      "skills": {
+        "STL": 4,
+        "PRW": 4,
+        "INS": 3,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Venomous Blade",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Humanoid serpents, Sithiril are created in rituals where human beings are bathed in the blood of snakes. Stealthy and cold-blooded, they make the perfect assassins.",
+      "notes": []
+    },
+    {
+      "id": "monster.dragons.wyrm",
+      "name": "Wyrm",
+      "monsterType": "Dragons",
+      "level": 8,
+      "hpMax": 12,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "fast",
+        "flying"
+      ],
+      "skills": {
+        "PRW": 5,
+        "STL": 4,
+        "STR": 3,
+        "INS": 2
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Long serpentine dragonoids, wyrms ride the highest winds. While wyrms are easily mistaken for true dragons, they don't have legs or fiery breath.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.darkness_spirit",
+      "name": "Darkness Spirit",
+      "monsterType": "Elementals",
+      "level": 6,
+      "hpMax": 10,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "lifesteal:1",
+        "magical",
+        "phasewalking",
+        "sneaky"
+      ],
+      "skills": {
+        "STL": 6,
+        "INS": 2,
+        "WIS": 2,
+        "PRW": 1,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Gentle beings of silent shadow, darkness spirits dwell in the deepest caverns and the furthest reaches of the night sky. While often associated with malevolent creatures, darkness spirits are shy and skittish. They are crucial to the fundamental balance of the universe, leveling out the radiance of the cosmos that would otherwise overwhelm all mortal life.",
+      "notes": []
+    },
+    {
+      "id": "monster.elementals.light_spirit",
+      "name": "Light Spirit",
+      "monsterType": "Elementals",
+      "level": 6,
+      "hpMax": 13,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "flying",
+        "magical",
+        "potent"
+      ],
+      "skills": {
+        "INS": 4,
+        "CHA": 3,
+        "WIS": 2,
+        "STL": 2,
+        "STR": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Light spirits glide through the skies, illuminating the lands below. They channel the cosmic powers of the sun, moon, and stars, warding away the dark night.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.skinwalker",
+      "name": "Skinwalker",
+      "monsterType": "Fae",
+      "level": 15,
+      "hpMax": 20,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bloodthirsty:4",
+        "fast",
+        "shapeshifting"
+      ],
+      "skills": {
+        "PRW": 6,
+        "STL": 5,
+        "STR": 4,
+        "INS": 4,
+        "CHA": 1,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Dark fae spirits who disguise themselves as mortals, skinwalkers roam the night in search of lost wanderers. They unhinge their jaws and swallow mortals whole, stealing their countenance to use against future prey.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.hobgoblin",
+      "name": "Hobgoblin",
+      "monsterType": "Fae",
+      "level": 5,
+      "hpMax": 10,
+      "armourMax": 1,
+      "wardMax": 0,
+      "traits": [
+        "fast",
+        "observant",
+        "sneaky",
+        "strategic"
+      ],
+      "skills": {
+        "PRW": 3,
+        "STL": 3,
+        "STR": 2,
+        "INS": 2,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Iron Sword",
+          "rulesText": "+1 physical damage"
+        },
+        {
+          "name": "Wolf Hide Armour",
+          "rulesText": "1 armour"
+        }
+      ],
+      "loreText": "Goblin society revolves around selfishness, cruelty, and cunning. The strongest goblins sometimes venture to the surface to prove their prowess. A goblin who slays and consumes a wolf undergoes a transformation, growing larger, stronger, and more crafty. These so-called hobgoblins are much more dangerous than regular goblins, often leading hordes of their kin into battle.",
+      "notes": []
+    },
+    {
+      "id": "monster.fae.kelpie",
+      "name": "Kelpie",
+      "monsterType": "Fae",
+      "level": 3,
+      "hpMax": 9,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "corrupt:1",
+        "fast",
+        "shapeshifting"
+      ],
+      "skills": {
+        "CHA": 2,
+        "STR": 2,
+        "STL": 2,
+        "PRW": 1,
+        "INS": 1,
+        "WIS": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Shapeshifting swamp monsters, kelpies appear as green-skinned horses or humanoids to drag mortals to their watery graves.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.demon_of_entropy",
+      "name": "Demon of Entropy",
+      "monsterType": "Infernals",
+      "level": 50,
+      "hpMax": 62,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "catalyst",
+        "corrupt:6",
+        "curse:6",
+        "ethereal",
+        "gigantic",
+        "grounded:6",
+        "lifesteal:6",
+        "magical",
+        "mana_hunger:3",
+        "phasewalking",
+        "potent",
+        "siphon"
+      ],
+      "skills": {
+        "INS": 12,
+        "WIS": 10,
+        "STL": 10,
+        "PRW": 8,
+        "STR": 8,
+        "CHA": 8
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Demons of entropy appear as enormous withered corpses, with ghostly skin trailing off ancient bones of obsidian. Their unholy gaze snuffs out any light, plunging the land into frigid darkness.\n\nFormidus is the primordial demon of entropy, born from the first shadow cast by the light of the stars. Formidus cursed the universe with fear and sorrow, dragging mortal spirits through the abyss of dread and into the oblivion of despair.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.demon_of_corruption",
+      "name": "Demon of Corruption",
+      "monsterType": "Infernals",
+      "level": 45,
+      "hpMax": 59,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bold",
+        "corrupt:7",
+        "curse:5",
+        "fast",
+        "flying",
+        "grounded:5",
+        "magical",
+        "observant",
+        "phasewalking",
+        "potent",
+        "shapeshifting",
+        "sneaky",
+        "tough:5",
+        "venomous:5"
+      ],
+      "skills": {
+        "CHA": 10,
+        "STL": 10,
+        "INS": 9,
+        "WIS": 8,
+        "PRW": 7,
+        "STR": 7
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Demons of corruption typically manifest themselves in the mortal realm as wealthy and attractive humanoids with pristine clothing and charming smiles, though they can adopt any form that suits their needs. Their emerald eyes glint with hypnotic seduction and their velvet voices reverberate through the minds of anyone near them.\n\nScelus is the primordial demon of corruption, born from the first shadow cast by the light of the moon. Scelus cursed the universe with greed and selfishness, whispering wicked temptations from the dark reaches of every mortal mind.",
+      "notes": []
+    },
+    {
+      "id": "monster.infernals.demon_of_hatred",
+      "name": "Demon of Hatred",
+      "monsterType": "Infernals",
+      "level": 35,
+      "hpMax": 45,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "bold",
+        "bloodthirsty:5",
+        "brutal",
+        "cruel",
+        "deafening:5",
+        "gigantic",
+        "flying",
+        "fury",
+        "hazardous:4",
+        "lifesteal:5",
+        "magical",
+        "overcharged:3",
+        "potent",
+        "tough:3",
+        "unstable:5",
+        "vengeful"
+      ],
+      "skills": {
+        "STR": 10,
+        "PRW": 10,
+        "CHA": 6,
+        "INS": 6,
+        "WIS": 5,
+        "STL": 4
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Demons of hatred are colossal savage monsters with crowns of jagged horns and eyes of roaring fire. Their great wings shroud entire kingdoms in darkness, and their furious screams shake the bones of the land.\n\nOdius is the primordial demon of hatred, born from the first shadow cast by the light of the sun. Odius cursed the universe with rage and fury, flowing through the hot blood that drives mortals to violence.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.spectre",
+      "name": "Spectre",
+      "monsterType": "Undead",
+      "level": 11,
+      "hpMax": 15,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "agile",
+        "bloodthirsty:3",
+        "flying",
+        "magical"
+      ],
+      "skills": {
+        "PRW": 6,
+        "INS": 4,
+        "STR": 3,
+        "WIS": 2,
+        "STL": 2
+      },
+      "abilities": [],
+      "equipment": [
+        {
+          "name": "Scythe Blade",
+          "rulesText": "+1 physical damage"
+        }
+      ],
+      "loreText": "Flying skeletons that burn with cold blue fire, spectres slaughter any mortal that crosses their path to absorb their souls.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.revenant",
+      "name": "Revenant",
+      "monsterType": "Undead",
+      "level": 9,
+      "hpMax": 14,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "observant",
+        "tough:1",
+        "vengeful"
+      ],
+      "skills": {
+        "PRW": 4,
+        "STR": 3,
+        "STL": 3,
+        "INS": 2,
+        "WIS": 2,
+        "CHA": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Humanoid undead driven by vengeance, revenants rise from their graves to punish those who wronged them in life. They retain more memories of their lives than most undead, but lose any mercy or compassion. Without the need for rest or sustenance, revenants hunt their targets until their revenge is fulfilled, at which point their spirits return to rest.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.grave_hulk",
+      "name": "Grave Hulk",
+      "monsterType": "Undead",
+      "level": 7,
+      "hpMax": 13,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "gigantic",
+        "tough:2"
+      ],
+      "skills": {
+        "STR": 6,
+        "PRW": 4,
+        "CHA": 2,
+        "STL": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "Lumbering brutes assembled from reanimated flesh, grave hulks tower over hordes of lesser undead. Grave hulks can either be created from the corpses of gigantic humanoids like ogres and goliaths, or stitched together using the body parts of several human corpses. Grave hulks are difficult to control, and are often consumed by a thoughtless rage.",
+      "notes": []
+    },
+    {
+      "id": "monster.undead.husk",
+      "name": "Husk",
+      "monsterType": "Undead",
+      "level": 1,
+      "hpMax": 5,
+      "armourMax": 0,
+      "wardMax": 0,
+      "traits": [
+        "tough:1"
+      ],
+      "skills": {
+        "STR": 2,
+        "STL": 2,
+        "INS": 2,
+        "PRW": 1
+      },
+      "abilities": [],
+      "equipment": [],
+      "loreText": "The dessicated corpses of those who perish from droughts can be risen as husks, undead puppets who serve the will of their creator. Husks have no impulses of their own, collapsing into dust if the necromancer who resurrected them dies.",
       "notes": []
     }
   ],

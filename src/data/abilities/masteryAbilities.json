@@ -31,8 +31,8 @@
       "rulesText": "If you hit one enemy with two blade attacks on your turn, you can make one more free blade attack against them."
     },
     {
-      "id": "blade.sever",
-      "name": "Sever",
+      "id": "blade.hemorrhage",
+      "name": "Hemorrhage",
       "tag": "weapon",
       "tree": "weaponMastery",
       "subtree": "blade",
@@ -47,7 +47,7 @@
           "id": "blade.chain_attack"
         }
       ],
-      "rulesText": "When you hit a critical strike with a blade attack, you sever a limb. Your target gains a permanent -2 penalty to STR and PRW. If your target has less than half of their HP remaining, you may sever their head. This instantly kills mortal enemies that only have one head."
+      "rulesText": "The third blade attack that you hit on your turn deals +3 damage."
     },
     {
       "id": "bludgeon.stun",
@@ -95,7 +95,7 @@
           "id": "bludgeon.knockback"
         }
       ],
-      "rulesText": "Whenever you hit an enemy with a bludgeon attack, they cannot move on their next turn."
+      "rulesText": "Whenever you hit an enemy with a bludgeon attack, they lose one movement on their next turn."
     },
     {
       "id": "bow.pierce",
@@ -201,6 +201,7 @@
       "subtree": "orb",
       "tier": 1,
       "prerequisites": [],
+      "passive": "You must be wielding an orb to use this ability.",
       "rulesText": "Your magic attacks deal +1 magic damage against enemies you are focusing on."
     },
     {
@@ -220,6 +221,7 @@
           "id": "orb.mana_charge"
         }
       ],
+      "passive": "You must be wielding an orb to use this ability.",
       "rulesText": "When you take magic damage, you may spend MP to reduce it. Reduce the damage taken by the amount of MP spent. Your next magic attack deals bonus magic damage equal to the damage negated if it hits."
     },
     {
@@ -239,6 +241,7 @@
           "id": "orb.mana_field"
         }
       ],
+      "passive": "You must be wielding an orb to use this ability.",
       "rulesText": "When you gain three or more points of focus on an enemy, you can immediately make a free INS check against them."
     },
     {
@@ -249,6 +252,7 @@
       "subtree": "staff",
       "tier": 1,
       "prerequisites": [],
+      "passive": "You must be wielding a staff to use this ability.",
       "rulesText": "If you spend your entire MP capacity on one magic attack, it deals +1 magic damage."
     },
     {
@@ -268,6 +272,7 @@
           "id": "staff.arcane_bombardment"
         }
       ],
+      "passive": "You must be wielding a staff to use this ability.",
       "rulesText": "Whenever you succeed on a defensive roll to avoid magic damage, you recover MP."
     },
     {
@@ -287,6 +292,7 @@
           "id": "staff.mana_absorption"
         }
       ],
+      "passive": "You must be wielding a staff to use this ability.",
       "rulesText": "If you succeed on two magic attacks on your turn, you can make a free INS check."
     },
     {
@@ -297,7 +303,7 @@
       "subtree": "tome",
       "tier": 1,
       "prerequisites": [],
-      "passive": "You can read many languages.",
+      "passive": "You can read many languages. You must be wielding a tome to use this ability.",
       "rulesText": "Once per turn when you run out of MP, you can immediately make a free focus check against an enemy you can see."
     },
     {
@@ -317,6 +323,7 @@
           "id": "tome.archive"
         }
       ],
+      "passive": "You must be wielding a tome to use this ability.",
       "rulesText": "Reduce the MP cost of all abilities by 1. For abilities that let you choose how much MP to expend, add 1 free MP."
     },
     {
@@ -336,6 +343,7 @@
           "id": "tome.mana_reservoir"
         }
       ],
+      "passive": "You must be wielding a tome to use this ability.",
       "rulesText": "You recover MP twice when you succeed on a focus check."
     },
     {
@@ -396,6 +404,7 @@
       "tier": 1,
       "prerequisites": [],
       "trigger": "Whenever you dodge an attack",
+      "passive": "You must be wielding a cloak to use this ability.",
       "rulesText": "You may immediately make a STL check against the attacker."
     },
     {
@@ -415,6 +424,7 @@
           "id": "cloak.fleeting_figure"
         }
       ],
+      "passive": "You must be wielding a cloak to use this ability.",
       "rulesText": "You can reroll a failed STL check. You must wait until the start of your next turn to do so again."
     },
     {
@@ -434,6 +444,7 @@
           "id": "cloak.shrouded"
         }
       ],
+      "passive": "You must be wielding a cloak to use this ability.",
       "rulesText": "When you successfully hide from an enemy, you gain advantage on your next two skill checks against them."
     },
     {
@@ -444,6 +455,7 @@
       "subtree": "instrument",
       "tier": 1,
       "prerequisites": [],
+      "passive": "You must be wielding an instrument to use this ability.",
       "rulesText": "When making a CHA check to influence, you can target every enemy who can hear you."
     },
     {
@@ -463,6 +475,7 @@
           "id": "instrument.charm"
         }
       ],
+      "passive": "You must be wielding an instrument to use this ability.",
       "rulesText": "For every enemy that you successfully influence, you can allow one ally to immediately move for free."
     },
     {
@@ -482,6 +495,7 @@
           "id": "instrument.festivity"
         }
       ],
+      "passive": "You must be wielding an instrument to use this ability.",
       "rulesText": "Whenever you influence an enemy, they can only make one skill check on their next turn."
     },
     {
@@ -492,6 +506,7 @@
       "subtree": "mask",
       "tier": 1,
       "prerequisites": [],
+      "passive": "You must be wielding a mask to use this ability.",
       "rulesText": "After you beat an enemy in an offensive CHA or STL check, your next attack against them deals +1 damage. This effect can stack."
     },
     {
@@ -511,6 +526,7 @@
           "id": "mask.deception"
         }
       ],
+      "passive": "You must be wielding a mask to use this ability.",
       "rulesText": "When you move into the same zone as an enemy, you gain advantage on your next CHA or STL check against them on your turn."
     },
     {
@@ -530,6 +546,7 @@
           "id": "mask.lurk"
         }
       ],
+      "passive": "You must be wielding a mask to use this ability.",
       "rulesText": "After you influence an enemy, you gain advantage on your next skill check against them. After you hide from an enemy, they gain disadvantage on their next skill check against you."
     },
     {
@@ -687,7 +704,7 @@
         }
       ],
       "passive": "+1 block bonus from shields.",
-      "rulesText": "You can sacrifice your movement to double your block bonus until the start of your next turn."
+      "rulesText": "You can sacrifice your movement to gain an additional +3 to your block bonus until the start of your next turn."
     },
     {
       "id": "ward.phase_shift",

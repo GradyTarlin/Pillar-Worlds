@@ -134,13 +134,9 @@
       "subtree": "aether.rift",
       "tier": 1,
       "mpCost": "X",
-      "check": {
-        "attackerSkill": "PRW",
-        "defenderSkill": "STL",
-        "range": "see"
-      },
+      "check": null,
       "prerequisites": [],
-      "rulesText": "Deal X + STR magic damage."
+      "rulesText": "When you make a weapon attack, spend X MP to turn the attack into an aether strike. Aether strikes can target any enemy that you can see, and deal +X magic damage on a hit. Aether strikes are not affected by high or low ground."
     },
     {
       "id": "aether.rift.ravenous_rift",
@@ -314,14 +310,14 @@
       "tree": "power",
       "subtree": "alchemy.potions",
       "tier": 1,
-      "mpCost": 1,
+      "mpCost": "X",
       "check": {
         "attackerSkill": "STL",
         "defenderSkill": "INS",
         "range": "reach"
       },
       "prerequisites": [],
-      "rulesText": "Apply your venom to the target. Whenever they fail a skill check on their next turn, they take 2 magic damage."
+      "rulesText": "Apply your venom to the target. Until the end of their next turn, whenever they fail an offensive skill check, they take X magic damage."
     },
     {
       "id": "alchemy.potions.lifeblood_elixir",
@@ -497,7 +493,7 @@
         "range": "see"
       },
       "prerequisites": [],
-      "rulesText": "If your target dies before the end of your next turn, they are raised as your undead servant with X HP. They retain their STR bonus but lose all other skill bonuses, and they cannot regain HP. You can make one skill check for them on each of your turns."
+      "rulesText": "The target's spirit is bound. When they die, they are raised as your undead servant with X HP. They retain their STR bonus but lose all other skill bonuses, and they cannot regain HP. You can make one skill check for them on each of your turns. Targets can unbind their spirits by dealing damage to you."
     },
     {
       "id": "darkness.necromancy.reapers_harvest",
@@ -556,13 +552,9 @@
       "subtree": "darkness.shadowcraft",
       "tier": 1,
       "mpCost": 2,
-      "check": {
-        "attackerSkill": "PRW (When you have advantage)",
-        "defenderSkill": "STL",
-        "range": "reach"
-      },
+      "check": null,
       "prerequisites": [],
-      "rulesText": "Deal Weapon + STR + STL physical damage."
+      "rulesText": "When you make a physical attack with advantage, you can spend 2 MP to turn the attack into a shadow strike. Add your STL bonus to the damage of shadow strikes."
     },
     {
       "id": "darkness.shadowcraft.shadow_dancing",
@@ -609,7 +601,7 @@
           "id": "darkness.shadowcraft.shadow_dancing"
         }
       ],
-      "rulesText": "Steal the target's shadow. Creatures without shadows take +1 magic damage whenever they take damage. Your target can reclaim their shadow from you by dealing damage to you."
+      "rulesText": "Steal the target's shadow. Creatures without shadows take +2 magic damage whenever they take damage. Your target can reclaim their shadow from you by dealing damage to you."
     },
     {
       "id": "darkness.bloodlust.bloodthirst",

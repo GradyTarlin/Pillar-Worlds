@@ -78,6 +78,10 @@ export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCha
     return sum + (grants?.wardMax ?? 0);
   }, 0) + wardAbilities;
 
+  const hasShield = equipment.some(item => item.type === 'shield');
+  const blockBonusAbilities = allKnownAbilityIds.filter(id => ['shield.bash', 'shield.guardian', 'shield.fortify'].includes(id as string)).length;
+  const blockBonus = hasShield ? 2 + blockBonusAbilities : 0;
+
   return (
     <div className="character-sheet">
       <header className="character-sheet__header">
@@ -141,6 +145,12 @@ export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCha
               <>
                 <dt>Ward</dt>
                 <dd>{ward}</dd>
+              </>
+            )}
+            {hasShield && (
+              <>
+                <dt>Block Bonus</dt>
+                <dd>+{blockBonus}</dd>
               </>
             )}
           </dl>

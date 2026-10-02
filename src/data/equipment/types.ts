@@ -10,7 +10,7 @@ export interface BaseItemGrants {
 export interface BaseItem {
   id: string;
   name: string;
-  type: 'weapon' | 'relic' | 'trick' | 'armour' | 'shield' | 'ward';
+  type: 'weapon' | 'relic' | 'trick' | 'armour' | 'shield' | 'ward' | 'accessory';
   subtype?: string;
   rulesText: string[];
   grants?: BaseItemGrants;
@@ -19,7 +19,7 @@ export interface BaseItem {
 export interface Artifact {
   id: string;
   name: string;
-  type: 'weapon' | 'relic' | 'trick' | 'armour' | 'shield' | 'ward';
+  type: 'weapon' | 'relic' | 'trick' | 'armour' | 'shield' | 'ward' | 'accessory';
   subtype: string;
   rulesText: string;
 }

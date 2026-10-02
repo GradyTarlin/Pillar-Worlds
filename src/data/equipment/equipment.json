@@ -120,6 +120,15 @@
           "When you take magical damage, lose points of ward before losing HP.",
           "A point of ward can be restored by spending 3MP."
         ]
+      },
+      {
+        "id": "equip.accessory.crown",
+        "name": "Crown",
+        "type": "accessory",
+        "subtype": "crown",
+        "rulesText": [
+          "Accessories grant unique magical effects and passive bonuses."
+        ]
       }
     ],
     "artifacts": [
@@ -374,6 +383,216 @@
         "type": "ward",
         "subtype": "ward",
         "rulesText": "Whenever your ward absorbs magic damage, you add an equal amount of magic damage to your next magic attack."
+      },
+      {
+        "id": "artifact.crown.crown_of_light",
+        "name": "Crown of Light",
+        "type": "accessory",
+        "subtype": "crown",
+        "rulesText": "Whenever you blind an enemy, they take 2 magic damage."
+      },
+      {
+        "id": "artifact.crown.crown_of_runes",
+        "name": "Crown of Runes",
+        "type": "accessory",
+        "subtype": "crown",
+        "rulesText": "Whenever you succeed on an offensive skill check against an enemy, you gain a point of focus on them."
+      },
+      {
+        "id": "artifact.crown.crown_of_life",
+        "name": "Crown of Life",
+        "type": "accessory",
+        "subtype": "crown",
+        "rulesText": "Restore +1 HP whenever you heal yourself or an ally."
+      },
+      {
+        "id": "artifact.crown.crown_of_blades",
+        "name": "Crown of Blades",
+        "type": "accessory",
+        "subtype": "crown",
+        "rulesText": "Every HP you lose is added as bonus physical damage on your next melee attack."
+      },
+      {
+        "id": "artifact.crown.crown_of_mirrors",
+        "name": "Crown of Mirrors",
+        "type": "accessory",
+        "subtype": "crown",
+        "rulesText": "Whenever you successfully influence or hide from an enemy, they take 1 magic damage."
+      },
+      {
+        "id": "artifact.crown.crown_of_souls",
+        "name": "Crown of Souls",
+        "type": "accessory",
+        "subtype": "crown",
+        "rulesText": "Whenever you raise an undead servant, they retain all of their skill bonuses."
+      },
+      {
+        "id": "artifact.bludgeon.golden_morningstar",
+        "name": "Golden Morningstar",
+        "type": "weapon",
+        "subtype": "bludgeon",
+        "rulesText": "Spend 3 MP to infuse the Golden Morningstar with lightning until the end of your turn. Hits deal 3 extra magic damage to the target, 2 magic damage to a second enemy within your reach, and 1 magic damage to a third target within your reach."
+      },
+      {
+        "id": "artifact.blade.silver_axe",
+        "name": "Silver Axe",
+        "type": "weapon",
+        "subtype": "blade",
+        "rulesText": "Spend 3 MP to infuse the Silver Axe with spiritual power until the end of your turn. Hits deal +3 magic damage and can score a critical hit on a roll of 10, 11, or 12."
+      },
+      {
+        "id": "artifact.bow.diamond_bow",
+        "name": "Diamond Bow",
+        "type": "weapon",
+        "subtype": "bow",
+        "rulesText": "Spend 3 MP to infuse the Diamond Bow with aetherial power until the end of your turn. While infused, the bow gains a +3 bonus to attack rolls."
+      },
+      {
+        "id": "artifact.blade.obsidian_blade",
+        "name": "Obsidian Blade",
+        "type": "weapon",
+        "subtype": "blade",
+        "rulesText": "Spend 3 MP to infuse the Obsidian Blade with darkness until the end of your turn. Hits deal +3 magic damage and grant you advantage on your next skill check against the target."
+      },
+      {
+        "id": "artifact.bow.emerald_crossbow",
+        "name": "Emerald Crossbow",
+        "type": "weapon",
+        "subtype": "bow",
+        "rulesText": "Spend 3 MP to infuse the Emerald Crossbow with psychic energy until the end of your turn. Hits deal +3 magic damage when you have advantage on the attack roll, and +3 magic damage when the target has disadvantage on their defensive roll."
+      },
+      {
+        "id": "artifact.bludgeon.ruby_mace",
+        "name": "Ruby Mace",
+        "type": "weapon",
+        "subtype": "bludgeon",
+        "rulesText": "Spend 3 MP to infuse the Ruby Mace with fire until the end of your turn. Hits deal +3 magic damage to the target and set them on fire. Burning targets take 3 more magic damage at the end of their next turn."
+      },
+      {
+        "id": "artifact.mask.golden_mask",
+        "name": "Golden Mask",
+        "type": "trick",
+        "subtype": "mask",
+        "rulesText": "When you influence an enemy, they are marked. If their next offensive skill check targets someone other than you, they take 3 magic damage."
+      },
+      {
+        "id": "artifact.cloak.silver_cape",
+        "name": "Silver Cape",
+        "type": "trick",
+        "subtype": "cloak",
+        "rulesText": "When you hide from an enemy, you can immediately move."
+      },
+      {
+        "id": "artifact.instrument.diamond_lute",
+        "name": "Diamond Lute",
+        "type": "trick",
+        "subtype": "instrument",
+        "rulesText": "You recover +1 MP when you influence an enemy."
+      },
+      {
+        "id": "artifact.cloak.obsidian_cloak",
+        "name": "Obsidian Cloak",
+        "type": "trick",
+        "subtype": "cloak",
+        "rulesText": "When you dodge an attack, you can immediately teleport to an adjacent zone."
+      },
+      {
+        "id": "artifact.mask.emerald_mask",
+        "name": "Emerald Mask",
+        "type": "trick",
+        "subtype": "mask",
+        "rulesText": "When an enemy fails an offensive skill check against you, they gain disadvantage on their next skill check."
+      },
+      {
+        "id": "artifact.instrument.ruby_war_drum",
+        "name": "Ruby War Drum",
+        "type": "trick",
+        "subtype": "instrument",
+        "rulesText": "When you influence an enemy, your next attack against them deals +1 damage."
+      },
+      {
+        "id": "artifact.staff.golden_staff",
+        "name": "Golden Staff",
+        "type": "relic",
+        "subtype": "staff",
+        "rulesText": "Whenever you succeed on a defensive roll to avoid magic damage, the attacker is blinded until they make a skill check. While blinded, enemies have disadvantage on all skill checks and cannot see."
+      },
+      {
+        "id": "artifact.tome.silver_scroll",
+        "name": "Silver Scroll",
+        "type": "relic",
+        "subtype": "tome",
+        "rulesText": "Whenever you focus on an enemy, you can immediately move."
+      },
+      {
+        "id": "artifact.orb.diamond_orb",
+        "name": "Diamond Orb",
+        "type": "relic",
+        "subtype": "orb",
+        "rulesText": "When you gain three or more points of focus on an enemy, your next magic attack against them deals +1 magic damage."
+      },
+      {
+        "id": "artifact.orb.obsidian_orb",
+        "name": "Obsidian Orb",
+        "type": "relic",
+        "subtype": "orb",
+        "rulesText": "When you kill an enemy with a magic attack, regain HP equal to their level."
+      },
+      {
+        "id": "artifact.tome.emerald_grimoire",
+        "name": "Emerald Grimoire",
+        "type": "relic",
+        "subtype": "tome",
+        "rulesText": "Whenever you focus on an enemy, they gain disadvantage on their next skill check."
+      },
+      {
+        "id": "artifact.staff.ruby_staff",
+        "name": "Ruby Staff",
+        "type": "relic",
+        "subtype": "staff",
+        "rulesText": "If you spend your entire MP capacity on one magic attack, you gain a +1 bonus to the attack roll."
+      },
+      {
+        "id": "artifact.ward.golden_amulet",
+        "name": "Golden Amulet",
+        "type": "ward",
+        "subtype": "ward",
+        "rulesText": "When your ward takes damage, regain an equal amount HP."
+      },
+      {
+        "id": "artifact.armour.silver_armour",
+        "name": "Silver Armour",
+        "type": "armour",
+        "subtype": "armour",
+        "rulesText": "Whenever your armour takes damage, you can immediately move."
+      },
+      {
+        "id": "artifact.shield.diamond_shield",
+        "name": "Diamond Shield",
+        "type": "shield",
+        "subtype": "shield",
+        "rulesText": "Recover MP whenever you block an attack."
+      },
+      {
+        "id": "artifact.armour.obsidian_armour",
+        "name": "Obsidian Armour",
+        "type": "armour",
+        "subtype": "armour",
+        "rulesText": "Once per turn, you can expend 1HP to fully repair your armour."
+      },
+      {
+        "id": "artifact.ward.emerald_ring",
+        "name": "Emerald Ring",
+        "type": "ward",
+        "subtype": "ward",
+        "rulesText": "When an enemy damages your ward, you gain advantage on your next skill check against them."
+      },
+      {
+        "id": "artifact.shield.ruby_shield",
+        "name": "Ruby Shield",
+        "type": "shield",
+        "subtype": "shield",
+        "rulesText": "Whenever you block an attack, your next attack against the attacker deals +1 damage."
       }
     ]
   }

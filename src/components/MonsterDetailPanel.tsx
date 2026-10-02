@@ -40,12 +40,14 @@ export function MonsterDetailPanel({ monster, onClose }: { monster: Monster, onC
                     <section className="compendium-detail__section">
                         <h3>Skills</h3>
                         <div className="monster-skills-grid">
-                            {Object.entries(monster.skills).map(([skill, val]) => (
-                                <div key={skill} className="monster-skill-box">
-                                    <span className="monster-skill-name">{skill}</span>
-                                    <span className="monster-skill-val">+{val}</span>
-                                </div>
-                            ))}
+                            {Object.entries(monster.skills)
+                                .filter(([, val]) => typeof val === 'number' && val > 0)
+                                .map(([skill, val]) => (
+                                    <div key={skill} className="monster-skill-box">
+                                        <span className="monster-skill-name">{skill}</span>
+                                        <span className="monster-skill-val">+{val}</span>
+                                    </div>
+                                ))}
                         </div>
                     </section>
                 )}
@@ -54,13 +56,27 @@ export function MonsterDetailPanel({ monster, onClose }: { monster: Monster, onC
                         <section className="compendium-detail__section">
                             <h3>Traits</h3>
                             <ul className="monster-traits-list">
-                                {monster.traits.map((traitId, i) => {
+                                {monster.traits.map((traitItem: any, i) => {
+                                    let traitId = typeof traitItem === 'string' ? traitItem : (traitItem.id || '');
+                                    let traitValue = typeof traitItem === 'object' && traitItem.value !== undefined ? traitItem.value : undefined;
+
+                                    if (typeof traitItem === 'string' && traitItem.includes(':')) {
+                                        const parts = traitItem.split(':');
+                                        traitId = parts[0];
+                                        traitValue = Number(parts[1]);
+                                    }
+
                                     const traitDef = getTraitById(traitId);
-                                    const formattedName = traitId.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                                    const formattedName = traitId.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                                    const displayName = traitValue !== undefined ? `${formattedName} ${traitValue}` : formattedName;
+                                    const rulesText = traitDef
+                                        ? (traitValue !== undefined ? traitDef.rulesText.replace(/\bX\b/g, String(traitValue)) : traitDef.rulesText)
+                                        : '';
+
                                     return (
                                         <li key={i}>
-                                            <strong>{formattedName}</strong>
-                                            {traitDef ? `: ${traitDef.rulesText}` : ''}
+                                            <strong>{displayName}</strong>
+                                            {traitDef ? `: ${rulesText}` : ''}
                                         </li>
                                     );
                                 })}

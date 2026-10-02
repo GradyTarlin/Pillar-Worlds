@@ -468,7 +468,7 @@
       ],
       "mpCost": null,
       "check": null,
-      "rulesText": "Whenever you deal magic damage, the target is blinded until the end of your next turn."
+      "rulesText": "Whenever you deal magic damage, the target is blinded until the end of your next turn. Blinded enemies have disadvantage on all skill checks and cannot see."
     },
     {
       "id": "nature.beast_form.shapeshifting",
@@ -501,11 +501,11 @@
       ],
       "mpCost": null,
       "check": null,
-      "rulesText": "In beast form, you no longer lose focus against enemies when you lose sight of them. You can immediately move whenever you focus on an enemy while in beast form. While in beast form, you deal +1 physical damage on attacks against targets that you're focusing on."
+      "rulesText": "You can immediately move whenever you focus on an enemy while in beast form.\nWhile in beast form, if you are focusing on an enemy at the end of your turn, you can choose to remain in beast form until the end of your next turn."
     },
     {
-      "id": "nature.beast_form.mythical_form",
-      "name": "Mythical Form",
+      "id": "nature.beast_form.relentless_hunt",
+      "name": "Relentless Hunt",
       "tag": "nature",
       "tree": "power",
       "subtree": "nature.beast_form",
@@ -522,7 +522,7 @@
       ],
       "mpCost": null,
       "check": null,
-      "rulesText": "You can speak and make magical attacks while in beast form. You also gain an additional movement while in beast form."
+      "rulesText": "While in beast form, you do not lose focus on enemies that leave your sight.\nWhen you focus on an enemy while in beast form, you can make a free physical attack against them."
     },
     {
       "id": "nature.wildspeak.beast_companion",
@@ -534,8 +534,8 @@
       "prerequisites": [],
       "mpCost": 2,
       "check": null,
-      "passive": "You can converse with beasts and plants of all kinds (not necessarily friendly). You are accompanied by a loyal beast (mouse to horse size). Your companion has +1 INS, PRW, STL, and STR and gains bonus skill points equal to your level. You and your beast companion share the same HP (if it dies, you die and vice versa). Choose one trait: camouflage (advantage on STL checks to hide), fast (can move again after making the skill check), flying (can move two zones with each movement, including upwards), or observant (advantage on all INS checks).",
-      "rulesText": "Once per turn, spend 2 MP: your beast companion moves and makes a skill check; if your beast succeeds, it counts as you succeeding."
+      "passive": "Your spirit is bound to that of a loyal beast. It has +1 INS, PRW, STL, and STR. Your companion gains bonus skill points equal to your level, gaining a new one when you level up. Your beast companion’s maximum HP is equal to 4 + your level. If your beast companion dies, you can expend 3 HP and 3 MP to resurrect it. Your beast companion has one free movement on each of your turns.",
+      "rulesText": "2 MP (once per turn)\nYour beast companion moves and makes a skill check. If your beast succeeds, it counts as you succeeding."
     },
     {
       "id": "nature.wildspeak.song_of_the_wild",
