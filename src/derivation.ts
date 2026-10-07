@@ -79,6 +79,8 @@ export const LEVEL = 1;
 import { equipment } from './data/equipment';
 import type { BaseItem, Artifact } from './data/equipment/types';
 
+export type DerivedEquipmentItem = (BaseItem | Artifact) & { instanceKey: string };
+
 /**
  * Derives a list of equipment based on starting selection, backstory grants,
  * and any equipment selections made during level up.
@@ -86,13 +88,13 @@ import type { BaseItem, Artifact } from './data/equipment/types';
 export function deriveEquipment(
   selections: Pick<CharacterSelections, 'startingEquipment' | 'grantPicks' | 'birth' | 'youth' | 'comingOfAge'> & { inventory?: string[] },
   leveledGrants: string[] = []
-): (BaseItem | Artifact)[] {
-  const items: (BaseItem | Artifact)[] = [];
+): DerivedEquipmentItem[] {
+  const items: DerivedEquipmentItem[] = [];
 
   // Add explicitly chosen starting equipment
   if (selections.startingEquipment) {
     const startItem = equipment.equipment.baseItems.find(i => i.id === selections.startingEquipment);
-    if (startItem) items.push(startItem);
+    if (startItem) items.push({ ...startItem, instanceKey: `start-${startItem.id}` });
   }
 
   // Scan all grant picks for equipment choices, restricted to currently selected fragments
@@ -103,28 +105,30 @@ export function deriveEquipment(
     if (activeFragments.includes(fragId) && choiceId && choiceId.startsWith('equip.')) {
       const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId);
       if (grantedItem) {
-        items.push(grantedItem);
+        items.push({ ...grantedItem, instanceKey: `grant-${key}-${grantedItem.id}` });
       }
     }
   }
 
   // Add equipment gained from leveling up constraints (starts with equip.)
-  for (const choiceId of leveledGrants) {
+  for (let idx = 0; idx < leveledGrants.length; idx++) {
+    const choiceId = leveledGrants[idx];
     if (choiceId.startsWith('equip.')) {
       const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId);
       if (grantedItem) {
-        items.push(grantedItem);
+        items.push({ ...grantedItem, instanceKey: `level-${idx}-${grantedItem.id}` });
       }
     }
   }
 
   // Add custom inventory items (from character inventory sheets)
   if (selections.inventory) {
-    for (const choiceId of selections.inventory) {
+    for (let idx = 0; idx < selections.inventory.length; idx++) {
+      const choiceId = selections.inventory[idx];
       const grantedItem = equipment.equipment.baseItems.find(i => i.id === choiceId) ||
                           equipment.equipment.artifacts.find(i => i.id === choiceId);
       if (grantedItem) {
-        items.push(grantedItem);
+        items.push({ ...grantedItem, instanceKey: `inv-${idx}-${grantedItem.id}` });
       }
     }
   }

@@ -120,15 +120,6 @@
           "When you take magical damage, lose points of ward before losing HP.",
           "A point of ward can be restored by spending 3MP."
         ]
-      },
-      {
-        "id": "equip.accessory.crown",
-        "name": "Crown",
-        "type": "accessory",
-        "subtype": "crown",
-        "rulesText": [
-          "Accessories grant unique magical effects and passive bonuses."
-        ]
       }
     ],
     "artifacts": [

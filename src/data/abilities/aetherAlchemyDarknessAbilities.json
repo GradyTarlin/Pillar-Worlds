@@ -371,16 +371,16 @@
       "mpCost": null,
       "check": null,
       "prerequisites": [],
-      "rulesText": "Once per turn, infuse a weapon with magic. Whenever you deal damage with it, you can spend 1 MP to gain a point of focus on your target. The weapon deals bonus magic damage equal to your focus on the target."
+      "rulesText": "Once per turn, infuse a weapon with magic. Whenever you deal damage with it, you can spend 1MP to gain a point of focus on your target."
     },
     {
-      "id": "alchemy.enchanting.arcane_script",
-      "name": "Arcane Script",
+      "id": "alchemy.enchanting.spirit_sigil",
+      "name": "Spirit Sigil",
       "tag": "alchemy",
       "tree": "power",
       "subtree": "alchemy.enchanting",
       "tier": 2,
-      "mpCost": 2,
+      "mpCost": null,
       "check": null,
       "prerequisites": [
         {
@@ -392,16 +392,16 @@
           "id": "alchemy.enchanting.runes_of_power"
         }
       ],
-      "rulesText": "Once per turn, while focusing on an enemy, spend 2 MP to imbue a weapon with arcane script. The weapon hovers alongside you (moving with you when you move). On each of your turns, it can make one free attack against an enemy you are focusing on. These attacks use your PRW bonus but do not add your STR bonus to the damage. If you lose focus, the weapon loses its enchantment."
+      "rulesText": "Once per turn, you may bind your spirit to a weapon. You can summon your bound weapon to your hand at any time. It flies through the air to reach you from any distance, but cannot break through barriers.\nOn a hit, the weapon deals bonus magic damage equal to your focus on the target.\nYou can only have one bound weapon at a time."
     },
     {
-      "id": "alchemy.enchanting.spirit_sigil",
-      "name": "Spirit Sigil",
+      "id": "alchemy.enchanting.arcane_script",
+      "name": "Arcane Script",
       "tag": "alchemy",
       "tree": "power",
       "subtree": "alchemy.enchanting",
       "tier": 3,
-      "mpCost": null,
+      "mpCost": 2,
       "check": null,
       "prerequisites": [
         {
@@ -410,10 +410,10 @@
         },
         {
           "kind": "ability",
-          "id": "alchemy.enchanting.arcane_script"
+          "id": "alchemy.enchanting.spirit_sigil"
         }
       ],
-      "rulesText": "Bind your spirit to a weapon. You can summon your bound weapon to your hand at any time (it flies to you from any distance, but cannot break through barriers). You do not lose all of your focus when you take damage; instead, you lose an amount of focus equal to the HP you lose. You can use your bound weapon to make melee attacks against targets in adjacent zones as if they were within your reach. You can only have one bound weapon at a time."
+      "rulesText": "Once per turn, while focusing on an enemy, spend 2MP to imbue a weapon with arcane script. The weapon hovers alongside you, fighting without a wielder. Whenever you move, the weapon moves with you.\nOn each of your turns, the weapon can make one free attack against an enemy that you are focusing on. The attacks use your PRW bonus but do not add your STR bonus to the damage.\nIf you lose focus, the weapon loses its enchantment."
     },
     {
       "id": "alchemy.flasks.alchemical_bomb",

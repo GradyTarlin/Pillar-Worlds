@@ -89,6 +89,24 @@ export interface CharacterSelections {
   startingEquipment: string | null;
 }
 
+export interface EquipmentCustomization {
+  attackBonus?: number;
+  damageBonus?: number;
+  influenceBonus?: number;
+  hideBonus?: number;
+  magicAttackBonus?: number;
+  focusBonus?: number;
+  armourMax?: number;
+  wardMax?: number;
+  blockBonus?: number;
+  enchantments?: {
+    curseOfBloodshed?: boolean;
+    runesOfPower?: boolean;
+    arcaneScript?: boolean;
+    spiritSigil?: boolean;
+  };
+}
+
 export interface SavedCharacter extends CharacterSelections {
   id: string;
   createdAt: number;
@@ -98,4 +116,5 @@ export interface SavedCharacter extends CharacterSelections {
   leveledGrants: string[];
   inventory?: string[];
   notes?: string;
+  equipmentCustomizations?: Record<string, EquipmentCustomization>;
 }
