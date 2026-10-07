@@ -69,6 +69,10 @@ export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCha
   const armourAbilities = allKnownAbilityIds.filter(id => ['armour.bulwark', 'armour.impenetrable', 'armour.juggernaut'].includes(id as string)).length;
   const wardAbilities = allKnownAbilityIds.filter(id => ['ward.phase_shift', 'ward.mana_reflection', 'ward.arcane_battery'].includes(id as string)).length;
 
+  const hasRunesOfPower = allKnownAbilityIds.includes('alchemy.enchanting.runes_of_power');
+  const hasSpiritSigil = allKnownAbilityIds.includes('alchemy.enchanting.spirit_sigil');
+  const hasArcaneScript = allKnownAbilityIds.includes('alchemy.enchanting.arcane_script');
+
   const customs = savedCharacter?.equipmentCustomizations ?? {};
 
   const armour = equipment.reduce((sum, item) => {
@@ -105,7 +109,8 @@ export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCha
     setEditingItem(item);
     setEditForm({
       attackBonus: existing.attackBonus ?? 0,
-      damageBonus: existing.damageBonus ?? 0,
+      physicalDamageBonus: existing.physicalDamageBonus ?? existing.damageBonus ?? 0,
+      magicDamageBonus: existing.magicDamageBonus ?? 0,
       influenceBonus: existing.influenceBonus ?? 0,
       hideBonus: existing.hideBonus ?? 0,
       magicAttackBonus: existing.magicAttackBonus ?? 0,
@@ -332,7 +337,17 @@ export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCha
                               Attack Bonus: +{cust.attackBonus}
                             </span>
                           )}
-                          {cust.damageBonus !== undefined && cust.damageBonus !== 0 && (
+                          {cust.physicalDamageBonus !== undefined && cust.physicalDamageBonus !== 0 && (
+                            <span style={{ background: 'rgba(180, 50, 50, 0.2)', border: '1px solid rgba(180, 50, 50, 0.4)', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.85rem' }}>
+                              Physical Damage Bonus: +{cust.physicalDamageBonus}
+                            </span>
+                          )}
+                          {cust.magicDamageBonus !== undefined && cust.magicDamageBonus !== 0 && (
+                            <span style={{ background: 'rgba(180, 50, 50, 0.2)', border: '1px solid rgba(180, 50, 50, 0.4)', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.85rem' }}>
+                              Magic Damage Bonus: +{cust.magicDamageBonus}
+                            </span>
+                          )}
+                          {cust.damageBonus !== undefined && cust.damageBonus !== 0 && cust.physicalDamageBonus === undefined && cust.magicDamageBonus === undefined && (
                             <span style={{ background: 'rgba(180, 50, 50, 0.2)', border: '1px solid rgba(180, 50, 50, 0.4)', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.85rem' }}>
                               Damage Bonus: +{cust.damageBonus}
                             </span>
@@ -575,17 +590,27 @@ export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCha
                   />
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
-                  <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>Damage Bonus (+X):</label>
+                  <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>Physical Damage Bonus (+X):</label>
                   <input
                     type="number"
-                    value={editForm.damageBonus ?? 0}
-                    onChange={(e) => setEditForm({ ...editForm, damageBonus: parseInt(e.target.value) || 0 })}
+                    value={editForm.physicalDamageBonus ?? 0}
+                    onChange={(e) => setEditForm({ ...editForm, physicalDamageBonus: parseInt(e.target.value) || 0 })}
+                    style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid var(--ink)', background: '#fff', color: '#000' }}
+                  />
+                </div>
+                <div style={{ marginBottom: '1rem' }}>
+                  <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.25rem' }}>Magic Damage Bonus (+X):</label>
+                  <input
+                    type="number"
+                    value={editForm.magicDamageBonus ?? 0}
+                    onChange={(e) => setEditForm({ ...editForm, magicDamageBonus: parseInt(e.target.value) || 0 })}
                     style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid var(--ink)', background: '#fff', color: '#000' }}
                   />
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
                   <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem' }}>Weapon Curses &amp; Enchantments:</label>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                    {/* Curse of Bloodshed is always available */}
                     <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
                       <input
                         type="checkbox"
@@ -598,42 +623,54 @@ export function CharacterSheet({ selections, skills, savedCharacter, onUpdateCha
                       />
                       <span><strong>Curse of Bloodshed</strong> (Wielder can spend 2 HP to deal +3 physical damage on hit)</span>
                     </label>
-                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
-                      <input
-                        type="checkbox"
-                        checked={!!editForm.enchantments?.runesOfPower}
-                        onChange={(e) => setEditForm({
-                          ...editForm,
-                          enchantments: { ...editForm.enchantments, runesOfPower: e.target.checked }
-                        })}
-                        style={{ marginTop: '0.2rem' }}
-                      />
-                      <span><strong>Runes of Power</strong> (Spend 1 MP on damage to gain 1 point of focus)</span>
-                    </label>
-                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
-                      <input
-                        type="checkbox"
-                        checked={!!editForm.enchantments?.spiritSigil}
-                        onChange={(e) => setEditForm({
-                          ...editForm,
-                          enchantments: { ...editForm.enchantments, spiritSigil: e.target.checked }
-                        })}
-                        style={{ marginTop: '0.2rem' }}
-                      />
-                      <span><strong>Spirit Sigil</strong> (Bound spirit weapon; bonus magic damage equal to focus on hit)</span>
-                    </label>
-                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
-                      <input
-                        type="checkbox"
-                        checked={!!editForm.enchantments?.arcaneScript}
-                        onChange={(e) => setEditForm({
-                          ...editForm,
-                          enchantments: { ...editForm.enchantments, arcaneScript: e.target.checked }
-                        })}
-                        style={{ marginTop: '0.2rem' }}
-                      />
-                      <span><strong>Arcane Script</strong> (Spend 2 MP while focusing to hover &amp; make 1 free PRW attack/turn)</span>
-                    </label>
+
+                    {/* Runes of Power - only if character has ability */}
+                    {hasRunesOfPower && (
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                        <input
+                          type="checkbox"
+                          checked={!!editForm.enchantments?.runesOfPower}
+                          onChange={(e) => setEditForm({
+                            ...editForm,
+                            enchantments: { ...editForm.enchantments, runesOfPower: e.target.checked }
+                          })}
+                          style={{ marginTop: '0.2rem' }}
+                        />
+                        <span><strong>Runes of Power</strong> (Spend 1 MP on damage to gain 1 point of focus)</span>
+                      </label>
+                    )}
+
+                    {/* Spirit Sigil - only if character has ability */}
+                    {hasSpiritSigil && (
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                        <input
+                          type="checkbox"
+                          checked={!!editForm.enchantments?.spiritSigil}
+                          onChange={(e) => setEditForm({
+                            ...editForm,
+                            enchantments: { ...editForm.enchantments, spiritSigil: e.target.checked }
+                          })}
+                          style={{ marginTop: '0.2rem' }}
+                        />
+                        <span><strong>Spirit Sigil</strong> (Bound spirit weapon; bonus magic damage equal to focus on hit)</span>
+                      </label>
+                    )}
+
+                    {/* Arcane Script - only if character has ability */}
+                    {hasArcaneScript && (
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                        <input
+                          type="checkbox"
+                          checked={!!editForm.enchantments?.arcaneScript}
+                          onChange={(e) => setEditForm({
+                            ...editForm,
+                            enchantments: { ...editForm.enchantments, arcaneScript: e.target.checked }
+                          })}
+                          style={{ marginTop: '0.2rem' }}
+                        />
+                        <span><strong>Arcane Script</strong> (Spend 2 MP while focusing to hover &amp; make 1 free PRW attack/turn)</span>
+                      </label>
+                    )}
                   </div>
                 </div>
               </>

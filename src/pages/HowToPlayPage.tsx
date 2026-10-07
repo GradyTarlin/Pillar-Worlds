@@ -159,14 +159,17 @@ export function HowToPlayPage() {
                         <li>When you have low ground, your physical attacks have disadvantage against higher enemies.</li>
                     </ul>
 
-                    <h3>Powers and Mastery</h3>
-                    <p>
-                        Your magical blood grants you influence over the forces of the universe, but hard work and dedication may grant you extraordinary abilities as well. As you progress, you may unlock the true potential of your powers, manifesting in a range of abilities. You may choose to commit yourself to the study of one power, or you may learn to wield new powers over time.
-                    </p>
-
                     <h3>Abilities</h3>
                     <p>
-                        As you progress, you will earn ability points (AP), which you can spend to unlock abilities associated with your powers or equipment. You can also invest AP into further developing your existing abilities to maximize their potential.
+                        Your magical blood grants you influence over the forces of the universe, but hard work and dedication may grant you extraordinary power as well. As you progress, you may unlock your potential, manifesting in a range of abilities. Abilities are divided into several categories, including magical powers like darkness, alchemy, or nature, and equipment mastery such as blades, instruments, or shields. Some abilities grant passive benefits, while others cost MP to use. Multiple abilities can be used simultaneously so long as none of their effects are contradictory.
+                    </p>
+
+                    <h3>Progression</h3>
+                    <p>
+                        After you have gone on adventures and collected some treasure, you can invest your wealth to develop your abilities. Leveling up costs gold equal to three times the next level; leveling up to level 2 costs 6 gold, leveling up to level 3 costs 9 gold, and so on. Gold can also be used to purchase additional equipment. Each piece of standard equipment costs 1 gold.
+                    </p>
+                    <p>
+                        Defeated monsters drop materials with value equal to their level in gold, which can be sold to merchants. For example, a level 14 basilisk’s magic eyes would be worth 14 gold. Humanoid enemies typically carry coins equal to their level in value.
                     </p>
 
                 </article>

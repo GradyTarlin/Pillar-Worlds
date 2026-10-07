@@ -92,6 +92,8 @@ export interface CharacterSelections {
 export interface EquipmentCustomization {
   attackBonus?: number;
   damageBonus?: number;
+  physicalDamageBonus?: number;
+  magicDamageBonus?: number;
   influenceBonus?: number;
   hideBonus?: number;
   magicAttackBonus?: number;
